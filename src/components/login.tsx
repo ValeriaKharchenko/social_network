@@ -33,6 +33,7 @@ export default function Login() {
           <input type={"password"} {...register("password")} required />
         </div>
         <button type={"submit"}>Login</button>
+        <button type={"submit"}>Login</button>
       </form>
     </div>
   );
