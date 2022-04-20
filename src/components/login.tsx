@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form";
 import userService from "../utilites/user-service";
+import { Button, TextField } from "@mui/material";
 
 export default function Login() {
   interface FormInput {
     email: string;
     password: string;
   }
+
   const { handleSubmit, register } = useForm<FormInput>();
-  const onSubmit = async (data: FormInput) => {
+
+  const handleLogin = async (data: FormInput) => {
     try {
       console.log(data);
       await userService.login(data.email, data.password);
@@ -23,16 +26,20 @@ export default function Login() {
   return (
     <div>
       <h3>Login</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleLogin)}>
         <div>
-          <label>E-mail</label>
-          <input type={"text"} {...register("email")} required />
+        <div>
+          <TextField id="outlined-basic" label="Email" variant="outlined" type={"text"} {...register("email")}/>
+          {/*<label>E-mail</label>*/}
+          {/*<input type={"text"} {...register("email")} required />*/}
         </div>
         <div>
-          <label>Password</label>
-          <input type={"password"} {...register("password")} required />
+          <TextField id="outlined-basic" label="Password" variant="outlined" type={"password"} {...register("password")}/>
+          {/*<label>Password</label>*/}
+          {/*<input type={"password"} {...register("password")} required />*/}
         </div>
-        <button type={"submit"}>Login</button>
+        <Button type={"submit"} variant="outlined">Login</Button>
+        </div>
       </form>
     </div>
   );
