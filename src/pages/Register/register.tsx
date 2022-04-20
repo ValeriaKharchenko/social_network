@@ -2,23 +2,28 @@ import { useForm } from "react-hook-form";
 import userService from "../../utilites/user-service";
 import "./register.scss"
 
-export default function Register () {
-      interface FormInput {
-            first_name:string;
-            last_name:string;
-            dob:string;
-            email: string;
-            password: string;
-            nickname:string;
-            image_path:string;
-            desc:string;
-        }
+export interface RegisterForm {
+  first_name:string;
+  last_name:string;
+  dob: Date;
+  email: string;
+  password: string;
+  nickname:string;
+  image_path:string;
+  desc:string;
+}
 
-     const { handleSubmit, register } = useForm<FormInput>();
-        const onSubmit = async (data: FormInput) => {
+export default function Register () {
+
+     const { handleSubmit, register } = useForm<RegisterForm>();
+        const onSubmit = async (user: RegisterForm) => {
+          user.nickname = user.nickname ? user.nickname : "";
+          user.image_path = user.image_path ? user.image_path : "";
+          user.desc = user.desc ? user.desc : "";
+
             try {
-            console.log(data);
-            await userService.login(data.email, data.password);
+            console.log(user);
+            await userService.register(user);
             } catch (e) {
             if (e instanceof Error) {
                 console.log(e.message);
@@ -46,7 +51,7 @@ export default function Register () {
                 </div>
                 <div>
                     <label>Date of Birth * : </label>
-                    <input type={"text"} {...register("dob") } required />
+                    <input type={"date"} {...register("dob") } required />
                 </div>
                 <div>
                     <label>Email * : </label>
