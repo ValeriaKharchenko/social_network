@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import {NavLink, Routes, Route} from "react-router-dom";
 
 function App() {
@@ -7,9 +7,9 @@ function App() {
     <div className="App">
       <header className="App-header">
       <nav>
-          <NavLink to={"/"}>Home</NavLink>
-          <NavLink to={"/login"}>Login</NavLink>
-          <NavLink to={"/register"}>Register</NavLink>
+          {/* <NavLink to={"/"}>Home</NavLink> */}
+          {/* <NavLink to={"/login"}>Login</NavLink> */}
+          {/* <NavLink to={"/register"}>Register</NavLink> */}
       </nav>
       </header>
     </div>
