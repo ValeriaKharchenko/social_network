@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import userService from "../utilites/user-service";
+import userService from "../../utilites/user-service";
 import "./register.scss"
 
 export default function Register () {

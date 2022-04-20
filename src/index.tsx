@@ -2,8 +2,8 @@ import React from 'react';
 import './index.scss';
 import App from './App';
 import {BrowserRouter, Route, Routes,} from "react-router-dom";
-import Login from "./components/login";
-import Register from "./components/register";
+import Login from "./pages/Login/login";
+import Register from "./pages/Register/register";
 import Home from "./components/home";
 import {createRoot} from "react-dom/client";
 
