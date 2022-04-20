@@ -1,4 +1,4 @@
-<!--  Folders and what for -->
+## Folders and what for (isn't showing folder that are empty)
 1. assets       -  For string user pictures, post videos , sounds
 2. auth         -  For holding your authication info (ex: Key code for google api)
 3. components   -  Reusuable visual codes 
