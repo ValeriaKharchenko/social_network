@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import userService from "../utilites/user-service";
+import "./login.scss"
 
 export default function Login() {
   interface FormInput {
@@ -21,19 +22,23 @@ export default function Login() {
     }
   };
   return (
-    <div>
+    <div className="Login">
       <h3>Login</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label>E-mail</label>
-          <input type={"text"} {...register("email")} required />
+          <label>Mail/Username : </label>
+          <input type={"text"} {...register("email") } required />
         </div>
         <div>
-          <label>Password</label>
+          <label>Password : </label>
           <input type={"password"} {...register("password")} required />
         </div>
-        <button type={"submit"}>Login</button>
-        <button type={"submit"}>Login</button>
+        <div className="btn_div">
+          <button type={"submit"}>Login</button>
+          <button onClick={(e)=>{
+            e.preventDefault()
+            window.location.href="/register"}}>Register</button>
+        </div>
       </form>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.css';
+import './index.scss';
 import App from './App';
 import {BrowserRouter, Route, Routes,} from "react-router-dom";
 import Login from "./components/login";
@@ -14,8 +14,8 @@ root.render(
     <BrowserRouter>
         <App/>
         <Routes>
-            <Route path={"/"} element={<Home/>}></Route>
-            <Route path={"login"} element={<Login/>}></Route>
+            <Route path={"/"} element={<Login/>}></Route>
+            {/* <Route path={"login"} element={<Login/>}></Route> */}
             <Route path={"register"} element={<Register/>}></Route>
         </Routes>
 
