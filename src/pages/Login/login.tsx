@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import userService from "../../utilites/user-service";
 import "./login.scss"
 
@@ -7,12 +8,13 @@ export default function Login() {
     email: string;
     password: string;
   }
-
+  let redirect = useNavigate();
   const { handleSubmit, register } = useForm<FormInput>();
   const onSubmit = async (data: FormInput) => {
     try {
       console.log(data);
       await userService.login(data.email, data.password);
+      redirect('/profile', {replace: true});
     } catch (e) {
       if (e instanceof Error) {
         console.log(e.message);
@@ -22,6 +24,7 @@ export default function Login() {
       }
     }
   };
+  
   return (
     <div className="Login">
       <h3>Login</h3>
