@@ -1,12 +1,14 @@
 import http from "./http-common";
 import { RegisterForm } from "../pages/Register/register";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export default {
   
   async login(email: string, pwd: string) {
     try {
       // await http.post("login", { email: email, password: pwd }); //add return response???
-      await http.post("login", { credential: email, password: pwd }); // I use it for lockal testing
+      await http.post("login", { credential: email, password: pwd }); // I use it for local testing
     } catch (err) {
       throw err;
     }
@@ -39,7 +41,7 @@ export default {
         
         // throw err;
       }
-      return false;
+      return false
     },
   
 };
