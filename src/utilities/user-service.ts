@@ -1,6 +1,6 @@
 import http from "./http-common";
 import { RegisterForm } from "../pages/Register/register";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 export default {
@@ -37,9 +37,8 @@ export default {
         console.log(user);
         return true
       } catch (err) {
-      console.log(err)
-        
-        // throw err;
+        console.log(err)
+          // throw err;
       }
       return false
     },

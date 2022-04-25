@@ -1,30 +1,17 @@
-import { useEffect, useState} from "react";
 import {useLocation, Navigate} from "react-router-dom";
-import UserService from '../utilites/user-service'
- // @ts-ignore
 
+// for redux type check
+import { useAppSelector } from "../redux/hooks";
+import { authendicate } from "../redux/reducers/loginSlice";
+
+// @ts-ignore
 const AuthRequire = ({ children}) => {
-  const [auth, setAuth] = useState(false);
-
-  const load = async () => {
-    const data = await UserService.auth();
-    console.log(data);
-    setAuth(data);
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
-
-   const location = useLocation();
-    if (!auth) {
-      return <Navigate to={"/"} state={{from: location}}/>
-    }
-   return children
-  // return (
-  //   <div>
-  //   {auth ? <Navigate to={"/"} state={{from: location}}/> : children}
-  //   </div>
-  // )
- }
- export {AuthRequire};
+  // const storeData = useSelector((state:RootState) => state)
+  const storeData = useAppSelector(state => state)
+  const location = useLocation();
+  if (!authendicate(storeData)) {
+    return <Navigate to={"/"} state={{from: location}}/>
+  }
+  return children
+}
+export {AuthRequire};

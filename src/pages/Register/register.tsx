@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import userService from "../../utilites/user-service";
+import { TextField, Button} from "@mui/material";
 import "./register.scss";
 
 export interface RegisterForm {
@@ -23,12 +23,14 @@ export default function Register() {
     user.desc = user.desc ? user.desc : "";
 
     try {
-      console.log(user);
-      const response = await userService.register(user);
-      // if (response.message === "OK") {
+      fetch("http://localhost:8000/users",{
+        method : "POST",
+        headers : {'Content-type' : 'application/json'},
+        body: JSON.stringify(user)
+      }).then(()=>{
+        console.log("new user added");
         redirect("/");
-      // }
-      
+      })
     } catch (e) {
       if (e instanceof Error) {
         console.log(e.message);
@@ -41,48 +43,75 @@ export default function Register() {
 
   return (
     <div className="Register">
-      <div className="back_btn" onClick={(e) => {
+      <Button variant="contained" className="back_btn" onClick={(e) => {
         e.preventDefault();
-        window.location.href = "/";
-      }}>X
-      </div>
+        redirect("/")
+      }}> X </Button>
+
       <h3>Registration</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>First Name * : </label>
-          <input type={"text"} {...register("first_name")} required />
-        </div>
-        <div>
-          <label>Last Name * : </label>
-          <input type={"text"} {...register("last_name")} required />
-        </div>
-        <div>
-          <label>Date of Birth * : </label>
-          <input type={"date"} {...register("dob")} required />
-        </div>
-        <div>
-          <label>Email * : </label>
-          <input type={"text"} {...register("email")} required />
-        </div>
-        <div>
-          <label>Password * : </label>
-          <input type={"password"} {...register("password")} required />
-        </div>
-        <div>
-          <label>Nickname : </label>
-          <input type={"text"} {...register("nickname")} />
-        </div>
-        <div>
-          <label>Avatar : </label>
-          <input className="image_selection" type={"file"} {...register("image_path")} />
-        </div>
-        <div className="desc">
-          <label>About Me : </label>
-          <textarea  {...register("desc")} />
-        </div>
-        <div>
-          <button type={"submit"}>SignUp</button>
-        </div>
+        <TextField
+            required
+            label="First Name"
+            type="text"
+            margin="dense"
+            variant="standard"
+            {...register("first_name")}
+            />
+        <TextField
+            required
+            label="Last Name"
+            type="text"
+            margin="dense"
+            variant="standard"
+            {...register("last_name")}
+            />
+        <TextField
+            required
+            type="date"
+            margin="normal"
+            variant="standard"
+            {...register("dob")}
+            />
+        <TextField
+            required
+            label="Email"
+            type="email"
+            variant="standard"
+            {...register("email")}
+            />
+        <TextField
+            required
+            label="Password"
+            type="password"
+            margin="dense"
+            variant="standard"
+            {...register("password")} 
+            />
+        <TextField
+            label="Nickname"
+            type="text"
+            margin="dense"
+            variant="standard"
+            {...register("nickname")}
+            />
+        <TextField
+            label="Avatar"
+            type="file"
+            margin="normal"
+            variant="standard"
+            {...register("image_path")}
+            />
+        <TextField
+            label="Description"
+            type="text"
+            margin="normal"
+            multiline
+            rows={4}
+            defaultValue="About Me"
+            {...register("desc")}
+          />
+        <Button variant="contained" type={"submit"}> Sign Up </Button>
       </form>
     </div>
   );

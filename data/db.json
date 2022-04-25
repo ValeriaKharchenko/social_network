@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "first_name": "Silver",
+      "last_name": "Luhtoja",
+      "dob": "2022-04-11",
+      "email": "silver.luhtoja@gmail.com",
+      "password": "asd123",
+      "nickname": "Sinsius",
+      "image_path": {},
+      "desc": "React and redux noob",
+      "id": 1
+    },
+    {
+      "first_name": "s",
+      "last_name": "s",
+      "dob": "2022-04-01",
+      "email": "s@mail.ee",
+      "password": "asd123",
+      "nickname": "s",
+      "image_path": {},
+      "desc": "s",
+      "id": 2
+    }
+  ]
+}
