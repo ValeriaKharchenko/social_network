@@ -37,11 +37,12 @@ Reducer -> Action(event) -
 ```
 Dispatch is like entry point to the store. Every action(event) goes through the same point. 
 
-Action(event) --dispatch --> Store ----> Reducer (eventHandler) 
-                                                ||
-                                                \/
-                             Store <---- Reducer
-
+    	``
+    	Action(event) --dispatch --> Store ----> Reducer (eventHandler) 
+    	                                                ||
+    	                                                \/
+    	                             Store <---- Reducer
+    	``
 
 
 In redux - functions have to be pure functions
