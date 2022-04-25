@@ -51,4 +51,7 @@ Easiest way to change state is to take obj and spread, after that change values 
     ``  
         let obj1 = { id: 1,  myname : "silver" }
         let obj2 = {...obj1, myname: "juku", id: 2, doing: "nothing"}
+
+        obj1 ==> { id: 1,  myname : "silver" }
+        obj2 ==> { id: 2,  myname : "juku", doing: "nothing}
     ``
