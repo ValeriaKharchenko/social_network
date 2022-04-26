@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import userService from "../../utilites/user-service";
+import userService from "../../utilities/user-service";
 import "./register.scss";
 
 export interface RegisterForm {
@@ -26,9 +26,8 @@ export default function Register() {
       console.log(user);
       const response = await userService.register(user);
       // if (response.message === "OK") {
-        redirect("/");
+      redirect("/");
       // }
-      
     } catch (e) {
       if (e instanceof Error) {
         console.log(e.message);
@@ -41,10 +40,14 @@ export default function Register() {
 
   return (
     <div className="Register">
-      <div className="back_btn" onClick={(e) => {
-        e.preventDefault();
-        window.location.href = "/";
-      }}>X
+      <div
+        className="back_btn"
+        onClick={(e) => {
+          e.preventDefault();
+          window.location.href = "/";
+        }}
+      >
+        X
       </div>
       <h3>Registration</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -74,11 +77,15 @@ export default function Register() {
         </div>
         <div>
           <label>Avatar : </label>
-          <input className="image_selection" type={"file"} {...register("image_path")} />
+          <input
+            className="image_selection"
+            type={"file"}
+            {...register("image_path")}
+          />
         </div>
         <div className="desc">
           <label>About Me : </label>
-          <textarea  {...register("desc")} />
+          <textarea {...register("desc")} />
         </div>
         <div>
           <button type={"submit"}>SignUp</button>

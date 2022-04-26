@@ -1,10 +1,14 @@
 import http from "./http-common";
 import { RegisterForm } from "../pages/Register/register";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+
+export interface UserInfo {
+  name: string;
+  isAuthorised: boolean;
+  email: string;
+  id: string;
+}
 
 export default {
-  
   async login(email: string, pwd: string) {
     try {
       // await http.post("login", { email: email, password: pwd }); //add return response???
@@ -24,24 +28,36 @@ export default {
         last_name: user.last_name,
         date_of_birth: user.dob, //now it has type Date
         about_me: user.desc,
-        img_path: user.image_path
+        img_path: user.image_path,
       });
     } catch (err) {
       throw err;
     }
   },
 
-    async auth(): Promise<boolean> {
-      try {
-        const user = await http.get("auth")
-        console.log(user);
-        return true
-      } catch (err) {
-      console.log(err)
-        
-        // throw err;
-      }
-      return false
-    },
-  
+  async auth(): Promise<UserInfo> {
+    try {
+      const user = await http.get("auth");
+      return {
+        name: user.data.login,
+        isAuthorised: true,
+        email: user.data.email,
+        id: user.data.id,
+      };
+    } catch (err) {
+      console.log("auth wasn't completed", err);
+      throw err;
+    }
+  },
+
+  async logout() {
+    http
+      .delete("logout")
+      .then(() => {
+        console.log("User logged out");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 };

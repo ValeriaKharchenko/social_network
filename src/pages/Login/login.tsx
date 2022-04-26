@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import userService from "../../utilities/user-service";
 import "./login.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../../store/userSlice";
+import { RootState } from "../../store/store";
 
 export default function Login() {
   interface FormInput {
@@ -11,15 +14,15 @@ export default function Login() {
 
   let redirect = useNavigate();
   const { handleSubmit, register } = useForm<FormInput>();
+  const dispatch = useDispatch();
 
   const onSubmit = async (data: FormInput) => {
     try {
       console.log(data);
       await userService.login(data.email, data.password);
-      console.log("Done"); //it's for tests
-      // if (auth) {
+      // @ts-ignore
+      dispatch(fetchUser());
       redirect("/profile", { replace: true });
-      // }
     } catch (e) {
       if (e instanceof Error) {
         console.log(e.message);
@@ -30,6 +33,13 @@ export default function Login() {
     }
   };
 
+  const auth = useSelector(
+    (state: RootState) => state.user.userInfo.isAuthorised
+  );
+  if (auth) {
+    redirect("/profile", { replace: true });
+  }
+  console.log("Here!");
   return (
     <div className="Login">
       <h3>Login</h3>

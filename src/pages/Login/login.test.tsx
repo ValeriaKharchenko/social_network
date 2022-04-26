@@ -25,7 +25,7 @@ it("sends request with correct data", async () => {
       <Login />
     </Router>
   );
-  //getting fields from login-form
+  //getting fields from login-for
   const email = screen.getByTestId("email-input");
   const pwd = screen.getByTestId("pwd-input");
   const btn = screen.getByTestId("submit-btn");
