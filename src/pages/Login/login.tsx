@@ -5,6 +5,19 @@ import "./login.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../store/userSlice";
 import { RootState } from "../../store/store";
+import {
+  TextField,
+  Button,
+  Container,
+  CssBaseline,
+  Box,
+  Avatar,
+  Typography,
+  Grid,
+} from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { PeopleAlt, PeopleAltTwoTone } from "@mui/icons-material";
 
 export default function Login() {
   interface FormInput {
@@ -36,46 +49,91 @@ export default function Login() {
   const auth = useSelector(
     (state: RootState) => state.user.userInfo.isAuthorised
   );
+  const isLoading = useSelector((state: RootState) => state.user.pending);
   if (auth) {
     redirect("/profile", { replace: true });
   }
   console.log("Here!");
   return (
-    <div className="Login">
-      <h3>Login</h3>
-      <form onSubmit={handleSubmit(onSubmit)} data-testid={"login-form"}>
-        <div>
-          <label>Mail/Username: </label>
-          <input
-            type={"text"}
-            {...register("email")}
+    // <div className="Login">
+    <Container component="main" maxWidth="xs" className={"Login"}>
+      {/*<h3>Login</h3>*/}
+      {/*<CssBaseline />*/}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar
+          sx={{
+            m: 2,
+            mt: 7,
+            bgcolor: "secondary.main",
+            width: 56,
+            height: 56,
+          }}
+        >
+          {/*<LockOutlinedIcon />*/}
+          <PeopleAlt fontSize={"large"} />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <Box
+          component={"form"}
+          onSubmit={handleSubmit(onSubmit)}
+          data-testid={"login-form"}
+        >
+          <TextField
             required
+            label="Mail/Username"
+            variant="outlined"
+            type={"email"}
+            margin="normal"
+            {...register("email")}
             data-testid={"email-input"}
           />
-        </div>
-        <div>
-          <label>Password: </label>
-          <input
-            type={"password"}
-            {...register("password")}
+          <TextField
             required
+            variant="outlined"
+            label="Password"
+            type={"password"}
+            margin="normal"
+            {...register("password")}
             data-testid={"pwd-input"}
           />
-        </div>
-        <div className="btn_div">
-          <button type={"submit"} data-testid={"submit-btn"}>
-            Login
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = "/register";
-            }}
-          >
-            Register
-          </button>
-        </div>
-      </form>
-    </div>
+          <>
+            <LoadingButton
+              sx={{ mt: 2 }}
+              size={"large"}
+              loading={isLoading}
+              variant="contained"
+              type={"submit"}
+              data-testid={"submit-btn"}
+            >
+              Login
+            </LoadingButton>
+
+            <Button
+              sx={{ mt: 2 }}
+              size={"large"}
+              disabled={isLoading}
+              variant="contained"
+              onClick={(e) => {
+                e.preventDefault();
+                redirect("/register");
+              }}
+            >
+              Register
+            </Button>
+          </>
+          {/*</div>*/}
+          {/*</form>*/}
+        </Box>
+      </Box>
+      {/*// </div>*/}
+    </Container>
   );
 }
