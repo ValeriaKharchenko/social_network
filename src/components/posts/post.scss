@@ -1,0 +1,56 @@
+@import "../../index";
+
+.post{
+    background-color:  $box-background-color;
+    min-width: 360px;
+    max-width: 720px;
+    border-radius: $box-rad;
+    margin: 1em;
+    padding: 1px;
+    
+    .post_header{
+        display: flex;
+        place-items: start;
+        justify-content: start;
+        padding: 1em;
+
+        img{
+            border-radius: 5px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .information{
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            margin-left: 1em;
+            font-size: $large-font;
+            span{
+                display: inline;
+                font-size: $small-font;
+                color: $second-text-color;
+            }
+        }
+        .date{
+            font-size: $small-font;
+            color: $second-text-color;
+        }
+    }
+
+    .post_content{
+        margin: 0.5em;
+        padding: 10px;
+        background-color:$box-inner-color ;
+        border-radius: $box-rad;
+    }
+    
+}
+
+.post_list{
+    display: flex;
+    flex-direction: column;
+    // place-items: center;
+    overflow: auto;
+    height: 100vh;
+}
