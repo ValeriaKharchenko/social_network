@@ -2,6 +2,21 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import userService from "../../utilities/user-service";
 import "./register.scss";
+import {
+  TextField,
+  Button,
+  Container,
+  Avatar,
+  CssBaseline,
+  Box,
+  Grid,
+  Typography,
+} from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import Switch from "@mui/material/Switch";
+import CloseIcon from "@mui/icons-material/Close";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 export interface RegisterForm {
   first_name: string;
@@ -9,6 +24,7 @@ export interface RegisterForm {
   dob: Date;
   email: string;
   password: string;
+  repeat_password: string;
   nickname: string;
   image_path: string;
   desc: string;
@@ -39,58 +55,147 @@ export default function Register() {
   };
 
   return (
-    <div className="Register">
-      <div
-        className="back_btn"
-        onClick={(e) => {
-          e.preventDefault();
-          window.location.href = "/";
+    // <div className="Register">
+    <Container component="main" maxWidth="md" className={"Register"}>
+      {/*<CssBaseline />*/}
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        X
-      </div>
-      <h3>Registration</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>First Name * : </label>
-          <input type={"text"} {...register("first_name")} required />
-        </div>
-        <div>
-          <label>Last Name * : </label>
-          <input type={"text"} {...register("last_name")} required />
-        </div>
-        <div>
-          <label>Date of Birth * : </label>
-          <input type={"date"} {...register("dob")} required />
-        </div>
-        <div>
-          <label>Email * : </label>
-          <input type={"text"} {...register("email")} required />
-        </div>
-        <div>
-          <label>Password * : </label>
-          <input type={"password"} {...register("password")} required />
-        </div>
-        <div>
-          <label>Nickname : </label>
-          <input type={"text"} {...register("nickname")} />
-        </div>
-        <div>
-          <label>Avatar : </label>
-          <input
-            className="image_selection"
-            type={"file"}
-            {...register("image_path")}
-          />
-        </div>
-        <div className="desc">
-          <label>About Me : </label>
-          <textarea {...register("desc")} />
-        </div>
-        <div>
-          <button type={"submit"}>SignUp</button>
-        </div>
-      </form>
-    </div>
+        <Button
+          variant="contained"
+          className="back_btn"
+          onClick={(e) => {
+            e.preventDefault();
+            redirect("/");
+          }}
+        >
+          <CloseIcon />
+        </Button>
+        <Avatar sx={{ m: 1, mt: 4, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Register
+        </Typography>
+
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                sx={{ m: 1, width: "280px" }}
+                required
+                label="First Name"
+                type="text"
+                margin="dense"
+                variant="standard"
+                {...register("first_name")}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                label="Last Name"
+                type="text"
+                margin="dense"
+                variant="standard"
+                sx={{ m: 1, width: "280px" }}
+                {...register("last_name")}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                label="Email"
+                type="email"
+                variant="standard"
+                sx={{ m: 1, width: "280px" }}
+                {...register("email")}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                label="Password"
+                type="password"
+                margin="dense"
+                variant="standard"
+                sx={{ m: 1, width: "280px" }}
+                {...register("password")}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                label="Repeat password"
+                type="password"
+                margin="dense"
+                variant="standard"
+                sx={{ m: 1, width: "280px" }}
+                {...register("repeat_password")}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                type="date"
+                margin="normal"
+                variant="standard"
+                {...register("dob")}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Nickname"
+                type="text"
+                margin="dense"
+                variant="standard"
+                sx={{ m: 1, width: "280px" }}
+                {...register("nickname")}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Avatar"
+                type="file"
+                margin="normal"
+                variant="standard"
+                {...register("image_path")}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Description"
+                type="text"
+                // margin="normal"
+                multiline
+                rows={3}
+                sx={{ mt: 2, width: "316px" }}
+                defaultValue="About Me"
+                {...register("desc")}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} spacing={6} />
+            <Grid item xs={12} sm={6} spacing={6}>
+              <Button
+                variant="contained"
+                type={"submit"}
+                sx={{ mt: 3 }}
+                size={"large"}
+              >
+                Sign Up
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
   );
 }

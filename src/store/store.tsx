@@ -24,7 +24,7 @@ const loadFromLocalStorage = () => {
               id: "",
               isAuthorised: false,
             },
-        pending: null,
+        pending: false,
         error: false,
       },
     };

@@ -33,7 +33,7 @@ export const userSlice = createSlice({
       email: "test@mail.com",
       id: "",
     },
-    pending: null,
+    pending: false,
     error: false,
   },
   reducers: {

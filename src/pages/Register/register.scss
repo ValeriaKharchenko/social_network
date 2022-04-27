@@ -13,8 +13,8 @@ body {
 
 .Register{
     background-color: $box-background-color;
-    width: 100vw;
-    height: 80vh;
+    //width: 100vw;
+    height: 90vh;
     display: flex;
     justify-content: center;
     place-items: center;
@@ -25,73 +25,79 @@ body {
     .back_btn{
         padding: 0.5em 1em;
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 10px;
+        top: 1em;
+        left: 1em;
         color: $main-text-color;
         background-color: $box-inner2-color;
         font-size: $medium-font;
         border-radius: $box-rad;
+        &:hover{
+            background-color: #D7B271;
+        }
     }
-    div{
+    form{
         display: flex;
-        justify-content: center;
-        place-items: center;
-        width: 100vw;
-        margin: 1em;
-        label{
-            width: 40%;
-            text-align: right;
-        }
-
-        input{
-            width: 50%;
-            margin-left: 0.5em;
-            display: block;
-            border: none;
-            background: none;
-            border-bottom: 1px solid $main-text-color;
-
-            &:focus {
-                outline: none;
-            }
-            
-        }
-
-        .image_selection{
-            border: none;
-        }
-
-        
+        flex-direction: column;
     }
-    .desc{
-        place-items: start;
-        label{
-            width: 40%;
-        }
-        textarea{
-            margin-left: 0.5em;
-            max-height: 80px;
-            min-width: 50%;
-            max-width: 200px;
-            border: none;
-            background-color: $box-inner2-color;
-            text-align: start;
-            color: $main-text-color;
+    // div{
+    //     display: flex;
+    //     justify-content: center;
+    //     place-items: center;
+    //     width: 100vw;
+    //     margin: 1em;
+    //     label{
+    //         width: 40%;
+    //         text-align: right;
+    //     }
 
-            &:focus {
-                outline: none;
-            }
-        }
+    //     input{
+    //         width: 50%;
+    //         margin-left: 0.5em;
+    //         display: block;
+    //         border: none;
+    //         background: none;
+    //         border-bottom: 1px solid $main-text-color;
 
-    }
+    //         &:focus {
+    //             outline: none;
+    //         }
 
-    div button{
-        border: none;
-        padding: 0.5em 1.5em;
-        color: $main-text-color;
-        font-size: $medium-font;
-        border-radius: $box-rad;
-    }
+    //     }
+
+    //     .image_selection{
+    //         border: none;
+    //     }
+
+
+    // }
+    // .desc{
+    //     place-items: start;
+    //     label{
+    //         width: 40%;
+    //     }
+    //     textarea{
+    //         margin-left: 0.5em;
+    //         max-height: 80px;
+    //         min-width: 50%;
+    //         max-width: 200px;
+    //         border: none;
+    //         background-color: $box-inner2-color;
+    //         text-align: start;
+    //         color: $main-text-color;
+
+    //         &:focus {
+    //             outline: none;
+    //         }
+    //     }
+
+    // }
+
+    // div button{
+    //     border: none;
+    //     padding: 0.5em 1.5em;
+    //     color: $main-text-color;
+    //     font-size: $medium-font;
+    //     border-radius: $box-rad;
+    // }
 
 }
