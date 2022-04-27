@@ -1,3 +1,5 @@
+// https://github.com/ValeriaKharchenko/social_network
+
 # Getting Started with Create React App
 # Getting Started with Create React App
 # Getting Started with Create React App
