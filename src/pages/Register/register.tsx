@@ -32,14 +32,14 @@ export default function Register() {
   let redirect = useNavigate();
   const { handleSubmit, register } = useForm<RegisterForm>();
   const [errors, setErrors] = useState([])
-  
+
   const onSubmit = async (user: RegisterForm) => {
     let flag = true
     setErrors([])
     user.nickname = user.nickname ? user.nickname : "";
     user.image_path = user.image_path ? user.image_path : "";
     user.desc = user.desc ? user.desc : "";
-    
+
     // @ts-ignore
     if(user.password != user.repeat_password){
       flag = false

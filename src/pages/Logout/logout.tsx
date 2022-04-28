@@ -9,6 +9,7 @@ import "./logout.scss";
 export default function Logout() {
   let redirect = useNavigate();
   const dispatch = useDispatch();
+
   const handleLogout = async () => {
     console.log("logout fired");
     await userService.logout().then(() => {

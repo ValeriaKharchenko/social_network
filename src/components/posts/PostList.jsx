@@ -1,8 +1,14 @@
 import Post from "./Post";
+import { NewPost } from "./newPost";
 import { Button, Container } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-
+import Tooltip from "@mui/material/Tooltip";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { update } from "../../store/postSlice";
+import store from "../../redux/store";
+import { RootState } from "../../store/store";
 const posts = [
   {
     id: 1,
@@ -52,32 +58,43 @@ const PostList = () => {
     right: 10,
     // minright: 50,
   };
+  // const [open, setOpen] = useState(false);
+  const isOpen = useSelector((state) => state.post.isOpen);
+  console.log("Is open?", isOpen);
+  const dispatch = useDispatch();
+  // console.log("PostList", open);
+  const handleClick = (e) => {
+    console.log("clicked");
+    e.preventDefault();
+    dispatch(update());
+    // setOpen(true);
+    // const newState = useSelector((state) => state.post.isOpen);
+    // console.log("IsOpen", newState);
+  };
+
   return (
     <Container>
       <div className="post_list">
-        {/*<Button */}
-        {/*  variant="contained" */}
-        {/*  type={"submit"} */}
-        {/*  data-testid={"submit-btn"}>*/}
-        {/*    Create New Post*/}
-        {/*</Button>*/}
-
         {posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
       </div>
       <div className={"fabBtn"}>
-        <Fab
-          color="secondary"
-          aria-label="add"
-          size={"large"}
-          variant="extended"
-          style={fabStyle}
-        >
-          <AddIcon />
-          {/*new post*/}
-        </Fab>
+        <Tooltip title="Add new post">
+          <Fab
+            color="secondary"
+            aria-label="add"
+            size={"large"}
+            variant="extended"
+            style={fabStyle}
+            onClick={handleClick}
+          >
+            <AddIcon />
+            {/*new post*/}
+          </Fab>
+        </Tooltip>
       </div>
+      {isOpen ? <NewPost /> : null}
     </Container>
   );
 };
