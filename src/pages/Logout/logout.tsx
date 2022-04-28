@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { logoutUser, remove } from "../../store/userSlice";
+import LogoutIcon from "@mui/icons-material/Logout";
+import "./logout.scss";
+
 export default function Logout() {
   let redirect = useNavigate();
   const dispatch = useDispatch();
@@ -15,10 +18,11 @@ export default function Logout() {
     });
   };
   return (
-    <div>
-      <Button variant={"outlined"} onClick={handleLogout}>
-        Logout
+    <>
+      <Button className="logout_link" onClick={handleLogout}>
+        {" "}
+        <LogoutIcon fontSize="large" />
       </Button>
-    </div>
+    </>
   );
 }

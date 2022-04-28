@@ -12,23 +12,24 @@ import Logout from "../pages/Logout/logout";
 const Navbar = () => {
   const name = useSelector((state: RootState) => state.user.userInfo.name);
   console.log(name);
-  let redirect = useNavigate();
-  const dispatch = useDispatch();
-  const handleLogout = async () => {
-    console.log("logout fired");
-    await userService.logout().then(() => {
-      // @ts-ignore
-      dispatch(logoutUser());
-      redirect("/", { replace: true });
-    });
-  };
+  // let redirect = useNavigate();
+  // const dispatch = useDispatch();
+  // const handleLogout = async () => {
+  //   console.log("logout fired");
+  //   await userService.logout().then(() => {
+  //     // @ts-ignore
+  //     dispatch(logoutUser());
+  //     redirect("/", { replace: true });
+  //   });
+  // };
   return (
     <div className="navigation">
       <div className="profile_box">
-        <Button className="logout_link" onClick={handleLogout}>
-          {" "}
-          <LogoutIcon fontSize="large" />
-        </Button>
+        {/*<Button className="logout_link" onClick={handleLogout}>*/}
+        {/*  {" "}*/}
+        {/*  <LogoutIcon fontSize="large" />*/}
+        {/*</Button>*/}
+        <Logout />
         <Avatar alt="Travis Howard" src={require("../assets/Images/ano.jpg")} />
         <p>{name}</p>
       </div>
