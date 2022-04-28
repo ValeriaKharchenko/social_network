@@ -9,6 +9,7 @@ import { Public, Private } from "./hoc/routeWrappers";
 function App() {
   return (
     <Routes>
+      <Route path={"/follow/user"}></Route>
       <Route
         path={"/profile"}
         element={

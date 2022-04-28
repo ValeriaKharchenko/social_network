@@ -12,7 +12,14 @@ export default {
   async login(email: string, pwd: string) {
     try {
       // await http.post("login", { email: email, password: pwd }); //add return response???
-      await http.post("login", { credential: email, password: pwd }); // I use it for local testing
+      // await http.post("login", { credential: email, password: pwd }); // I use it for local testing
+      const resp = await http.post("user/signin", {
+        email: email,
+        password: pwd,
+      });
+      if (resp.status === 200) {
+        console.log(resp);
+      }
     } catch (err) {
       throw err;
     }
@@ -20,29 +27,53 @@ export default {
 
   async register(user: RegisterForm) {
     try {
-      await http.post("register", {
+      await http.post("user/signup", {
         email: user.email,
         password: user.password,
         nickname: user.nickname,
         first_name: user.first_name,
         last_name: user.last_name,
-        date_of_birth: user.dob, //now it has type Date
+        birth_day: user.dob, //now it has type Date
         about_me: user.desc,
-        img_path: user.image_path,
+        user_img: "", //need to be fixed
       });
     } catch (err) {
       throw err;
     }
   },
 
+  // async auth(): Promise<UserInfo> {
+  //   try {
+  //     const user = await http.get("auth");
+  //     console.log(user.status);
+  //     return {
+  //       name: user.data.login,
+  //       isAuthorised: true,
+  //       email: user.data.email,
+  //       id: user.data.id,
+  //     };
+  //   } catch (err) {
+  //     console.log("auth wasn't completed", err);
+  //     throw err;
+  //   }
+  // },
   async auth(): Promise<UserInfo> {
     try {
-      const user = await http.get("auth");
+      const user = await http.get("user/");
+      console.log("User auth", user);
+      if (user.status === 200) {
+        return {
+          name: "Silver",
+          isAuthorised: true,
+          email: "newmail@mail.com",
+          id: "12345",
+        };
+      }
       return {
-        name: user.data.login,
-        isAuthorised: true,
-        email: user.data.email,
-        id: user.data.id,
+        name: "",
+        isAuthorised: false,
+        email: "",
+        id: "",
       };
     } catch (err) {
       console.log("auth wasn't completed", err);
@@ -55,6 +86,21 @@ export default {
       .delete("logout")
       .then(() => {
         console.log("User logged out");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  async followRequest() {
+    const resp = await http
+      .post("follower/user/", {
+        source_id: "c0df434a-3ea6-4796-818e-a3b7b1a6ec97",
+        target_id: "0e3e82bc-1808-456c-b37c-b6eefd88d60a",
+      })
+      .then((resp) => {
+        if (resp.status === 200) {
+          console.log("Followed successfully");
+        }
       })
       .catch((err) => {
         console.log(err);

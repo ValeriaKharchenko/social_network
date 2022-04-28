@@ -9,15 +9,12 @@ import {
   TextField,
   Button,
   Container,
-  CssBaseline,
   Box,
   Avatar,
   Typography,
-  Grid,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { PeopleAlt, PeopleAltTwoTone } from "@mui/icons-material";
+import { PeopleAlt } from "@mui/icons-material";
 
 export default function Login() {
   interface FormInput {
@@ -45,20 +42,25 @@ export default function Login() {
       }
     }
   };
-
-  const auth = useSelector(
-    (state: RootState) => state.user.userInfo.isAuthorised
-  );
+  const follow = async () => {
+    try {
+      await userService.followRequest();
+      console.log("request from follow");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  // const auth = useSelector(
+  //   (state: RootState) => state.user.userInfo.isAuthorised
+  // );
   const isLoading = useSelector((state: RootState) => state.user.pending);
-  if (auth) {
-    redirect("/profile", { replace: true });
-  }
+  // if (auth) {
+  //   redirect("/profile", { replace: true });
+  // }
   console.log("Here!");
   return (
     // <div className="Login">
     <Container component="main" maxWidth="xs" className={"Login"}>
-      {/*<h3>Login</h3>*/}
-      {/*<CssBaseline />*/}
       <Box
         sx={{
           display: "flex",
@@ -75,7 +77,6 @@ export default function Login() {
             height: 56,
           }}
         >
-          {/*<LockOutlinedIcon />*/}
           <PeopleAlt fontSize={"large"} />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -128,12 +129,10 @@ export default function Login() {
             >
               Register
             </Button>
+            <Button onClick={follow}>Follow</Button>
           </>
-          {/*</div>*/}
-          {/*</form>*/}
         </Box>
       </Box>
-      {/*// </div>*/}
     </Container>
   );
 }

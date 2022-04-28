@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import userReducer from "./userSlice";
+import type UserInfo from "../utilities/user-service";
 
 const saveToLocalStorage = (state: any) => {
   // console.log("state:", state);
@@ -14,10 +15,12 @@ const saveToLocalStorage = (state: any) => {
 const loadFromLocalStorage = () => {
   try {
     const stateStr = localStorage.getItem("userInfo");
+    console.log(stateStr);
+    const user = JSON.parse(stateStr || "null");
     return {
       user: {
-        userInfo: stateStr
-          ? JSON.parse(stateStr)
+        userInfo: user
+          ? user
           : {
               name: "",
               email: "",
@@ -30,7 +33,7 @@ const loadFromLocalStorage = () => {
     };
   } catch (e) {
     console.error(e);
-    return undefined; //trow error?
+    throw e;
   }
 };
 
