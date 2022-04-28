@@ -27,6 +27,7 @@ export default {
 
   async register(user: RegisterForm) {
     try {
+      console.log("%c Sending user registration data to server", "color:green", user);
       await http.post("user/signup", {
         email: user.email,
         password: user.password,
@@ -35,7 +36,8 @@ export default {
         last_name: user.last_name,
         birth_day: user.dob, //now it has type Date
         about_me: user.desc,
-        user_img: "", //need to be fixed
+        // user_img: "", //need to be fixed
+        user_img: user.image_path, //need to be fixed
       });
     } catch (err) {
       throw err;
