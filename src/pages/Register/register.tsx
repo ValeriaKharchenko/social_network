@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import userService from "../../utilities/user-service";
-import {checkImage, getBase64 } from "../../helpers/checkImage";
+import * as helper from "../../helpers/HelperFuncs"
 import "./register.scss";
 import {
   TextField,
@@ -43,42 +43,37 @@ export default function Register() {
     // @ts-ignore
     if(user.password != user.repeat_password){
       flag = false
-      console.log("FRONT END - %cPASSWORDS DONT MATCH", "color:red");
       // @ts-ignore
       setErrors(oldArray => [...oldArray,"* Passwords do not match"])
     }
     // @ts-ignore
     if(user.image_path.length !== 0 && user.image_path[0].name !== "") {
-      if(!checkImage(user.image_path,setErrors)) flag = false
+      if(!helper.checkImage(user.image_path,setErrors)) flag = false
       try{
         // @ts-ignore
-        user.image_path = await getBase64(user.image_path[0]).then(base64 => {
+        user.image_path = await helper.getBase64(user.image_path[0]).then(base64 => {
           return base64
         });
       }catch(e){
-        console.log("FRONT END - %c IMAGE CONVERSION FAILED", "color:red");
-      // @ts-ignore
-      setErrors(oldArray => [...oldArray,"ERROR WITH IMAGE UPLOAD"])
-      }
+        // @ts-ignore
+        setErrors(oldArray => [...oldArray,"ERROR WITH IMAGE UPLOAD"])
     }
-
-    if(flag){
-      console.log("Front Check is done");
-      try {
-          if(user.image_path.length == 0) user.image_path = ""
-          const response = await userService.register(user);
-          console.log(response);
-          // if (response.message === "OK") {
-            redirect("/");
-            // }
-    } catch (e) {
-        if (e instanceof Error) {
-            console.log(e.message);
-            alert(e.message);
-          } else {
-              console.log(e);
-            }
+  }
+  
+  if(flag){
+    try {
+        if(user.image_path.length == 0) user.image_path = ""
+        const response = await userService.register(user)
+        
+        // if (response.message === "OK") {
+          redirect("/");
+          // }
+        } catch (e) {
+          if (e instanceof Error) {
+            // @ts-ignore
+            setErrors(oldArray => [...oldArray, `${helper.capitalize(e.response.data.message) }`])
           }
+        }
     }
   };
 
