@@ -14,7 +14,7 @@ import { update } from "../../store/postSlice";
 import "./newPost.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Followers from "../transferList";
+// import Followers from "../transferList";
 import { RootState } from "../../store/store";
 import { useForm } from "react-hook-form";
 import { RegisterForm } from "../../pages/Register/register";

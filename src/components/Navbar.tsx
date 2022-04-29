@@ -5,7 +5,7 @@ import { Avatar, Button } from "@mui/material";
 import "./styles/navbar.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import Logout from "../pages/Logout/logout";
+import Logout from "./Logout_btn/logout";
 
 const Navbar = () => {
   const name = useSelector((state: RootState) => state.user.userInfo.name);
