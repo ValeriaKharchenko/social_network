@@ -1,12 +1,6 @@
-import "./profile.scss";
-import Navbar from "../../components/Navbar";
-import PostList from "../../components/posts/PostList"
 
-export default function Profile() {
-  return(
-    <div className="profile">
-      <Navbar />
-      <PostList />
-    </div>
+export const profile = () => {
+  return (
+    <div className='profile'>profile</div>
   )
 }

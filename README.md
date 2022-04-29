@@ -3,15 +3,13 @@
 ### Questions:
 
     1.Do we still need redux folder
-    2. Should Profile folder be renamed to Landing/HomePage 
-    3. How we are rendering stuff on the page
-        EX: User click on the lets say profile link, will it take him to the new page  or we are updateing the right side  content ?
-        
 
 ### Update:
 
     1. Deleted App.scss
     2. Logout folder is now Logout_btn folder and moved it in components folder
+    3. Profile folder renamed to HomePage folder and content also changed
+    4. Profile has its own page now 
 
 
 

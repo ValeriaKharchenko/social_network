@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/login";
 import Register from "./pages/Register/register";
-import Profile from "./pages/Profile/profile";
+import Profile from "./pages/Homepage/homepage";
 import { Public, Private } from "./hoc/routeWrappers";
 
 function App() {
