@@ -19,17 +19,17 @@ const Navbar = () => {
         <p>{name}</p>
       </div>
 
-      <Link className="link" to={"/profile"}>
+      <Link className="link" to={"/homepage"}>
         {" "}
         Home <Home />
       </Link>
       <Link className="link" to={"/profile"}>
         {" "}
-        Notifications <Home />
+        Profile <Home />
       </Link>
       <Link className="link" to={"/profile"}>
         {" "}
-        Profile <Home />
+        Notifications <Home />
       </Link>
       <Link className="link" to={"/profile"}>
         {" "}

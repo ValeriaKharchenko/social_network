@@ -1,14 +1,13 @@
 import Post from "./Post";
 import { NewPost } from "./newPost";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { update } from "../../store/postSlice";
+import { RootState } from "../../store/store";
 import { Button, Container } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { update } from "../../store/postSlice";
-import store from "../../redux/store";
-import { RootState } from "../../store/store";
 const posts = [
   {
     id: 1,

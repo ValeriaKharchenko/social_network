@@ -10,6 +10,7 @@
     2. Logout folder is now Logout_btn folder and moved it in components folder
     3. Profile folder renamed to HomePage folder and content also changed
     4. Profile has its own page now 
+    5. Page after login is now called Homepage and link is /homepage
 
 
 
