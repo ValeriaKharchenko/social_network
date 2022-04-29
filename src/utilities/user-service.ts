@@ -37,10 +37,10 @@ export default {
         birth_day: user.dob, //now it has type Date
         about_me: user.desc,
         // user_img: "", //need to be fixed
-        user_img: user.image_path, //need to be fixed
+        user_img: user.image_path, 
       });
     } catch (err) {
-      throw err;
+        throw err;
     }
   },
 
