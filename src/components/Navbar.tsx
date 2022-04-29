@@ -8,8 +8,15 @@ import { RootState } from "../store/store";
 import Logout from "./Logout_btn/logout";
 
 const Navbar = () => {
-  const name = useSelector((state: RootState) => state.user.userInfo.name);
-  console.log(name);
+  const firstName = useSelector(
+    (state: RootState) => state.user.userInfo.firstName
+  );
+  const lastName = useSelector(
+    (state: RootState) => state.user.userInfo.lastName
+  );
+  console.log(firstName);
+  console.log(lastName);
+  const name = firstName + " " + lastName;
 
   return (
     <div className="navigation">

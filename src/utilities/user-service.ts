@@ -2,9 +2,9 @@ import http from "./http-common";
 import { RegisterForm } from "../pages/Register/register";
 
 export interface UserInfo {
-  name: string;
+  firstName: string;
+  lastName: string;
   isAuthorised: boolean;
-  email: string;
   id: string;
 }
 
@@ -27,7 +27,11 @@ export default {
 
   async register(user: RegisterForm) {
     try {
-      console.log("%c Sending user registration data to server", "color:green", user);
+      console.log(
+        "%c Sending user registration data to server",
+        "color:green",
+        user
+      );
       await http.post("user/signup", {
         email: user.email,
         password: user.password,
@@ -37,10 +41,11 @@ export default {
         birth_day: user.dob, //now it has type Date
         about_me: user.desc,
         // user_img: "", //need to be fixed
-        user_img: user.image_path, 
+        user_img: user.image_path,
       });
     } catch (err) {
-        throw err;
+        console.log("Error caught");
+      throw err;
     }
   },
 
@@ -65,16 +70,16 @@ export default {
       console.log("User auth", user);
       if (user.status === 200) {
         return {
-          name: "Silver",
+          firstName: user.data.firstName,
+          lastName: user.data.lastName,
           isAuthorised: true,
-          email: "newmail@mail.com",
-          id: "12345",
+          id: user.data.ID,
         };
       }
       return {
-        name: "",
+        firstName: "",
+        lastName: "",
         isAuthorised: false,
-        email: "",
         id: "",
       };
     } catch (err) {

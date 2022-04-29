@@ -53,23 +53,16 @@ const posts = [
 const PostList = () => {
   const fabStyle = {
     position: "absolute",
-    // marginLeft: 20,
     top: 20,
     right: 10,
-    // minright: 50,
   };
-  // const [open, setOpen] = useState(false);
   const isOpen = useSelector((state) => state.post.isOpen);
   console.log("Is open?", isOpen);
   const dispatch = useDispatch();
-  // console.log("PostList", open);
   const handleClick = (e) => {
     console.log("clicked");
     e.preventDefault();
     dispatch(update());
-    // setOpen(true);
-    // const newState = useSelector((state) => state.post.isOpen);
-    // console.log("IsOpen", newState);
   };
 
   return (

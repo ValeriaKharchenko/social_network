@@ -28,9 +28,9 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     userInfo: {
-      name: "Test",
+      firstName: "Test",
+      lastName: "Test",
       isAuthorised: false,
-      email: "test@mail.com",
       id: "",
     },
     pending: false,
@@ -58,9 +58,9 @@ export const userSlice = createSlice({
       state.error = true;
     },
     [logoutUser.fulfilled]: (state) => {
-      state.userInfo.name = "";
+      state.userInfo.firstName = "";
+      state.userInfo.lastName = "";
       state.userInfo.isAuthorised = false;
-      state.userInfo.email = "";
       state.userInfo.id = "";
       state.error = false;
       state.pending = false;

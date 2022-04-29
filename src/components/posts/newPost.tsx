@@ -14,80 +14,114 @@ import { update } from "../../store/postSlice";
 import "./newPost.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import FormControlLabel from "@mui/material/FormControlLabel";
-// import Followers from "../transferList";
 import { RootState } from "../../store/store";
 import { useForm } from "react-hook-form";
-import { RegisterForm } from "../../pages/Register/register";
+import { checkImage, getBase64 } from "../../helpers/checkImage";
+import { useEffect, useState } from "react";
+import postService from "../../utilities/post-service";
+import TransferList from "../transferList";
 
 const ariaLabel = { "aria-label": "description" };
 
-// function ChildModal(status) {
-//   const [op, setOp] = React.useState(status);
-//   const handleOpen = () => {
-//     setOp(true);
-//   };
-//   const handleClose = () => {
-//     setOp(false);
-//   };
-//   return (
-//     <React.Fragment>
-//       <Modal
-//         hideBackdrop
-//         open={op}
-//         onClose={handleClose}
-//         aria-labelledby="child-modal-title"
-//         aria-describedby="child-modal-description"
-//       >
-//         <Followers />
-//       </Modal>
-//     </React.Fragment>
-//   );
-// }
 export interface NewPostForm {
   title: string;
   content: string;
-  image: string;
+  image: FileList;
+  imgString: string;
   privacy: Privacy;
-  users: [] | null;
+  userList: Follower[] | null;
 }
+
+export interface Follower {
+  // firstName: string,
+  // lastName: string,
+  name: string;
+  id: string;
+}
+
 enum Privacy {
-  Public,
+  Public = 1,
   Private,
   StrictlyPrivate,
 }
 
 export function NewPost() {
   const { handleSubmit, register } = useForm<NewPostForm>();
+  const [errors, setErrors] = useState<string[]>([]);
   const open = useSelector((state: RootState) => state.post.isOpen);
   const dispatch = useDispatch();
-
   const handleClose = () => {
     dispatch(update());
   };
   const [value, setValue] = React.useState(Privacy.Public);
+  const [followers, setFollowers] = React.useState<boolean>(false);
+  const [listOfFollowers, setListFollowers] = React.useState<Follower[]>([]);
+
+  useEffect(() => {
+    if (listOfFollowers.length !== 0) {
+      return;
+    }
+    //fake list of users
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) => {
+        let l: Follower[] = [];
+        users.forEach((u: Follower) => {
+          const follower = {
+            name: u.name,
+            id: u.id,
+          };
+          l.push(follower);
+        });
+        setListFollowers(l);
+      });
+  });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // @ts-ignore
     setValue((event.target as HTMLInputElement).value);
   };
-  // let toShow = false;
 
-  // const showFollowers = () => {
-  //   console.log(toShow);
-  //   toShow = true;
-  //   console.log("Your followers");
-  //   console.log(toShow);
-  // };
-  //
-  // const hideFollowers = () => {
-  //   console.log(toShow);
-  //   toShow = false;
-  //   console.log(toShow);
-  // };
+  const imgCheck = (image: FileList): boolean => {
+    return checkImage(image, setErrors);
+  };
+  let chosenUsers: Follower[] = [];
+  const chosen = (users: readonly Follower[]) => {
+    console.log("i'm chosen!", users);
+    chosenUsers = users as Follower[];
+  };
+  console.log(chosenUsers);
 
   const newPost = async (data: NewPostForm) => {
     data.privacy = value as Privacy;
-    console.log("New post", data);
+    let check = false;
+    if (chosenUsers.length !== 0) {
+      data.userList = chosenUsers;
+    }
+    console.log(data.userList);
+
+    if (data.image.length !== 0) {
+      console.log(data.image);
+      check = imgCheck(data.image);
+    }
+
+    if (check) {
+      data.imgString = (await getBase64(data.image[0])
+        .then((str) => {
+          return str;
+        })
+        .catch((e) => alert(e))) as string;
+      try {
+        console.log("New post", data);
+        const response = await postService.addNewPost(data); //probably we'll have to renew list of posts/store after that
+        handleClose();
+      } catch (e) {
+        console.log(e);
+        alert(e);
+      }
+    } else {
+      alert(["ERROR WITH IMAGE UPLOAD"]);
+    }
   };
 
   return (
@@ -145,19 +179,33 @@ export function NewPost() {
               value={Privacy.Public}
               control={<Radio />}
               label="All users"
+              onChange={(e) => {
+                e.preventDefault();
+                setFollowers(false);
+              }}
             />
             <FormControlLabel
               value={Privacy.Private}
               control={<Radio />}
               label="Followers" //Friends?
+              onChange={(e) => {
+                e.preventDefault();
+                setFollowers(false);
+              }}
             />
             <FormControlLabel
-              // onClick={ChildModal(true)}
               value={Privacy.StrictlyPrivate}
               control={<Radio />}
               label="Chosen ones"
+              onChange={(e) => {
+                e.preventDefault();
+                setFollowers(true);
+              }}
             />
           </RadioGroup>
+          {followers && (
+            <TransferList followers={listOfFollowers} sendBack={chosen} />
+          )}
         </FormControl>
         <div>
           <Button type={"submit"} variant="contained">
