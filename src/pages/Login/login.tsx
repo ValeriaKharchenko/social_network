@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import userService from "../../utilities/user-service";
 import "./login.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../../store/userSlice";
+import { fetchUser, update } from "../../store/userSlice";
 import { RootState } from "../../store/store";
 import {
   TextField,
@@ -29,9 +29,9 @@ export default function Login() {
   const onSubmit = async (data: FormInput) => {
     try {
       console.log(data);
-      await userService.login(data.email, data.password);
+      const response = await userService.login(data.email, data.password);
       // @ts-ignore
-      dispatch(fetchUser());
+      dispatch(update(response));
       redirect("/profile", { replace: true });
     } catch (e) {
       if (e instanceof Error) {

@@ -85,6 +85,7 @@ export function NewPost() {
   const imgCheck = (image: FileList): boolean => {
     return checkImage(image, setErrors);
   };
+
   let chosenUsers: Follower[] = [];
   const chosen = (users: readonly Follower[]) => {
     console.log("i'm chosen!", users);

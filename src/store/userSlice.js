@@ -30,9 +30,12 @@ export const userSlice = createSlice({
     userInfo: {
       firstName: "Test",
       lastName: "Test",
-      isAuthorised: false,
       id: "",
     },
+    // authorization: {
+    //   access: "",
+    //   refresh: "",
+    // },
     pending: false,
     error: false,
   },

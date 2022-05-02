@@ -1,25 +1,38 @@
 import http from "./http-common";
 import { RegisterForm } from "../pages/Register/register";
+import {
+  removeAccessToken,
+  removeRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from "./token";
 
 export interface UserInfo {
   firstName: string;
   lastName: string;
-  isAuthorised: boolean;
   id: string;
 }
 
 export default {
-  async login(email: string, pwd: string) {
+  async login(email: string, pwd: string): Promise<UserInfo> {
     try {
       // await http.post("login", { email: email, password: pwd }); //add return response???
       // await http.post("login", { credential: email, password: pwd }); // I use it for local testing
-      const resp = await http.post("user/signin", {
+      const response = await http.post("user/signin", {
         email: email,
         password: pwd,
       });
-      if (resp.status === 200) {
-        console.log(resp);
-      }
+      // if (response.status === 200) {
+      //get tokens and save to local storage
+      setAccessToken(response.data.access_token);
+      setRefreshToken(response.data.refresh_token);
+      console.log(response);
+      return {
+        firstName: "John",
+        lastName: "Doe",
+        id: "123",
+      };
+      // }
     } catch (err) {
       throw err;
     }
@@ -44,26 +57,11 @@ export default {
         user_img: user.image_path,
       });
     } catch (err) {
-        console.log("Error caught");
+      console.log("Error caught");
       throw err;
     }
   },
 
-  // async auth(): Promise<UserInfo> {
-  //   try {
-  //     const user = await http.get("auth");
-  //     console.log(user.status);
-  //     return {
-  //       name: user.data.login,
-  //       isAuthorised: true,
-  //       email: user.data.email,
-  //       id: user.data.id,
-  //     };
-  //   } catch (err) {
-  //     console.log("auth wasn't completed", err);
-  //     throw err;
-  //   }
-  // },
   async auth(): Promise<UserInfo> {
     try {
       const user = await http.get("user/");
@@ -72,14 +70,12 @@ export default {
         return {
           firstName: user.data.firstName,
           lastName: user.data.lastName,
-          isAuthorised: true,
           id: user.data.ID,
         };
       }
       return {
         firstName: "",
         lastName: "",
-        isAuthorised: false,
         id: "",
       };
     } catch (err) {
@@ -90,8 +86,10 @@ export default {
 
   async logout() {
     http
-      .delete("logout")
+      .delete("user/signout")
       .then(() => {
+        removeAccessToken();
+        removeRefreshToken();
         console.log("User logged out");
       })
       .catch((err) => {
@@ -112,5 +110,14 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+  },
+
+  async profile() {
+    try {
+      const response = await http.get("user/me");
+      console.log("Response from profile", response);
+    } catch (e) {
+      console.log("Error from profile", e);
+    }
   },
 };

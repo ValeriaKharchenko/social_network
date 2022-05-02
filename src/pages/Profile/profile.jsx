@@ -1,12 +1,13 @@
 import "./profile.scss";
 import Navbar from "../../components/Navbar";
-import PostList from "../../components/posts/PostList"
+import PostList from "../../components/posts/PostList";
+import userService from "../../utilities/user-service";
 
 export default function Profile() {
-  return(
+  return (
     <div className="profile">
       <Navbar />
       <PostList />
     </div>
-  )
+  );
 }

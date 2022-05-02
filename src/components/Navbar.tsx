@@ -6,6 +6,7 @@ import "./styles/navbar.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "./Logout_btn/logout";
+import userService from "../utilities/user-service";
 
 const Navbar = () => {
   const firstName = useSelector(
@@ -18,6 +19,11 @@ const Navbar = () => {
   console.log(lastName);
   const name = firstName + " " + lastName;
 
+  const load = async () => {
+    const res = await userService.profile();
+    console.log("Prof", res);
+  };
+
   return (
     <div className="navigation">
       <div className="profile_box">
@@ -25,7 +31,7 @@ const Navbar = () => {
         <Avatar alt="Travis Howard" src={require("../assets/Images/ano.jpg")} />
         <p>{name}</p>
       </div>
-
+      <Button onClick={load}>Click me!</Button>
       <Link className="link" to={"/profile"}>
         {" "}
         Home <Home />
