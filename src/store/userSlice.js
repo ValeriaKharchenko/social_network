@@ -31,6 +31,7 @@ export const userSlice = createSlice({
       firstName: "Test",
       lastName: "Test",
       id: "",
+      auth: false,
     },
     // authorization: {
     //   access: "",
@@ -63,7 +64,7 @@ export const userSlice = createSlice({
     [logoutUser.fulfilled]: (state) => {
       state.userInfo.firstName = "";
       state.userInfo.lastName = "";
-      state.userInfo.isAuthorised = false;
+      state.userInfo.auth = false;
       state.userInfo.id = "";
       state.error = false;
       state.pending = false;

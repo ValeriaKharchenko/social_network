@@ -11,18 +11,16 @@ export interface UserInfo {
   firstName: string;
   lastName: string;
   id: string;
+  auth: boolean;
 }
 
 export default {
   async login(email: string, pwd: string): Promise<UserInfo> {
     try {
-      // await http.post("login", { email: email, password: pwd }); //add return response???
-      // await http.post("login", { credential: email, password: pwd }); // I use it for local testing
       const response = await http.post("user/signin", {
         email: email,
         password: pwd,
       });
-      // if (response.status === 200) {
       //get tokens and save to local storage
       setAccessToken(response.data.access_token);
       setRefreshToken(response.data.refresh_token);
@@ -31,8 +29,8 @@ export default {
         firstName: "John",
         lastName: "Doe",
         id: "123",
+        auth: true,
       };
-      // }
     } catch (err) {
       throw err;
     }
@@ -62,27 +60,27 @@ export default {
     }
   },
 
-  async auth(): Promise<UserInfo> {
-    try {
-      const user = await http.get("user/");
-      console.log("User auth", user);
-      if (user.status === 200) {
-        return {
-          firstName: user.data.firstName,
-          lastName: user.data.lastName,
-          id: user.data.ID,
-        };
-      }
-      return {
-        firstName: "",
-        lastName: "",
-        id: "",
-      };
-    } catch (err) {
-      console.log("auth wasn't completed", err);
-      throw err;
-    }
-  },
+  // async auth(): Promise<UserInfo> {
+  //   try {
+  //     const user = await http.get("user/");
+  //     console.log("User auth", user);
+  //     if (user.status === 200) {
+  //       return {
+  //         firstName: user.data.firstName,
+  //         lastName: user.data.lastName,
+  //         id: user.data.ID,
+  //       };
+  //     }
+  //     return {
+  //       firstName: "",
+  //       lastName: "",
+  //       id: "",
+  //     };
+  //   } catch (err) {
+  //     console.log("auth wasn't completed", err);
+  //     throw err;
+  //   }
+  // },
 
   async logout() {
     http
