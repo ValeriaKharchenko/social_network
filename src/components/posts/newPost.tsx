@@ -94,7 +94,7 @@ export function NewPost() {
 
   const newPost = async (data: NewPostForm) => {
     data.privacy = value as Privacy;
-    let check = false;
+    let check = true;
     if (chosenUsers.length !== 0) {
       data.userList = chosenUsers;
     }
@@ -103,14 +103,14 @@ export function NewPost() {
     if (data.image.length !== 0) {
       console.log(data.image);
       check = imgCheck(data.image);
-    }
-
-    if (check) {
       data.imgString = (await getBase64(data.image[0])
         .then((str) => {
           return str;
         })
         .catch((e) => alert(e))) as string;
+    }
+
+    if (check) {
       try {
         console.log("New post", data);
         const response = await postService.addNewPost(data); //probably we'll have to renew list of posts/store after that
@@ -167,46 +167,51 @@ export function NewPost() {
           />
         </div>
         <Input type={"file"} {...register("image")}></Input>
-        <FormControl id={""} sx={{ ml: 10 }}>
-          Who can see this post?
-          <RadioGroup
-            // aria-labelledby="demo-controlled-radio-buttons-group"
-            name="post-privacy"
-            value={value}
-            onChange={handleChange}
-          >
-            <FormControlLabel
-              value={Privacy.Public}
-              control={<Radio />}
-              label="All users"
-              onChange={(e) => {
-                e.preventDefault();
-                setFollowers(false);
-              }}
-            />
-            <FormControlLabel
-              value={Privacy.Private}
-              control={<Radio />}
-              label="Followers" //Friends?
-              onChange={(e) => {
-                e.preventDefault();
-                setFollowers(false);
-              }}
-            />
-            <FormControlLabel
-              value={Privacy.StrictlyPrivate}
-              control={<Radio />}
-              label="Chosen ones"
-              onChange={(e) => {
-                e.preventDefault();
-                setFollowers(true);
-              }}
-            />
-          </RadioGroup>
-          {followers && (
-            <TransferList followers={listOfFollowers} sendBack={chosen} />
-          )}
-        </FormControl>
+        <div>
+          <FormControl id={""} sx={{ ml: 1, mt: 3, mb: 3 }}>
+            Who can see this post?
+            <RadioGroup
+              row
+              // aria-labelledby="demo-controlled-radio-buttons-group"
+              name="post-privacy"
+              value={value}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value={Privacy.Public}
+                control={<Radio />}
+                label="All users"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setFollowers(false);
+                  chosenUsers = [];
+                }}
+              />
+              <FormControlLabel
+                value={Privacy.Private}
+                control={<Radio />}
+                label="Followers" //Friends?
+                onChange={(e) => {
+                  e.preventDefault();
+                  setFollowers(false);
+                  chosenUsers = [];
+                }}
+              />
+              <FormControlLabel
+                value={Privacy.StrictlyPrivate}
+                control={<Radio />}
+                label="Chosen ones"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setFollowers(true);
+                }}
+              />
+            </RadioGroup>
+            {followers && (
+              <TransferList followers={listOfFollowers} sendBack={chosen} />
+            )}
+          </FormControl>
+        </div>
         <div>
           <Button type={"submit"} variant="contained">
             Add
