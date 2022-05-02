@@ -1,7 +1,11 @@
 import "./profile.scss";
 import Navbar from "../../components/Navbar";
 import FollowerList from "../../components/Lists/FollowerList";
-import StalkerList from "../../components/Lists/StalkerList";
+
+
+// data
+import {followers, stalkers} from "../../mockData"
+
 const Profile = () => {
   return (
     <div className='profile'>
@@ -14,8 +18,8 @@ const Profile = () => {
         <h1> - My post and all post including me </h1>
 
         <h1> - Followers  </h1>
-          <FollowerList />
-          <StalkerList />
+          <FollowerList list={followers} label={"My Followers"}/>
+          <FollowerList  list={stalkers} label={"My Stalkers"}/>
 
         <h1> - Groups  </h1>
 

@@ -1,5 +1,7 @@
 import http from "./http-common";
 import { RegisterForm } from "../pages/Register/register";
+import {getJwtToken, setJwtToken, getRefreshToken,setRefreshToken} from "../auth/auth"
+
 
 export interface UserInfo {
   name: string;
@@ -7,6 +9,8 @@ export interface UserInfo {
   email: string;
   id: string;
 }
+
+
 
 export default {
   async login(email: string, pwd: string) {
@@ -17,11 +21,14 @@ export default {
         email: email,
         password: pwd,
       });
+
       if (resp.status === 200) {
         console.log(resp);
+        setJwtToken(resp.data.access_token)
+        setRefreshToken(resp.data.refresh_token)
       }
     } catch (err) {
-      throw err;
+        throw err;
     }
   },
 
@@ -61,7 +68,7 @@ export default {
   // },
   async auth(): Promise<UserInfo> {
     try {
-      const user = await http.get("user/");
+      const user = await http.get("/user");
       console.log("User auth", user);
       if (user.status === 200) {
         return {
