@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/login";
 import Register from "./pages/Register/register";
 import Profile from "./pages/Profile/profile";
+import OnePost from "./pages/OnePost/onePost";
 import { Public, Private } from "./hoc/routeWrappers";
 
 function App() {
@@ -30,6 +31,14 @@ function App() {
           <Public>
             <Login />
           </Public>
+        }
+      />
+      <Route
+        path="post/:id"
+        element={
+          <Private>
+            <OnePost />
+          </Private>
         }
       />
     </Routes>

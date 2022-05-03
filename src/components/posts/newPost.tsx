@@ -216,7 +216,7 @@ export function NewPost() {
           </FormControl>
         </div>
         <div>
-          <Button type={"submit"} variant="contained">
+          <Button sx={{ width: 125 }} type={"submit"} variant="contained">
             Add
           </Button>
         </div>

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "./Logout_btn/logout";
 import userService from "../utilities/user-service";
+import profileService from "../utilities/profile-service";
 
 const Navbar = () => {
   const firstName = useSelector(
@@ -31,7 +32,14 @@ const Navbar = () => {
         <Avatar alt="Travis Howard" src={require("../assets/Images/ano.jpg")} />
         <p>{name}</p>
       </div>
-      <Button onClick={load}>Click me!</Button>
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          profileService.getMyInfo();
+        }}
+      >
+        Click me!
+      </Button>
       <Link className="link" to={"/profile"}>
         {" "}
         Home <Home />
