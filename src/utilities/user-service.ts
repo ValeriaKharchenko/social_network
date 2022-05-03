@@ -1,32 +1,40 @@
 import http from "./http-common";
 import { RegisterForm } from "../pages/Register/register";
-import {getJwtToken, setJwtToken, getRefreshToken,setRefreshToken} from "../auth/auth"
 
+import {
+  removeAccessToken,
+  removeRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from "./token";
 
 export interface UserInfo {
-  name: string;
-  isAuthorised: boolean;
-  email: string;
+  firstName: string;
+  lastName: string;
   id: string;
+  auth: boolean;
 }
 
 
 
 export default {
-  async login(email: string, pwd: string) {
+  async login(email: string, pwd: string): Promise<UserInfo> {
     try {
-      // await http.post("login", { email: email, password: pwd }); //add return response???
-      // await http.post("login", { credential: email, password: pwd }); // I use it for local testing
-      const resp = await http.post("user/signin", {
+      const response = await http.post("user/signin", {
         email: email,
         password: pwd,
       });
 
-      if (resp.status === 200) {
-        console.log(resp);
-        setJwtToken(resp.data.access_token)
-        setRefreshToken(resp.data.refresh_token)
-      }
+      //get tokens and save to local storage
+      setAccessToken(response.data.access_token);
+      setRefreshToken(response.data.refresh_token);
+      console.log(response);
+      return {
+        firstName: "John",
+        lastName: "Doe",
+        id: "123",
+        auth: true,
+      };
     } catch (err) {
         throw err;
     }
@@ -34,7 +42,11 @@ export default {
 
   async register(user: RegisterForm) {
     try {
-      console.log("%c Sending user registration data to server", "color:green", user);
+      console.log(
+        "%c Sending user registration data to server",
+        "color:green",
+        user
+      );
       await http.post("user/signup", {
         email: user.email,
         password: user.password,
@@ -44,56 +56,43 @@ export default {
         birth_day: user.dob, //now it has type Date
         about_me: user.desc,
         // user_img: "", //need to be fixed
-        user_img: user.image_path, 
+        user_img: user.image_path,
       });
     } catch (err) {
-        throw err;
+      console.log("Error caught");
+      throw err;
     }
   },
 
   // async auth(): Promise<UserInfo> {
   //   try {
-  //     const user = await http.get("auth");
-  //     console.log(user.status);
+  //     const user = await http.get("user/");
+  //     console.log("User auth", user);
+  //     if (user.status === 200) {
+  //       return {
+  //         firstName: user.data.firstName,
+  //         lastName: user.data.lastName,
+  //         id: user.data.ID,
+  //       };
+  //     }
   //     return {
-  //       name: user.data.login,
-  //       isAuthorised: true,
-  //       email: user.data.email,
-  //       id: user.data.id,
+  //       firstName: "",
+  //       lastName: "",
+  //       id: "",
   //     };
   //   } catch (err) {
   //     console.log("auth wasn't completed", err);
   //     throw err;
   //   }
   // },
-  async auth(): Promise<UserInfo> {
-    try {
-      const user = await http.get("/user");
-      console.log("User auth", user);
-      if (user.status === 200) {
-        return {
-          name: "Silver",
-          isAuthorised: true,
-          email: "newmail@mail.com",
-          id: "12345",
-        };
-      }
-      return {
-        name: "",
-        isAuthorised: false,
-        email: "",
-        id: "",
-      };
-    } catch (err) {
-      console.log("auth wasn't completed", err);
-      throw err;
-    }
-  },
+
 
   async logout() {
     http
-      .delete("logout")
+      .delete("user/signout")
       .then(() => {
+        removeAccessToken();
+        removeRefreshToken();
         console.log("User logged out");
       })
       .catch((err) => {
@@ -114,5 +113,14 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+  },
+
+  async profile() {
+    try {
+      const response = await http.get("user/me");
+      console.log("Response from profile", response);
+    } catch (e) {
+      console.log("Error from profile", e);
+    }
   },
 };

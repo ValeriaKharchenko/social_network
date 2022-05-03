@@ -23,8 +23,8 @@ const loadFromLocalStorage = () => {
         userInfo: user
           ? user
           : {
-              name: "",
-              email: "",
+              firsName: "",
+              lastName: "",
               id: "",
               isAuthorised: false,
             },

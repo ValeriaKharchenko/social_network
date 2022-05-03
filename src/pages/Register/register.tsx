@@ -31,11 +31,11 @@ export interface RegisterForm {
 export default function Register() {
   let redirect = useNavigate();
   const { handleSubmit, register } = useForm<RegisterForm>();
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
 
   const onSubmit = async (user: RegisterForm) => {
-    let flag = true
-    setErrors([])
+    let flag = true;
+    setErrors([]);
     user.nickname = user.nickname ? user.nickname : "";
     user.image_path = user.image_path ? user.image_path : "";
     user.desc = user.desc ? user.desc : "";
@@ -44,27 +44,27 @@ export default function Register() {
     if(user.password != user.repeat_password){
       flag = false
       // @ts-ignore
-      setErrors(oldArray => [...oldArray,"* Passwords do not match"])
+      setErrors((oldArray) => [...oldArray, "* Passwords do not match"]);
     }
     // @ts-ignore
-    if(user.image_path.length !== 0 && user.image_path[0].name !== "") {
-      if(!helper.checkImage(user.image_path,setErrors)) flag = false
-      try{
+    if (user.image_path.length !== 0 && user.image_path[0].name !== "") {
+      if (!helper.checkImage(user.image_path, setErrors)) flag = false;
+      try {
         // @ts-ignore
-        user.image_path = await helper.getBase64(user.image_path[0]).then(base64 => {
-          return base64
+        user.image_path = await helper.getBase64(user.image_path[0]).then((base64) => {
+          return base64;
         });
       }catch(e){
         // @ts-ignore
         setErrors(oldArray => [...oldArray,"ERROR WITH IMAGE UPLOAD"])
     }
   }
-  
+
   if(flag){
     try {
         if(user.image_path.length == 0) user.image_path = ""
         const response = await userService.register(user)
-        
+
         // if (response.message === "OK") {
           redirect("/");
           // }
@@ -86,7 +86,7 @@ export default function Register() {
           flexDirection: "column",
           alignItems: "center",
         }}
-        >
+      >
         <Button
           variant="contained"
           className="back_btn"
@@ -94,7 +94,7 @@ export default function Register() {
             e.preventDefault();
             redirect("/");
           }}
-          >
+        >
           <CloseIcon />
         </Button>
         <Avatar sx={{ m: 1, mt: 4, bgcolor: "secondary.main" }}>
@@ -104,70 +104,75 @@ export default function Register() {
           Register
         </Typography>
 
+        {errors && (
+          <div className="errors">
+            {errors.map((err, i) => (
+              <div key={i}>{err}</div>
+            ))}
+          </div>
+        )}
 
-        {errors && <div className="errors">{errors.map((err,i) => (<div key={i}>{err}</div>))}</div>}
-
-        <Box component="form" onSubmit={handleSubmit(onSubmit)}  sx={{ mt: 2 }}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-            <TextField
-              sx={{ m: 1, width: "280px" }}
-              required
-              inputProps={{minLength: 2, maxLength: 30}}
-              label="First Name"
-              type="text"
-              margin="dense"
-              variant="standard"
-              {...register("first_name")}
+              <TextField
+                sx={{ m: 1, width: "280px" }}
+                required
+                inputProps={{ minLength: 2, maxLength: 30 }}
+                label="First Name"
+                type="text"
+                margin="dense"
+                variant="standard"
+                {...register("first_name")}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
-                inputProps={{minLength: 2, maxLength: 30}}
+                inputProps={{ minLength: 2, maxLength: 30 }}
                 label="Last Name"
                 type="text"
                 margin="dense"
                 variant="standard"
                 sx={{ m: 1, width: "280px" }}
                 {...register("last_name")}
-                />
+              />
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <TextField
                 required
-                inputProps={{minLength: 2, maxLength: 30}}
+                inputProps={{ minLength: 2, maxLength: 30 }}
                 label="Email"
                 type="email"
                 variant="standard"
                 sx={{ m: 1, width: "280px" }}
                 {...register("email")}
-                />
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
-                inputProps={{minLength: 6, maxLength: 30}}
+                inputProps={{ minLength: 6, maxLength: 30 }}
                 label="Password"
                 type="password"
                 margin="dense"
                 variant="standard"
                 sx={{ m: 1, width: "280px" }}
                 {...register("password")}
-                />
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
-                inputProps={{minLength: 6, maxLength: 30}}
+                inputProps={{ minLength: 6, maxLength: 30 }}
                 label="Repeat password"
                 type="password"
                 margin="dense"
                 variant="standard"
                 sx={{ m: 1, width: "280px" }}
                 {...register("repeat_password")}
-                />
+              />
             </Grid>
 
             <Grid item xs={12} sm={6}>
@@ -177,12 +182,12 @@ export default function Register() {
                 margin="normal"
                 variant="standard"
                 {...register("dob")}
-                />
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 label="Nickname"
-                inputProps={{maxLength: 10}}
+                inputProps={{ maxLength: 10 }}
                 type="text"
                 margin="dense"
                 variant="standard"
@@ -197,12 +202,12 @@ export default function Register() {
                 margin="normal"
                 variant="standard"
                 {...register("image_path")}
-                />
+              />
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <TextField
-                inputProps={{maxLength: 30}}
+                inputProps={{ maxLength: 30 }}
                 label="Description"
                 type="text"
                 multiline

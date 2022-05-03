@@ -8,6 +8,11 @@
 //     }
 // }
 
+
+export const userInfo = {
+    
+}
+
 export const followers = [
   {
     id: 1,

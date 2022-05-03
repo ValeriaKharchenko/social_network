@@ -3,9 +3,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
 export const Private = ({ children }: any) => {
-  const auth = useSelector(
-    (state: RootState) => state.user.userInfo.isAuthorised
-  );
+  const auth = useSelector((state: RootState) => state.user.userInfo.auth);
+  // const token = localStorage.getItem("accessToken");
 
   const location = useLocation();
   if (!auth) {
@@ -14,9 +13,8 @@ export const Private = ({ children }: any) => {
   return children;
 };
 export const Public = ({ children }: any) => {
-  const auth = useSelector(
-    (state: RootState) => state.user.userInfo.isAuthorised
-  );
+  const auth = useSelector((state: RootState) => state.user.userInfo.auth);
+  // const token = localStorage.getItem("accessToken");
   const location = useLocation();
   if (auth) {
     return <Navigate to={"/profile"} state={{ from: location }} />;

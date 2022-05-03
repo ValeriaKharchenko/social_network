@@ -6,10 +6,23 @@ import "./styles/navbar.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "./Logout_btn/logout";
+import userService from "../utilities/user-service";
 
 const Navbar = () => {
-  const name = useSelector((state: RootState) => state.user.userInfo.name);
-  console.log(name);
+  const firstName = useSelector(
+    (state: RootState) => state.user.userInfo.firstName
+  );
+  const lastName = useSelector(
+    (state: RootState) => state.user.userInfo.lastName
+  );
+  console.log(firstName);
+  console.log(lastName);
+  const name = firstName + " " + lastName;
+
+  const load = async () => {
+    const res = await userService.profile();
+    console.log("Prof", res);
+  };
 
   return (
     <div className="navigation">

@@ -1,0 +1,14 @@
+.user_info_container{
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    place-items: center;
+    max-width: 600px;
+    .left_side{
+        padding: 1em;
+        display: flex;
+        place-items: center;
+        justify-content: start;
+        flex-direction: column;
+    }
+}
