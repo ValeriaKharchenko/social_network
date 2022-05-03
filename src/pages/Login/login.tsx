@@ -1,9 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import userService from "../../utilities/user-service";
+import authService from "../../utilities/user-service";
 import "./login.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser, update } from "../../store/userSlice";
 import { RootState } from "../../store/store";
 import {
   TextField,
@@ -29,8 +28,9 @@ export default function Login() {
   const onSubmit = async (data: FormInput) => {
     try {
       console.log(data);
-      const response = await userService.login(data.email, data.password);
+      const response = await authService.login(data.email, data.password);
       // @ts-ignore
+      // const resp = axios("/user/signin", data)
       dispatch(update(response));
       redirect("/profile", { replace: true });
     } catch (e) {
@@ -44,7 +44,7 @@ export default function Login() {
   };
   const follow = async () => {
     try {
-      await userService.followRequest();
+      await authService.followRequest();
       console.log("request from follow");
     } catch (e) {
       console.log(e);
