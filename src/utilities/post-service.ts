@@ -3,7 +3,7 @@ import { NewPostForm } from "../components/posts/newPost";
 
 export default {
   async addNewPost(post: NewPostForm) {
-    console.log("Get post: " + post);
+    console.log("Get post: ", post);
     // return true;
     try {
       const response = await http.post("post/new", {

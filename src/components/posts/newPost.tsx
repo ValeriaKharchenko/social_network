@@ -109,6 +109,8 @@ export function NewPost() {
           return str;
         })
         .catch((e) => alert(e))) as string;
+    } else {
+      data.imgString = "";
     }
 
     if (check) {

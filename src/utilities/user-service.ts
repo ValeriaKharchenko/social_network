@@ -115,7 +115,7 @@ export default {
       const response = await http.get("user/me");
       console.log("Response from profile", response);
     } catch (e) {
-      console.log("Error from profile", e);
+      console.log("Couldn't fetch", e);
     }
   },
 };
