@@ -18,7 +18,7 @@ const Profile = () => {
       <Navbar />
 
       <div className="content">
-        <button onClick={() => profile_service.getMyInfo()} >GET MY INFO</button>
+        <button onClick={() => ProfileService.getMyInfo()} >GET MY INFO</button>
         <h1>My Settings</h1>
         <ProfileInfo data={selector.profile.info} />
 
