@@ -35,6 +35,7 @@ const Profile = () => {
         <h1> - Groups  </h1>
 
       </div>
+
     </div>
   )
 }

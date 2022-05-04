@@ -1,5 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "react-router-dom";
 import { Home } from "@mui/icons-material";
 import { Avatar, Button } from "@mui/material";
 import "./styles/navbar.scss";
@@ -7,6 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "./Logout_btn/logout";
 import Searchbar from "./Searchbar";
+import profileService from "../utilities/profile-service";
 
 const Navbar = () => {
   // const storeInfo = useSelector((state: RootState) => state)
@@ -22,7 +22,6 @@ const Navbar = () => {
         <p>{storeProfileInfo.first_name} {storeProfileInfo.last_name}</p>
         <button onClick={() => console.log(storeProfileInfo)} >show storeInfo</button>
       </div>
-
       <Link className="link" to={"/homepage"}>
         {" "}
         Home <Home />
