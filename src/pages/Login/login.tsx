@@ -4,6 +4,7 @@ import authService from "../../utilities/user-service";
 import "./login.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { update } from "../../store/userSlice";
 import {
   TextField,
   Button,
