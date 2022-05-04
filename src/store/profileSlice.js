@@ -18,15 +18,36 @@ let initial = {
 export const profileSlice = createSlice({
     name: "profile",
     initialState: {
-        info: initial
+        info: initial,
+        allUsers:[],
     },
     reducers: {
         update:(state, action) => {
             state.info = action.payload
         },
         remove : (state) => (state ={}),
+
+        addAllUsers: (state, action) => {
+            const arr = action.payload.split('}');
+            let newArr = []
+            for(let item of arr ){
+                item.replace("{", "")
+                item.replace("[", "")
+                let itemArr = item.split(" ")
+                let obj = {
+                    id: itemArr[0],
+                    first_name: itemArr[1],
+                    last_name: itemArr[2],
+                    user_img: itemArr[3]
+                };
+                newArr.push(obj)
+            }
+            console.log(newArr);
+            // state.allUsers = action.payload.split('}')
+        }
     }
 })
 
-export const {update,remove} = profileSlice.actions;
+// export const {update,remove} = profileSlice.actions;
+export const { update, remove, addAllUsers } = profileSlice.actions;
 export default profileSlice.reducer

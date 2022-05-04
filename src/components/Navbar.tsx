@@ -6,21 +6,33 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "./Logout_btn/logout";
 import Searchbar from "./Searchbar";
-import profileService from "../utilities/profile_service";
+import ProfileService from "../utilities/profile_service";
+
+
+
+const peep = {
+  id: 1,
+  first_name: 'Siri',
+  last_name: 'Tiri',
+  // UserImg : "../../assets/Images/User/cat.png",
+  UserImg: 'cat.png',
+}
+
 
 const Navbar = () => {
-  // const storeInfo = useSelector((state: RootState) => state)
+  const profile_service = ProfileService()
+  const storeInfo = useSelector((state: RootState) => state)
   // @ts-ignore
   const storeProfileInfo = useSelector((state: RootState) => state.profile.info)
 
   return (
     <div className="navigation">
-      <Searchbar />
+      <Searchbar   />
       <div className="profile_box">
         <Logout />
         <Avatar alt={`${storeProfileInfo.first_name} `} src={storeProfileInfo.user_img} />
         <p>{storeProfileInfo.first_name} {storeProfileInfo.last_name}</p>
-        <button onClick={() => console.log(storeProfileInfo)} >show storeInfo</button>
+        <button onClick={() => console.log(storeInfo)} >show storeInfo</button>
       </div>
       <Link className="link" to={"/homepage"}>
         {" "}

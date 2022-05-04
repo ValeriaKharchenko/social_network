@@ -2,6 +2,11 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import {theme} from "../theme"
+import { Avatar } from "@mui/material";
+
+import ProfileService from '../utilities/profile_service';
+import { useSelector } from 'react-redux';
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -44,7 +49,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-const Searchbar = () => {
+
+const Searchbar = ({data = []}) => {
+ const profile_service = ProfileService()
+  const selector = useSelector(state => state)
   return (
     <div>
     <Search>
@@ -54,9 +62,22 @@ const Searchbar = () => {
         <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              onClick={() => console.log("IM NOW REQUESTING ALL USERS")}
+              onClick={() => profile_service.getAllUsers()}
             />
     </Search>
+
+    {selector.profile.allUsers && selector.profile.allUsers.map(user => (
+      <div className="user flex" id={user.id} >
+        {<Avatar  sx={{width: 30, height: 30,}} alt="" src={user.user_img} />}
+        <p>{user.first_name} {user.last_name}</p>
+      </div>
+    ))}
+    {/* {data && data.map(user => (
+      <div className="user flex" id={user.id} >
+        {<Avatar  sx={{width: 30, height: 30,}} alt="" src={require("../assets/Images/User/cat.png")} />}
+        <p>{user.first_name} {user.last_name}</p>
+      </div>
+    ))} */}
     </div>
 
   )

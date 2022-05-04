@@ -2,7 +2,7 @@
 import http from './http-common';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../store/store";
-import { update,updatePrivacy } from '../store/profileSlice';
+import { update,addAllUsers } from '../store/profileSlice';
 import * as helper from '../helpers/HelperFuncs';
 
 const ProfileService = () => {
@@ -29,9 +29,19 @@ const ProfileService = () => {
       }
   }
 
+  const getAllUsers = async () => { 
+    try{
+      console.log("Fetching All users");
+      const response = await http.get('user/all');
+      dispatch(addAllUsers(response.data));
+    }catch(err){
+      checkError(err)
+    }
+  }
   return {
     getMyInfo,
-    updatePrivacy
+    updatePrivacy,
+    getAllUsers
   };
 }
 
