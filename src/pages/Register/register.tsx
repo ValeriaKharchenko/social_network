@@ -16,6 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
 
+
 export interface RegisterForm {
   first_name: string;
   last_name: string;
@@ -32,6 +33,7 @@ export default function Register() {
   let redirect = useNavigate();
   const { handleSubmit, register } = useForm<RegisterForm>();
   const [errors, setErrors] = useState([]);
+
 
   const onSubmit = async (user: RegisterForm) => {
     let flag = true;
@@ -182,6 +184,10 @@ export default function Register() {
                 margin="normal"
                 variant="standard"
                 {...register("dob")}
+                onChange={(e)=>{
+                  console.log(e.target.value);
+                  
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>

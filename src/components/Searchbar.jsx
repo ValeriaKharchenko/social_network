@@ -1,11 +1,11 @@
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import {theme} from "../theme"
-import { Avatar } from "@mui/material";
-
+import { Avatar, Container } from "@mui/material";
+import "./styles/searchbar.scss"
 import ProfileService from '../utilities/profile_service';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -50,9 +50,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-const Searchbar = ({data = []}) => {
+const Searchbar = () => {
  const profile_service = ProfileService()
-  const selector = useSelector(state => state)
+  const storeInfo = useSelector(state => state)
+  const [fetched,setFetched] = useState(false)
   return (
     <div>
     <Search>
@@ -60,24 +61,32 @@ const Searchbar = ({data = []}) => {
             <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
+              id='search_input'
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              onClick={() => profile_service.getAllUsers()}
+              // onClick={() => profile_service.getAllUsers()}
+              onKeyDown={(e) => {
+                if(fetched === false){
+                  profile_service.getAllUsers()
+                  setFetched(true)
+                }
+                if(e.target.value){
+                   document.querySelector(".searched_users").classList.remove('hide')
+                }else{
+                  document.querySelector(".searched_users").classList.add('hide')
+                }
+              }}
             />
     </Search>
-
-    {selector.profile.allUsers && selector.profile.allUsers.map(user => (
-      <div className="user flex" id={user.id} >
-        {<Avatar  sx={{width: 30, height: 30,}} alt="" src={user.user_img} />}
-        <p>{user.first_name} {user.last_name}</p>
-      </div>
-    ))}
-    {/* {data && data.map(user => (
-      <div className="user flex" id={user.id} >
-        {<Avatar  sx={{width: 30, height: 30,}} alt="" src={require("../assets/Images/User/cat.png")} />}
-        <p>{user.first_name} {user.last_name}</p>
-      </div>
-    ))} */}
+      
+      <Container className='searched_users hide'>
+        {storeInfo.profile.allUsers && storeInfo.profile.allUsers.map(user => (
+          <div className="user flex" key={user.ID} id={user.ID}>
+            {<Avatar  sx={{width: 30, height: 30,}} alt="" src={user.user_img} />}
+            <p>{user.first_name} {user.last_name}</p>
+          </div>
+        ))}
+       </Container>
     </div>
 
   )

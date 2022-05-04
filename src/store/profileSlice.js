@@ -28,22 +28,7 @@ export const profileSlice = createSlice({
         remove : (state) => (state ={}),
 
         addAllUsers: (state, action) => {
-            const arr = action.payload.split('}');
-            let newArr = []
-            for(let item of arr ){
-                item.replace("{", "")
-                item.replace("[", "")
-                let itemArr = item.split(" ")
-                let obj = {
-                    id: itemArr[0],
-                    first_name: itemArr[1],
-                    last_name: itemArr[2],
-                    user_img: itemArr[3]
-                };
-                newArr.push(obj)
-            }
-            console.log(newArr);
-            // state.allUsers = action.payload.split('}')
+            state.allUsers = action.payload
         }
     }
 })

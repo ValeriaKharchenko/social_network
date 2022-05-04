@@ -1,0 +1,15 @@
+.searched_users{
+    height: 200px;
+    .user{
+        transition: 0.3s all ease;
+        &:hover{
+            background-color: white;
+            cursor: pointer;
+        }
+    }
+}
+
+.hide{
+    height: 0;
+    opacity: 0;
+}

@@ -3,6 +3,7 @@ import "./styles/profile_info.scss"
 import "../index"
 import ProfileService from "../utilities/profile_service";
 
+
 const ProfileInfo = ({data}) => {
   const profile_service = ProfileService()
 

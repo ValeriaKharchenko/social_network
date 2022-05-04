@@ -33,6 +33,7 @@ const ProfileService = () => {
     try{
       console.log("Fetching All users");
       const response = await http.get('user/all');
+      console.log(response.data);
       dispatch(addAllUsers(response.data));
     }catch(err){
       checkError(err)
