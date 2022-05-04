@@ -1,15 +1,12 @@
 import Post from "./Post";
 import { NewPost } from "./newPost";
-import { Button, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../../store/postSlice";
-import store from "../../redux/store";
 import { RootState } from "../../store/store";
-import postService from "../../utilities/post-service";
 const posts = [
   {
     id: 1,
@@ -55,6 +52,7 @@ const posts = [
 export interface Post {
   id: number;
 }
+
 interface onePost {
   id: number;
   author: string;
@@ -82,15 +80,18 @@ const PostList = () => {
   //   if (posts.length !== 0) {
   //     return;
   //   }
-  //   postService.getAllUserPost().then((response) => {
-  //     response
-  //       .forEach((p: any) => {
-  //         console.log(p);
-  //       })
-  //       .catch((e: Error) => {
-  //         console.log("error when tried to get all posts", e);
+  //   postService
+  //     .getAllUserPost()
+  //     .then((response) => {
+  //       console.log("Response type", typeof response);
+  //       console.log("Response:", response);
+  //       response.forEach((r: any) => {
+  //         console.log(r);
   //       });
-  //   });
+  //     })
+  //     .catch((e: Error) => {
+  //       console.log("error when tried to get all posts", e);
+  //     });
   // });
 
   return (

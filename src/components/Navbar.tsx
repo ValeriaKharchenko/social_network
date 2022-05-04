@@ -1,5 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "react-router-dom";
 import { Home } from "@mui/icons-material";
 import { Avatar, Button } from "@mui/material";
 import "./styles/navbar.scss";

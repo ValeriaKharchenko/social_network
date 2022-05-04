@@ -35,3 +35,22 @@ code {
     monospace;
 }
 
+
+#container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  > div {
+    display: flex;
+  }
+  .left {
+    flex: 0 0 auto;
+  }
+  .right {
+    flex: 1;
+    padding: 20px;
+  }
+}

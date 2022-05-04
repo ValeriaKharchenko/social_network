@@ -22,10 +22,7 @@ export default {
   // async getAllUserPost() {
   //   console.log("Got here!");
   //   try {
-  //     const response = await http.post("post/oneuser", {
-  //       params: { user_id: "" },
-  //     });
-  //     console.log(response.data);
+  //     const response = await http.get("post/oneuser");
   //     return response.data;
   //   } catch (e) {
   //     console.error(e);

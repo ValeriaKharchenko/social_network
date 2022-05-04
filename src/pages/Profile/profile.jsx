@@ -6,7 +6,6 @@ import userService from "../../utilities/user-service";
 export default function Profile() {
   return (
     <div className="profile">
-      <Navbar />
       <PostList />
     </div>
   );
