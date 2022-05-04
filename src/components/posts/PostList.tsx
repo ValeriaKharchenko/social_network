@@ -1,13 +1,6 @@
 import Post from "./Post";
 import { NewPost } from "./newPost";
-<<<<<<< HEAD:src/components/posts/PostList.jsx
 import { useState } from "react";
-=======
-import { Container } from "@mui/material";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
-import Tooltip from "@mui/material/Tooltip";
->>>>>>> master:src/components/posts/PostList.tsx
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../../store/postSlice";
 import { RootState } from "../../store/store";

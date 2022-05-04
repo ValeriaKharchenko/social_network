@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "./Logout_btn/logout";
 import Searchbar from "./Searchbar";
-import profileService from "../utilities/profile-service";
+import profileService from "../utilities/profile_service";
 
 const Navbar = () => {
   // const storeInfo = useSelector((state: RootState) => state)

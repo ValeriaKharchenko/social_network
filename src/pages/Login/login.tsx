@@ -32,8 +32,6 @@ export default function Login() {
     try {
       console.log(data);
       const response = await authService.login(data.email, data.password);
-      // @ts-ignore
-      // const resp = axios("/user/signin", data)
       dispatch(update(response));
       profile_service.getMyInfo()
       redirect("/profile", { replace: true });
@@ -54,16 +52,9 @@ export default function Login() {
       console.log(e);
     }
   };
-  // const auth = useSelector(
-  //   (state: RootState) => state.user.userInfo.isAuthorised
-  // );
   const isLoading = useSelector((state: RootState) => state.user.pending);
-  // if (auth) {
-  //   redirect("/profile", { replace: true });
-  // }
   console.log("Here!");
   return (
-    // <div className="Login">
     <Container component="main" maxWidth="xs" className={"Login"}>
       <Box
         sx={{

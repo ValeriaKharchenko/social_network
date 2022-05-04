@@ -2,6 +2,7 @@ import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Navbar from "../components/Navbar";
+import "../index.scss"
 
 export const Private = () => {
   const auth = useSelector((state: RootState) => state.user.userInfo.auth);

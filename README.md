@@ -9,7 +9,7 @@
     3. Profile folder renamed to HomePage folder and content also changed
     4. Profile has its own page now 
     5. Page after login is now called Homepage and link is /homepage
-    6. Deleted auth folder (03.05)
+    6. Deleted auth folder 
 
 
 
