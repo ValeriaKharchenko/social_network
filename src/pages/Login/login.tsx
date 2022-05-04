@@ -4,6 +4,7 @@ import authService from "../../utilities/user-service";
 import "./login.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { update } from "../../store/userSlice";
 import {
   TextField,
   Button,
@@ -14,9 +15,10 @@ import {
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { PeopleAlt } from "@mui/icons-material";
-import { update } from "../../store/userSlice";
+import ProfileService from "../../utilities/profile_service";
 
 export default function Login() {
+  const profile_service = ProfileService()
   interface FormInput {
     email: string;
     password: string;
@@ -30,9 +32,8 @@ export default function Login() {
     try {
       console.log(data);
       const response = await authService.login(data.email, data.password);
-      // @ts-ignore
-      // const resp = axios("/user/signin", data)
       dispatch(update(response));
+      profile_service.getMyInfo()
       redirect("/profile", { replace: true });
     } catch (e) {
       if (e instanceof Error) {
@@ -51,16 +52,9 @@ export default function Login() {
       console.log(e);
     }
   };
-  // const auth = useSelector(
-  //   (state: RootState) => state.user.userInfo.isAuthorised
-  // );
   const isLoading = useSelector((state: RootState) => state.user.pending);
-  // if (auth) {
-  //   redirect("/profile", { replace: true });
-  // }
   console.log("Here!");
   return (
-    // <div className="Login">
     <Container component="main" maxWidth="xs" className={"Login"}>
       <Box
         sx={{

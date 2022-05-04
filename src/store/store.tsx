@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import userReducer from "./userSlice";
 import postReducer from "./postSlice";
+import profileReducer  from "./profileSlice";
 import type UserInfo from "../utilities/user-service";
 
 const saveToLocalStorage = (state: any) => {
@@ -38,7 +39,7 @@ const loadFromLocalStorage = () => {
   }
 };
 
-const rootReducer = combineReducers({ user: userReducer, post: postReducer });
+const rootReducer = combineReducers({ user: userReducer, post: postReducer, profile:profileReducer });
 
 const persistedStore = loadFromLocalStorage();
 

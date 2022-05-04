@@ -1,5 +1,6 @@
 import http from "./http-common";
 import { RegisterForm } from "../pages/Register/register";
+
 import {
   removeAccessToken,
   removeRefreshToken,
@@ -15,6 +16,8 @@ export interface UserInfo {
   auth: boolean;
 }
 
+
+
 export default {
   async login(email: string, pwd: string): Promise<UserInfo> {
     try {
@@ -22,6 +25,7 @@ export default {
         email: email,
         password: pwd,
       });
+
       //get tokens and save to local storage
       setAccessToken(response.data.access_token);
       setRefreshToken(response.data.refresh_token);
@@ -33,7 +37,7 @@ export default {
         auth: true,
       };
     } catch (err) {
-      throw err;
+        throw err;
     }
   },
 
@@ -82,6 +86,7 @@ export default {
   //     throw err;
   //   }
   // },
+
 
   async logout() {
     http

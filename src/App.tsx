@@ -1,9 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/login";
 import Register from "./pages/Register/register";
+import Homepage from "./pages/Homepage/homepage";
+
 import Profile from "./pages/Profile/profile";
 import OnePost from "./pages/OnePost/onePost";
 import { Public, Private } from "./hoc/routeWrappers";
+import './index.scss'
 
 function App() {
   return (
@@ -11,6 +14,7 @@ function App() {
       <Routes>
         <Route path={"/follow/user"}></Route>
         <Route element={<Private />}>
+          <Route path={"/homepage"} element={<Homepage />} />
           <Route path={"/profile"} element={<Profile />} />
           <Route path="post/:id" element={<OnePost />} />
         </Route>

@@ -42,12 +42,12 @@ code {
   justify-content: center;
   width: 100vw;
   height: 100vh;
-
   > div {
     display: flex;
   }
   .left {
     flex: 0 0 auto;
+    width: 30vw;
   }
   .right {
     flex: 1;

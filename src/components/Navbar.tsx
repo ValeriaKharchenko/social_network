@@ -5,51 +5,34 @@ import "./styles/navbar.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "./Logout_btn/logout";
-import userService from "../utilities/user-service";
-import profileService from "../utilities/profile-service";
+import Searchbar from "./Searchbar";
+import profileService from "../utilities/profile_service";
 
 const Navbar = () => {
-  const firstName = useSelector(
-    (state: RootState) => state.user.userInfo.firstName
-  );
-  const lastName = useSelector(
-    (state: RootState) => state.user.userInfo.lastName
-  );
-  console.log(firstName);
-  console.log(lastName);
-  const name = firstName + " " + lastName;
-
-  const load = async () => {
-    const res = await userService.profile();
-    console.log("Prof", res);
-  };
+  // const storeInfo = useSelector((state: RootState) => state)
+  // @ts-ignore
+  const storeProfileInfo = useSelector((state: RootState) => state.profile.info)
 
   return (
     <div className="navigation">
+      <Searchbar />
       <div className="profile_box">
         <Logout />
-        <Avatar alt="Travis Howard" src={require("../assets/Images/ano.jpg")} />
-        <p>{name}</p>
+        <Avatar alt={`${storeProfileInfo.first_name} `} src={storeProfileInfo.user_img} />
+        <p>{storeProfileInfo.first_name} {storeProfileInfo.last_name}</p>
+        <button onClick={() => console.log(storeProfileInfo)} >show storeInfo</button>
       </div>
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          profileService.getMyInfo();
-        }}
-      >
-        Click me!
-      </Button>
-      <Link className="link" to={"/profile"}>
+      <Link className="link" to={"/homepage"}>
         {" "}
         Home <Home />
       </Link>
       <Link className="link" to={"/profile"}>
         {" "}
-        Notifications <Home />
+        Profile <Home />
       </Link>
       <Link className="link" to={"/profile"}>
         {" "}
-        Profile <Home />
+        Notifications <Home />
       </Link>
       <Link className="link" to={"/profile"}>
         {" "}

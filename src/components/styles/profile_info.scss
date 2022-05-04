@@ -1,0 +1,32 @@
+.user_info_container{
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    place-items: center;
+    max-width: 600px;
+    .left_side{
+        padding: 1em;
+        display: flex;
+        place-items: center;
+        justify-content: start;
+        flex-direction: column;
+    }
+
+
+    .public{
+        // background-color: red;
+        width: 40px;
+        height: 16px;
+        border: 2px solid grey;
+        background: linear-gradient(-90deg, rgba(216, 216, 216, 1) 0%, rgba(189, 189, 189, 1) 50%, rgba(209, 118, 83, 1) 50%, rgba(219, 82, 30, 1) 100%);
+        display: relative;
+        cursor: pointer;
+        
+        
+        &.private{
+            background: linear-gradient(90deg, rgba(216, 216, 216, 1) 0%, rgba(189, 189, 189, 1) 50%, rgba(209, 118, 83, 1) 50%, rgba(219, 82, 30, 1) 100%);
+            position: relative;
+        }
+    }
+
+}
