@@ -10,6 +10,7 @@ import Searchbar from "./Searchbar";
 
 const Navbar = () => {
   // const storeInfo = useSelector((state: RootState) => state)
+  // @ts-ignore
   const storeProfileInfo = useSelector((state: RootState) => state.profile.info)
 
   return (

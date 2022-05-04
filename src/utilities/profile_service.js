@@ -7,7 +7,6 @@ import * as helper from '../helpers/HelperFuncs';
 
 const ProfileService = () => {
   const dispatch = useDispatch();
-//   const storeInfo = useSelector((state: RootState) => state);
   const getMyInfo = async () => {
     try {
       console.log('GETTING USER INFO');

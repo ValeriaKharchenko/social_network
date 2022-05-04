@@ -5,6 +5,7 @@ import ProfileService from "../utilities/profile_service";
 
 const ProfileInfo = ({data}) => {
   const profile_service = ProfileService()
+
   return (
     <div className="user_info_container">
         <div className="left_side">

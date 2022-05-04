@@ -15,9 +15,10 @@ import {
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { PeopleAlt } from "@mui/icons-material";
-import { update } from "../../store/userSlice";
+import ProfileService from "../../utilities/profile_service";
 
 export default function Login() {
+  const profile_service = ProfileService()
   interface FormInput {
     email: string;
     password: string;
@@ -34,6 +35,7 @@ export default function Login() {
       // @ts-ignore
       // const resp = axios("/user/signin", data)
       dispatch(update(response));
+      profile_service.getMyInfo()
       redirect("/profile", { replace: true });
     } catch (e) {
       if (e instanceof Error) {

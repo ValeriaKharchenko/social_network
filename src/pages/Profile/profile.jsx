@@ -7,18 +7,22 @@ import ProfileService from "../../utilities/profile_service"
 import {useSelector } from 'react-redux';
 // data
 import {followers, stalkers} from "../../mockData"
-import { useEffect } from "react";
-
+import { useEffect, useRef } from "react";
       
 const Profile = () => {
   const selector = useSelector(state => state)
+  const profile_service = ProfileService()
+
+  // useEffect(()=>{
+  //   profile_service.getMyInfo()
+  // },[])
 
   return (
     <div className='profile'>
       <Navbar />
 
       <div className="content">
-        <button onClick={() => ProfileService.getMyInfo()} >GET MY INFO</button>
+        {/* <button onClick={() => profile_service.getMyInfo()} >GET MY INFO</button> */}
         <h1>My Settings</h1>
         <ProfileInfo data={selector.profile.info} />
 
