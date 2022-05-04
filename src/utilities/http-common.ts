@@ -62,6 +62,20 @@ export default {
       throw e;
     }
   },
+  put: async (url: string): Promise<AxiosResponse<any, any>> => {
+     try {
+      const res = await a.put(url);
+      return res;
+    } catch (e: any) {
+      if (e.response) {
+        if (e.response.data.status_code === 401) {
+          await refresh();
+          return await a.get(url);
+        }
+      }
+      throw e;
+    }
+  }
 };
 
 async function refresh() {

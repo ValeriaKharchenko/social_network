@@ -10,9 +10,15 @@
 
 
 export const userInfo = {
-    
-}
-
+  email: 'silver.luhtoja@gmail.com',
+  first_name: 'Silver',
+  last_name: 'Luhtoja',
+  birth_day: '0035-08-12T00:00:00Z',
+  nickname: 'Sinsius',
+  about_me: 'React and redux nuub',
+  user_img: 'old_man.jpg',
+  is_private: false,
+};
 export const followers = [
   {
     id: 1,

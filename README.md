@@ -1,10 +1,9 @@
 // https://github.com/ValeriaKharchenko/social_network
 
-### Questions:
-
+### Questions&Suggestions:
+    1. Registration needs checks (DOB) , Errors with login
 
 ### Update:
-
     1. Deleted App.scss
     2. Logout folder is now Logout_btn folder and moved it in components folder
     3. Profile folder renamed to HomePage folder and content also changed
