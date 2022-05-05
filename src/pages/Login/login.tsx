@@ -18,7 +18,7 @@ import { PeopleAlt } from "@mui/icons-material";
 import ProfileService from "../../utilities/profile_service";
 
 export default function Login() {
-  const profile_service = ProfileService()
+  const profile_service = ProfileService();
   interface FormInput {
     email: string;
     password: string;
@@ -33,7 +33,7 @@ export default function Login() {
       console.log(data);
       const response = await authService.login(data.email, data.password);
       dispatch(update(response));
-      profile_service.getMyInfo()
+      await profile_service.getMyInfo();
       redirect("/profile", { replace: true });
     } catch (e) {
       if (e instanceof Error) {

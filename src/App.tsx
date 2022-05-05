@@ -6,7 +6,7 @@ import Homepage from "./pages/Homepage/homepage";
 import Profile from "./pages/Profile/profile";
 import OnePost from "./pages/OnePost/onePost";
 import { Public, Private } from "./hoc/routeWrappers";
-import './index.scss'
+import "./index.scss";
 
 function App() {
   return (

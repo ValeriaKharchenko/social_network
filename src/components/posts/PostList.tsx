@@ -1,65 +1,25 @@
 import Post from "./Post";
-import { NewPost } from "./newPost";
-import { useState } from "react";
+import { Follower, NewPost } from "./newPost";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { update } from "../../store/postSlice";
+import { openModal } from "../../store/postSlice";
 import { RootState } from "../../store/store";
 import { Button, Container } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
-const posts = [
-  {
-    id: 1,
-    author: "SilverL",
-    title: "Random Joes",
-    date: "04:00AM",
-    content: "Feel free do change or put something else into this design. ",
-  },
-  {
-    id: 2,
-    author: "Peter Pan",
-    title: "",
-    date: "15:34PM",
-    content:
-      "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it ",
-  },
-  {
-    id: 3,
-    author: "Jessica",
-    title: "",
-    date: "16:34PM",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus officiis consequuntur voluptatum doloremque nulla temporibus amet adipisci ab non velit at itaque cupiditate accusantium, culpa quaerat placeat delectus quo maxime!60",
-  },
-  {
-    id: 4,
-    author: "WINNI PUHH",
-    title: "Teised loomaD",
-    date: "18:34PM",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus officiis consequuntur voluptatum doloremque nulla temporibus amet adipisci ab non velit at itaque cupiditate accusantium, culpa quaerat placeat delectus quo maxime!60",
-  },
-  {
-    id: 5,
-    author: "WINNI PUHH",
-    title: "Teised loomaD",
-    date: "18:34PM",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus officiis consequuntur voluptatum doloremque nulla temporibus amet adipisci ab non velit at itaque cupiditate accusantium, culpa quaerat placeat delectus quo maxime!60",
-  },
-];
+import postService from "../../utilities/post-service";
+import * as React from "react";
 
-export interface Post {
+export interface PostInterface {
   id: number;
-}
-
-interface onePost {
-  id: number;
-  author: string;
-  date: Date;
-  content: string;
+  user_id: string;
+  user_firstname: string;
+  user_lastname: string;
   title: string;
+  content: string;
+  image: string;
+  created_at: string;
 }
 
 const PostList = () => {
@@ -73,33 +33,60 @@ const PostList = () => {
   const handleClick = () => {
     console.log("clicked");
     // e.preventDefault();
-    dispatch(update());
+    dispatch(openModal());
   };
-  // let posts: onePost[] = [];
 
-  // useEffect(() => {
-  //   if (posts.length !== 0) {
-  //     return;
-  //   }
-  //   postService
-  //     .getAllUserPost()
-  //     .then((response) => {
-  //       console.log("Response type", typeof response);
-  //       console.log("Response:", response);
-  //       response.forEach((r: any) => {
-  //         console.log(r);
-  //       });
-  //     })
-  //     .catch((e: Error) => {
-  //       console.log("error when tried to get all posts", e);
-  //     });
-  // });
+  const [posts, setPosts] = React.useState<PostInterface[]>([]);
+
+  useEffect(() => {
+    if (posts.length !== 0) {
+      return;
+    }
+    postService
+      .getAllUserPost()
+      .then((response) => {
+        let arr: PostInterface[] = [];
+        response.forEach((r: any) => {
+          const p = {
+            id: r.id,
+            user_id: r.user_id,
+            user_firstname: r.user_firstname,
+            user_lastname: r.user_lastname,
+            title: r.subject,
+            content: r.content,
+            image: r.image,
+            created_at: r.created_at,
+          };
+          arr.push(p);
+        });
+        setPosts(arr);
+      })
+      .catch((e: Error) => {
+        console.log("error when tried to get all posts", e);
+      });
+    // fetch("https://jsonplaceholder.typicode.com/posts")
+    //   .then((response) => response.json())
+    //   .then((posts) => {
+    //     let arr: PostInterface[] = [];
+    //     posts.forEach((p: PostFromJson) => {
+    //       const el = {
+    //         id: p.id,
+    //         title: p.title,
+    //         content: p.body,
+    //         author: "",
+    //       };
+    //       arr.push(el);
+    //     });
+    //     setPosts(arr);
+    //     console.log(posts);
+    //   });
+  });
 
   return (
     <Container>
       <div className="post_list">
         {posts.map((post) => (
-          <Post key={post.id} post={post} />
+          <Post key={post.id} post={post} toShow={false} />
         ))}
       </div>
       <div className={"fabBtn"}>
@@ -117,7 +104,7 @@ const PostList = () => {
           </Fab>
         </Tooltip>
       </div>
-      {isOpen ? <NewPost /> : null}
+      {isOpen ? <NewPost fullView={true} /> : null}
     </Container>
   );
 };

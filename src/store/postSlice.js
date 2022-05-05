@@ -6,11 +6,11 @@ export const postSlice = createSlice({
     isOpen: false,
   },
   reducers: {
-    update: (state) => {
+    openModal: (state) => {
       state.isOpen = !state.isOpen;
     },
   },
 });
 
-export const { update } = postSlice.actions;
+export const { openModal } = postSlice.actions;
 export default postSlice.reducer;
