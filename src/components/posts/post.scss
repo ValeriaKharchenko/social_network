@@ -43,6 +43,10 @@
         padding: 10px;
         background-color:$box-inner-color ;
         border-radius: $box-rad;
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+        }
     }
     
 }

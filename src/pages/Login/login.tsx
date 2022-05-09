@@ -34,7 +34,7 @@ export default function Login() {
       const response = await authService.login(data.email, data.password);
       dispatch(update(response));
       await profile_service.getMyInfo();
-      redirect("/profile", { replace: true });
+      redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {
         console.log(e.message);

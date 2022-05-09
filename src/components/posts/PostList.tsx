@@ -2,7 +2,7 @@ import Post from "./Post";
 import { Follower, NewPost } from "./newPost";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../../store/postSlice";
+import { loadPosts, openModal } from "../../store/postSlice";
 import { RootState } from "../../store/store";
 import { Button, Container } from "@mui/material";
 import Fab from "@mui/material/Fab";
@@ -29,6 +29,9 @@ const PostList = () => {
     right: 10,
   };
   const isOpen = useSelector((state: RootState) => state.post.isOpen);
+  const posts: PostInterface[] = useSelector(
+    (state: RootState) => state.post.posts
+  );
   const dispatch = useDispatch();
   const handleClick = () => {
     console.log("clicked");
@@ -36,7 +39,7 @@ const PostList = () => {
     dispatch(openModal());
   };
 
-  const [posts, setPosts] = React.useState<PostInterface[]>([]);
+  // const [posts, setPosts] = React.useState<PostInterface[]>([]);
 
   useEffect(() => {
     if (posts.length !== 0) {
@@ -59,27 +62,12 @@ const PostList = () => {
           };
           arr.push(p);
         });
-        setPosts(arr);
+        // setPosts(arr);
+        dispatch(loadPosts(arr));
       })
       .catch((e: Error) => {
         console.log("error when tried to get all posts", e);
       });
-    // fetch("https://jsonplaceholder.typicode.com/posts")
-    //   .then((response) => response.json())
-    //   .then((posts) => {
-    //     let arr: PostInterface[] = [];
-    //     posts.forEach((p: PostFromJson) => {
-    //       const el = {
-    //         id: p.id,
-    //         title: p.title,
-    //         content: p.body,
-    //         author: "",
-    //       };
-    //       arr.push(el);
-    //     });
-    //     setPosts(arr);
-    //     console.log(posts);
-    //   });
   });
 
   return (
@@ -92,7 +80,6 @@ const PostList = () => {
       <div className={"fabBtn"}>
         <Tooltip title="Add new post">
           <Fab
-            // className={"fbtn-inner-style"}
             color="secondary"
             aria-label="add"
             size={"large"}

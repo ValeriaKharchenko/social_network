@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../../store/postSlice";
+import { openModal, updateComments, updatePosts } from "../../store/postSlice";
 import "./newPost.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -128,6 +128,11 @@ export function NewPost(props: { fullView: boolean }) {
         console.log("New post", data);
         const response = await postService.addNewPost(data); //probably we'll have to renew list of posts/store after that
         handleClose();
+        // @ts-ignore
+        data.image = "";
+        if (props.fullView) {
+          dispatch(updatePosts(data));
+        } else dispatch(updateComments(data));
       } catch (e) {
         console.log(e);
         alert(e);
@@ -160,7 +165,6 @@ export function NewPost(props: { fullView: boolean }) {
             <Input
               placeholder="Title"
               inputProps={ariaLabel}
-              // variant="filled"
               fullWidth
               {...register("title")}
               required
@@ -188,7 +192,6 @@ export function NewPost(props: { fullView: boolean }) {
               Who can see this post?
               <RadioGroup
                 row
-                // aria-labelledby="demo-controlled-radio-buttons-group"
                 name="post-privacy"
                 value={value}
                 onChange={handleChange}

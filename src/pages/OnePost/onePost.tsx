@@ -1,10 +1,14 @@
 import { Post } from "../../components/posts/Post";
 import { useParams } from "react-router-dom";
 import { Container } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PostInterface } from "../../components/posts/PostList";
 import "../../components/posts/post.scss";
 import postService from "../../utilities/post-service";
+import { NewPost } from "../../components/posts/newPost";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { loadComments } from "../../store/postSlice";
 
 function parseDate(str: string): string {
   const date = new Date(str);
@@ -20,7 +24,13 @@ export default function OnePost() {
   let { id } = useParams();
   const postId = id ? id : "";
   const [post, setPost] = React.useState<PostInterface>();
-  const [comments, setComments] = React.useState<PostInterface[]>([]);
+  // const [comments, setComments] = React.useState<PostInterface[]>([]);
+  const isOpen = useSelector((state: RootState) => state.post.isOpen);
+
+  const dispatch = useDispatch();
+  const comments: PostInterface[] = useSelector(
+    (state: RootState) => state.post.comments
+  );
 
   useEffect(() => {
     if (post) return;
@@ -57,7 +67,8 @@ export default function OnePost() {
           comments.push(com);
         });
         setPost(post);
-        setComments(comments);
+        // setComments(comments);
+        dispatch(loadComments(comments));
       } catch (e) {
         console.error(e);
       }
@@ -77,9 +88,10 @@ export default function OnePost() {
         style={{ maxWidth: 600, textAlign: "right", alignItems: "right" }}
       >
         {comments.map((c) => (
-          <Post post={c} toShow={false} />
+          <Post key={c.id} post={c} toShow={false} />
         ))}
       </div>
+      {isOpen ? <NewPost fullView={false} /> : null}
     </Container>
   );
 }

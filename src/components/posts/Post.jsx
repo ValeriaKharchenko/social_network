@@ -6,7 +6,6 @@ import { NewPost } from "./newPost";
 // import * as React from "@types/react";
 
 export const Post = ({ post, toShow }) => {
-  const isOpen = useSelector((state) => state.post.isOpen);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -46,8 +45,10 @@ export const Post = ({ post, toShow }) => {
           </>
         )}
       </div>
-      <div className="post_content">{post.content}</div>
-      {/*{post.image && <div>{post.image}</div>}*/}
+      <div className="post_content">
+        <div>{post.content}</div>
+        {post.image && <img src={`${post.image}`} />}
+      </div>
       {toShow && (
         <Button
           onClick={(e) => {
@@ -58,7 +59,6 @@ export const Post = ({ post, toShow }) => {
           Comment
         </Button>
       )}
-      {isOpen ? <NewPost fullView={false} /> : null}
     </div>
   );
 };
