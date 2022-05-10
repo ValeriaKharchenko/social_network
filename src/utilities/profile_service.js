@@ -10,7 +10,7 @@ const ProfileService = () => {
   const dispatch = useDispatch();
   const getMyInfo = async () => {
     try {
-      console.log('GETTING MY INFO');
+      console.log('%cGETTING MY INFO', "color:orange");
       const response = await http.get('/user/me');
       // console.log(response.data);
       dispatch(update({ ...response.data, id: helper.getTokenId() }));
@@ -32,7 +32,7 @@ const ProfileService = () => {
 
   const getAllUsers = async () => { 
     try{
-      console.log("Fetching All users");
+      console.log("%cFetching All users list", "color:orange");
       const response = await http.get('user/all');
       // console.log(response.data);
       dispatch(addAllUsers(response.data));

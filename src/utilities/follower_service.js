@@ -13,7 +13,7 @@ const FollowerService = () => {
   const dispatch = useDispatch();
   const storeInfo = useSelector((state) => state);
   const getMyFollowers = async () => {
-    console.log("Fetching my followers");
+    console.log("%cFetching my followers", "color:orange");
     try {
       const gotFollowers = await http.get('/follower/');
       const gotStalkers = await http.get('/follower/back');
@@ -55,11 +55,7 @@ const FollowerService = () => {
           const response = await http.post('/follower/', {
             "target_id": `${id}`,
           });
-          console.log(
-            '%c sendFollowerRequest =>',
-            'color:orange',
-            response
-          );
+          console.log('%c sendFollowerRequest =>','color:orange',response.data);
         } catch (err) {
           helper.checkError(err);
         }
@@ -71,11 +67,7 @@ const FollowerService = () => {
               target_id: `${id}`,
               status: 2,
             });
-         console.log(
-           '%c changeFollowerStatus =>',
-           'color:orange',
-           response
-         );
+         console.log( '%c changeFollowerStatus =>', 'color:orange',  response.data);
        } catch (err) {
          helper.checkError(err);
        }

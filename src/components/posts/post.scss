@@ -6,7 +6,7 @@
     max-width: 920px;
     border-radius: $box-rad;
     margin: 1em;
-    padding: 1px;
+    padding: 5px;
     
     .post_header{
         display: flex;
@@ -43,6 +43,10 @@
         padding: 10px;
         background-color:$box-inner-color ;
         border-radius: $box-rad;
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+        }
     }
     
 }

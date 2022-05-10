@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Navbar from "../components/Navbar";
-import "../index.scss"
+// import "../index.scss"
 
 export const Private = () => {
   const auth = useSelector((state: RootState) => state.user.userInfo.auth);
@@ -29,7 +29,7 @@ export const Public = () => {
     return <Navigate to={"/profile/:id"} state={{ from: location }} />;
   }
   return (
-    <main>
+    <main className="screen-center">
       <Outlet />
     </main>
   );
