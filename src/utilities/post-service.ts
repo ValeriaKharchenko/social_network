@@ -1,8 +1,9 @@
 import http from "./http-common";
 import { NewPostForm } from "../components/posts/newPost";
+import { PostInterface } from "../components/posts/PostList";
 
 export default {
-  async addNewPost(post: NewPostForm) {
+  async addNewPost(post: NewPostForm): Promise<PostInterface> {
     console.log("Get post: ", post);
     try {
       const response = await http.post("post/new", {
@@ -14,6 +15,7 @@ export default {
         access: post.userList,
       });
       console.log("response after add new post: ", response);
+      return response.data;
     } catch (e) {
       console.log(e);
       throw e;
