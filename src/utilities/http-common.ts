@@ -22,30 +22,6 @@ a.interceptors.request.use((config) => {
 });
 
 export default {
-  post: async (url: string, data?: any): Promise<AxiosResponse<any, any>> => {
-    try {
-      const resp = await a.post(url, data);
-      return resp;
-    } catch (e: any) {
-      if (e.response) {
-        if (e.response.data.status_code === 401) {
-          // await refresh token
-          // if during refresh response is 401 -> logout
-          const newTokens = await refresh();
-          return await a.post(url, data);
-        }
-      }
-      throw e;
-    }
-  },
-  delete: async (url: string, data?: any) => {
-    try {
-      await a.delete(url, data);
-      console.log("user logged out");
-    } catch (e) {
-      console.log(e);
-    }
-  },
   get: async (url: string): Promise<AxiosResponse<any, any>> => {
     try {
       const res = await a.get(url);
@@ -62,9 +38,25 @@ export default {
       throw e;
     }
   },
-  put: async (url: string): Promise<AxiosResponse<any, any>> => {
-     try {
-      const res = await a.put(url);
+  post: async (url: string, data?: any): Promise<AxiosResponse<any, any>> => {
+    try {
+      const resp = await a.post(url, data);
+      return resp;
+    } catch (e: any) {
+      if (e.response) {
+        if (e.response.data.status_code === 401) {
+          // await refresh token
+          // if during refresh response is 401 -> logout
+          const newTokens = await refresh();
+          return await a.post(url, data);
+        }
+      }
+      throw e;
+    }
+  },
+  put: async (url: string, data?: any): Promise<AxiosResponse<any, any>> => {
+    try {
+      const res = await a.put(url,data);
       return res;
     } catch (e: any) {
       if (e.response) {
@@ -75,7 +67,15 @@ export default {
       }
       throw e;
     }
-  }
+  },
+  delete: async (url: string, data?: any) => {
+    try {
+      await a.delete(url, data);
+      console.log("user logged out");
+    } catch (e) {
+      console.log(e);
+    }
+  },
 };
 
 async function refresh() {

@@ -1,20 +1,14 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import userService from "../../utilities/user-service";
-import * as helper from "../../helpers/HelperFuncs"
 import "./register.scss";
-import {
-  TextField,
-  Button,
-  Container,
-  Avatar,
-  Box,
-  Grid,
-  Typography,
-} from "@mui/material";
+// UI material
+import {TextField,Button,Container,Avatar,Box,Grid,Typography,} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useState } from "react";
+// other
+import * as helper from "../../helpers/HelperFuncs"
+import userService from "../../utilities/user-service";
 
 
 export interface RegisterForm {

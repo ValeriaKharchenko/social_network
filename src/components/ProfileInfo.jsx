@@ -1,22 +1,24 @@
 import { Avatar, Button } from "@mui/material";
 import "./styles/profile_info.scss"
-import "../index"
 import ProfileService from "../utilities/profile_service";
+import Follow_btn from "./buttons/follower_btn";
+import { useSelector } from "react-redux";
+import FollowerService from "../utilities/follower_service";
 
 
-const ProfileInfo = ({data}) => {
+const ProfileInfo = ({data,myProfile}) => {
   const profile_service = ProfileService()
 
   return (
     <div className="user_info_container">
         <div className="left_side">
-          <p>{data.id}</p>
             {<Avatar  sx={{
                     width: 70,
                     height: 70,
                 }} alt={data.first_name} src={data.user_img} />}
             <p>{data.nickname}</p>
-            {data.id && <div className="flex" > Public   <div onClick={()=>{profile_service.updatePrivacy() }} className={data.is_private ? "public private " : "public"}></div> Private</div>}
+            {myProfile && <div className="flex" > Public   <div onClick={()=>{profile_service.updatePrivacy() }} className={data.is_private ? "public private " : "public"}></div> Private</div>}
+            {!myProfile && <Follow_btn />}
         </div>
         <div className="right_side">
             <p> First Name : {data.first_name}</p>

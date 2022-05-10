@@ -2,4 +2,5 @@
 import capitalize from "./capitalize";
 import { checkImage, getBase64 } from './checkImage';
 import  getTokenId  from "./tokenId";
-export {capitalize, checkImage, getBase64, getTokenId}
+import checkError from "./checkError";
+export { capitalize, checkImage, getBase64, getTokenId, checkError };
