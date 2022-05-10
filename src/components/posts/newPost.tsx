@@ -126,13 +126,14 @@ export function NewPost(props: { fullView: boolean }) {
     if (check) {
       try {
         console.log("New post", data);
-        const response = await postService.addNewPost(data); //probably we'll have to renew list of posts/store after that
+        const response = await postService.addNewPost(data);
         handleClose();
+        console.log("New post response", response);
         // @ts-ignore
-        data.image = "";
+        // data.image = "";
         if (props.fullView) {
-          dispatch(updatePosts(data));
-        } else dispatch(updateComments(data));
+          dispatch(updatePosts(response));
+        } else dispatch(updateComments(response));
       } catch (e) {
         console.log(e);
         alert(e);
