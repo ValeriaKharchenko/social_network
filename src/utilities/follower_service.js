@@ -65,7 +65,7 @@ const FollowerService = () => {
        try {
             const response = await http.put('/follower/', {
               target_id: `${id}`,
-              status: 2,
+              status: 1,
             });
          console.log( '%c changeFollowerStatus =>', 'color:orange',  response.data);
        } catch (err) {
