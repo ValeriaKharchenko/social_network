@@ -5,16 +5,17 @@ import { RootState } from "../store/store";
 import { update,addAllUsers } from '../store/profileSlice';
 import * as helper from '../helpers/HelperFuncs';
 
+
 const ProfileService = () => {
   const dispatch = useDispatch();
   const getMyInfo = async () => {
     try {
-      console.log('GETTING USER INFO');
+      console.log('%cGETTING MY INFO', "color:orange");
       const response = await http.get('/user/me');
-      console.log(response.data);
+      // console.log(response.data);
       dispatch(update({ ...response.data, id: helper.getTokenId() }));
     } catch (err) {
-      checkError(err);
+      helper.checkError(err);
     }
   };
 
@@ -25,71 +26,38 @@ const ProfileService = () => {
           const response = await http.get('/user/me');
           dispatch(update({ ...response.data, id: helper.getTokenId() }));
       }catch(err){
-         checkError(err)
+         helper.checkError(err)
       }
   }
 
   const getAllUsers = async () => { 
     try{
-      console.log("Fetching All users");
+      console.log("%cFetching All users list", "color:orange");
       const response = await http.get('user/all');
-      console.log(response.data);
+      // console.log(response.data);
       dispatch(addAllUsers(response.data));
     }catch(err){
-      checkError(err)
+      helper.checkError(err)
     }
   }
+
+  // I need to send id(My info should be empty id) to get one user info = http://localhost:8080/user/oneuser?id=380c54e8-7560-4055-aea4-f6d7b2282d4d
+  const getUserInfo = async (id) => { 
+    try{
+      // console.log("Fetching user profile data -->", id);
+      const response = await http.get(`user/oneuser?id=${id}`);
+      return response.data
+    }catch(err){
+      helper.checkError(err)
+    }
+  }
+
   return {
     getMyInfo,
     updatePrivacy,
-    getAllUsers
+    getAllUsers,
+    getUserInfo,
   };
 }
 
 export default ProfileService
-
-
-const checkError = err => {
-     if (err.response) {
-       console.log(err.message);
-       console.log(err.status);
-       console.log(err.header);
-     } else {
-       console.log('Different Error ', err.message);
-     }
-}
-
-// export default {
-//     async getMyInfo(){
-//         try{
-//             console.log("GETTING USER INFO");
-//             const response = await http.get("/user/me")
-//             return response.data
-//         }catch(err){
-//             if(err.response){
-//                 console.log(err.message);
-//                 console.log(err.status);
-//                 console.log(err.header);
-//             }else{
-//                 console.log("Different Error ", err.message);
-//             }
-//         }
-//     },
-
-//     async updatePrivacy(){
-//         try{
-//             console.log("Changing Privacy");
-//             const response = await http.put("/user/me",{})
-//             console.log(response);
-//             return response
-//         }catch(err){
-//             if(err.response){
-//                 console.log(err.message);
-//                 console.log(err.status);
-//                 console.log(err.header);
-//             }else{
-//                 console.log("Different Error ", err.message);
-//             }
-//         }
-//     }
-// }

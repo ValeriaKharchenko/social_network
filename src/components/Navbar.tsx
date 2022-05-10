@@ -38,18 +38,18 @@ const Navbar = () => {
         {" "}
         Home <Home />
       </Link>
-      <Link className="link" to={"/profile"}>
+      <Link className="link" to={"/profile/:id"}>
         {" "}
         Profile <Home />
       </Link>
-      <Link className="link" to={"/profile"}>
+      {/* <Link className="link" to={"/profile"}>
         {" "}
         Notifications <Home />
       </Link>
       <Link className="link" to={"/profile"}>
         {" "}
         Messages <Home />
-      </Link>
+      </Link> */}
     </div>
   );
 };

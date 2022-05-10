@@ -36,6 +36,7 @@ export default function OnePost() {
     if (post) return;
     const getPostComments = async (id: string) => {
       try {
+        // @ts-ignore
         const data = await postService.showPost(id);
         const p = data.Post;
         console.log("P", p);

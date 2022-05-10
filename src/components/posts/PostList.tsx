@@ -46,7 +46,9 @@ const PostList = () => {
       return;
     }
     postService
+    // @ts-ignore
       .getAllUserPost()
+      // @ts-ignore
       .then((response) => {
         let arr: PostInterface[] = [];
         response.forEach((r: any) => {

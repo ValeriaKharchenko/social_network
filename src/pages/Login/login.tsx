@@ -1,39 +1,38 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import authService from "../../utilities/user-service";
 import "./login.scss";
+// Redux
+import { update } from "../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { update } from "../../store/userSlice";
-import {
-  TextField,
-  Button,
-  Container,
-  Box,
-  Avatar,
-  Typography,
-} from "@mui/material";
+// Material UI
+import {TextField,Button,Container,Box,Avatar,Typography,} from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { PeopleAlt } from "@mui/icons-material";
+//  Services
+import authService from "../../utilities/user-service";
 import ProfileService from "../../utilities/profile_service";
+import FollowerService from "../../utilities/follower_service";
 
 export default function Login() {
-  const profile_service = ProfileService();
+  const profile_service = ProfileService()
+  const follower_service = FollowerService()
+  const { handleSubmit, register } = useForm<FormInput>();
+  const dispatch = useDispatch();
+  let redirect = useNavigate();
+  
   interface FormInput {
     email: string;
     password: string;
   }
 
-  let redirect = useNavigate();
-  const { handleSubmit, register } = useForm<FormInput>();
-  const dispatch = useDispatch();
 
   const onSubmit = async (data: FormInput) => {
     try {
-      console.log(data);
       const response = await authService.login(data.email, data.password);
       dispatch(update(response));
-      await profile_service.getMyInfo();
+      await  profile_service.getMyInfo()
+      await follower_service.getMyFollowers()
       redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {
@@ -53,7 +52,7 @@ export default function Login() {
     }
   };
   const isLoading = useSelector((state: RootState) => state.user.pending);
-  console.log("Here!");
+  // console.log("Here!");
   return (
     <Container component="main" maxWidth="xs" className={"Login"}>
       <Box

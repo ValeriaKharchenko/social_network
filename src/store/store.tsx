@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 import userReducer from "./userSlice";
 import postReducer from "./postSlice";
 import profileReducer  from "./profileSlice";
+import followerSlice from "./followerSlice";
 import type UserInfo from "../utilities/user-service";
 
 const saveToLocalStorage = (state: any) => {
@@ -17,7 +18,7 @@ const saveToLocalStorage = (state: any) => {
 const loadFromLocalStorage = () => {
   try {
     const stateStr = localStorage.getItem("userInfo");
-    console.log(stateStr);
+    // console.log(stateStr);
     const user = JSON.parse(stateStr || "null");
     return {
       user: {
@@ -39,7 +40,7 @@ const loadFromLocalStorage = () => {
   }
 };
 
-const rootReducer = combineReducers({ user: userReducer, post: postReducer, profile:profileReducer });
+const rootReducer = combineReducers({ user: userReducer, post: postReducer, profile:profileReducer, followers: followerSlice});
 
 const persistedStore = loadFromLocalStorage();
 

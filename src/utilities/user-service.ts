@@ -29,7 +29,7 @@ export default {
       //get tokens and save to local storage
       setAccessToken(response.data.access_token);
       setRefreshToken(response.data.refresh_token);
-      console.log(response);
+      // console.log(response);
       return {
         firstName: "John",
         lastName: "Doe",
