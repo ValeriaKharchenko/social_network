@@ -1,15 +1,13 @@
 import { Avatar, Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import "./follower.scss"
-const FollowerCard = ({first_name,user_img,id}) => {
-    const toProfilePage = (id) => {
-        console.log("Will take to user profilepage := user/profile/",id)
-    }
+const FollowerCard = ({data}) => {
+  let redirect = useNavigate()
   return (
      <Box 
         className='follower_card'  
         sx={{backgroundColor: 'primary.dark'}}
-        onClick={() => toProfilePage(id)}
-     >
+        onClick={() => {redirect(`/profile/:${data.user_id}`)}}>
             <Avatar
                 sx={{
                     mt:1,
@@ -18,12 +16,12 @@ const FollowerCard = ({first_name,user_img,id}) => {
                     height: 50,
                     border:"2px solid white",
                 }}
-                alt={first_name}
-                src={require("../../assets/Images/User/" + user_img)}
+                alt={data.first_name}
+                src={data.image}
                 >
             </Avatar>
              <Typography variant="h6"  color={"white"} sx={{mt:-0.5}}>
-               {first_name}
+               {data.first_name}
             </Typography>
           </Box>
   )

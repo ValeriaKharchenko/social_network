@@ -2,6 +2,8 @@
 import "./follower.scss"
 import {followers} from "../../mockData"
 import FollowerCard from "./FollowerCard"
+
+
 const FollowerList = ({list, label}) => {
 
     const toProfilePage = (id) => {
@@ -14,10 +16,8 @@ const FollowerList = ({list, label}) => {
             <div className='followers_container'>
             { list.map(follower => (
                 <FollowerCard 
-                key={follower.id} 
-                first_name={follower.first_name}
-                user_img={follower.UserImg} 
-                id={follower.id}
+                key={follower.user_id} 
+                data={follower}
                 />
             ))}
             </div>

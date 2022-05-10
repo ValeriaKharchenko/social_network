@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Navbar from "../components/Navbar";
@@ -26,7 +26,7 @@ export const Public = () => {
   const auth = useSelector((state: RootState) => state.user.userInfo.auth);
   const location = useLocation();
   if (auth) {
-    return <Navigate to={"/profile"} state={{ from: location }} />;
+    return <Navigate to={"/profile/:id"} state={{ from: location }} />;
   }
   return (
     <main>

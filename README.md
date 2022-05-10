@@ -2,7 +2,7 @@
 
 ### Questions&Suggestions:
     1. Registration needs checks (DOB) , Errors with login
-
+    2. Do we still need assets folder? (if we send only strings to back)
 ### Update:
     1. Deleted App.scss
     2. Logout folder is now Logout_btn folder and moved it in components folder

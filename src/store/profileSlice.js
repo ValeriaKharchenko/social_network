@@ -28,8 +28,9 @@ export const profileSlice = createSlice({
         remove : (state) => (state ={}),
 
         addAllUsers: (state, action) => {
-            state.allUsers = action.payload
+            state.allUsers = action.payload.filter(user => state.info.id != user.ID)
         }
+
     }
 })
 
