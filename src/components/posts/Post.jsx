@@ -1,5 +1,6 @@
 import "./post.scss";
-import { Button, Link } from "@mui/material";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import { openModal } from "../../store/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { NewPost } from "./newPost";
@@ -24,7 +25,7 @@ export const Post = ({ post, toShow }) => {
                 {toShow ? (
                   <div>{post.title}</div>
                 ) : (
-                  <Link href={`/post/${post.id}`}>{post.title}</Link>
+                  <Link to={`/post/${post.id}`}>{post.title}</Link>
                 )}
               </div>
               <div>
