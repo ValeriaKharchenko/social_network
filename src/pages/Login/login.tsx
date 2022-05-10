@@ -31,8 +31,8 @@ export default function Login() {
     try {
       const response = await authService.login(data.email, data.password);
       dispatch(update(response));
-      profile_service.getMyInfo()
-      follower_service.getMyFollowers()
+      await  profile_service.getMyInfo()
+      await follower_service.getMyFollowers()
       redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {

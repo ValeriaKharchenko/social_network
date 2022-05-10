@@ -26,7 +26,7 @@ const Profile = () => {
   
 useEffect(()=>{
   id=id.slice(1)
-  // follower_service.getMyFollowers()
+  follower_service.getMyFollowers()
   follower_service.setCurrentUserId(id)
   if(id === storeInfo.profile.info.id){
     redirect('/profile/:id')
