@@ -19,12 +19,16 @@ const ProfileService = () => {
     }
   };
 
-  const updatePrivacy= async () =>{
+  const updateProfileInfo= async (data) =>{
       try{
-          console.log("Changing Privacy");
-          await http.put("/user/me")
-          const response = await http.get('/user/me');
-          dispatch(update({ ...response.data, id: helper.getTokenId() }));
+          console.log("%cUpdateing Profile Info" , "color:orange");
+          await http.put("/user/me",{
+                "nickname"  : data.nickname ,
+                "about_me"  : data.about_me ,
+                "user_img"  :  data.user_img  ,
+                "is_private":  data.is_private 
+          })
+          getMyInfo()
       }catch(err){
          helper.checkError(err)
       }
@@ -54,7 +58,7 @@ const ProfileService = () => {
 
   return {
     getMyInfo,
-    updatePrivacy,
+    updateProfileInfo,
     getAllUsers,
     getUserInfo,
   };

@@ -7,7 +7,8 @@ import { useParams } from "react-router-dom";
 const Follow_btn = () => {
   const follower_service = FollowerService()
   let { id} = useParams()
-  const isFollowing = follower_service.isFollowing(id)
+  // const isFollowing = follower_service.isFollowing(id)
+  const isFollowing = follower_service.isFollowing()
   return (
     <div>
          {!isFollowing && <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true)} >Follow user <PersonAddIcon /> </Button>}

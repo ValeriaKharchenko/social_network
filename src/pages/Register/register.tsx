@@ -36,6 +36,8 @@ export default function Register() {
     user.image_path = user.image_path ? user.image_path : "";
     user.desc = user.desc ? user.desc : "";
 
+    console.log("REFISTERING  IMAGE", user.image_path);
+    
     // @ts-ignore
     if(user.password != user.repeat_password){
       flag = false
