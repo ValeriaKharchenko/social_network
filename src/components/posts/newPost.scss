@@ -9,8 +9,8 @@ background-color: #CCD6D2;
 
   .title {
     display: flex;
-    place-items: start;
-    justify-content: start;
+    place-items: flex-start;
+    justify-content: flex-start;
     padding: 1em;
     max-width: 500px;
   }

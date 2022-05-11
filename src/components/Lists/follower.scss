@@ -16,8 +16,8 @@
     .followers_container{
         display: flex;
         flex-direction: row;
-        justify-content: start;
-        place-items: start;
+        justify-content: flex-start;
+        place-items: flex-start;
         flex-wrap: wrap;
         padding: 1em;
     }

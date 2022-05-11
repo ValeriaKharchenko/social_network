@@ -12,6 +12,7 @@ import FollowerService from "../../utilities/follower_service";
 
 // UPDATE UPDATE UPDATE UPDATE
 // combine those request into one ( useSTore ? ) 
+// need to know if private or not and show 
 const Profile = () => {
   let redirect = useNavigate()
   let [myInfo, setMyInfo] = useState(false)
@@ -20,14 +21,14 @@ const Profile = () => {
   let [stalkers,setStalkers] = useState(null)
   let {id} = useParams()
   const storeInfo = useSelector(state => state)
+  let update = useSelector(state => state.followers.updateStatus) // switching store status to update page
   const profile_service = ProfileService()
   const follower_service = FollowerService()
 
   
 useEffect(()=>{
   id=id.slice(1)
-  follower_service.getMyFollowers()
-  follower_service.setCurrentUserId(id)
+  follower_service.setCurrentUserId(id) 
   if(id === storeInfo.profile.info.id){
     redirect('/profile/:id')
   }
@@ -39,14 +40,12 @@ useEffect(()=>{
     follower_service.getUserFollowers(id).then(res=> {setFollowers(res)})
     follower_service.getUserStalkers(id).then(res=> {setStalkers(res)})
     }
-  },[id,storeInfo.followers.updateStatus])
+  },[id,update])
 
   return (
     
     <div className='profile-page'>
-        {/* <button onClick={() => profile_service.getMyInfo()} >GET MY INFO</button> */}
         {
-          
           myInfo ? 
           <>
           <h1>My Info</h1>
