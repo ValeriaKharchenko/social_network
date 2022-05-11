@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import postService from "../../utilities/post-service";
 import * as React from "react";
+import { parseDate } from "../../helpers/parseDate";
 
 export interface PostInterface {
   id: number;
@@ -58,7 +59,7 @@ const PostList = () => {
             title: r.subject,
             content: r.content,
             image: r.image,
-            created_at: r.created_at,
+            created_at: parseDate(r.created_at),
           };
           arr.push(p);
         });

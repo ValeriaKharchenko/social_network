@@ -9,16 +9,17 @@ import { NewPost } from "../../components/posts/newPost";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { loadComments } from "../../store/postSlice";
+import { parseDate } from "../../helpers/parseDate";
 
-function parseDate(str: string): string {
-  const date = new Date(str);
-  const min = date.getMinutes();
-  const hour = date.getHours();
-  const day = (date.getDate() < 10 ? "0" : "") + date.getDate();
-  const month = (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1);
-  const year = date.getFullYear();
-  return day + "/" + month + "/" + year + " " + min + ":" + hour;
-}
+// function parseDate(str: string): string {
+//   const date = new Date(str);
+//   const min = date.getMinutes();
+//   const hour = date.getHours();
+//   const day = (date.getDate() < 10 ? "0" : "") + date.getDate();
+//   const month = (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1);
+//   const year = date.getFullYear();
+//   return day + "/" + month + "/" + year + " " + min + ":" + hour;
+// }
 
 export default function OnePost() {
   let { id } = useParams();
