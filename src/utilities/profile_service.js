@@ -1,13 +1,24 @@
-
 import http from './http-common';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "../store/store";
-import { update,addAllUsers } from '../store/profileSlice';
+import { useDispatch } from 'react-redux';
+import { update, addAllUsers, updateAuth } from '../store/profileSlice';
 import * as helper from '../helpers/HelperFuncs';
+import { useNavigate } from 'react-router-dom';
+import FollowerService from './follower_service';
 
 
 const ProfileService = () => {
   const dispatch = useDispatch();
+  const redirect = useNavigate()
+  const follower_service = FollowerService()
+
+  const checkAuth = () => { 
+    console.log("AUTHENTICATING");
+    if(!localStorage.getItem("accessToken")) return redirect("/")
+    dispatch(updateAuth(true))
+    follower_service.getMyFollowers()
+    getMyInfo()
+  }
+
   const getMyInfo = async () => {
     try {
       console.log('%cGETTING MY INFO', "color:orange");
@@ -61,6 +72,7 @@ const ProfileService = () => {
     updateProfileInfo,
     getAllUsers,
     getUserInfo,
+    checkAuth,
   };
 }
 

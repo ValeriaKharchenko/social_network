@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
 // Redux
-import { update } from "../../store/userSlice";
+// import { update } from "../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 // Material UI
@@ -30,9 +30,11 @@ export default function Login() {
   const onSubmit = async (data: FormInput) => {
     try {
       const response = await authService.login(data.email, data.password);
-      dispatch(update(response));
+      // dispatch(update(response));
+      profile_service.checkAuth()
       await  profile_service.getMyInfo()
       await follower_service.getMyFollowers()
+
       redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {
