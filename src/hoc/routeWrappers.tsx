@@ -26,7 +26,8 @@ export const Public = () => {
   const auth = useSelector((state: RootState) => state.user.userInfo.auth);
   const location = useLocation();
   if (auth) {
-    return <Navigate to={"/profile/:id"} state={{ from: location }} />;
+    // return <Navigate to={"/profile/:id"} state={{ from: location }} />;
+    return <Navigate to={"/homepage"} state={{ from: location }} />;
   }
   return (
     <main className="screen-center">
