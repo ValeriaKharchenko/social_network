@@ -54,7 +54,6 @@ const ProfileInfo = () => {
       if (id == "id") {
       setMyProfile(true)
       setDatas(storeInfo.profile.info)
-      setIsPrivate(data.is_private)
       setImg(data.user_img)
     }else{
       setUpdateing(false)
