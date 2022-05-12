@@ -36,3 +36,15 @@ export const getBase64 = (file) => {
     reader.readAsDataURL(file);
   });
 };
+
+
+// @ts-ignore
+export const convertImg = async (image,func) => { 
+    if(image.length !== 0) {
+      if(checkImage(image,func)){
+        func([])
+        const resp = await getBase64(image[0]).then(base64 => base64)
+        return resp
+      }
+    }
+  }
