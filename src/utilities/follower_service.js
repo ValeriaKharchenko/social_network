@@ -17,8 +17,6 @@ const FollowerService = () => {
     try {
       const gotFollowers = await http.get('/follower/');
       const gotStalkers = await http.get('/follower/back');
-      // console.log('Fetching users I k--> Spy on', gotFollowers.data);
-      // console.log('Fetching users Stalkers -->', gotStalkers.data);
       if(!gotFollowers.data) gotFollowers.data = []
       if (!gotStalkers.data) gotStalkers.data = [];
       dispatch(updateFollowers(gotFollowers.data));
