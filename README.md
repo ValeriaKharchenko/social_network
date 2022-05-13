@@ -2,15 +2,14 @@
 
 ### Questions&Suggestions:
     1. Registration needs checks (DOB) , Errors with login
-    2. Do we still need assets folder? (if we send only strings to back)
-### Update:
-    1. Deleted App.scss
-    2. Logout folder is now Logout_btn folder and moved it in components folder
-    3. Profile folder renamed to HomePage folder and content also changed
-    4. Profile has its own page now 
-    5. Page after login is now called Homepage and link is /homepage
-    6. Deleted auth folder 
+    2. LoginPage Error handling (when user pust password or email wrong)
 
+### Update:
+    1. Removed assets folder
+### Working on: 
+    [x] - Making of create Group Button 
+    [x] - Making of create create group event form 
+    [ ] -
 
 
 

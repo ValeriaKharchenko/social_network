@@ -25,6 +25,8 @@ export default {
         email: email,
         password: pwd,
       });
+      console.log(response);
+      
 
       //get tokens and save to local storage
       setAccessToken(response.data.access_token);

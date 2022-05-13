@@ -4,19 +4,10 @@ import { Avatar, Button } from "@mui/material";
 import "./styles/navbar.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import Logout from "./Logout_btn/logout";
+import Logout from "../components/buttons/logout";
 import Searchbar from "./Searchbar";
 import ProfileService from "../utilities/profile_service";
 
-
-
-const peep = {
-  id: 1,
-  first_name: 'Siri',
-  last_name: 'Tiri',
-  // UserImg : "../../assets/Images/User/cat.png",
-  UserImg: 'cat.png',
-}
 
 
 const Navbar = () => {

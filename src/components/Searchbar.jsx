@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
 
+
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -64,6 +66,18 @@ const Searchbar = () => {
       setFetched(true)
     }
   }
+
+/* 
+  type GroupReply struct{
+      Id                  int     `json:"id"`
+      Title               string  `json:"title"`
+      Description         string  `json:"description"`
+      CreatorId           string  `json:"creator_id"`
+      CreatorFirstName    string  `json:"creator_first_name"`
+      CreatorLastName     string  `json:"creator_last_name"`
+      Members             int     `json:"members"`
+  }
+*/ 
 
   useEffect(() => {
       if(input == "" || input == null){

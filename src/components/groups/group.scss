@@ -1,0 +1,46 @@
+
+.group_list{
+    max-width: 600px;
+    .group_card{
+        display: inline-block;
+        margin: 1em;
+        min-width: 200px;
+        max-width: 200px;
+        padding:0.75em;
+        cursor: pointer;
+        transition: 0.3s all ease;
+        &:hover{
+            box-shadow: 0 0 10px black;
+            transform: scale(1.1);
+        }
+        .title{
+            display: flex;
+            justify-content: flex-start;
+            place-items: flex-end;
+        }
+    }
+}
+
+.group_panel, .admin_panel{
+    min-width: 600px;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: white;
+    margin-bottom: 2em;
+}
+.group_panel{
+    min-height: 300px;
+    
+    .header{
+        display: flex;
+        justify-content: space-between;
+        place-items: center;
+        margin-bottom: 2em;
+        height: 6em;
+    }
+
+}
+.admin_panel{
+    background: white;
+
+}

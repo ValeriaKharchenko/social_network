@@ -18,6 +18,7 @@ function App() {
         <Route element={<Private />}>
           <Route path={"/homepage"} element={<Pages.Homepage />} />
           <Route path={"/profile/:id"} element={<Pages.Profile />} />
+          <Route path={"/group/:id"} element={<Pages.Group />} />
           <Route path="post/:id" element={<Pages.OnePost />} />
           <Route path="/*" element={<Pages.OnePost />} />
         </Route>
