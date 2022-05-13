@@ -3,13 +3,28 @@
 ### Questions&Suggestions:
     1. Registration needs checks (DOB) , Errors with login
     2. LoginPage Error handling (when user pust password or email wrong)
+    3. Some  quick popUp notification (when post is created or if wasn't successful)
 
 ### Update:
     1. Removed assets folder
 ### Working on: 
-    [x] - Making of create Group Button 
-    [x] - Making of create create group event form 
-    [ ] -
+    <!-- Profile -->
+    [x] - Shows groups I created 
+        - (have to filter which I'm  joined and what is main)
+    [x] - Settings 
+    [ ] - need to show user posts && create Button
+    <!-- Groups -->
+    [x] - Making of create Group Button  
+        - (need to add follower request to it)
+    [x] - Making of create create group post 
+    [x] - Group link, page & components(files)
+    [x] - Group info Panel
+    [ ] - Group Posts and single Post/Comments page
+    [ ] - Search for groups
+    [ ] - Making of create  group event form 
+    [ ] - join group  component
+    [ ] - invite follower component
+    [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons)
 
 
 
