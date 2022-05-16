@@ -12,7 +12,7 @@ import "./profile.scss"
 import GroupService from "../../utilities/group_service";
 
 // UPDATE UPDATE UPDATE UPDATE
-// combine those request into one ( useSTore ? ) 
+// combine those request into one ( use Store ? ) 
 
 // const group = [{
 //   id : "dev",
@@ -45,6 +45,7 @@ useEffect(()=>{
   }
   if(id == "id"){
     setMyInfo(true)
+    follower_service.getMyFollowers()
     group_service.getCreatedGroups()
     group_service.getJoinedGroups()
   }else{

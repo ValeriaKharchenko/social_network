@@ -25,6 +25,7 @@ const GroupPanel = () => {
             </Typography>
         </div>}
 
+        <h1>Group Info</h1>
         <div className="group_panel">
             <div className="header ">
                 <div className="left">

@@ -2,15 +2,16 @@ import { useParams } from "react-router-dom"
 import Create_post from "../../components/groups/buttons_forms/Create_post_btn"
 import Create_event from "../../components/groups/buttons_forms/Create_event_btn"
 import GroupPanel from "../../components/groups/GroupPanel"
-import GroupPost from "../../components/groups/GroupPost"
+import GroupPosts from "../../components/groups/GroupPosts"
+import GroupEvents from "../../components/groups/GroupEvents"
 import GroupService from "../../utilities/group_service"
+import { useEffect } from "react"
 const Group = () => {
   const group_service = GroupService()
   let {id} = useParams()
   const isMember = group_service.isMember(id.slice(1))
   return (
     <div>
-        <h1>Group panel</h1>
         <GroupPanel/>
         {isMember && 
         <>
@@ -22,8 +23,14 @@ const Group = () => {
               <Create_event id={id.slice(1)} />
             </div>
           </div>
+        <GroupPosts id={id.slice(1)} />
         </div>
-        <GroupPost />
+
+
+        <div className="events">
+            <h1>Group Events</h1>
+            <GroupEvents id={id.slice(1)} />
+        </div>
         </>
         } 
     </div>

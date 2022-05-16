@@ -2,29 +2,40 @@
 
 ### Questions&Suggestions:
     1. Registration needs checks (DOB) , Errors with login
-    2. LoginPage Error handling (when user pust password or email wrong)
+    2. LoginPage Error handling (when user puts password or email wrong)
     3. Some  quick popUp notification (when post is created or if wasn't successful)
 
 ### Update:
     1. Removed assets folder
+
 ### Working on: 
     <!-- Profile -->
-    [x] - Shows groups I created 
-        - (have to filter which I'm  joined and what is main)
-    [x] - Settings 
-    [ ] - need to show user posts && create Button
+        [x] - Shows groups I created 
+            - (have to filter which I'm  joined and what is main)
+        [x] - Settings 
+        [ ] - need to show user posts && create Button
+
     <!-- Groups -->
-    [x] - Making of create Group Button  
-        - (need to add follower request to it)
-    [x] - Making of create create group post 
-    [x] - Group link, page & components(files)
-    [x] - Group info Panel
-    [ ] - Group Posts and single Post/Comments page
-    [ ] - Search for groups
-    [ ] - Making of create  group event form 
-    [ ] - join group  component
-    [ ] - invite follower component
-    [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons)
+        [x] - Making of create Group Button with follower invitations
+        [x] - Group info Panel
+        [x] - Group link, page & components(files)
+        [x] - Search for groups - Searchbar
+
+            //Posts
+        [x] - Making of create group post 
+        [x] - showing group posts
+        [ ] - Group Posts and single Post/Comments page
+
+            //Events
+        [x] - Making of create  group event form 
+        [x] - showing group events [Back needs fixing]
+            [ ]-- need to add buttons for going/notgoing + requests
+
+            //Todo
+        [ ] - join group  component
+        [ ] - invite follower component
+            --- made Invite_group_list component ( can use it in group page)
+        [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons)
 
 
 
