@@ -17,8 +17,6 @@ const FollowerService = () => {
     try {
       const gotFollowers = await http.get('/follower/');
       const gotStalkers = await http.get('/follower/back');
-      // console.log('Fetching users I k--> Spy on', gotFollowers.data);
-      // console.log('Fetching users Stalkers -->', gotStalkers.data);
       if(!gotFollowers.data) gotFollowers.data = []
       if (!gotStalkers.data) gotStalkers.data = [];
       dispatch(updateFollowers(gotFollowers.data));
@@ -65,7 +63,7 @@ const FollowerService = () => {
        try {
             const response = await http.put('/follower/', {
               target_id: `${id}`,
-              status: 1,
+              status: 2,
             });
          console.log( '%c changeFollowerStatus =>', 'color:orange',  response.data);
        } catch (err) {
@@ -73,10 +71,17 @@ const FollowerService = () => {
        }
   }
 
-  const isFollowing =(id) => { 
+  // const isFollowing =(id) => { 
+  //   //  if there is object returned (!!), same as Boolean(storeInfo.followers.followers)
+  //   return !!storeInfo.followers.followers.find(
+  //     user => user.user_id == id.slice(1) 
+  //   );
+  // }
+
+  const isFollowing =() => { 
     //  if there is object returned (!!), same as Boolean(storeInfo.followers.followers)
     return !!storeInfo.followers.followers.find(
-      user => user.user_id == id.slice(1) 
+      user => user.user_id == storeInfo.followers.currentUserId
     );
   }
 

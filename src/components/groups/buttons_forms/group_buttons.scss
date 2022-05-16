@@ -1,0 +1,117 @@
+.make_group{
+    position: relative;
+    .make_group_form{
+        flex-direction: column;
+        background-color: rgba(195, 195, 195, 0.888);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 300px;
+        padding: 1em;
+    }
+    .back_btn {
+        width: 5px;
+        padding: 0;
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        &:hover {
+            background-color: #D7B271;
+        }
+    }
+    .error{
+        color: red;
+    }
+}
+
+.posts{
+    .header{
+        justify-content:space-between;
+        .flex{
+            flex-direction: column;
+        }
+    }
+}
+
+#postForm{
+    position: absolute;
+    background-color: white;
+    border:10px solid rgba(73, 148, 73, 0.722);
+    width: 300px;
+    padding: 4em;
+    top: 50%;
+    left: 50%;
+    // transform: translate(-50%,-50%);
+    right: 0;
+    z-index: 10;
+    .back_btn{
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .input{
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        place-items: flex-end;
+        .error{
+            color: red;
+        }
+        .image_btn{
+            border: 2px solid black;
+            padding: 0.2em;
+            cursor:pointer;
+
+            &:hover{
+                box-shadow: 0 0 2px black;
+            }
+        }
+    }
+    input[type=file]{
+        display: none;
+    }
+
+}
+
+#eventForm{
+    position: absolute;
+    background-color: white;
+    border: 10px solid rgba(73, 148, 73, 0.722);
+    width: 300px;
+    padding: 4em;
+    top: 50%;
+    left: 50%;
+    // transform: translate(-50%,-50%);
+    right: 0;
+    z-index: 10;
+    .back_btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+    .input {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        place-items: flex-end;
+
+        .error {
+            color: red;
+        }
+    }
+}
+
+#invite_list{
+    width: 200px;
+    .listed_user{
+        display: flex;
+        justify-content: space-between;
+        background-color: white;
+        border-bottom: 2px solid grey;
+    }
+    table{
+        width: 200px;
+    }
+}

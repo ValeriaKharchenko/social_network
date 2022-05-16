@@ -2,15 +2,40 @@
 
 ### Questions&Suggestions:
     1. Registration needs checks (DOB) , Errors with login
-    2. Do we still need assets folder? (if we send only strings to back)
-### Update:
-    1. Deleted App.scss
-    2. Logout folder is now Logout_btn folder and moved it in components folder
-    3. Profile folder renamed to HomePage folder and content also changed
-    4. Profile has its own page now 
-    5. Page after login is now called Homepage and link is /homepage
-    6. Deleted auth folder 
+    2. LoginPage Error handling (when user puts password or email wrong)
+    3. Some  quick popUp notification (when post is created or if wasn't successful)
 
+### Update:
+    1. Removed assets folder
+
+### Working on: 
+    <!-- Profile -->
+        [x] - Shows groups I created 
+            - (have to filter which I'm  joined and what is main)
+        [x] - Settings 
+        [ ] - need to show user posts && create Button
+
+    <!-- Groups -->
+        [x] - Making of create Group Button with follower invitations
+        [x] - Group info Panel
+        [x] - Group link, page & components(files)
+        [x] - Search for groups - Searchbar
+
+            //Posts
+        [x] - Making of create group post 
+        [x] - showing group posts
+        [ ] - Group Posts and single Post/Comments page
+
+            //Events
+        [x] - Making of create  group event form 
+        [x] - showing group events [Back needs fixing]
+            [ ]-- need to add buttons for going/notgoing + requests
+
+            //Todo
+        [ ] - join group  component
+        [ ] - invite follower component
+            --- made Invite_group_list component ( can use it in group page)
+        [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons)
 
 
 

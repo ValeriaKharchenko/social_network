@@ -1,13 +1,24 @@
-
 import http from './http-common';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "../store/store";
-import { update,addAllUsers } from '../store/profileSlice';
+import { useDispatch } from 'react-redux';
+import { update, addAllUsers, updateAuth } from '../store/profileSlice';
 import * as helper from '../helpers/HelperFuncs';
+import { useNavigate } from 'react-router-dom';
+import FollowerService from './follower_service';
 
 
 const ProfileService = () => {
   const dispatch = useDispatch();
+  const redirect = useNavigate()
+  const follower_service = FollowerService()
+
+  const checkAuth = () => { 
+    console.log("AUTHENTICATING");
+    if(!localStorage.getItem("accessToken")) return redirect("/")
+    dispatch(updateAuth(true))
+    follower_service.getMyFollowers()
+    getMyInfo()
+  }
+
   const getMyInfo = async () => {
     try {
       console.log('%cGETTING MY INFO', "color:orange");
@@ -19,12 +30,16 @@ const ProfileService = () => {
     }
   };
 
-  const updatePrivacy= async () =>{
+  const updateProfileInfo= async (data) =>{
       try{
-          console.log("Changing Privacy");
-          await http.put("/user/me")
-          const response = await http.get('/user/me');
-          dispatch(update({ ...response.data, id: helper.getTokenId() }));
+          console.log("%cUpdateing Profile Info" , "color:orange");
+          await http.put("/user/me",{
+                "nickname"  : data.nickname ,
+                "about_me"  : data.about_me ,
+                "user_img"  :  data.user_img  ,
+                "is_private":  data.is_private 
+          })
+          getMyInfo()
       }catch(err){
          helper.checkError(err)
       }
@@ -54,9 +69,10 @@ const ProfileService = () => {
 
   return {
     getMyInfo,
-    updatePrivacy,
+    updateProfileInfo,
     getAllUsers,
     getUserInfo,
+    checkAuth,
   };
 }
 

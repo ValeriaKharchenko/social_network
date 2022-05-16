@@ -3,20 +3,82 @@
     display: flex;
     justify-content: space-around;
     place-items: center;
-    max-width: 600px;
+    min-width: 600px;
+    position: relative;
+    .setting_btn{
+        display: flex;
+        flex-direction: column;
+        place-items: center;
+        position:absolute;
+        top: 0;
+        left: 0;
+        background-color: rgb(191, 191, 191) ;
+        border-radius:  0 0 10px;
+        padding: 0.3em; 
+        .gear{
+            transition: 1s all ease;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            &:hover{
+                // transform: rotate(360deg);
+                animation: spin 2s linear infinite;
+            }
+        }
+    }
+
     .left_side{
+        flex: 1;
         padding: 1em;
         display: flex;
         place-items: center;
-        justify-content: start;
+        justify-content: flex-start;
         flex-direction: column;
+
+        .profile_image_container{
+            position: relative;
+            #avatar{
+                display: none;
+            }
+            #edit_icon{
+                cursor: pointer;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                border:2px solid black ;
+                background-color: rgba(245, 222, 179, 0.646);
+                border-radius: 50%;
+            }
+            #remove_icon{
+                cursor: pointer;
+                position: absolute;
+                bottom: 0;
+                border:2px solid black ;
+                background-color: rgba(245, 222, 179, 0.646);
+                border-radius: 50%;
+            }
+        }
+
     }
 
-
+    .right_side{
+        flex: 1;
+        .about_me{
+            margin: -20px ;
+            padding: -20px;
+            transform: translate(-10px);
+        }
+    }
+    .update_field {
+        width: 100px;
+    }
+    .privacy_btn_wrapper{
+        margin : 1em;
+    }
     .public{
-        // background-color: red;
         width: 40px;
         height: 16px;
+        margin: 0 0.5em ;
         border: 2px solid grey;
         background: linear-gradient(-90deg, rgba(216, 216, 216, 1) 0%, rgba(189, 189, 189, 1) 50%, rgba(209, 118, 83, 1) 50%, rgba(219, 82, 30, 1) 100%);
         display: relative;
@@ -27,4 +89,16 @@
         }
     }
 
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg) scale(1);
+    }
+    50%{
+        transform: rotate(180deg) scale(1.2);
+    }
+    100%{
+        transform: rotate(360deg) scale(1);
+    }
 }

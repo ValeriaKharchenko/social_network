@@ -5,8 +5,8 @@ import Navbar from "../components/Navbar";
 // import "../index.scss"
 
 export const Private = () => {
-  const auth = useSelector((state: RootState) => state.user.userInfo.auth);
-
+  // const auth = useSelector((state: RootState) => state.user.userInfo.auth);
+  const auth = useSelector((state: RootState) => state.profile.auth);
   const location = useLocation();
   if (!auth) {
     return <Navigate to={"/"} state={{ from: location }} />;
@@ -23,10 +23,12 @@ export const Private = () => {
   );
 };
 export const Public = () => {
-  const auth = useSelector((state: RootState) => state.user.userInfo.auth);
+  // const auth = useSelector((state: RootState) => state.user.userInfo.auth);
+  const auth = useSelector((state: RootState) => state.profile.auth);
   const location = useLocation();
   if (auth) {
-    return <Navigate to={"/profile/:id"} state={{ from: location }} />;
+    // return <Navigate to={"/profile/:id"} state={{ from: location }} />;
+    return <Navigate to={"/homepage"} state={{ from: location }} />;
   }
   return (
     <main className="screen-center">

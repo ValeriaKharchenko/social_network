@@ -5,6 +5,7 @@ import postReducer from "./postSlice";
 import profileReducer  from "./profileSlice";
 import followerSlice from "./followerSlice";
 import type UserInfo from "../utilities/user-service";
+import groupSlice from "./groupSlice";
 
 const saveToLocalStorage = (state: any) => {
   // console.log("state:", state);
@@ -40,7 +41,7 @@ const loadFromLocalStorage = () => {
   }
 };
 
-const rootReducer = combineReducers({ user: userReducer, post: postReducer, profile:profileReducer, followers: followerSlice});
+const rootReducer = combineReducers({ user: userReducer, post: postReducer, profile:profileReducer, followers: followerSlice, groups: groupSlice});
 
 const persistedStore = loadFromLocalStorage();
 

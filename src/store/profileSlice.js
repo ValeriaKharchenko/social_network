@@ -18,6 +18,7 @@ let initial = {
 export const profileSlice = createSlice({
     name: "profile",
     initialState: {
+        auth:false,
         info: initial,
         allUsers:[],
     },
@@ -25,15 +26,15 @@ export const profileSlice = createSlice({
         update:(state, action) => {
             state.info = action.payload
         },
-        remove : (state) => (state ={}),
-
         addAllUsers: (state, action) => {
             state.allUsers = action.payload.filter(user => state.info.id != user.ID)
+        },
+        updateAuth : (state,action) => { 
+            state.auth = action.payload
         }
 
     }
 })
 
-// export const {update,remove} = profileSlice.actions;
-export const { update, remove, addAllUsers } = profileSlice.actions;
+export const { update, addAllUsers, updateAuth } = profileSlice.actions;
 export default profileSlice.reducer

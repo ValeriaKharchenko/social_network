@@ -1,6 +1,4 @@
-
 import "./follower.scss"
-import {followers} from "../../mockData"
 import FollowerCard from "./FollowerCard"
 
 

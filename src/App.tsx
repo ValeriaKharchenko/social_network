@@ -2,8 +2,15 @@ import { Routes, Route } from "react-router-dom";
 import { Public, Private } from "./hoc/routeWrappers";
 import Pages from "./pages/pages"
 import './index.scss'
+import { useEffect } from "react";
+import ProfileService from "./utilities/profile_service";
 
 function App() {
+  const profile_service = ProfileService()
+  useEffect(()=>{
+    profile_service.checkAuth()
+  },[])
+
   return (
     <>
       <Routes>
@@ -11,6 +18,7 @@ function App() {
         <Route element={<Private />}>
           <Route path={"/homepage"} element={<Pages.Homepage />} />
           <Route path={"/profile/:id"} element={<Pages.Profile />} />
+          <Route path={"/group/:id"} element={<Pages.Group />} />
           <Route path="post/:id" element={<Pages.OnePost />} />
           <Route path="/*" element={<Pages.OnePost />} />
         </Route>
