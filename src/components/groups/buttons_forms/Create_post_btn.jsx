@@ -3,6 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
 import GroupService from "../../../utilities/group_service";
+import * as helper from '../../../helpers/HelperFuncs';
 import "./group_buttons.scss"
 
 /*
@@ -20,7 +21,6 @@ const Create_post = ({id}) => {
     const group_service = GroupService()
     const [isOpen,setIsOpen] = useState(false)
     const [img,setImg] = useState(null)
-
     
     const data  =  {
         group_id    : Number(id), 
@@ -29,23 +29,25 @@ const Create_post = ({id}) => {
         image : img
     }
 
+
+    const convertImg = async (image) => { 
+    if(image.length !== 0) {
+      if(helper.checkImage(image)){
+        // setErrors([])
+        const resp = await helper.getBase64(image[0]).then(base64 => base64)
+        return resp
+      }
+    }
+  }
+
     const clearInput = (e) => { 
         e.target.value  = ""
         document.getElementById(e.target.id).classList.remove("error")
-
-    }
-    const handleInputs = (id,input) => { 
-        if(!input) {
-            document.getElementById(id).value = "fill "
-            document.getElementById(id).classList.add("error")
-            return false
-        }
-        return true
     }
 
     const handleSubmit = () => { 
         if(data == null) return
-        if( handleInputs("subject",data.subject) && handleInputs("content",data.content)) group_service.makeGroupPost(data);
+        if( helper.handleInputs("subject",data.subject) && helper.handleInputs("content",data.content)) group_service.makeGroupPost(data);
     }
 
 
@@ -54,9 +56,7 @@ const Create_post = ({id}) => {
         <>
         {!isOpen && <Button onClick={() => setIsOpen(!isOpen)}>Create Post <AddIcon/></Button>}
 
-
         {isOpen && 
-
         <form id="postForm" >
              <Button
               variant="contained"
@@ -73,21 +73,19 @@ const Create_post = ({id}) => {
                 <Input type="text" id="content" name="content" onClick={(e)=>clearInput(e)} onChange={(e)=>{data.content = e.target.value}}></Input>
             </div>
             <div className="input">
-                <label className="image_btn" htmlFor="image">{!img ? "IMAGE" : `${"....\\" + img.split("\\").pop()}`} </label>
-                <input type="file" id="image" name="image" onChange={(e)=>{
-                    data.image = e.target.value
-                    setImg(e.target.value)
-                    }}/>
+                {/* <label className="image_btn" htmlFor="image">{!img ? "PICK IMAGE" : `${"....\\" + img.split("\\").pop()}`} </label> */}
+                <label className="image_btn" htmlFor="image">{!img ? "PICK IMAGE" : "IMAGE ADDED"} </label>
+                <input type="file" id="image" name="image" 
+                    onChange={()=>{convertImg(document.getElementById("image").files).then(res => setImg(res))}}
+                    />
             </div>
             <Button sx={{fontSize:"16px" }} type={"submit"} 
-                    onClick={() => { 
+                    onClick={(e) => { 
+                        e.preventDefault();
                         if(data.subject && data.content) setIsOpen(false)
                         handleSubmit()
                     }}> POST </Button>
         </form>
-
-       
-        
         }
         </>
         

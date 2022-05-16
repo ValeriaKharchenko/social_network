@@ -73,3 +73,45 @@
     }
 
 }
+
+#eventForm{
+    position: absolute;
+    background-color: white;
+    border: 10px solid rgba(73, 148, 73, 0.722);
+    width: 300px;
+    padding: 4em;
+    top: 50%;
+    left: 50%;
+    // transform: translate(-50%,-50%);
+    right: 0;
+    z-index: 10;
+    .back_btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+    .input {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        place-items: flex-end;
+
+        .error {
+            color: red;
+        }
+    }
+}
+
+#invite_list{
+    width: 200px;
+    .listed_user{
+        display: flex;
+        justify-content: space-between;
+        background-color: white;
+        border-bottom: 2px solid grey;
+    }
+    table{
+        width: 200px;
+    }
+}
