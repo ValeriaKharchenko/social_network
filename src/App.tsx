@@ -1,15 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 import { Public, Private } from "./hoc/routeWrappers";
-import Pages from "./pages/pages"
-import './index.scss'
+import Pages from "./pages/pages";
+import "./index.scss";
 import { useEffect } from "react";
 import ProfileService from "./utilities/profile_service";
 
 function App() {
-  const profile_service = ProfileService()
-  useEffect(()=>{
-    profile_service.checkAuth()
-  },[])
+  const profile_service = ProfileService();
+  useEffect(() => {
+    profile_service.checkAuth();
+  }, []);
 
   return (
     <>

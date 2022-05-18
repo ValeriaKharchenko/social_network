@@ -8,28 +8,33 @@ import Logout from "../components/buttons/logout";
 import Searchbar from "./Searchbar";
 import ProfileService from "../utilities/profile_service";
 
-
-
 const Navbar = () => {
-  const profile_service = ProfileService()
-  const storeInfo = useSelector((state: RootState) => state)
+  const profile_service = ProfileService();
+  const storeInfo = useSelector((state: RootState) => state);
   // @ts-ignore
-  const storeProfileInfo = useSelector((state: RootState) => state.profile.info)
+  const storeProfileInfo = useSelector(
+    (state: RootState) => state.profile.info
+  );
 
   return (
     <div className="navigation">
-      <Searchbar   />
+      <Searchbar />
       <div className="profile_box">
         <Logout />
-        <Avatar alt={`${storeProfileInfo.first_name} `} src={storeProfileInfo.user_img} />
-        <p>{storeProfileInfo.first_name} {storeProfileInfo.last_name}</p>
-        <button onClick={() => console.log(storeInfo)} >show storeInfo</button>
+        <Avatar
+          alt={`${storeProfileInfo.first_name} `}
+          src={storeProfileInfo.user_img}
+        />
+        <p>
+          {storeProfileInfo.first_name} {storeProfileInfo.last_name}
+        </p>
+        <button onClick={() => console.log(storeInfo)}>show storeInfo</button>
       </div>
       <Link className="link" to={"/homepage"}>
         {" "}
         Home <Home />
       </Link>
-      <Link className="link" to={"/profile/:id"}>
+      <Link className="link" to={"/profile/me"}>
         {" "}
         Profile <Home />
       </Link>

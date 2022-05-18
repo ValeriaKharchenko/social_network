@@ -3,13 +3,20 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./register.scss";
 // UI material
-import {TextField,Button,Container,Avatar,Box,Grid,Typography,} from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Avatar,
+  Box,
+  Grid,
+  Typography,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 // other
-import * as helper from "../../helpers/HelperFuncs"
+import * as helper from "../../helpers/HelperFuncs";
 import userService from "../../utilities/user-service";
-
 
 export interface RegisterForm {
   first_name: string;
@@ -28,7 +35,6 @@ export default function Register() {
   const { handleSubmit, register } = useForm<RegisterForm>();
   const [errors, setErrors] = useState([]);
 
-
   const onSubmit = async (user: RegisterForm) => {
     let flag = true;
     setErrors([]);
@@ -37,10 +43,10 @@ export default function Register() {
     user.desc = user.desc ? user.desc : "";
 
     console.log("REFISTERING  IMAGE", user.image_path);
-    
+
     // @ts-ignore
-    if(user.password != user.repeat_password){
-      flag = false
+    if (user.password !== user.repeat_password) {
+      flag = false;
       // @ts-ignore
       setErrors((oldArray) => [...oldArray, "* Passwords do not match"]);
     }
@@ -49,29 +55,37 @@ export default function Register() {
       if (!helper.checkImage(user.image_path, setErrors)) flag = false;
       try {
         // @ts-ignore
-        user.image_path = await helper.getBase64(user.image_path[0]).then((base64) => {
-          return base64;
-        });
-      }catch(e){
+        user.image_path = await helper
+          .getBase64(user.image_path[0])
+          .then((base64) => {
+            return base64;
+          });
+      } catch (e) {
         // @ts-ignore
-        setErrors(oldArray => [...oldArray,"ERROR WITH IMAGE UPLOAD"])
+        setErrors((oldArray) => [...oldArray, "ERROR WITH IMAGE UPLOAD"]);
+      }
     }
-  }
 
-  if(flag){
-    try {
-        if(user.image_path.length == 0) user.image_path = ""
-        const response = await userService.register(user)
+    if (flag) {
+      try {
+        if (user.image_path.length == 0) user.image_path = "";
+        const response = await userService.register(user);
 
         // if (response.message === "OK") {
-          redirect("/");
-          // }
-        } catch (e) {
-          if (e instanceof Error) {
+        redirect("/");
+        // }
+      } catch (e) {
+        if (e instanceof Error) {
+          // @ts-ignore
+          setErrors((oldArray) => [
+            ...oldArray,
             // @ts-ignore
-            setErrors(oldArray => [...oldArray, `${helper.capitalize(e.response.data.message) }`])
-          }
+            `${helper.capitalize(e.response.data.message)}`,
+          ]);
+        } else {
+          console.error(e);
         }
+      }
     }
   };
 
@@ -180,9 +194,8 @@ export default function Register() {
                 margin="normal"
                 variant="standard"
                 {...register("dob")}
-                onChange={(e)=>{
+                onChange={(e) => {
                   console.log(e.target.value);
-                  
                 }}
               />
             </Grid>
@@ -210,12 +223,11 @@ export default function Register() {
             <Grid item xs={12} sm={6}>
               <TextField
                 inputProps={{ maxLength: 30 }}
-                label="Description"
+                label="About Me"
                 type="text"
                 multiline
                 rows={3}
                 sx={{ mt: 2, width: "316px" }}
-                defaultValue="About Me"
                 {...register("desc")}
               />
             </Grid>
