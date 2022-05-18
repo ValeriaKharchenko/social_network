@@ -1,15 +1,17 @@
 import Post from "./Post";
-import { Follower, NewPost } from "./newPost";
-import { useEffect, useState } from "react";
+import { NewPost } from "./newPost";
+import * as React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPosts, openModal } from "../../store/postSlice";
 import { RootState } from "../../store/store";
-import { Button, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import postService from "../../utilities/post-service";
-import * as React from "react";
+import { parseDate } from "../../helpers/parseDate";
+import { useParams } from "react-router-dom";
 
 export interface PostInterface {
   id: number;
@@ -20,12 +22,15 @@ export interface PostInterface {
   content: string;
   image: string;
   created_at: string;
+  privacy: number;
 }
 
 const PostList = () => {
+  let { id } = useParams();
+  const userId = id ? id : "";
   const fabStyle = {
     position: "absolute",
-    top: 20,
+    top: 80,
     right: 10,
   };
   const isOpen = useSelector((state: RootState) => state.post.isOpen);
@@ -33,24 +38,22 @@ const PostList = () => {
     (state: RootState) => state.post.posts
   );
   const dispatch = useDispatch();
-  const handleClick = () => {
-    console.log("clicked");
+  const openModalWindow = () => {
     // e.preventDefault();
     dispatch(openModal());
   };
 
-  // const [posts, setPosts] = React.useState<PostInterface[]>([]);
-
   useEffect(() => {
-    if (posts.length !== 0) {
-      return;
-    }
-    postService
-    // @ts-ignore
-      .getAllUserPost()
-      // @ts-ignore
-      .then((response) => {
-        let arr: PostInterface[] = [];
+    let response: PostInterface[];
+
+    async function getPosts() {
+      if (userId === "me") {
+        response = await postService.getAllMyPosts();
+      } else {
+        response = await postService.getAllPosts(userId);
+      }
+      let arr: PostInterface[] = [];
+      if (response) {
         response.forEach((r: any) => {
           const p = {
             id: r.id,
@@ -60,25 +63,31 @@ const PostList = () => {
             title: r.subject,
             content: r.content,
             image: r.image,
-            created_at: r.created_at,
+            created_at: parseDate(r.created_at),
+            privacy: r.privacy,
           };
           arr.push(p);
         });
-        // setPosts(arr);
-        dispatch(loadPosts(arr));
-      })
-      .catch((e: Error) => {
-        console.log("error when tried to get all posts", e);
-      });
-  });
+      }
+      dispatch(loadPosts(arr));
+    }
+
+    getPosts();
+  }, [id]);
 
   return (
     <Container>
-      <div className="post_list">
-        {posts.map((post) => (
-          <Post key={post.id} post={post} toShow={false} />
-        ))}
-      </div>
+      {posts.length !== 0 ? (
+        <>
+          <div className="post_list">
+            {posts.map((post) => (
+              <Post key={post.id} post={post} toShow={false} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div>User doesn't have posts yet</div>
+      )}
       <div className={"fabBtn"}>
         <Tooltip title="Add new post">
           <Fab
@@ -87,13 +96,13 @@ const PostList = () => {
             size={"large"}
             sx={fabStyle}
             variant="extended"
-            onClick={handleClick}
+            onClick={openModalWindow}
           >
             <AddIcon />
           </Fab>
         </Tooltip>
       </div>
-      {isOpen ? <NewPost fullView={true} /> : null}
+      {isOpen ? <NewPost parentPrivacy={0} /> : null}
     </Container>
   );
 };
