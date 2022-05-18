@@ -10,7 +10,6 @@ export const Post = ({ post, toShow }) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    console.log("clicked");
     dispatch(openModal());
   };
 
