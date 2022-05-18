@@ -74,12 +74,13 @@ useEffect(()=>{
             <h1> - Groups  </h1>
             {myInfo && <Make_group />}
           </div>
-          <h3>My created groups</h3>
-            <GroupList group={storeInfo.groups.createdGroups} myInfo={myInfo}/>
+          {/* <h3>My created groups</h3> */}
+           {storeInfo.groups.createdGroups ? <GroupList group={storeInfo.groups.createdGroups} myInfo={myInfo}/>: <div> No groups created</div>}
             {/* {myGroups  ?  <GroupList group={myGroups} myInfo={myInfo}/> : <div> No groups created</div>} */}
+
             <h3>Groups I'm in</h3>
             {otherGroups  ?  <GroupList group={otherGroups} myInfo={myInfo}/> : <div> No joined groups</div>}
-            </div>
+          </div>
 
         </>
         : 

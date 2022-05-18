@@ -9,35 +9,15 @@ import { updateCreatedGroups, updateJoinedGroups } from '../store/groupSlice';
 //  make new group event                             //http://localhost:8080/group/event/new
 //  make new group post                             // http://localhost:8080/group/post
 
-// send join request to friend
-// ask to join to group
-
 // get all group and show in search bar (group sign)  //http://localhost:8080/group/all GET method
 // get all groups I created                           //http://localhost:8080/group/mycreated GET method 
 // get all groups im in (group sign)                  //http://localhost:8080/group/joined GET method
 // get group information                              //http://localhost:8080/group/[SomeNumberHere] GETmethod 
 // get all group POSTS                                //http://localhost:8080//group/post/all?groupId=${id}` GETmethod 
 // get all group EVENTS                               //http://localhost:8080//group/event/all?groupId=${id}` 
-
-
-
-
-
-// REsponse
-/*
-type GroupReply struct{
-  Id                  int     `json:"id"`
-  Title               string  `json:"title"`
-  Description         string  `json:"description"`
-  CreatorId           string  `json:"creator_id"`
-  CreatorFirstName    string  `json:"creator_first_name"`
-  CreatorLastName     string  `json:"creator_last_name"`
-  Members             int     `json:"members"`
-}
-*/
-
 // get specific group posts                           //http://localhost:8080/group/post/all?groupId=[some number here]
 // get specific group post and comments               //http://localhost:8080/group/post?groupId=[number]&postId=[number]
+//  get  group fiends who i haven't send yet        //http://localhost:8080/group/invite/available?groupId=[someGroupNumberHere]
 
 /* 
 type GroupOnePostAndComments struct{
@@ -56,6 +36,9 @@ type GroupPostReply struct{
   */
 
  // send group invitation to user                    //http://localhost:8080/group/invite
+ // send group join request by user                  //http://localhost:8080/group/join
+
+
  
  const GroupService = () => {
    const dispatch = useDispatch();
@@ -95,7 +78,7 @@ type GroupPostReply struct{
     try{
       console.log("%c Fetching my created groups --> ","color:orange");
       const response = await http.get('/group/mycreated');
-      dispatch(updateCreatedGroups(response.data))
+      if (response.data) dispatch(updateCreatedGroups(response.data));
     }catch(err){
       helper.checkError(err)
     }
@@ -105,7 +88,7 @@ type GroupPostReply struct{
     try{
       console.log("%c Fetching my joined groups --> ","color:orange");
       const response = await  http.get('/group/joined')
-      dispatch(updateJoinedGroups(response.data))
+      if(response.data) dispatch(updateJoinedGroups(response.data))
     }catch(err){
       helper.checkError(err)
     }
@@ -141,6 +124,16 @@ type GroupPostReply struct{
     }
   }
 
+  const getAvailableFriends = async(id) => { 
+    try {
+      console.log('%c Fetching available friends to send invites--> ', 'color:orange');
+      const response = await http.get( `/group/invite/available?groupId=${id}`);
+      return response.data;
+    } catch (err) {
+      helper.checkError(err);
+    }
+  }
+
 
   const sendGroupInvitation = async (groupId,userId) => {
      try {
@@ -154,6 +147,19 @@ type GroupPostReply struct{
       helper.checkError(err);
     }
   }
+
+  const sendGroupJoinRequest = (id) => {
+      try {
+        console.log('%c Sending join request to group --> ', 'color:orange');
+        const response = http.post(`/group/join`,{
+          group_id : id
+        })
+        console.log("GROUP REquest RESPONSE:", response);
+    } catch (err) {
+       helper.checkError(err);
+    }
+  }
+
   const isAdmin = (id) => { 
     return !!storeInfo.groups.createdGroups.find(group => group.id == id)
   }
@@ -172,7 +178,9 @@ type GroupPostReply struct{
     getGroupInfo,
     getGroupPosts,
     getGroupEvents,
+    getAvailableFriends,
     sendGroupInvitation,
+    sendGroupJoinRequest,
     isAdmin,
     isMember,
   };

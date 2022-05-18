@@ -3,13 +3,14 @@ import {useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import GroupService from "../../utilities/group_service"
 import StarIcon from '@mui/icons-material/Star';
-import { borderRadius } from "@mui/system";
+import Join_group_btn from "./buttons_forms/Join_group_btn";
+import Invite_group_btn from "./buttons_forms/Invite_group_btn";
 
 const GroupPanel = () => {
     const [info,setInfo ] = useState({})
     const group_service = GroupService()
     let {id} = useParams()
-    const isAdmin = group_service.isAdmin(id.slice(1))  
+    const isAdmin = group_service.isAdmin(id.slice(1))
     const isMember = group_service.isMember(id.slice(1))
     useEffect(()=>{
         id= id.slice(1)
@@ -34,7 +35,8 @@ const GroupPanel = () => {
                 </div>
                 <div className="right">
                     <Typography variant="h6">Members: {info.members}</Typography>
-                    {!isMember? <Button>Join Request</Button> : <Button>Invite users</Button>}
+                    {/* {(!isMember && !isAdmin) ? <Button>Join Group</Button> : <Button>Invite users</Button>} */}
+                    {(!isMember && !isAdmin) ? <Join_group_btn/> : <Invite_group_btn />}
                 </div>
             </div>
             <Typography variant="h6">What this group is about: </Typography>
