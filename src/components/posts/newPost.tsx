@@ -31,14 +31,18 @@ export interface NewPostForm {
   imgString: string;
   privacy: Privacy;
   parent_id: number;
-  userList: Follower[] | null;
+  userList: string[] | null;
 }
 
 export interface Follower {
-  // firstName: string,
-  // lastName: string,
-  name: string;
+  firstName: string;
+  lastName: string;
   id: string;
+}
+interface FollowerFromState {
+  first_name: string;
+  last_name: string;
+  user_id: string;
 }
 
 enum Privacy {
@@ -48,6 +52,9 @@ enum Privacy {
 }
 
 export function NewPost(props: { parentPrivacy: number }) {
+  const myFollowers = useSelector(
+    (state: RootState) => state.followers.stalkers
+  );
   const { handleSubmit, register } = useForm<NewPostForm>();
   const [errors, setErrors] = useState<string[]>([]);
   const open = useSelector((state: RootState) => state.post.isOpen);
@@ -61,29 +68,26 @@ export function NewPost(props: { parentPrivacy: number }) {
 
   let { id } = useParams();
   const param: number = id ? +id : 0;
+
   useEffect(() => {
     if (listOfFollowers.length !== 0) {
       return;
     }
-    //fake list of users
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((users) => {
-        let l: Follower[] = [];
-        users.forEach((u: Follower) => {
-          const follower = {
-            name: u.name,
-            id: u.id,
-          };
-          l.push(follower);
-        });
-        setListFollowers(l);
-      });
+    let l: Follower[] = [];
+    myFollowers.forEach((u: FollowerFromState) => {
+      const follower = {
+        firstName: u.first_name,
+        lastName: u.last_name,
+        id: u.user_id,
+      };
+      l.push(follower);
+    });
+    setListFollowers(l);
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // @ts-ignore
-    setValue((event.target as HTMLInputElement).value);
+    const pr = parseInt((event.target as HTMLInputElement).value);
+    setValue(pr as Privacy);
   };
 
   const imgCheck = (image: FileList): boolean => {
@@ -92,10 +96,8 @@ export function NewPost(props: { parentPrivacy: number }) {
 
   let chosenUsers: Follower[] = [];
   const chosen = (users: readonly Follower[]) => {
-    console.log("i'm chosen!", users);
     chosenUsers = users as Follower[];
   };
-  console.log(chosenUsers);
 
   const newPost = async (data: NewPostForm) => {
     if (!props.parentPrivacy) {
@@ -107,12 +109,10 @@ export function NewPost(props: { parentPrivacy: number }) {
     }
     let check = true;
     if (chosenUsers.length !== 0) {
-      data.userList = chosenUsers;
+      data.userList = chosenUsers.map((user) => user.id);
     }
-    console.log(data.userList);
 
     if (data.image.length !== 0) {
-      console.log(data.image);
       check = imgCheck(data.image);
       data.imgString = (await getBase64(data.image[0])
         .then((str) => {
@@ -125,16 +125,14 @@ export function NewPost(props: { parentPrivacy: number }) {
 
     if (check) {
       try {
-        console.log("New post", data);
         const response = await postService.addNewPost(data);
         handleClose();
-        console.log("New post response", response);
 
         if (!props.parentPrivacy) {
           dispatch(updatePosts(response));
         } else dispatch(updateComments(response));
       } catch (e) {
-        console.log(e);
+        console.error(e);
         alert(e);
       }
     } else {
