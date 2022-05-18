@@ -8,7 +8,10 @@ const GroupPosts = ({id}) => {
   const group_service = GroupService()
 
   useEffect(()=>{
-    group_service.getGroupPosts(id).then(res => {setPosts(res)})
+    group_service.getGroupPosts(id).then(res => {
+      console.log("GRPUO POSTS" , res);
+      setPosts(res)
+    })
   },[id])
 
   return (

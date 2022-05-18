@@ -28,15 +28,24 @@
 
             //Events
         [x] - Making of create  group event form 
-        [x] - showing group events [Back needs fixing]
+        [x] - showing group events
             [ ]-- need to add buttons for going/notgoing + requests
 
             //Todo
-        [ ] - join group  component
+        [x] - join group component
+        WORKING ON    --- Need to know that request was sent somehow from back and change button
         [ ] - invite follower component
-            --- made Invite_group_list component ( can use it in group page)
+        WORKING ON --- made Invite_group_list component ( can use it in group page)
         [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons)
+        [ ] - needs to update when creating, posting in group automatically
 
+
+
+
+### CHECKING LIST: 
+    1. GET FREIND LIST FILTERED - not in particular group 
+    2. CHECK GROUPS POST created_at
+    3. Clear every store  - 2 stalkers in another user
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
