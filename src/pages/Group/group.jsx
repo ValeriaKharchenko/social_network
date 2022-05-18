@@ -9,11 +9,12 @@ import { useEffect } from "react"
 const Group = () => {
   const group_service = GroupService()
   let {id} = useParams()
+  const isAdmin = group_service.isAdmin(id.slice(1))
   const isMember = group_service.isMember(id.slice(1))
   return (
     <div>
         <GroupPanel/>
-        {isMember && 
+        {(isMember || isAdmin )&& 
         <>
         <div className="posts" >
           <div className="header flex">
