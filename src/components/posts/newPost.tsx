@@ -9,6 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal, updateComments, updatePosts } from "../../store/postSlice";
 import "./newPost.scss";
@@ -17,7 +18,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { RootState } from "../../store/store";
 import { useForm } from "react-hook-form";
 import { checkImage, getBase64 } from "../../helpers/checkImage";
-import { useEffect, useState } from "react";
 import postService from "../../utilities/post-service";
 import TransferList from "../transferList";
 import { useParams } from "react-router-dom";
@@ -47,7 +47,7 @@ enum Privacy {
   StrictlyPrivate,
 }
 
-export function NewPost(props: { fullView: boolean }) {
+export function NewPost(props: { parentPrivacy: number }) {
   const { handleSubmit, register } = useForm<NewPostForm>();
   const [errors, setErrors] = useState<string[]>([]);
   const open = useSelector((state: RootState) => state.post.isOpen);
@@ -98,11 +98,11 @@ export function NewPost(props: { fullView: boolean }) {
   console.log(chosenUsers);
 
   const newPost = async (data: NewPostForm) => {
-    if (props.fullView) {
+    if (!props.parentPrivacy) {
       data.privacy = value as Privacy;
       data.parent_id = 0;
     } else {
-      data.privacy = 0;
+      data.privacy = props.parentPrivacy;
       data.parent_id = param;
     }
     let check = true;
@@ -129,9 +129,8 @@ export function NewPost(props: { fullView: boolean }) {
         const response = await postService.addNewPost(data);
         handleClose();
         console.log("New post response", response);
-        // @ts-ignore
-        // data.image = "";
-        if (props.fullView) {
+
+        if (!props.parentPrivacy) {
           dispatch(updatePosts(response));
         } else dispatch(updateComments(response));
       } catch (e) {
@@ -162,7 +161,7 @@ export function NewPost(props: { fullView: boolean }) {
         }}
       >
         <div className={"title"}>
-          {props.fullView && (
+          {!props.parentPrivacy && (
             <Input
               placeholder="Title"
               inputProps={ariaLabel}
@@ -187,7 +186,7 @@ export function NewPost(props: { fullView: boolean }) {
           />
         </div>
         <Input sx={{ mb: 3 }} type={"file"} {...register("image")}></Input>
-        {props.fullView && (
+        {!props.parentPrivacy && (
           <div>
             <FormControl id={""} sx={{ ml: 1, mb: 3 }}>
               Who can see this post?

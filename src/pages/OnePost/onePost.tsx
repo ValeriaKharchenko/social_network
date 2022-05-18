@@ -43,7 +43,7 @@ export default function OnePost() {
         const c = data.Comments || [];
         console.log("C", c);
         const date = parseDate(p.created_at);
-        const post = {
+        const post: PostInterface = {
           id: p.id,
           user_id: p.user_id,
           user_firstname: p.user_firstname,
@@ -51,8 +51,10 @@ export default function OnePost() {
           title: p.subject,
           content: p.content,
           image: p.image,
+          privacy: p.privacy,
           created_at: date,
         };
+        console.log("POST", post);
         const comments: PostInterface[] = [];
         c.forEach((v: any) => {
           const com = {
@@ -64,6 +66,7 @@ export default function OnePost() {
             content: v.content,
             image: v.image,
             created_at: date,
+            privacy: v.privacy,
           };
           comments.push(com);
         });
@@ -84,15 +87,12 @@ export default function OnePost() {
   return (
     <Container>
       <Post post={post} toShow={true}></Post>
-      <div
-        className="post_list"
-        style={{ maxWidth: 600, textAlign: "right", alignItems: "right" }}
-      >
+      <div className="post_list" style={{ maxWidth: 600 }}>
         {comments.map((c) => (
           <Post key={c.id} post={c} toShow={false} />
         ))}
       </div>
-      {isOpen ? <NewPost fullView={false} /> : null}
+      {isOpen ? <NewPost parentPrivacy={post.privacy} /> : null}
     </Container>
   );
 }
