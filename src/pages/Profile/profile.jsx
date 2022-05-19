@@ -16,17 +16,6 @@ import PostList from "../../components/posts/PostList";
 
 // UPDATE UPDATE UPDATE UPDATE
 // combine those request into one ( use Store ? )
-
-// const group = [{
-//   id : "dev",
-//   title : "kmds",
-//   description : "oke",
-//   creator_id : "12-234",
-//   creator_first_name : "Sil",
-//   creator_last_name : "ver",
-//   members : 10,
-// }
-// ]
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -61,8 +50,6 @@ const Profile = () => {
   let [myInfo, setMyInfo] = useState(false);
   let [followers, setFollowers] = useState(null);
   let [stalkers, setStalkers] = useState(null);
-  let [myGroups, setMyGroups] = useState(null);
-  let [otherGroups, setOtherGroups] = useState(null);
   let { id } = useParams();
   const storeInfo = useSelector((state) => state);
   const follower_service = FollowerService();
@@ -181,7 +168,20 @@ const Profile = () => {
               <div> No joined groups</div>
             )}
           </div>
-        </TabPanel>
+          <h3>My created groups</h3>
+          {storeInfo.groups.createdGroups.length != 0 ? (
+            <GroupList group={storeInfo.groups.createdGroups} myInfo={myInfo} />
+          ) : (
+            <div> No groups created</div>
+          )}
+          <h3>Groups I'm in</h3>
+          {storeInfo.groups.joinedGroups.length != 0 ? (
+            <GroupList group={storeInfo.groups.joinedGroups} myInfo={myInfo} />
+          ) : (
+            <div> No joined groups</div>
+          )}
+        </div>
+      </TabPanel>
       )}
     </Box>
   );
