@@ -1,6 +1,7 @@
 import http from "./http-common";
 import { NewPostForm } from "../components/posts/newPost";
 import { PostInterface } from "../components/posts/PostList";
+import { parseDate } from "../helpers/parseDate";
 
 export default {
   async addNewPost(post: NewPostForm): Promise<PostInterface> {
@@ -15,14 +16,23 @@ export default {
         access: post.userList,
       });
       console.log("response after add new post: ", response);
-      return response.data;
+      return {
+        id: response.data.id,
+        user_id: response.data.user_id,
+        user_firstname: response.data.user_firstname,
+        user_lastname: response.data.user_lastname,
+        title: response.data.subject,
+        content: response.data.content,
+        image: response.data.image,
+        created_at: parseDate(response.data.created_at),
+        privacy: response.data.privacy,
+      };
     } catch (e) {
       console.log(e);
       throw e;
     }
   },
-  async getAllUserPost() {
-    console.log("Got here!");
+  async getAllMyPosts() {
     try {
       const response = await http.get("post/oneuser");
       return response.data;
@@ -31,8 +41,18 @@ export default {
       throw e;
     }
   },
+  async getAllPosts(userId: string) {
+    try {
+      const response = await http.get(`post/oneuser?id=${userId}`);
+      console.log("user's posts", response.data);
+      return response.data;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+  },
+
   async showPost(id: string) {
-    console.log("Got id!", id);
     try {
       const response = await http.get(`post/${id}`);
       console.log(response.data);

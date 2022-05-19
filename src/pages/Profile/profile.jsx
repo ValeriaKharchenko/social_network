@@ -5,14 +5,17 @@ import ProfileInfo from "../../components/ProfileInfo";
 import Make_group from "../../components/groups/buttons_forms/Make_group_btn";
 import GroupList from "../../components/groups/GroupList";
 // Redux
-import {useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 // data
 import FollowerService from "../../utilities/follower_service";
-import "./profile.scss"
+import "./profile.scss";
 import GroupService from "../../utilities/group_service";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
+import PropTypes from "prop-types";
+import PostList from "../../components/posts/PostList";
 
 // UPDATE UPDATE UPDATE UPDATE
-// combine those request into one ( use Store ? ) 
+// combine those request into one ( use Store ? )
 
 // const group = [{
 //   id : "dev",
@@ -24,73 +27,155 @@ import GroupService from "../../utilities/group_service";
 //   members : 10,
 // }
 // ]
-const Profile = () => {
-  let redirect = useNavigate()
-  let [myInfo, setMyInfo] = useState(false)
-  let [followers,setFollowers] = useState(null)
-  let [stalkers,setStalkers] = useState(null)
-  let [myGroups,setMyGroups] = useState(null)
-  let [otherGroups,setOtherGroups] = useState(null)
-  let {id} = useParams()
-  const storeInfo = useSelector(state => state)
-  const follower_service = FollowerService()
-  const group_service = GroupService()
-  let update = useSelector(state => state.followers.updateStatus) // switching store status to update page
-
-useEffect(()=>{
-  id=id.slice(1)
-  follower_service.setCurrentUserId(id) 
-  if(id === storeInfo.profile.info.id){
-    redirect('/profile/:id')
-  }
-  if(id == "id"){
-    setMyInfo(true)
-    follower_service.getMyFollowers()
-    group_service.getCreatedGroups()
-    group_service.getJoinedGroups()
-  }else{
-    setMyInfo(false)
-    follower_service.getUserFollowers(id).then(res=> {setFollowers(res)})
-    follower_service.getUserStalkers(id).then(res=> {setStalkers(res)})
-    }
-  },[id,update])
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
   return (
-    
-    <div className='profile-page'>
-         {myInfo ?   <h1>My Info</h1> :   <h1>User Info</h1>  } 
-         <ProfileInfo /> 
-         {myInfo ?  <h1> - My post and all post including me </h1> :  <h1> - User Posts</h1>  } 
-         <h1> - Followers  </h1>
-         
-        {
-          myInfo ? 
-          <>
-          {storeInfo.followers.followers && <FollowerList list={storeInfo.followers.followers} label={"I spy on"}/>}
-          {storeInfo.followers.stalkers && <FollowerList list={storeInfo.followers.stalkers} label={"My Stalkers"}/>}
-
-          <div className="groups_container">
-          <div className="header">
-            <h1> - Groups  </h1>
-            {myInfo && <Make_group />}
-          </div>
-          {/* <h3>My created groups</h3> */}
-           {storeInfo.groups.createdGroups ? <GroupList group={storeInfo.groups.createdGroups} myInfo={myInfo}/>: <div> No groups created</div>}
-            {/* {myGroups  ?  <GroupList group={myGroups} myInfo={myInfo}/> : <div> No groups created</div>} */}
-
-            <h3>Groups I'm in</h3>
-            {otherGroups  ?  <GroupList group={otherGroups} myInfo={myInfo}/> : <div> No joined groups</div>}
-          </div>
-
-        </>
-        : 
-        <>
-          {followers ? <FollowerList list={followers} label={"User spys on"}/> : <div>User dosen't follow anybody</div>}
-          {stalkers ?  <FollowerList list={stalkers} label={"User stalked by"}/> : <div>User dosen't have stalkers</div>}
-        </>
-        }
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
-  )
+  );
 }
 
-export default Profile
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+const Profile = () => {
+  let redirect = useNavigate();
+  let [myInfo, setMyInfo] = useState(false);
+  let [followers, setFollowers] = useState(null);
+  let [stalkers, setStalkers] = useState(null);
+  let [myGroups, setMyGroups] = useState(null);
+  let [otherGroups, setOtherGroups] = useState(null);
+  let { id } = useParams();
+  const storeInfo = useSelector((state) => state);
+  const follower_service = FollowerService();
+  const group_service = GroupService();
+  let update = useSelector((state) => state.followers.updateStatus); // switching store status to update page
+
+  useEffect(() => {
+    follower_service.setCurrentUserId(id);
+    if (id === storeInfo.profile.info.id) {
+      redirect("/profile/me");
+    }
+    if (id == "me") {
+      setMyInfo(true);
+      follower_service.getMyFollowers();
+      group_service.getCreatedGroups();
+      group_service.getJoinedGroups();
+    } else {
+      setMyInfo(false);
+      follower_service.getUserFollowers(id).then((res) => {
+        setFollowers(res);
+      });
+      follower_service.getUserStalkers(id).then((res) => {
+        setStalkers(res);
+      });
+    }
+  }, [id, update]);
+
+  const [value, setValue] = useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ width: "100%" }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: "divider",
+        }}
+      >
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab label="Profile" {...a11yProps(0)} />
+          <Tab label="Posts" {...a11yProps(1)} />
+          <Tab label="Followers" {...a11yProps(2)} />
+          {myInfo && <Tab label="Groups" {...a11yProps(3)} />}
+        </Tabs>
+      </Box>
+
+      {/*<div className="profile-page">*/}
+      <TabPanel index={0} value={value}>
+        {/*{myInfo ? <h1>My Info</h1> : <h1>User Info</h1>}*/}
+        <ProfileInfo />
+      </TabPanel>
+      <TabPanel index={1} value={value}>
+        <PostList />
+      </TabPanel>
+      <TabPanel index={2} value={value}>
+        {myInfo ? (
+          <>
+            {storeInfo.followers.followers && (
+              <FollowerList
+                list={storeInfo.followers.followers}
+                label={"I spy on"}
+              />
+            )}
+            {storeInfo.followers.stalkers && (
+              <FollowerList
+                list={storeInfo.followers.stalkers}
+                label={"My Stalkers"}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            {followers ? (
+              <FollowerList list={followers} label={"User spys on"} />
+            ) : (
+              <div>User doesn't follow anybody</div>
+            )}
+            {stalkers ? (
+              <FollowerList list={stalkers} label={"User stalked by"} />
+            ) : (
+              <div>User doesn't have stalkers</div>
+            )}
+          </>
+        )}
+      </TabPanel>
+      <TabPanel index={3} value={value}>
+        <div className="groups_container">
+          <div className="header">
+            <h1> - Groups </h1>
+            <Make_group />
+          </div>
+          <h3>My created groups</h3>
+          {storeInfo.groups.createdGroups ? (
+            <GroupList group={storeInfo.groups.createdGroups} myInfo={myInfo} />
+          ) : (
+            <div> No groups created</div>
+          )}
+          <h3>Groups I'm in</h3>
+          {otherGroups ? (
+            <GroupList group={otherGroups} myInfo={myInfo} />
+          ) : (
+            <div> No joined groups</div>
+          )}
+        </div>
+      </TabPanel>
+    </Box>
+  );
+};
+
+export default Profile;

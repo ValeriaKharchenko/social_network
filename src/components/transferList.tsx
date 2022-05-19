@@ -102,7 +102,10 @@ export default function TransferList(
                   }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={` ${value.name}`} />
+              <ListItemText
+                id={labelId}
+                primary={` ${value.firstName} ${value.lastName}`}
+              />
             </ListItem>
           );
         })}

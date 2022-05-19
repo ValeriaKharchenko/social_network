@@ -1,15 +1,14 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Navbar from "../components/Navbar";
-// import "../index.scss"
 
 export const Private = () => {
-  // const auth = useSelector((state: RootState) => state.user.userInfo.auth);
+  console.log("here i'm");
   const auth = useSelector((state: RootState) => state.profile.auth);
   const location = useLocation();
   if (!auth) {
-    return <Navigate to={"/"} state={{ from: location }} />;
+    return <Navigate to={"/login"} state={{ from: location }} />;
   }
   return (
     <>
@@ -22,13 +21,19 @@ export const Private = () => {
     </>
   );
 };
+
 export const Public = () => {
-  // const auth = useSelector((state: RootState) => state.user.userInfo.auth);
   const auth = useSelector((state: RootState) => state.profile.auth);
   const location = useLocation();
   if (auth) {
-    // return <Navigate to={"/profile/:id"} state={{ from: location }} />;
-    return <Navigate to={"/homepage"} state={{ from: location }} />;
+    let currentPath = location.pathname;
+    console.log(currentPath);
+    if (currentPath === "/login") {
+      return (
+        <Navigate to={"/homepage"} state={{ from: location }} replace={true} />
+      );
+    }
+    return <Navigate to={currentPath} state={{ from: location }} />;
   }
   return (
     <main className="screen-center">
