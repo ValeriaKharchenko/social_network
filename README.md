@@ -17,7 +17,7 @@
 
     <!-- Groups -->
         [x] - Making of create Group Button with follower invitations
-        [x] - Group info Panel
+        [x] - Group info Panel   ??? back gives back string object and with it error 500 if not admin ???
         [x] - Group link, page & components(files)
         [x] - Search for groups - Searchbar
 
