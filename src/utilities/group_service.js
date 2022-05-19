@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { update, addAllUsers, updateAuth } from '../store/profileSlice';
 import * as helper from '../helpers/HelperFuncs';
 import { useNavigate } from 'react-router-dom';
-import { updateCreatedGroups, updateJoinedGroups } from '../store/groupSlice';
+import {
+  updateCreatedGroups,
+  updateJoinedGroups,
+  updateCurrentGroup,
+} from '../store/groupSlice';
 
 //  make new group  // UPDATE - What if group name is taken 
 //  make new group event                             //http://localhost:8080/group/event/new
@@ -98,6 +102,8 @@ type GroupPostReply struct{
     try{
       console.log("%c Fetching specific group info --> ","color:orange");
       const response = await http.get(`/group/${id}`);
+      console.log(response.data);
+      dispatch(updateCurrentGroup(response.data));
       return response.data
     }catch(err){
       helper.checkError(err)
@@ -142,7 +148,7 @@ type GroupPostReply struct{
         group_id : groupId,
         target_id : userId
       })
-      console.log("GROUP INVITATION RESPONSE:", response);
+      console.log("GROUP INVTATION RESPONSE:", response);
     } catch (err) {
       helper.checkError(err);
     }

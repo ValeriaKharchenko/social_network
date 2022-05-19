@@ -33,10 +33,10 @@
 
             //Todo
         [x] - join group component
-        WORKING ON    --- Need to know that request was sent somehow from back and change button
-        [ ] - invite follower component
-        WORKING ON --- made Invite_group_list component ( can use it in group page)
-        [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons)
+            ON HOLD??? --- Need to know that request was sent somehow from back and change button
+        [x] - made Invite_group_list component ( can use it in group page)
+        [x] - invite follower component (Invite_group_btn)
+        WORKING ON -  [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons)
         [ ] - needs to update when creating, posting in group automatically
 
 
