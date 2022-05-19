@@ -88,12 +88,16 @@ const Profile = () => {
         sx={{
           borderBottom: 1,
           borderColor: "divider",
+          // bgcolor: "secondary",
         }}
+        className={"tabMenu"}
       >
         <Tabs
           value={value}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="fullWidth"
           onChange={handleChange}
-          aria-label="basic tabs example"
         >
           <Tab label="Profile" {...a11yProps(0)} />
           <Tab label="Posts" {...a11yProps(1)} />
@@ -141,11 +145,28 @@ const Profile = () => {
           </>
         )}
       </TabPanel>
-      <TabPanel index={3} value={value}>
-        <div className="groups_container">
-          <div className="header">
-            <h1> - Groups </h1>
-            <Make_group />
+      {myInfo && (
+        <TabPanel index={3} value={value}>
+          <div className="groups_container">
+            <div className="header">
+              <h1> - Groups </h1>
+              <Make_group />
+            </div>
+            <h3>My created groups</h3>
+            {storeInfo.groups.createdGroups ? (
+              <GroupList
+                group={storeInfo.groups.createdGroups}
+                myInfo={myInfo}
+              />
+            ) : (
+              <div> No groups created</div>
+            )}
+            <h3>Groups I'm in</h3>
+            {otherGroups ? (
+              <GroupList group={otherGroups} myInfo={myInfo} />
+            ) : (
+              <div> No joined groups</div>
+            )}
           </div>
           <h3>My created groups</h3>
           {storeInfo.groups.createdGroups.length != 0 ? (
@@ -161,6 +182,7 @@ const Profile = () => {
           )}
         </div>
       </TabPanel>
+      )}
     </Box>
   );
 };

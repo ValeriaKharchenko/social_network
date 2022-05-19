@@ -25,7 +25,7 @@
             flex-direction: column;
             flex: 1;
             margin-left: 1em;
-            font-size: $large-font;
+            font-size: $medium-font;
             span{
                 display: inline;
                 font-size: $small-font;
@@ -62,4 +62,16 @@
 
 .fabBtn {
     width: 10%;
+}
+a {
+    text-decoration: none;
+    font-size: 30px;
+    color: #37333E;
+}
+.title {
+    color: #37333E;
+    font-size: 30px;
+}
+.user-name {
+    color: #585858;
 }

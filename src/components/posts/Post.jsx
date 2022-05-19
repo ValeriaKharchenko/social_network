@@ -20,14 +20,14 @@ export const Post = ({ post, toShow }) => {
         {post.title !== "" ? (
           <>
             <div className="information">
-              <div className="name">
+              <div className="name title">
                 {toShow ? (
                   <div>{post.title}</div>
                 ) : (
                   <Link to={`/post/${post.id}`}>{post.title}</Link>
                 )}
               </div>
-              <div>
+              <div className="user-name">
                 {post.user_firstname} {post.user_lastname}
               </div>
             </div>
