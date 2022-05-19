@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import FollowerService from "../../utilities/follower_service";
 import "./profile.scss";
 import GroupService from "../../utilities/group_service";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import PropTypes from "prop-types";
 import PostList from "../../components/posts/PostList";
 
@@ -146,43 +146,30 @@ const Profile = () => {
         )}
       </TabPanel>
       {myInfo && (
-        <TabPanel index={3} value={value}>
-          <div className="groups_container">
-            <div className="header">
-              <h1> - Groups </h1>
-              <Make_group />
-            </div>
-            <h3>My created groups</h3>
-            {storeInfo.groups.createdGroups ? (
-              <GroupList
-                group={storeInfo.groups.createdGroups}
-                myInfo={myInfo}
-              />
-            ) : (
-              <div> No groups created</div>
-            )}
-            <h3>Groups I'm in</h3>
-            {otherGroups ? (
-              <GroupList group={otherGroups} myInfo={myInfo} />
-            ) : (
+          <TabPanel index={3} value={value}>
+            <div className="groups_container">
+              <div className="header">
+                <h1> - Groups </h1>
+                <Make_group />
+              </div>
+              <h3>My created groups</h3>
+              {storeInfo.groups.createdGroups ? (
+                <GroupList
+                  group={storeInfo.groups.createdGroups}
+                  myInfo={myInfo}
+                />
+              ) : (
+                <div> No groups created</div>
+              )}
+              <h3>Groups I'm in</h3>
+            {storeInfo.groups.joinedGroups.length != 0 ? (
+              <GroupList group={storeInfo.groups.joinedGroups} myInfo={myInfo} />
+              ) : (
               <div> No joined groups</div>
             )}
-          </div>
-          <h3>My created groups</h3>
-          {storeInfo.groups.createdGroups.length != 0 ? (
-            <GroupList group={storeInfo.groups.createdGroups} myInfo={myInfo} />
-          ) : (
-            <div> No groups created</div>
-          )}
-          <h3>Groups I'm in</h3>
-          {storeInfo.groups.joinedGroups.length != 0 ? (
-            <GroupList group={storeInfo.groups.joinedGroups} myInfo={myInfo} />
-          ) : (
-            <div> No joined groups</div>
-          )}
-        </div>
-      </TabPanel>
-      )}
+            </div>
+          </TabPanel>
+        )}
     </Box>
   );
 };
