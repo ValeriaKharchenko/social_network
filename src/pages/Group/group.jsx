@@ -5,15 +5,16 @@ import GroupPanel from "../../components/groups/GroupPanel";
 import GroupPosts from "../../components/groups/GroupPosts";
 import GroupEvents from "../../components/groups/GroupEvents";
 import GroupService from "../../utilities/group_service";
-import { useEffect } from "react";
+
 const Group = () => {
   const group_service = GroupService();
   let { id } = useParams();
   const isAdmin = group_service.isAdmin(id);
   const isMember = group_service.isMember(id);
+
   return (
     <div>
-      <GroupPanel />
+      <GroupPanel isAdmin={isAdmin} isMember={isMember}/>
       {(isMember || isAdmin) && (
         <>
           <div className="posts">

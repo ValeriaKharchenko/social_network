@@ -34,12 +34,15 @@
             //Todo
         [x] - join group component
             ON HOLD??? --- Need to know that request was sent somehow from back and change button
-        [x] - made Invite_group_list component ( can use it in group page)
+        [x] - made Invite_group_list component ( can use it in group page) 
+            --- Need to update if no one else to invite after submiting
         [x] - invite follower component (Invite_group_btn)
-        WORKING ON -  [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons)
+        WORKING ON -  [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons + requests)
         [ ] - needs to update when creating, posting in group automatically
 
 
+    <!-- HELPERS -->
+        [ ] - Function to clear all store (connect with logout [does the same store will be present in another browser/window/session])
 
 
 ### CHECKING LIST: 

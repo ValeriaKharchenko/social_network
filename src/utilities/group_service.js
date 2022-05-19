@@ -102,8 +102,7 @@ type GroupPostReply struct{
     try{
       console.log("%c Fetching specific group info --> ","color:orange");
       const response = await http.get(`/group/${id}`);
-      console.log(response.data);
-      dispatch(updateCurrentGroup(response.data));
+      // dispatch(updateCurrentGroup(response.data));
       return response.data
     }catch(err){
       helper.checkError(err)
@@ -155,12 +154,11 @@ type GroupPostReply struct{
   }
 
   const sendGroupJoinRequest = (id) => {
-      try {
-        console.log('%c Sending join request to group --> ', 'color:orange');
-        const response = http.post(`/group/join`,{
-          group_id : id
-        })
-        console.log("GROUP REquest RESPONSE:", response);
+    try {
+      console.log('%c Sending join request to group --> ', 'color:orange');
+      const response = http.post(`/group/join`,{
+        group_id : id
+      })
     } catch (err) {
        helper.checkError(err);
     }
