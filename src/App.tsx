@@ -19,12 +19,12 @@ function App() {
           <Route path={"/homepage"} element={<Pages.Homepage />} />
           <Route path={"/profile/:id"} element={<Pages.Profile />} />
           <Route path={"/group/:id"} element={<Pages.Group />} />
-          <Route path="post/:id" element={<Pages.OnePost />} />
+          <Route path={"post/:id"} element={<Pages.OnePost />} />
           <Route path="/*" element={<Pages.OnePost />} />
         </Route>
         <Route element={<Public />}>
           <Route path={"register"} element={<Pages.Register />} />
-          <Route path={"/"} element={<Pages.Login />} />
+          <Route path={"login"} element={<Pages.Login />} />
         </Route>
       </Routes>
     </>
