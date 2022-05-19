@@ -1,6 +1,11 @@
-
 import axios, { AxiosResponse } from "axios";
-import { setAccessToken, setRefreshToken } from "./token";
+import {
+  removeAccessToken,
+  removeRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from "./token";
+import { userInfo } from "os";
 
 const a = axios.create({
   baseURL: "http://localhost:8080/",
@@ -24,13 +29,10 @@ a.interceptors.request.use((config) => {
 export default {
   get: async (url: string): Promise<AxiosResponse<any, any>> => {
     try {
-      const res = await a.get(url);
-      return res;
+      return await a.get(url);
     } catch (e: any) {
       if (e.response) {
         if (e.response.data.status_code === 401) {
-          // await refresh token
-          // if during refresh response is 401 -> logout
           await refresh();
           return await a.get(url);
         }
@@ -40,14 +42,11 @@ export default {
   },
   post: async (url: string, data?: any): Promise<AxiosResponse<any, any>> => {
     try {
-      const resp = await a.post(url, data);
-      return resp;
+      return await a.post(url, data);
     } catch (e: any) {
       if (e.response) {
         if (e.response.data.status_code === 401) {
-          // await refresh token
-          // if during refresh response is 401 -> logout
-          const newTokens = await refresh();
+          await refresh();
           return await a.post(url, data);
         }
       }
@@ -56,8 +55,7 @@ export default {
   },
   put: async (url: string, data?: any): Promise<AxiosResponse<any, any>> => {
     try {
-      const res = await a.put(url,data);
-      return res;
+      return await a.put(url, data);
     } catch (e: any) {
       if (e.response) {
         if (e.response.data.status_code === 401) {
@@ -88,6 +86,14 @@ async function refresh() {
     setRefreshToken(response.data.refresh_token);
     console.log("refreshed");
   } catch (e) {
-    throw e;
+    // @ts-ignore
+    if (e.response.data.status_code === 401) {
+      localStorage.removeItem("userInfo");
+      window.location.replace("/login");
+      removeAccessToken();
+      removeRefreshToken();
+    } else {
+      throw e;
+    }
   }
 }

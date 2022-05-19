@@ -11,14 +11,13 @@ export default function Logout() {
   let redirect = useNavigate();
   const dispatch = useDispatch();
 
-
   const handleLogout = async () => {
     console.log("logout fired");
     await userService.logout().then(() => {
       // @ts-ignore
       // dispatch(logoutUser());
       dispatch(updateAuth(false));
-      redirect("/", { replace: true });
+      redirect("/login", { replace: true });
     });
   };
   return (
