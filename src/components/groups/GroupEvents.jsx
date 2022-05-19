@@ -6,7 +6,6 @@ import SingleGroupEvent from "./SingleGroupEvent"
 const GroupEvents = ({id}) => {
   const [events,setEvents] = useState([])
   const group_service = GroupService()
-  console.log(id);
 
   useEffect(()=>{
     group_service.getGroupEvents(id).then(res => {setEvents(res)})

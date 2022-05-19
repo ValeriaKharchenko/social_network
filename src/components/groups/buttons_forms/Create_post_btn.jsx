@@ -29,16 +29,15 @@ const Create_post = ({id}) => {
         image : img
     }
 
-
     const convertImg = async (image) => { 
-    if(image.length !== 0) {
-      if(helper.checkImage(image)){
-        // setErrors([])
-        const resp = await helper.getBase64(image[0]).then(base64 => base64)
-        return resp
-      }
+        if(image.length !== 0) {
+        if(helper.checkImage(image)){
+            // setErrors([])
+            const resp = await helper.getBase64(image[0]).then(base64 => base64)
+            return resp
+        }
+        }
     }
-  }
 
     const clearInput = (e) => { 
         e.target.value  = ""
@@ -50,10 +49,8 @@ const Create_post = ({id}) => {
         if( helper.handleInputs("subject",data.subject) && helper.handleInputs("content",data.content)) group_service.makeGroupPost(data);
     }
 
-
-
     return (
-        <>
+    <>  
         {!isOpen && <Button onClick={() => setIsOpen(!isOpen)}>Create Post <AddIcon/></Button>}
 
         {isOpen && 
@@ -87,8 +84,7 @@ const Create_post = ({id}) => {
                     }}> POST </Button>
         </form>
         }
-        </>
-        
+    </>
     )
 }
 

@@ -1,22 +1,16 @@
-import {Button, Typography } from "@mui/material"
+import {Typography } from "@mui/material"
 import {useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import {useParams } from "react-router-dom"
 import GroupService from "../../utilities/group_service"
 import StarIcon from '@mui/icons-material/Star';
 import Join_group_btn from "./buttons_forms/Join_group_btn";
 import Invite_group_btn from "./buttons_forms/Invite_group_btn";
-import { useSelector } from "react-redux";
 
-const GroupPanel = () => {
-    const storeInfo = useSelector(state => state)
+const GroupPanel = ({isAdmin,isMember}) => {
     const group_service = GroupService()
-    let {id} = useParams()
     const [info,setInfo ] = useState({})
-    const isAdmin = group_service.isAdmin(id.slice(1))
-    const isMember = group_service.isMember(id.slice(1))
+    let {id} = useParams()
     useEffect(()=>{
-        
-        id= id.slice(1)
         if(isAdmin){
             group_service.getGroupInfo(id).then(res => {
                 setInfo(res)})
@@ -27,8 +21,8 @@ const GroupPanel = () => {
                 })
             })
         }
+    },[])
 
-    },[id])
     return (
         <>
         {isAdmin &&
@@ -43,13 +37,11 @@ const GroupPanel = () => {
         <div className="group_panel">
             <div className="header ">
                 <div className="left">
-                    {/* <Typography variant="h4">{info}</Typography> */}
                     <Typography variant="h4">{info.title}</Typography>
                     <Typography variant="h6">{info.creator_first_name}  {info.creator_last_name}</Typography>
                 </div>
                 <div className="right">
                     <Typography variant="h6">Members: {info.members}</Typography>
-                    {/* {(!isMember && !isAdmin) ? <Button>Join Group</Button> : <Button>Invite users</Button>} */}
                     {(!isMember && !isAdmin) ? <Join_group_btn/> : <Invite_group_btn />}
                 </div>
             </div>

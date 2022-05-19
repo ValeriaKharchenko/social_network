@@ -1,11 +1,10 @@
-import { Button, Grid, Input, TextareaAutosize, TextField } from "@mui/material";
+import { Button, Input} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from "react";
 import GroupService from "../../../utilities/group_service";
 import * as helper from '../../../helpers/HelperFuncs';
 import "./group_buttons.scss"
-
 
 /*  
 type GroupEvent struct{
@@ -70,6 +69,7 @@ const Create_event = ({id}) => {
         e.target.value  = ""
         document.getElementById(e.target.id).classList.remove("error")
     }
+
     const handleSubmit = () => { 
         if(data == null) return
         console.log(data);
@@ -84,8 +84,6 @@ const Create_event = ({id}) => {
     return (
     <>
     {!isOpen && <Button onClick={() => setIsOpen(!isOpen)}>Create Event <AddIcon/></Button>}
-    {/* <Button>Create Event <AddIcon/></Button> */}
-
     
     {isOpen && 
     <form id="eventForm" >

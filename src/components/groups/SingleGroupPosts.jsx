@@ -1,6 +1,4 @@
-
 export const SingleGroupPosts = ({data}) => {
-  console.log(`%c${data.created_at}`, "color:red");
   return (
     <div className="group_post">
         <div className="header flex" >

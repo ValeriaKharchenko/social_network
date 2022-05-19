@@ -3,7 +3,6 @@ import {
   Grid,
   Input,
   TextareaAutosize,
-  TextField,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
@@ -29,8 +28,6 @@ export default function Make_group_btn() {
 
   // UPDATE Could make user invitation in service
   const handleSubmit = async (data) => {
-    console.log(data);
-    console.log("LIST IS NOW", list);
     if (data == null) return;
     if (
       helper.handleInputs("title", data.title) &&
