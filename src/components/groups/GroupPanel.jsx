@@ -5,16 +5,29 @@ import GroupService from "../../utilities/group_service"
 import StarIcon from '@mui/icons-material/Star';
 import Join_group_btn from "./buttons_forms/Join_group_btn";
 import Invite_group_btn from "./buttons_forms/Invite_group_btn";
+import { useSelector } from "react-redux";
 
 const GroupPanel = () => {
-    const [info,setInfo ] = useState({})
+    const storeInfo = useSelector(state => state)
     const group_service = GroupService()
     let {id} = useParams()
+    const [info,setInfo ] = useState({})
     const isAdmin = group_service.isAdmin(id.slice(1))
     const isMember = group_service.isMember(id.slice(1))
     useEffect(()=>{
+        
         id= id.slice(1)
-        group_service.getGroupInfo(id).then(res => setInfo(res))
+        if(isAdmin){
+            group_service.getGroupInfo(id).then(res => {
+                setInfo(res)})
+        }else{
+            group_service.getAllGroups().then(res=> {
+                res.forEach(group => { 
+                    if(group.id == Number(id)) setInfo(group)
+                })
+            })
+        }
+
     },[id])
     return (
         <>
@@ -30,6 +43,7 @@ const GroupPanel = () => {
         <div className="group_panel">
             <div className="header ">
                 <div className="left">
+                    {/* <Typography variant="h4">{info}</Typography> */}
                     <Typography variant="h4">{info.title}</Typography>
                     <Typography variant="h6">{info.creator_first_name}  {info.creator_last_name}</Typography>
                 </div>

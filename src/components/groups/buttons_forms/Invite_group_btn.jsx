@@ -6,20 +6,45 @@ import Invite_group_list from './Invite_group_list'
 
 const Invite_group_btn = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const [data, setData] = useState([]) // userlist
+    const [list, setList] = useState([]) //invitation list
     const group_service = GroupService()
     let {id} = useParams()
 
+
+    const handleSubmit = (list) => { 
+        console.log(list);
+        if(list.length != 0 ) list.forEach(userId => {
+            console.log("SENDING INVITATION TO USER ID ---> ", userId);
+            group_service.sendGroupInvitation(Number(id.slice(1)),userId)
+        })
+    }
+ 
     useEffect(()=>{
         group_service.getAvailableFriends(Number(id.slice(1))).then(res =>{
-            console.log(res);
+            console.log(`%c${res}`, "color:cyan" );
+            setData(res)
         })
         console.log("looping ? ");
-    },[id])
+    },[id,list])
 
     return (
         <>
-        {!isOpen && <Button onClick={() => { setIsOpen(!isOpen)}}>Invite Users</Button>}
+        {}
+        {!isOpen && data ? <Button onClick={() => { setIsOpen(!isOpen)}}>Invite Users</Button>
+        :
+        <div>Nobody to send invites</div>
+        }
         {/* {isOpen && <Invite_group_list />} */}
+        {isOpen &&
+            <div>
+                <Invite_group_list list={data} setList={setList} />
+                <Button onClick={() => { 
+                    handleSubmit(list)
+                    setIsOpen(!isOpen)}
+                    }>OK!</Button>
+            </div>
+        }
 
 
         </>
