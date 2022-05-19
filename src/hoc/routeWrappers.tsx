@@ -4,7 +4,6 @@ import { RootState } from "../store/store";
 import Navbar from "../components/Navbar";
 
 export const Private = () => {
-  console.log("here i'm");
   const auth = useSelector((state: RootState) => state.profile.auth);
   const location = useLocation();
   if (!auth) {

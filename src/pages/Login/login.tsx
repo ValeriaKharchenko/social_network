@@ -6,7 +6,14 @@ import "./login.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 // Material UI
-import {TextField,Button,Container,Box,Avatar,Typography,} from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Box,
+  Avatar,
+  Typography,
+} from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { PeopleAlt } from "@mui/icons-material";
 //  Services
@@ -15,8 +22,8 @@ import ProfileService from "../../utilities/profile_service";
 import FollowerService from "../../utilities/follower_service";
 
 export default function Login() {
-  const profile_service = ProfileService()
-  const follower_service = FollowerService()
+  const profile_service = ProfileService();
+  const follower_service = FollowerService();
   const { handleSubmit, register } = useForm<FormInput>();
   const dispatch = useDispatch();
   let redirect = useNavigate();
@@ -26,14 +33,13 @@ export default function Login() {
     password: string;
   }
 
-
   const onSubmit = async (data: FormInput) => {
     try {
       const response = await authService.login(data.email, data.password);
       // dispatch(update(response));
-      profile_service.checkAuth()
-      await  profile_service.getMyInfo();
-      await follower_service.getMyFollowers()
+      profile_service.checkAuth();
+      await profile_service.getMyInfo();
+      await follower_service.getMyFollowers();
 
       redirect("/homepage", { replace: true });
     } catch (e) {
@@ -45,14 +51,14 @@ export default function Login() {
       }
     }
   };
-  const follow = async () => {
-    try {
-      await authService.followRequest();
-      console.log("request from follow");
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const follow = async () => {
+  //   try {
+  //     await authService.followRequest();
+  //     console.log("request from follow");
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
   const isLoading = useSelector((state: RootState) => state.user.pending);
   console.log("Here!");
   return (
@@ -125,7 +131,7 @@ export default function Login() {
             >
               Register
             </Button>
-            <Button onClick={follow}>Follow</Button>
+            {/*<Button onClick={follow}>Follow</Button>*/}
           </>
         </Box>
       </Box>
