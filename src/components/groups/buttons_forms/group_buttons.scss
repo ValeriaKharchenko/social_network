@@ -1,13 +1,15 @@
 .make_group{
-    position: relative;
+    //position: absolute;
+
     .make_group_form{
         flex-direction: column;
         background-color: rgba(195, 195, 195, 0.888);
         position: absolute;
-        bottom: 0;
+        bottom: calc(100vh / -4);
         left: 0;
         width: 300px;
         padding: 1em;
+        margin: 40% 40%;
     }
     .back_btn {
         width: 5px;
