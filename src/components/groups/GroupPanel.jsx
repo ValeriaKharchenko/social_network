@@ -5,10 +5,12 @@ import GroupService from "../../utilities/group_service";
 import StarIcon from "@mui/icons-material/Star";
 import Join_group_btn from "./buttons_forms/Join_group_btn";
 import Invite_group_btn from "./buttons_forms/Invite_group_btn";
-
+import Requests from "./RequestList";
+import { useSelector } from "react-redux";
 const GroupPanel = ({isAdmin,isMember}) => {
     const group_service = GroupService()
     const [info,setInfo ] = useState({})
+    const storeInfo = useSelector(state => state)
     let {id} = useParams()
     useEffect(()=>{
         if(isAdmin){
@@ -27,21 +29,14 @@ const GroupPanel = ({isAdmin,isMember}) => {
         <>
         {isAdmin &&
         <div className="admin_panel flex">
-          <StarIcon
-            fontSize="large"
-            sx={{
-              color: "yellow",
-              margin: "0.3em",
-              padding: "0.2em",
-              background: "black",
-              borderRadius: "50%",
-            }}
-          />
-          <Typography variant="h6">
-            ADMIN PANEL ( Can choose who you let to join and decline)
-          </Typography>
-        </div>
-      )}
+            <div className="flex">
+                <StarIcon fontSize="large" sx={{color:"yellow",margin:"0.3em",padding:"0.2em",background: 'black',     borderRadius: "50%"}}/>
+                <Typography variant="h6">
+                    ADMIN PANEL
+                </Typography>
+            </div>
+            <Requests />
+        </div>}
 
         <h1>Group Info</h1>
         <div className="group_panel">

@@ -12,14 +12,46 @@ type GroupEventReply struct{
     Time            string  `json:"time"`
 */
 
+import { Button } from "@mui/material"
+import { useEffect, useState } from "react";
+import GroupService from "../../utilities/group_service";
+
+// REPLY
+/* 
+type EventParticipant struct{
+    EventId     int `json:"event_id"`
+    Option      int `json:"option"`
+}
+
+*/
+
+
 
 const SingleGroupEvent = ({data}) => {
+  const group_service  = GroupService()
+  let joined = group_service.isJoining(data.event_id)
+  console.log(joined);
+  const handleRequest = (nr) => { 
+    group_service.sendEventReply({
+      event_id : data.event_id,
+      option : nr
+    })
+  }
   return (
     <div>
        <div className="group_post">
         <div className="header flex" >
             <div className="subject">{data.title}  </div>
             <div className="author"> {data.creator_firstname} {data.creator_lastname}</div>
+            <div className="event_btns">
+
+              <Button className={joined ? "green" : ""} onClick={() => {
+                if(!joined) handleRequest(1)
+              }}>  Going     </Button>
+              <Button className={!joined ? "green" : ""} onClick={() => {
+                if(joined) handleRequest(2)
+              }}> Not Going</Button>
+            </div>
             <div className="date">
               <div> Taking place: </div>
               <div> {data.created_at == "" ? "???" : data.created_at} </div>
