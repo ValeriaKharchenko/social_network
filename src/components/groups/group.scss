@@ -42,7 +42,7 @@
 }
 .admin_panel{
     background: white;
-
+    flex-direction: column;
 }
 
 .group_post{
@@ -62,6 +62,19 @@
             flex:1;
             color: grey;
             font-size: 12px;
+        }
+
+        .event_btns{
+            flex: 2;
+            
+        }
+
+        .date{
+            flex: 1;
+        }
+
+        .green{
+            background-color: rgba(0, 128, 0, 0.582);
         }
     }
 

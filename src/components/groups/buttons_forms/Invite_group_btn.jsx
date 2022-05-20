@@ -1,5 +1,6 @@
 import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import GroupService from '../../../utilities/group_service'
 import Invite_group_list from './Invite_group_list'
@@ -9,12 +10,11 @@ const Invite_group_btn = () => {
     const [data, setData] = useState([]) // userlist
     const [list, setList] = useState([]) //invitation list
     const group_service = GroupService()
+    const update  = useSelector(state =>  state.groups.updateStatus)
     let {id} = useParams()
     
     const handleSubmit = (list) => { 
-        console.log(list);
         if(list.length != 0 ) list.forEach(userId => {
-            console.log("SENDING INVITATION TO USER ID ---> ", userId);
             group_service.sendGroupInvitation(Number(id),userId)
         })
     }
@@ -24,25 +24,25 @@ const Invite_group_btn = () => {
             console.log(`%c${res}`, "color:cyan" );
             setData(res)
         })
-        console.log("looping ? ");
-    },[id,list])
+        if(data == null) setIsOpen(false)
+    },[id,update])
 
     return (
     <>
-        {!isOpen && data ? 
-        <Button onClick={() => { setIsOpen(!isOpen)}}>Invite Users</Button>
+        {data != null  ? <Button onClick={() => { setIsOpen(!isOpen)}}>Invite Users</Button>
         :
         <div>Nobody to send invites</div>
         }
 
-        {isOpen &&
+        {
+        isOpen  &&
             <div>
                 <Invite_group_list list={data} setList={setList} />
                 <Button onClick={() => { 
                     handleSubmit(list)
                     setIsOpen(!isOpen)}
                     }>OK!</Button>
-            </div>
+                </div> 
         }
     </>
     )

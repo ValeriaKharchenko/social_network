@@ -1,52 +1,39 @@
 import http from './http-common';
 import { useDispatch, useSelector } from 'react-redux';
-// import { update, addAllUsers, updateAuth } from '../store/profileSlice';
 import * as helper from '../helpers/HelperFuncs';
 import { useNavigate } from 'react-router-dom';
 import {
   updateCreatedGroups,
   updateJoinedGroups,
   updateCurrentGroup,
+  updateStatus,
+  updateJoinedEvents
 } from '../store/groupSlice';
 
 //  make new group  // UPDATE - What if group name is taken 
-//  make new group event                             //http://localhost:8080/group/event/new
-//  make new group post                             // http://localhost:8080/group/post
+//  make new group event                                    // http://localhost:8080/group/event/new
+//  make new group post                                     // http://localhost:8080/group/post
+  
+// get all group and show in search bar (group sign)        // http://localhost:8080/group/all GET method
+// get all groups I created                                 // http://localhost:8080/group/mycreated GET method 
+// get all groups im in (group sign)                        // http://localhost:8080/group/joined GET method
+// get group information                                    // http://localhost:8080/group/[SomeNumberHere] GETmethod 
+// get all group POSTS                                      // http://localhost:8080//group/post/all?groupId=${id}` GETmethod 
+// get all group EVENTS                                     // http://localhost:8080//group/event/all?groupId=${id}` 
+// get specific group posts                                 // http://localhost:8080/group/post/all?groupId=[some number here]
+// get specific group post and comments                     // http://localhost:8080/group/post?groupId=[number]&postId=[number]
+// get group of friends who i haven't send invitation yet   // http://localhost:8080/group/invite/available?groupId=[someGroupNumberHere]
+// get people who wants to join to group                    // http://localhost:8080/group/join/reply?groupId=[someGroupNumberHere]
 
-// get all group and show in search bar (group sign)  //http://localhost:8080/group/all GET method
-// get all groups I created                           //http://localhost:8080/group/mycreated GET method 
-// get all groups im in (group sign)                  //http://localhost:8080/group/joined GET method
-// get group information                              //http://localhost:8080/group/[SomeNumberHere] GETmethod 
-// get all group POSTS                                //http://localhost:8080//group/post/all?groupId=${id}` GETmethod 
-// get all group EVENTS                               //http://localhost:8080//group/event/all?groupId=${id}` 
-// get specific group posts                           //http://localhost:8080/group/post/all?groupId=[some number here]
-// get specific group post and comments               //http://localhost:8080/group/post?groupId=[number]&postId=[number]
-//  get  group fiends who i haven't send yet        //http://localhost:8080/group/invite/available?groupId=[someGroupNumberHere]
-
-/* 
-type GroupOnePostAndComments struct{
-  Post        GroupPostReply
-  Comments    []GroupPostReply
-}
-type GroupPostReply struct{
-  PostId          int         `json:"post_id"`
-  UserId          string      `json:"user_id"`
-  UserFirstName   string      `json:"user_firstname"`
-  UserLastName    string      `json:"User_lastname"`
-  Subject         string      `json:"subject"`
-  Content         string      `json:"content"`
-  Image           string      `json:"image"`
-  ParentId        int         `json:"parent_id"`
-  */
-
- // send group invitation to user                    //http://localhost:8080/group/invite
- // send group join request by user                  //http://localhost:8080/group/join
-
+// send group invitation to user                            // http://localhost:8080/group/invite
+// send group join request by user                          // http://localhost:8080/group/join
+// send reply to group jon request                          // http://localhost:8080/group/join/reply
+// send reply to group event                                // http://localhost:8080/group/event/reply
 
  
  const GroupService = () => {
    const dispatch = useDispatch();
-   const redirect = useNavigate();
+  //  const redirect = useNavigate();
    const storeInfo = useSelector(state => state);
    
    const makeNewGroupRequest = async (data) => {
@@ -98,6 +85,16 @@ type GroupPostReply struct{
     }
   }
 
+  const getJoinedEvents = async () =>{
+    try{
+      console.log("%c Fetching my joined events --> ","color:orange");
+      const response = await  http.get('/group/event/joined')
+      if(response.data) dispatch(updateJoinedEvents(response.data))
+    }catch(err){
+      helper.checkError(err)
+    }
+  }
+
   const getGroupInfo= async (id) =>{
     try{
       console.log("%c Fetching specific group info --> ","color:orange");
@@ -139,6 +136,16 @@ type GroupPostReply struct{
     }
   }
 
+  const getJoinRequests = async(id) =>{
+    try {
+      console.log('%c Fetching group join requests --> ', 'color:orange');
+      const response = await http.get(`/group/join/reply?groupId=${id}`);
+      return response.data;
+    } catch (err) {
+      helper.checkError(err);
+    }
+  }
+
 
   const sendGroupInvitation = async (groupId,userId) => {
      try {
@@ -147,7 +154,8 @@ type GroupPostReply struct{
         group_id : groupId,
         target_id : userId
       })
-      console.log("GROUP INVTATION RESPONSE:", response);
+      // console.log("GROUP INVTATION RESPONSE:", response);
+      dispatch(updateStatus(!storeInfo.groups.updateStatus))
     } catch (err) {
       helper.checkError(err);
     }
@@ -164,12 +172,34 @@ type GroupPostReply struct{
     }
   }
 
+  const sendGroupJoinReply = (data) => {
+    try {
+      console.log('%c Sending group join reply--> ', 'color:orange',data);
+      http.put(`/group/join/reply`, data);
+      dispatch(updateStatus(!storeInfo.groups.updateStatus));
+    } catch (err) {
+       helper.checkError(err);
+    }
+  }
+  const sendEventReply = (data) => {
+    try {
+      console.log('%c Sending event reply-> ', 'color:orange',data);
+      http.post(`/group/event/reply`, data);
+      dispatch(updateStatus(!storeInfo.groups.updateStatus));
+    } catch (err) {
+       helper.checkError(err);
+    }
+  }
+
   const isAdmin = (id) => { 
     return !!storeInfo.groups.createdGroups.find(group => group.id == id)
   }
 
   const isMember = (id) => { 
     return !!storeInfo.groups.joinedGroups.find(group => group.id == id)
+  }
+  const isJoining = (id) => { 
+    return !!storeInfo.groups.joinedEvents.find(event => event.event_id == id)
   }
 
   return {
@@ -179,14 +209,19 @@ type GroupPostReply struct{
     getAllGroups,
     getCreatedGroups,
     getJoinedGroups,
+    getJoinedEvents,
     getGroupInfo,
     getGroupPosts,
     getGroupEvents,
     getAvailableFriends,
+    getJoinRequests,
     sendGroupInvitation,
     sendGroupJoinRequest,
+    sendGroupJoinReply,
+    sendEventReply,
     isAdmin,
     isMember,
+    isJoining,
   };
 };
 

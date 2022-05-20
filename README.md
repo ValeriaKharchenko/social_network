@@ -20,6 +20,7 @@
         [x] - Group info Panel   ??? back gives back string object and with it error 500 if not admin ???
         [x] - Group link, page & components(files)
         [x] - Search for groups - Searchbar
+        [x] - invite follower component (Invite_group_btn)
 
             //Posts
         [x] - Making of create group post 
@@ -29,16 +30,23 @@
             //Events
         [x] - Making of create  group event form 
         [x] - showing group events
-            [ ]-- need to add buttons for going/notgoing + requests
 
             //Todo
         [x] - join group component
-            ON HOLD??? --- Need to know that request was sent somehow from back and change button
-        [x] - made Invite_group_list component ( can use it in group page) 
-            --- Need to update if no one else to invite after submiting
-        [x] - invite follower component (Invite_group_btn)
-        WORKING ON -  [ ] - GroupPage AdminPanel show requesting users (accept/denie buttons + requests)
-        [ ] - needs to update when creating, posting in group automatically
+            [ ] ON HOLD??? --- Need to know that request was sent somehow from back and change button
+
+        [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
+            !!! - event/reply dosent change status on back
+
+        [ ] ON HOLD??? --- GroupPage AdminPanel show requesting users (accept/denie buttons + requests)
+                [x] The template for showing (Its working, needs tweaking)
+                    !!! Needs new queries from back - 
+                        1. join requests to admin only  - 
+                           * Can have picture also ,but not needed
+                           * Admin can Also delete himself from his own group :D (its deleting when sending status 2)
+                        2. Invite request to loged in user 
+
+        [ ] - needs to update when creating, posting in group automatically 
 
 
     <!-- HELPERS -->
