@@ -99,6 +99,7 @@ import {
     try{
       console.log("%c Fetching specific group info --> ","color:orange");
       const response = await http.get(`/group/${id}`);
+      console.log('%c getting group info--> ','color:coral',response);
       // dispatch(updateCurrentGroup(response.data));
       return response.data
     }catch(err){
@@ -154,37 +155,40 @@ import {
         group_id : groupId,
         target_id : userId
       })
-      // console.log("GROUP INVTATION RESPONSE:", response);
+      console.log('%c sending group join invitation--> ', 'color:coral',response);
       dispatch(updateStatus(!storeInfo.groups.updateStatus))
     } catch (err) {
       helper.checkError(err);
     }
   }
 
-  const sendGroupJoinRequest = (id) => {
+  const sendGroupJoinRequest = async (id) => {
     try {
       console.log('%c Sending join request to group --> ', 'color:orange');
-      const response = http.post(`/group/join`,{
+      const response = await  http.post(`/group/join`,{
         group_id : id
       })
+      console.log('%c sending group join request--> ', 'color:coral',response);
     } catch (err) {
        helper.checkError(err);
     }
   }
 
-  const sendGroupJoinReply = (data) => {
+  const sendGroupJoinReply = async (data) => {
     try {
       console.log('%c Sending group join reply--> ', 'color:orange',data);
-      http.put(`/group/join/reply`, data);
+      const response =  await http.put(`/group/join/reply`, data);
+      console.log('%c group join response--> ', 'color:coral',response);
       dispatch(updateStatus(!storeInfo.groups.updateStatus));
     } catch (err) {
        helper.checkError(err);
     }
   }
-  const sendEventReply = (data) => {
+  const sendEventReply = async  (data) => {
     try {
       console.log('%c Sending event reply-> ', 'color:orange',data);
-      http.post(`/group/event/reply`, data);
+      const response = await http.post(`/group/event/reply`, data);
+      console.log('%c sending group join invitation--> ','color:coral',response);
       dispatch(updateStatus(!storeInfo.groups.updateStatus));
     } catch (err) {
        helper.checkError(err);

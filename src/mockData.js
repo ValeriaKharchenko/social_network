@@ -84,3 +84,70 @@ export const groups = [
     group_img: 'ano.jpg',
   },
 ];
+
+
+export const notifications = [
+  {
+    type: 'group invitation',
+    user_id: '78ce690c-c4ee-44ff-8a35-f7dfe0146236',
+    data: {
+      group_id: 1,
+    },
+  },
+
+  {
+    type: 'new group member request',
+    user_id: '78ce690c-c4ee-44ff-8a35-f7dfe0146236',
+    data: {
+      group_id: 1,
+    },
+  },
+
+  {
+    type: 'new event',
+    user_id: '78ce690c-c4ee-44ff-8a35-f7dfe0146236',
+    data: {
+      group_id: 13,
+      event_id: 4,
+    },
+  },
+
+  {
+    type: 'friend request',
+    user_id: '78ce690c-c4ee-44ff-8a35-f7dfe0146236',
+  },
+
+  {
+    type: 'new private message',
+    user_id: '78ce690c-c4ee-44ff-8a35-f7dfe0146236',
+    data: {
+      message_id: 1,
+    },
+  },
+
+  {
+    type: 'new comment to post',
+    user_id: '78ce690c-c4ee-44ff-8a35-f7dfe0146236',
+    data: {
+      post_id: 1,
+      comment_id: 1,
+    },
+  },
+
+  {
+    type: 'group access opened',
+    user_id: '78ce690c-c4ee-44ff-8a35-f7dfe0146236',
+    data: {
+      group_id: 1,
+    },
+  },
+
+  {
+    type: 'new message in group chat',
+    user_id: '78ce690c-c4ee-44ff-8a35-f7dfe0146236',
+    data: {
+      group_id: 1,
+      message_id: 1,
+    },
+  },
+];

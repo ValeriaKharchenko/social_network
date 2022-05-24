@@ -11,7 +11,7 @@ const Requests = () => {
 
     useEffect(()=>{
         group_service.getJoinRequests(id).then(res => { setList(res)})
-    },[storeInfo.groups.updateStatus])
+    },[id,storeInfo.groups.updateStatus])
 
     return (
         <div>
