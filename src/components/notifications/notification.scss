@@ -1,0 +1,45 @@
+.notification_wrapper{
+    background-color: rgb(206, 206, 206);
+    border: 2px solid black;
+    margin: 0.3em;
+    padding: 0.2em;
+    &:hover{
+        background-color: white;
+        box-shadow:  0 0 10px black;
+        // .eye{
+        //     transition: 0.5s all ease;
+        //     transform: scale(1);
+        // }
+    }
+    .eye{
+        animation-name: appear;
+        animation-duration: 1s;
+    }
+    @keyframes appear {
+        from{
+            opacity: 0;
+            transform: scaleY(0);
+        }
+        to{
+            transform: scaleY(1);
+            opacity: 1;
+        }
+    }
+
+
+    .flex{
+        justify-content: space-between;
+        min-width:600px ;
+        .buttons{
+            margin-left: 2em;
+            Button{
+                background:rgba(76, 83, 35, 0.854);
+                margin: 0 0.3em ;
+                font-size: 20px;
+                font-weight: 700;
+                color: rgb(0, 247, 255);
+                padding: 0;
+            }
+        }
+    }
+}

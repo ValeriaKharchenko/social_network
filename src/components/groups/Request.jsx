@@ -32,7 +32,7 @@ const Request = ({data}) => {
             </p>
             <div>
                 <Button onClick={()=>handleRequest(1)} >YES</Button>
-                <Button onClick={()=>handleRequest(0)} >NO</Button>
+                <Button onClick={()=>handleRequest(2)} >NO</Button>
             </div>
         </div>
     )

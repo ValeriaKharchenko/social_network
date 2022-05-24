@@ -1,5 +1,5 @@
 import {Typography } from "@mui/material"
-import {useEffect, useState } from "react"
+import {useEffect, useRef, useState } from "react"
 import {useParams } from "react-router-dom"
 import GroupService from "../../utilities/group_service"
 import StarIcon from '@mui/icons-material/Star';
@@ -11,19 +11,26 @@ const GroupPanel = ({isAdmin,isMember}) => {
     const group_service = GroupService()
     const [info,setInfo ] = useState({})
     const storeInfo = useSelector(state => state)
+    let [count,setCount ] = useState(0)
+    // let count = useRef(null)
     let {id} = useParams()
     useEffect(()=>{
+        setCount(0)
         if(isAdmin){
             group_service.getGroupInfo(id).then(res => {
+                setCount(res.Members.length)
                 setInfo(res)})
-        }else{
+            }else{
             group_service.getAllGroups().then(res=> {
                 res.forEach(group => { 
-                    if(group.id == Number(id)) setInfo(group)
-                })
+                    if(group.id == Number(id)) {
+                        setInfo(group)
+                        setCount(group.members)
+                    }
+            })
             })
         }
-    },[])
+    },[id])
 
     return (
         <>
@@ -46,7 +53,7 @@ const GroupPanel = ({isAdmin,isMember}) => {
                     <Typography variant="h6">{info.creator_first_name}  {info.creator_last_name}</Typography>
                 </div>
                 <div className="right">
-                    <Typography variant="h6">Members: {info.members}</Typography>
+                    <Typography variant="h6">Members: {count}</Typography>
                     {(!isMember && !isAdmin) ? <Join_group_btn/> : <Invite_group_btn />}
                 </div>
             </div>

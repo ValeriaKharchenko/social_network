@@ -7,6 +7,8 @@ import { RootState } from "../store/store";
 import Logout from "../components/buttons/logout";
 import Searchbar from "./Searchbar";
 import ProfileService from "../utilities/profile_service";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 
 const Navbar = () => {
   const profile_service = ProfileService();
@@ -36,13 +38,13 @@ const Navbar = () => {
       </Link>
       <Link className="link" to={"/profile/me"}>
         {" "}
-        Profile <Home />
+        Profile <InsertEmoticonIcon />
       </Link>
-      {/* <Link className="link" to={"/profile"}>
+       <Link className="link" to={"/notifications"}>
         {" "}
-        Notifications <Home />
+        Notifications <NotificationsIcon /> {storeInfo.notifications.notificationCount}
       </Link>
-      <Link className="link" to={"/profile"}>
+      {/*<Link className="link" to={"/profile"}>
         {" "}
         Messages <Home />
       </Link> */}

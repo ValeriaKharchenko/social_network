@@ -20,6 +20,7 @@ function App() {
           <Route path={"/profile/:id"} element={<Pages.Profile />} />
           <Route path={"/group/:id"} element={<Pages.Group />} />
           <Route path={"post/:id"} element={<Pages.OnePost />} />
+          <Route path={"/notifications"} element={<Pages.Notification />} />
           <Route path="/*" element={<Pages.OnePost />} />
         </Route>
         <Route element={<Public />}>

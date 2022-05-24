@@ -13,7 +13,8 @@
         [x] - Shows groups I created 
             - (have to filter which I'm  joined and what is main)
         [x] - Settings 
-        [ ] - need to show user posts && create Button
+        [ ] - need to show user posts && create Button ( Need to remove create button if not your own page)
+
 
     <!-- Groups -->
         [x] - Making of create Group Button with follower invitations
@@ -48,15 +49,26 @@
 
         [ ] - needs to update when creating, posting in group automatically 
 
+    <!-- Notifications -->
+        [ ] - Notification tabs (bell Icon) with number ( how many notification user has)
+        [ ] - Notification List (get all notification) feed it into singleNotification
+        [ ] - SingleNotification ( what type it is, Is it reply notification or just informational) - should show dynamically(reading notification itself and show based on that)
+        [ ] - Update after seeing or replying specific notification (Maybe eye icon on corner)
+
+    <!-- Messenger -->
+        [ ] - List of all writeable users(user is following) and groups(user is in, different style)
+        [ ] - messages boxes for user, other users
+        [ ] - messenging component (needs emoticons)
+        [ ] - message popup(notification) (realtime notification of writing ??????????? .....)
 
     <!-- HELPERS -->
         [ ] - Function to clear all store (connect with logout [does the same store will be present in another browser/window/session])
 
 
 ### CHECKING LIST: 
-    1. GET FREIND LIST FILTERED - not in particular group 
-    2. CHECK GROUPS POST created_at
-    3. Clear every store  - 2 stalkers in another user
+    1. Clear every store  - 2 stalkers in another user
+    2. Event option, not changeing
+    3. show grupp invitation to user
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
