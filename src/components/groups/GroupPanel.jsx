@@ -16,20 +16,23 @@ const GroupPanel = ({isAdmin,isMember}) => {
     let {id} = useParams()
     useEffect(()=>{
         setCount(0)
-        if(isAdmin){
-            group_service.getGroupInfo(id).then(res => {
-                setCount(res.Members.length)
-                setInfo(res)})
-            }else{
-            group_service.getAllGroups().then(res=> {
-                res.forEach(group => { 
-                    if(group.id == Number(id)) {
-                        setInfo(group)
-                        setCount(group.members)
-                    }
-            })
-            })
-        }
+           group_service.getGroupInfo(id).then(res => {
+            // setCount(res.Members.length)
+            setInfo(res)})
+    //     if(isAdmin){
+    //         group_service.getGroupInfo(id).then(res => {
+    //             setCount(res.Members.length)
+    //             setInfo(res)})
+    //         }else{
+    //         group_service.getAllGroups().then(res=> {
+    //             res.forEach(group => { 
+    //                 if(group.id == Number(id)) {
+    //                     setInfo(group)
+    //                     setCount(group.members)
+    //                 }
+    //         })
+    //     })
+    // }
     },[id])
 
     return (

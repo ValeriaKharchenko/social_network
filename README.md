@@ -10,43 +10,24 @@
 
 ### Working on: 
     <!-- Profile -->
-        [x] - Shows groups I created 
-            - (have to filter which I'm  joined and what is main)
-        [x] - Settings 
         [ ] - need to show user posts && create Button ( Need to remove create button if not your own page)
 
 
     <!-- Groups -->
-        [x] - Making of create Group Button with follower invitations
-        [x] - Group info Panel   ??? back gives back string object and with it error 500 if not admin ???
-        [x] - Group link, page & components(files)
-        [x] - Search for groups - Searchbar
-        [x] - invite follower component (Invite_group_btn)
-
+        [ ] - need to fix groupInfo panel (Members(count) stuff)
             //Posts
-        [x] - Making of create group post 
-        [x] - showing group posts
         [ ] - Group Posts and single Post/Comments page
 
             //Events
-        [x] - Making of create  group event form 
-        [x] - showing group events
+        [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
+            ** Need to update store to remove event from list  if not going **
 
             //Todo
         [x] - join group component
-            [ ] ON HOLD??? --- Need to know that request was sent somehow from back and change button
+            [ ] - have to know which group I sended request (Isn't changeing status for every group)
+            ** CAN DO [ ] --- Need to know that request was sent somehow from back and change button OTHERWISE add just to session **
 
-        [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
-            !!! - event/reply dosent change status on back
-
-        [ ] ON HOLD??? --- GroupPage AdminPanel show requesting users (accept/denie buttons + requests)
-                [x] The template for showing (Its working, needs tweaking)
-                    !!! Needs new queries from back - 
-                        1. join requests to admin only  - 
-                           * Can have picture also ,but not needed
-                           * Admin can Also delete himself from his own group :D (its deleting when sending status 2)
-                        2. Invite request to loged in user 
-
+        [ ] - Invite request to loged in user 
         [ ] - needs to update when creating, posting in group automatically 
 
     <!-- Notifications -->

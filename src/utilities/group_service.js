@@ -56,7 +56,7 @@ import {
 
   const getAllGroups = async() =>{
     try{
-      console.log("%c Fetching my created groups --> ","color:orange");
+      console.log("%c Fetching all groups --> ","color:orange");
       const response = await http.get('/group/all');
 
       return response.data
@@ -141,6 +141,7 @@ import {
     try {
       console.log('%c Fetching group join requests --> ', 'color:orange');
       const response = await http.get(`/group/join/reply?groupId=${id}`);
+      console.log('%c Group requests response --> ',response.data ,  'color:orange');
       return response.data;
     } catch (err) {
       helper.checkError(err);
@@ -188,7 +189,7 @@ import {
     try {
       console.log('%c Sending event reply-> ', 'color:orange',data);
       const response = await http.post(`/group/event/reply`, data);
-      console.log('%c sending group join invitation--> ','color:coral',response);
+      console.log('%c event post reply is--> ','color:coral',response);
       dispatch(updateStatus(!storeInfo.groups.updateStatus));
     } catch (err) {
        helper.checkError(err);

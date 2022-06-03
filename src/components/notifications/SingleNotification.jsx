@@ -28,7 +28,9 @@ const SingleNotification = ({data}) => {
     }
     if(data.data && data.data.event_id){
       group_service.getGroupEvents(data.data.group_id).then(res => {
-        setGroupEvent(res.filter(event => event.event_id == data.data.event_id)[0])
+        if(res.data.event_id != null){
+          setGroupEvent(res.filter(event => event.event_id == data.data.event_id)[0])
+        }
         }
       )
 
