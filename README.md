@@ -1,15 +1,16 @@
 // https://github.com/ValeriaKharchenko/social_network
 
-### BACKLOG[Questions&Suggestions]:
+
+### BACKLOG [Questions&Suggestions]:
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
 
-### Updates:
+### Completed Updates:
     1.  <!-- Profile -->
         [x] - need to show user posts && create Button ( Need to remove create button if not your own page)
     2. Clear every store  - 2 stalkers in another user
         Added function to filter out double user cards 
 
-### Working on: 
+### On Works: 
     <!-- Profile -->
         [ ] - Registration needs checks (DOB)
 
@@ -22,6 +23,7 @@
 
     <!-- Groups -->
         [ ] - need to fix groupInfo panel (Members(count) stuff)
+
             //Posts
         [ ] - Group Posts and single Post/Comments page
 
@@ -65,6 +67,21 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -108,4 +125,4 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To learn React, check out the [React documentation](https://reactjs.org/). -->
