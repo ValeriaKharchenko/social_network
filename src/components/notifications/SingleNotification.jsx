@@ -154,6 +154,7 @@ const SingleNotification = ({data}) => {
 
     }
   }
+
   return (
     <div className="notification_wrapper" onMouseEnter={() => {
       if(!seen){

@@ -7,19 +7,23 @@ import {
   updateStatus,
 } from "../store/followerSlice";
 import * as helper from "../helpers/HelperFuncs";
+import filterDoubles from "../helpers/filterDoubles";
 
 const FollowerService = () => {
   const dispatch = useDispatch();
   const storeInfo = useSelector((state) => state);
+
   const getMyFollowers = async () => {
     console.log("%cFetching my followers", "color:orange");
     try {
-      const gotFollowers = await http.get("/follower/");
-      const gotStalkers = await http.get("/follower/back");
+      const gotFollowers = await http.get('/follower/');
+      const gotStalkers = await http.get('/follower/back');
       if (!gotFollowers.data) gotFollowers.data = [];
       if (!gotStalkers.data) gotStalkers.data = [];
-      dispatch(updateFollowers(gotFollowers.data));
-      dispatch(updateStalkers(gotStalkers.data));
+      // dispatch(updateStalkers(gotFollowers.data));
+      // dispatch(updateStalkers(gotStalkers.data));
+      dispatch(updateFollowers(filterDoubles(gotFollowers.data)));
+      dispatch(updateStalkers(filterDoubles(gotStalkers.data)));
     } catch (err) {
       helper.checkError(err);
     }
@@ -36,6 +40,7 @@ const FollowerService = () => {
       helper.checkError(err);
     }
   };
+  
   const getUserStalkers = async (id) => {
     console.log("got here");
     try {

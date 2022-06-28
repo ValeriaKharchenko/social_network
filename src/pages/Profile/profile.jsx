@@ -14,8 +14,6 @@ import { Box, Tab, Tabs } from "@mui/material";
 import PropTypes from "prop-types";
 import PostList from "../../components/posts/PostList";
 
-// UPDATE UPDATE UPDATE UPDATE
-// combine those request into one ( use Store ? )
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 

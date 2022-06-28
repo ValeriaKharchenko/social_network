@@ -88,20 +88,22 @@ const PostList = () => {
       ) : (
         <div>User doesn't have posts yet</div>
       )}
-      <div className={"fabBtn"}>
-        <Tooltip title="Add new post">
-          <Fab
-            color="secondary"
-            aria-label="add"
-            size={"large"}
-            sx={fabStyle}
-            variant="extended"
-            onClick={openModalWindow}
-          >
-            <AddIcon />
-          </Fab>
-        </Tooltip>
-      </div>
+      {userId === "me" &&
+        <div className={"fabBtn"}>
+          <Tooltip title="Add new post">
+            <Fab
+              color="secondary"
+              aria-label="add"
+              size={"large"}
+              sx={fabStyle}
+              variant="extended"
+              onClick={openModalWindow}
+            >
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+        </div>
+      }
       {isOpen ? <NewPost parentPrivacy={0} /> : null}
     </Container>
   );

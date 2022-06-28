@@ -1,17 +1,24 @@
 // https://github.com/ValeriaKharchenko/social_network
 
-### Questions&Suggestions:
-    1. Registration needs checks (DOB) , Errors with login
-    2. LoginPage Error handling (when user puts password or email wrong)
-    3. Some  quick popUp notification (when post is created or if wasn't successful)
+### BACKLOG[Questions&Suggestions]:
+    [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
 
-### Update:
-    1. Removed assets folder
+### Updates:
+    1.  <!-- Profile -->
+        [x] - need to show user posts && create Button ( Need to remove create button if not your own page)
+    2. Clear every store  - 2 stalkers in another user
+        Added function to filter out double user cards 
 
 ### Working on: 
     <!-- Profile -->
-        [ ] - need to show user posts && create Button ( Need to remove create button if not your own page)
+        [ ] - Registration needs checks (DOB)
 
+    <!-- Login -->
+        [ ] - LoginPage Error handling (when user puts password or email wrong)
+
+    <!-- Followers -->
+        [ SOMEWHAT OPTIONAL ]
+        [ ] - have to know if already send follow request to private user (same thing as with group)
 
     <!-- Groups -->
         [ ] - need to fix groupInfo panel (Members(count) stuff)
@@ -20,21 +27,25 @@
 
             //Events
         [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
-            ** Need to update store to remove event from list  if not going **
+            ** Need to update store to remove event from list if not going **
 
             //Todo
-        [x] - join group component
+        [ ] - needs to update when creating, posting in group automatically  
+
+
+        [ SOMEWHAT OPTIONAL ]
+        [x] - join group component 
             [ ] - have to know which group I sended request (Isn't changeing status for every group)
             ** CAN DO [ ] --- Need to know that request was sent somehow from back and change button OTHERWISE add just to session **
 
+        [ ??????? ] - Can't remember what was this about
         [ ] - Invite request to loged in user 
-        [ ] - needs to update when creating, posting in group automatically 
 
     <!-- Notifications -->
-        [ ] - Notification tabs (bell Icon) with number ( how many notification user has)
+        [ ] - Notification tabs (bell Icon) [ OPTIONAL ] -->  with number ( how many notification user has)
         [ ] - Notification List (get all notification) feed it into singleNotification
         [ ] - SingleNotification ( what type it is, Is it reply notification or just informational) - should show dynamically(reading notification itself and show based on that)
-        [ ] - Update after seeing or replying specific notification (Maybe eye icon on corner)
+        [ ] - Update after seeing or replying to backend with specific notification (Maybe eye icon on corner)
 
     <!-- Messenger -->
         [ ] - List of all writeable users(user is following) and groups(user is in, different style)
@@ -43,13 +54,13 @@
         [ ] - message popup(notification) (realtime notification of writing ??????????? .....)
 
     <!-- HELPERS -->
+        --- RIGHT NOW CLEARING WORKS ON PAGE REFRESH ---
         [ ] - Function to clear all store (connect with logout [does the same store will be present in another browser/window/session])
 
 
 ### CHECKING LIST: 
-    1. Clear every store  - 2 stalkers in another user
-    2. Event option, not changeing
-    3. show grupp invitation to user
+    1. Event option, not changeing  - Something was wrong on backend (Maybe) :D
+    2. show grupp invitation to user
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

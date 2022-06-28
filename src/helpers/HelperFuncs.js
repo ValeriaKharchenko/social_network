@@ -4,6 +4,7 @@ import { checkImage, getBase64, convertImg } from './checkImage';
 import  getTokenId  from "./tokenId";
 import checkError from "./checkError";
 import handleInputs from './checkInput';
+import filterDoubles from "./filterDoubles";
 export {
   capitalize,
   checkImage,
@@ -12,4 +13,5 @@ export {
   checkError,
   handleInputs,
   convertImg,
+  filterDoubles,
 };
