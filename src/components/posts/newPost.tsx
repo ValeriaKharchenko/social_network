@@ -21,6 +21,7 @@ import { checkImage, getBase64 } from "../../helpers/checkImage";
 import postService from "../../utilities/post-service";
 import TransferList from "../transferList";
 import { useParams } from "react-router-dom";
+import { setAlert } from "../../store/alertReducer";
 
 const ariaLabel = { "aria-label": "description" };
 
@@ -39,6 +40,7 @@ export interface Follower {
   lastName: string;
   id: string;
 }
+
 interface FollowerFromState {
   first_name: string;
   last_name: string;
@@ -133,10 +135,20 @@ export function NewPost(props: { parentPrivacy: number }) {
         } else dispatch(updateComments(response));
       } catch (e) {
         console.error(e);
-        alert(e);
+        const errState = {
+          text: "Failed to add post",
+          severity: "warning",
+        };
+        dispatch(setAlert(errState));
       }
     } else {
-      alert(["ERROR WITH IMAGE UPLOAD"]);
+      console.log("Check", check);
+      // alert(["ERROR WITH IMAGE UPLOAD"]);
+      const errState = {
+        text: "Can't upload image",
+        severity: "warning",
+      };
+      dispatch(setAlert(errState));
     }
   };
 
@@ -183,7 +195,8 @@ export function NewPost(props: { parentPrivacy: number }) {
             required
           />
         </div>
-        <Input sx={{ mb: 3 }} type={"file"} {...register("image")}></Input>
+
+        <Input sx={{ mb: 3 }} type={"file"} {...register("image")} />
         {!props.parentPrivacy && (
           <div>
             <FormControl id={""} sx={{ ml: 1, mb: 3 }}>

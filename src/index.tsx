@@ -7,6 +7,7 @@ import store from "./store/store";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
 import "./index.scss";
+import { AlertSnackbar } from "./components/alert";
 
 const container = document.getElementById("container");
 const root = createRoot(container!);
@@ -15,6 +16,7 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
+        <AlertSnackbar />
         <App />
       </ThemeProvider>
     </Provider>

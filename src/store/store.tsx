@@ -2,11 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import userReducer from "./userSlice";
 import postReducer from "./postSlice";
-import profileReducer  from "./profileSlice";
+import profileReducer from "./profileSlice";
 import followerSlice from "./followerSlice";
 import notificationSlice from "./notificationSlice";
 import type UserInfo from "../utilities/user-service";
 import groupSlice from "./groupSlice";
+import alertSlice from "./alertReducer";
 
 const saveToLocalStorage = (state: any) => {
   // console.log("state:", state);
@@ -42,7 +43,15 @@ const loadFromLocalStorage = () => {
   }
 };
 
-const rootReducer = combineReducers({ user: userReducer, post: postReducer, profile: profileReducer, followers: followerSlice, groups: groupSlice, notifications: notificationSlice });
+const rootReducer = combineReducers({
+  user: userReducer,
+  post: postReducer,
+  profile: profileReducer,
+  followers: followerSlice,
+  groups: groupSlice,
+  notifications: notificationSlice,
+  alert: alertSlice,
+});
 
 const persistedStore = loadFromLocalStorage();
 

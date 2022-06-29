@@ -20,6 +20,7 @@ import { PeopleAlt } from "@mui/icons-material";
 import authService from "../../utilities/user-service";
 import ProfileService from "../../utilities/profile_service";
 import FollowerService from "../../utilities/follower_service";
+import { setAlert } from "../../store/alertReducer";
 
 export default function Login() {
   const profile_service = ProfileService();
@@ -44,10 +45,24 @@ export default function Login() {
       redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {
-        console.log(e.message);
-        alert(e.message);
+        console.log("Bla", e.message);
+        // // @ts-ignore
+        // console.log("Data:", e);
+        // alert("Mail or password is incorrect");
+        const errorState = {
+          // isOpen: true,
+          text: "Mail or password is incorrect",
+          severity: "warning",
+        };
+        dispatch(setAlert(errorState));
       } else {
         console.log(e);
+        const errorState = {
+          // isOpen: true,
+          text: "Unknown error occurred",
+          severity: "error",
+        };
+        dispatch(setAlert(errorState));
       }
     }
   };
