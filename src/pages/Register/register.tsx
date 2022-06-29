@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { DatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import "./register.scss";
 // UI material
 import {
-  TextField,
-  Button,
-  Container,
   Avatar,
   Box,
+  Button,
+  Container,
   Grid,
+  TextField,
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -17,11 +20,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 // other
 import * as helper from "../../helpers/HelperFuncs";
 import userService from "../../utilities/user-service";
+import { format } from "date-fns";
 
 export interface RegisterForm {
   first_name: string;
   last_name: string;
-  dob: Date;
+  dob: string;
+  // dob: Date | null;
   email: string;
   password: string;
   repeat_password: string;
@@ -31,6 +36,7 @@ export interface RegisterForm {
 }
 
 export default function Register() {
+  const [value, setValue] = useState(null);
   let redirect = useNavigate();
   const { handleSubmit, register } = useForm<RegisterForm>();
   const [errors, setErrors] = useState([]);
@@ -69,6 +75,10 @@ export default function Register() {
     if (flag) {
       try {
         if (user.image_path.length == 0) user.image_path = "";
+        // @ts-ignore
+        const formatted = format(value, "dd-MM-yyyy");
+        user.dob = formatted;
+        console.log("User", user.dob);
         const response = await userService.register(user);
 
         // if (response.message === "OK") {
@@ -188,16 +198,26 @@ export default function Register() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                type="date"
-                margin="normal"
-                variant="standard"
-                {...register("dob")}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                }}
-              />
+              {/*<TextField*/}
+              {/*  required*/}
+              {/*  type="date"*/}
+              {/*  margin="normal"*/}
+              {/*  variant="standard"*/}
+              {/*  {...register("dob")}*/}
+              {/*  onChange={(e) => {*/}
+              {/*    console.log(e.target.value);*/}
+              {/*  }}*/}
+              {/*/>*/}
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Birthday"
+                  {...register("dob")}
+                  onChange={(value) => setValue(value)}
+                  value={value}
+                  renderInput={(params) => <TextField {...params} />}
+                  inputFormat={"dd-MM-yyyy"}
+                />
+              </LocalizationProvider>
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField

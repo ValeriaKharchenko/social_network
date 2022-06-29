@@ -45,7 +45,7 @@ export default function Login() {
       redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {
-        console.log("Bla", e.message);
+        console.log(e.message);
         // // @ts-ignore
         // console.log("Data:", e);
         // alert("Mail or password is incorrect");
