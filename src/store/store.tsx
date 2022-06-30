@@ -8,6 +8,7 @@ import notificationSlice from "./notificationSlice";
 import type UserInfo from "../utilities/user-service";
 import groupSlice from "./groupSlice";
 import alertSlice from "./alertReducer";
+import websocketSlice from "../websocket/websocketSlice";
 
 const saveToLocalStorage = (state: any) => {
   // console.log("state:", state);
@@ -51,6 +52,7 @@ const rootReducer = combineReducers({
   groups: groupSlice,
   notifications: notificationSlice,
   alert: alertSlice,
+  websocket: websocketSlice
 });
 
 const persistedStore = loadFromLocalStorage();

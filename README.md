@@ -9,13 +9,17 @@
         [x] - need to show user posts && create Button ( Need to remove create button if not your own page)
     2. Clear every store  - 2 stalkers in another user
         Added function to filter out double user cards 
+    3.  <!-- Login -->
+        [ ] - LoginPage Error handling (when user puts password or email wrong)
 
 ### On Works: 
     <!-- Profile -->
         [ ] - Registration needs checks (DOB)
 
-    <!-- Login -->
-        [ ] - LoginPage Error handling (when user puts password or email wrong)
+
+    <!-- Registration -->
+        [ OPTIONAL ]
+        [ ] - DOB needs minimum age
 
     <!-- Followers -->
         [ SOMEWHAT OPTIONAL ]
@@ -26,6 +30,8 @@
 
             //Posts
         [ ] - Group Posts and single Post/Comments page
+        [ OPTIONAL ]
+        [ ] - Visual update
 
             //Events
         [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
@@ -34,14 +40,10 @@
             //Todo
         [ ] - needs to update when creating, posting in group automatically  
 
-
         [ SOMEWHAT OPTIONAL ]
         [x] - join group component 
             [ ] - have to know which group I sended request (Isn't changeing status for every group)
             ** CAN DO [ ] --- Need to know that request was sent somehow from back and change button OTHERWISE add just to session **
-
-        [ ??????? ] - Can't remember what was this about
-        [ ] - Invite request to loged in user 
 
     <!-- Notifications -->
         [ ] - Notification tabs (bell Icon) [ OPTIONAL ] -->  with number ( how many notification user has)
@@ -62,10 +64,9 @@
 
 ### CHECKING LIST: 
     1. Event option, not changeing  - Something was wrong on backend (Maybe) :D
-    2. show grupp invitation to user
+    2. show group invitation to user
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

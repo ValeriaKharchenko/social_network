@@ -2,14 +2,40 @@ import { Routes, Route } from "react-router-dom";
 import { Public, Private } from "./hoc/routeWrappers";
 import Pages from "./pages/pages";
 import "./index.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProfileService from "./utilities/profile_service";
+import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
+
+const API_URL = 'ws://localhost:8080/ws/notification';
 
 function App() {
+  const [socket, setSocket] = useState(new WebSocket(API_URL));
+  
   const profile_service = ProfileService();
+  let storeInfo = useSelector((state) => state);
+
+  
   useEffect(() => {
     profile_service.checkAuth();
-  }, []);
+    // const socket = io(API_URL);
+    // const socket = new WebSocket(API_URL);
+
+    socket.onopen = () => {
+      console.log("%cConnected", 'color:cyan')
+      let jsonData = {};
+       // @ts-ignore
+      jsonData['action'] = 'connect';
+       // @ts-ignore
+      jsonData['user'] = storeInfo.profile.info.id;
+      socket.send(JSON.stringify(jsonData));
+    };
+    
+    socket.onmessage = (message ) => {
+      console.log(message);
+    }
+    // @ts-ignore
+  }, [socket, storeInfo.profile.info.id]);
 
   return (
     <>
