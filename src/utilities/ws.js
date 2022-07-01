@@ -1,6 +1,6 @@
 let ws;
 function showNotification(n) {
-  console.log("Got here");
+  // console.log("Got here");
   // if (n.action == "notification") {
   const nt = JSON.parse(n.data);
   console.log(nt);
@@ -17,8 +17,13 @@ export default {
       jsonData["action"] = "connect";
       jsonData["user"] = id;
       ws.send(JSON.stringify(jsonData));
-      console.log("WebSocket Connected");
-      ws.addEventListener("message", showNotification);
+      console.log("%cWebSocket Connected", "color:cyan");
+      // ws.addEventListener("message", showNotification);
     };
+
+    ws.onmessage = (msg) => {
+      const msgJSON = JSON.parse(msg.data);
+      console.log(msgJSON);
+    }
   },
 };

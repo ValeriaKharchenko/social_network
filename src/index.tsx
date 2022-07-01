@@ -20,7 +20,7 @@ root.render(
       {/*<LocalizationProvider dateAdapter={AdapterDateFns}>*/}
       <ThemeProvider theme={theme}>
         <AlertSnackbar />
-        <App />
+        <App  />
       </ThemeProvider>
       {/*</LocalizationProvider>*/}
     </Provider>

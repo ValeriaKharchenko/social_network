@@ -11,7 +11,7 @@ const ProfileService = () => {
   const follower_service = FollowerService();
 
   const checkAuth = () => {
-    console.log("AUTHENTICATING");
+    // console.log("AUTHENTICATING");
     if (!localStorage.getItem("accessToken")) return redirect("/");
     dispatch(updateAuth(true));
     follower_service.getMyFollowers();
@@ -22,7 +22,7 @@ const ProfileService = () => {
     try {
       console.log("%cGETTING MY INFO", "color:orange");
       const response = await http.get("/user/me");
-      console.log("Check date resp", response.data);
+      // console.log("Check date resp", response.data);
       dispatch(update({ ...response.data, id: helper.getTokenId() }));
     } catch (err) {
       console.log("Error!", err);

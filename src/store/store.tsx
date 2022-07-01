@@ -5,7 +5,6 @@ import postReducer from "./postSlice";
 import profileReducer from "./profileSlice";
 import followerSlice from "./followerSlice";
 import notificationSlice from "./notificationSlice";
-import type UserInfo from "../utilities/user-service";
 import groupSlice from "./groupSlice";
 import alertSlice from "./alertReducer";
 

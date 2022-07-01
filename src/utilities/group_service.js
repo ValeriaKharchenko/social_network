@@ -37,28 +37,29 @@ import {
    const storeInfo = useSelector(state => state);
    
    const makeNewGroupRequest = async (data) => {
-     console.log("%c Posting new group --> ","color:orange", data );
-     const response = await http.post("/group/new", data)
+      console.log("%c Posting new group --> ","color:orange", data );
+      const response = await http.post("/group/new", data)
       console.log(response);
+      dispatch(updateStatus(!storeInfo.groups.updateStatus));
       return response
   }
   
   const makeGroupPost = (data) => { 
       console.log('%c Posting new post to group --> ', 'color:orange', data);
       const response = http.post("/group/post", data)
-      console.log(response);
+      dispatch(updateStatus(!storeInfo.groups.updateStatus));
   }
 
   const makeEvent = (data) => { 
       console.log('%c Posting new event to group --> ', 'color:orange', data);
       const response = http.post('/group/event/new', data);
+      dispatch(updateStatus(!storeInfo.groups.updateStatus));
   }
 
   const getAllGroups = async() =>{
     try{
       console.log("%c Fetching all groups --> ","color:orange");
       const response = await http.get('/group/all');
-
       return response.data
     }catch(err){
       helper.checkError(err)
@@ -99,7 +100,7 @@ import {
     try{
       console.log("%c Fetching specific group info --> ","color:orange");
       const response = await http.get(`/group/${id}`);
-      console.log('%c getting group info--> ','color:coral',response);
+      // console.log('%c getting group info--> ','color:coral',response);
       // dispatch(updateCurrentGroup(response.data));
       return response.data
     }catch(err){
@@ -141,7 +142,7 @@ import {
     try {
       console.log('%c Fetching group join requests --> ', 'color:orange');
       const response = await http.get(`/group/join/reply?groupId=${id}`);
-      console.log('%c Group requests response --> ',response.data ,  'color:orange');
+      // console.log('%c Group requests response --> ',response.data ,  'color:orange');
       return response.data;
     } catch (err) {
       helper.checkError(err);

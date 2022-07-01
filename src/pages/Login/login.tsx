@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
 // Redux
-// import { update } from "../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 // Material UI
@@ -31,11 +30,12 @@ export default function Login() {
   const { handleSubmit, register } = useForm<FormInput>();
   const dispatch = useDispatch();
   let redirect = useNavigate();
+  
   interface FormInput {
     email: string;
     password: string;
   }
-
+  
   const onSubmit = async (data: FormInput) => {
     try {
       const response = await authService.login(data.email, data.password);
@@ -43,6 +43,7 @@ export default function Login() {
       profile_service.checkAuth();
       await profile_service.getMyInfo();
       await follower_service.getMyFollowers();
+
       //ws connection
       let id = helper.getTokenId();
       WsApi.start(id);

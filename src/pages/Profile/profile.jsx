@@ -73,7 +73,7 @@ const Profile = () => {
         setStalkers(res);
       });
     }
-  }, [id, update]);
+  }, [id, update,storeInfo.groups.updateStatus]);
 
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
