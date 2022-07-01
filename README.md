@@ -7,19 +7,23 @@
 ### Completed Updates:
     1.  <!-- Profile -->
         [x] - need to show user posts && create Button ( Need to remove create button if not your own page)
-    2. Clear every store  - 2 stalkers in another user
+        [x] - Registration needs checks (DOB)
+
+    2.  Clear every store  - 2 stalkers in another user
         Added function to filter out double user cards 
+
     3.  <!-- Login -->
-        [ ] - LoginPage Error handling (when user puts password or email wrong)
+        [x] - LoginPage Error handling (when user puts password or email wrong)
+
+    4.  <!-- Registration -->
+        [ OPTIONAL ]
+        [x] - DOB needs minimum age
 
 ### On Works: 
     <!-- Profile -->
-        [ ] - Registration needs checks (DOB)
+        [ ] - When user clicks to any new profilepage, it should open up profile infotab 
+                ** (currently shows last tab state from last visited profilepage)
 
-
-    <!-- Registration -->
-        [ OPTIONAL ]
-        [ ] - DOB needs minimum age
 
     <!-- Followers -->
         [ SOMEWHAT OPTIONAL ]
@@ -27,18 +31,20 @@
 
     <!-- Groups -->
         [ ] - need to fix groupInfo panel (Members(count) stuff)
+        [ ] - needs to update when creating, posting in group automatically  
 
             //Posts
         [ ] - Group Posts and single Post/Comments page
+        
         [ OPTIONAL ]
         [ ] - Visual update
 
             //Events
         [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
             ** Need to update store to remove event from list if not going **
+        [ FIX IT]
+        [ ] - Need to fix event responses
 
-            //Todo
-        [ ] - needs to update when creating, posting in group automatically  
 
         [ SOMEWHAT OPTIONAL ]
         [x] - join group component 
@@ -60,12 +66,6 @@
     <!-- HELPERS -->
         --- RIGHT NOW CLEARING WORKS ON PAGE REFRESH ---
         [ ] - Function to clear all store (connect with logout [does the same store will be present in another browser/window/session])
-
-
-### CHECKING LIST: 
-    1. Event option, not changeing  - Something was wrong on backend (Maybe) :D
-    2. show group invitation to user
-
 
 
 
