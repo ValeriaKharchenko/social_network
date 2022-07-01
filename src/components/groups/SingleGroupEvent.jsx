@@ -1,3 +1,5 @@
+import { Button } from "@mui/material"
+import GroupService from "../../utilities/group_service";
 
 /*  
 type GroupEventReply struct{
@@ -11,10 +13,6 @@ type GroupEventReply struct{
     Day             string  `json:"day"`
     Time            string  `json:"time"`
 */
-
-import { Button } from "@mui/material"
-import { useEffect, useState } from "react";
-import GroupService from "../../utilities/group_service";
 
 // REPLY
 /* 
@@ -30,13 +28,14 @@ type EventParticipant struct{
 const SingleGroupEvent = ({data}) => {
   const group_service  = GroupService()
   let joined = group_service.isJoining(data.event_id)
-  console.log(joined);
+  
   const handleRequest = (nr) => { 
     group_service.sendEventReply({
       event_id : data.event_id,
       option : nr
     })
   }
+
   return (
     <div>
        <div className="group_post">

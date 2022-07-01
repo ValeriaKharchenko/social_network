@@ -1,4 +1,5 @@
 import {useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import GroupService from "../../utilities/group_service"
 import SingleGroupPosts from "./SingleGroupPosts"
 
@@ -7,11 +8,13 @@ const GroupPosts = ({id}) => {
   const [posts,setPosts ] = useState([])
   const group_service = GroupService()
 
+  // const storeInfo = useSelector(state => state)
+  const update  = useSelector(state =>  state.groups.updateStatus)
   useEffect(()=>{
     group_service.getGroupPosts(id).then(res => {
       setPosts(res)
     })
-  },[id])
+  },[id,update])
 
   return (
     <div>

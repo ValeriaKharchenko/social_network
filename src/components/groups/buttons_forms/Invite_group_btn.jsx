@@ -21,7 +21,7 @@ const Invite_group_btn = () => {
  
     useEffect(()=>{
         group_service.getAvailableFriends(Number(id)).then(res =>{
-            console.log(`%c${res}`, "color:cyan" );
+            // console.log(`%c${res}`, "color:cyan" );
             setData(res)
         })
         if(data == null) setIsOpen(false)

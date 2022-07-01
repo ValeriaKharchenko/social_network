@@ -6,12 +6,13 @@ import Request from "./Request"
 const Requests = () => {
     const group_service = GroupService()
     const [list,setList] = useState([])
-    const storeInfo = useSelector(state => state)
+    // const storeInfo = useSelector(state => state)
+    const update  = useSelector(state =>  state.groups.updateStatus)
     let {id} = useParams()
 
     useEffect(()=>{
         group_service.getJoinRequests(id).then(res => { setList(res)})
-    },[id,storeInfo.groups.updateStatus])
+    },[id,update])
 
     return (
         <div>

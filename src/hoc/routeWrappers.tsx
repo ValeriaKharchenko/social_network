@@ -26,7 +26,7 @@ export const Public = () => {
   const location = useLocation();
   if (auth) {
     let currentPath = location.pathname;
-    console.log(currentPath);
+    // console.log(currentPath);
     if (currentPath === "/login") {
       return (
         <Navigate to={"/homepage"} state={{ from: location }} replace={true} />

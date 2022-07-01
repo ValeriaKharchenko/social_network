@@ -10,29 +10,16 @@ import { useSelector } from "react-redux";
 const GroupPanel = ({isAdmin,isMember}) => {
     const group_service = GroupService()
     const [info,setInfo ] = useState({})
-    const storeInfo = useSelector(state => state)
+    // const storeInfo = useSelector(state => state)
     let [count,setCount ] = useState(0)
-    // let count = useRef(null)
     let {id} = useParams()
+
     useEffect(()=>{
-        setCount(0)
-           group_service.getGroupInfo(id).then(res => {
-            // setCount(res.Members.length)
-            setInfo(res)})
-    //     if(isAdmin){
-    //         group_service.getGroupInfo(id).then(res => {
-    //             setCount(res.Members.length)
-    //             setInfo(res)})
-    //         }else{
-    //         group_service.getAllGroups().then(res=> {
-    //             res.forEach(group => { 
-    //                 if(group.id == Number(id)) {
-    //                     setInfo(group)
-    //                     setCount(group.members)
-    //                 }
-    //         })
-    //     })
-    // }
+        group_service.getGroupInfo(id).then(res => {
+        setInfo(res)
+        setCount(res.Members.length)
+    })
+
     },[id])
 
     return (

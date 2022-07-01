@@ -44,7 +44,7 @@ export default {
   async getAllPosts(userId: string) {
     try {
       const response = await http.get(`post/oneuser?id=${userId}`);
-      console.log("user's posts", response.data);
+      // console.log("user's posts", response.data);
       return response.data;
     } catch (e) {
       console.error(e);

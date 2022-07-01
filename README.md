@@ -19,6 +19,14 @@
         [ OPTIONAL ]
         [x] - DOB needs minimum age
 
+    5.  <!-- Groups -->
+        (SOLUTION : storeInfo.groups.updateStatus in every component{fetches all page data again   ??? is This OKEI ???  })
+        [x] - needs to update automatically when: 
+                [x] -  creating new group
+                [x] -  creating new post
+                [x] -  creating new event
+    6.  [x] - need to fix groupInfo panel (Members(count) stuff)
+
 ### On Works: 
     <!-- Profile -->
         [ ] - When user clicks to any new profilepage, it should open up profile infotab 
@@ -29,9 +37,10 @@
         [ SOMEWHAT OPTIONAL ]
         [ ] - have to know if already send follow request to private user (same thing as with group)
 
+        [ CAN BE BUG (Further Checking Needed) ]
+        [ ] - After following and unfollowing, it doesn't let to follow again
+
     <!-- Groups -->
-        [ ] - need to fix groupInfo panel (Members(count) stuff)
-        [ ] - needs to update when creating, posting in group automatically  
 
             //Posts
         [ ] - Group Posts and single Post/Comments page
@@ -43,7 +52,8 @@
         [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
             ** Need to update store to remove event from list if not going **
         [ FIX IT]
-        [ ] - Need to fix event responses
+        [ ] - Need to fix event responses (I think it dosen't read different event statuses right. With 2 
+              different event , they change each other to status != status (reverse each other))
 
 
         [ SOMEWHAT OPTIONAL ]
