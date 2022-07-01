@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 // Material UI
 import {
-  TextField,
+  Avatar,
+  Box,
   Button,
   Container,
-  Box,
-  Avatar,
+  TextField,
   Typography,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -20,6 +20,9 @@ import authService from "../../utilities/user-service";
 import ProfileService from "../../utilities/profile_service";
 import FollowerService from "../../utilities/follower_service";
 import { setAlert } from "../../store/alertReducer";
+import WsApi from "../../utilities/ws";
+import { useState } from "react";
+import * as helper from "../../helpers/HelperFuncs";
 
 export default function Login() {
   const profile_service = ProfileService();
@@ -40,12 +43,15 @@ export default function Login() {
       profile_service.checkAuth();
       await profile_service.getMyInfo();
       await follower_service.getMyFollowers();
-      
-      
+
+      //ws connection
+      let id = helper.getTokenId();
+      WsApi.start(id);
+
       redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {
-        console.log("Bla", e.message);
+        console.log(e.message);
         // // @ts-ignore
         // console.log("Data:", e);
         // alert("Mail or password is incorrect");

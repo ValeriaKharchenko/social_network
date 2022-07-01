@@ -4,38 +4,25 @@ import Pages from "./pages/pages";
 import "./index.scss";
 import { useEffect, useState } from "react";
 import ProfileService from "./utilities/profile_service";
-import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
-
-const API_URL = 'ws://localhost:8080/ws/notification';
+import { RootState } from "./store/store";
+import WsApi from "./utilities/ws";
+import * as helper from "./helpers/HelperFuncs";
 
 function App() {
-  const [socket, setSocket] = useState(new WebSocket(API_URL));
   
   const profile_service = ProfileService();
-  let storeInfo = useSelector((state) => state);
 
-  
+  let auth = useSelector((state: RootState) => state.profile.auth);
+
   useEffect(() => {
+    let id = helper.getTokenId();
+    // console.log(id);
     profile_service.checkAuth();
-    // const socket = io(API_URL);
-    // const socket = new WebSocket(API_URL);
-
-    socket.onopen = () => {
-      console.log("%cConnected", 'color:cyan')
-      let jsonData = {};
-       // @ts-ignore
-      jsonData['action'] = 'connect';
-       // @ts-ignore
-      jsonData['user'] = storeInfo.profile.info.id;
-      socket.send(JSON.stringify(jsonData));
-    };
-    
-    socket.onmessage = (message ) => {
-      console.log(message);
+    if (id) {
+      WsApi.start(id);
     }
-    // @ts-ignore
-  }, [socket, storeInfo.profile.info.id]);
+  }, []);
 
   return (
     <>
