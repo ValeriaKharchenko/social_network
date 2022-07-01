@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import "./register.scss";
+// UI material
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import "./register.scss";
-// UI material
 import {
   Avatar,
   Box,
@@ -36,11 +36,15 @@ export interface RegisterForm {
 }
 
 export default function Register() {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState<Date | null>(null);
   let redirect = useNavigate();
   const { handleSubmit, register } = useForm<RegisterForm>();
   const [errors, setErrors] = useState([]);
-
+  const myMaxDate = new Date(
+    new Date().getFullYear() - 18,
+    new Date().getMonth(),
+    new Date().getDate()
+  );
   const onSubmit = async (user: RegisterForm) => {
     let flag = true;
     setErrors([]);
@@ -81,9 +85,7 @@ export default function Register() {
         console.log("User", user.dob);
         const response = await userService.register(user);
 
-        // if (response.message === "OK") {
         redirect("/");
-        // }
       } catch (e) {
         if (e instanceof Error) {
           // @ts-ignore
@@ -99,6 +101,7 @@ export default function Register() {
     }
   };
 
+  // @ts-ignore
   return (
     <Container component="main" maxWidth="md" className={"Register"}>
       <Box
@@ -198,22 +201,14 @@ export default function Register() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              {/*<TextField*/}
-              {/*  required*/}
-              {/*  type="date"*/}
-              {/*  margin="normal"*/}
-              {/*  variant="standard"*/}
-              {/*  {...register("dob")}*/}
-              {/*  onChange={(e) => {*/}
-              {/*    console.log(e.target.value);*/}
-              {/*  }}*/}
-              {/*/>*/}
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
-                  label="Birthday"
+                  label="Birthday(18+)"
                   {...register("dob")}
                   onChange={(value) => setValue(value)}
                   value={value}
+                  minDate={new Date("1922-01-01")}
+                  maxDate={myMaxDate}
                   renderInput={(params) => <TextField {...params} />}
                   inputFormat={"dd-MM-yyyy"}
                 />
