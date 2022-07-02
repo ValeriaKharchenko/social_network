@@ -20,7 +20,8 @@ const SingleNotification = ({data}) => {
   let [groupEvent,setGroupEvent] = useState(null)
   
   useEffect(()=>{
-    profile_service.getUserInfo(data.user_id).then(res => setUserInfo(res))
+    console.log("IN SINGLE NOTIFICATION:",data.action_type);
+    profile_service.getUserInfo(data.data.actor_id).then(res => setUserInfo(res))
     if(data.data && data.data.group_id){
       // group_service.getGroupInfo(data.data.group_id).then(res => setGroupInfo(group))
       // console.log(groupInfo);
@@ -33,65 +34,13 @@ const SingleNotification = ({data}) => {
         }
         }
       )
-
     }
-
   },[])
+
   const notification = (data) => {
-    switch(data.type){
 
-      case "group invitation":
-        return <div className="flex" > 
-          {userInfo && 
-              <>
-                <div> 
-                  <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
-                  Invitated you to join group 
-                  <strong> {groupInfo.title} </strong>
-                </div>
-                <div className="buttons">
-                  <Button>Y</Button>
-                  <Button>N</Button>
-                </div>
-              </>}
-          </div>
-
-      case "new group member request":
-        return <div className="flex" > 
-          {userInfo && 
-              <>
-                <div> 
-                  <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
-                  wants to join 
-                  <strong> {groupInfo.title} </strong>
-                  group
-                </div>
-                <div className="buttons">
-                  <Button>Y</Button>
-                  <Button>N</Button>
-                </div>
-              </>}
-          </div>
-
-      case "new event":
-        return <div className="flex" > 
-          {userInfo && 
-              <>
-                <div> 
-                  <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
-                  created a new event in
-                  <strong> {groupInfo.title} </strong>
-                  group called 
-                  <strong> {groupEvent.title} </strong>
-                </div>
-                <div className="buttons">
-                  <Button>Y</Button>
-                  <Button>N</Button>
-                </div>
-              </>}
-          </div>
-
-      case "friend request":
+    switch(data.action_type){
+        case "friend request":
         return <div className="flex" > 
           {userInfo && 
               <>
@@ -105,52 +54,136 @@ const SingleNotification = ({data}) => {
                 </div>
               </>}
           </div>
-
-      case "new private message":
-        return <div className="flex" > 
-          {userInfo && 
-              <>
-                <div> 
-                  New private message from
-                  <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
-                </div>
-              </>}
-          </div>
-
-      case "new comment to post":
+          
+      case "new group member request":
         return <div className="flex" > 
           {userInfo && 
               <>
                 <div> 
                   <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
-                  has commented your post
+                  wants to join 
+                  {/* <strong> {groupInfo.title} </strong> */}
+                  <strong> *GROUPNAME* </strong>
+                  group
+                </div>
+                <div className="buttons">
+                  <Button>Y</Button>
+                  <Button>N</Button>
                 </div>
               </>}
           </div>
 
+      // case "group invitation":
+      //   return <div className="flex" > 
+      //     {userInfo && 
+      //         <>
+      //           <div> 
+      //             <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
+      //             Invitated you to join group 
+      //             <strong> {groupInfo.title} </strong>
+      //           </div>
+      //           <div className="buttons">
+      //             <Button>Y</Button>
+      //             <Button>N</Button>
+      //           </div>
+      //         </>}
+      //     </div>
 
-      case "group access opened":
-        return <div className="flex" > 
-          {userInfo && 
-              <>
-                <div> 
-                  You are now new member of 
-                  <strong > {groupInfo.title}</strong> 
-                </div>
-              </>}
-          </div>
+      // case "new group member request":
+      //   return <div className="flex" > 
+      //     {userInfo && 
+      //         <>
+      //           <div> 
+      //             <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
+      //             wants to join 
+      //             <strong> {groupInfo.title} </strong>
+      //             group
+      //           </div>
+      //           <div className="buttons">
+      //             <Button>Y</Button>
+      //             <Button>N</Button>
+      //           </div>
+      //         </>}
+      //     </div>
 
-      case "new message in group chat":
-        return <div className="flex" > 
-          {userInfo && 
-              <>
-                <div> 
-                  New message in group 
-                  <strong > {groupInfo.title} </strong> 
-                  chat
-                </div>
-              </>}
-          </div>
+      // case "new event":
+      //   return <div className="flex" > 
+      //     {userInfo && 
+      //         <>
+      //           <div> 
+      //             <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
+      //             created a new event in
+      //             <strong> {groupInfo.title} </strong>
+      //             group called 
+      //             <strong> {groupEvent.title} </strong>
+      //           </div>
+      //           <div className="buttons">
+      //             <Button>Y</Button>
+      //             <Button>N</Button>
+      //           </div>
+      //         </>}
+      //     </div>
+
+      // case "friend request":
+      //   return <div className="flex" > 
+      //     {userInfo && 
+      //         <>
+      //           <div> 
+      //             <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
+      //             wants to add you as a friend
+      //           </div>
+      //           <div className="buttons">
+      //             <Button>Y</Button>
+      //             <Button>N</Button>
+      //           </div>
+      //         </>}
+      //     </div>
+
+      // case "new private message":
+      //   return <div className="flex" > 
+      //     {userInfo && 
+      //         <>
+      //           <div> 
+      //             New private message from
+      //             <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
+      //           </div>
+      //         </>}
+      //     </div>
+
+      // case "new comment to post":
+      //   return <div className="flex" > 
+      //     {userInfo && 
+      //         <>
+      //           <div> 
+      //             <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
+      //             has commented your post
+      //           </div>
+      //         </>}
+      //     </div>
+
+
+      // case "group access opened":
+      //   return <div className="flex" > 
+      //     {userInfo && 
+      //         <>
+      //           <div> 
+      //             You are now new member of 
+      //             <strong > {groupInfo.title}</strong> 
+      //           </div>
+      //         </>}
+      //     </div>
+
+      // case "new message in group chat":
+      //   return <div className="flex" > 
+      //     {userInfo && 
+      //         <>
+      //           <div> 
+      //             New message in group 
+      //             <strong > {groupInfo.title} </strong> 
+      //             chat
+      //           </div>
+      //         </>}
+      //     </div>
 
     }
   }
