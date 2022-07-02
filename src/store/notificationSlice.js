@@ -3,11 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 export const notificationSlice = createSlice({
   name: 'groups',
   initialState: {
-    updateStatus: false,
+    notifications: [],
     notificationCount: 0,
+    updateStatus: false,
   },
   reducers: {
-    updatenotificationCount: (state, action) => {
+    updateNotifications: (state, action) => {
+      state.notifications = action.payload;
+    },
+    updateNotificationCount: (state, action) => {
       state.notificationCount = action.payload;
     },
     updateStatus: (state, action) => {
@@ -17,7 +21,8 @@ export const notificationSlice = createSlice({
 });
 
 export const {
-  updatenotificationCount,
+  updateNotifications,
+  updateNotificationCount,
   updateStatus,
 } = notificationSlice.actions;
 export default notificationSlice.reducer;

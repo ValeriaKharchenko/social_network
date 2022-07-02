@@ -46,7 +46,9 @@ export default function Login() {
 
       //ws connection
       let id = helper.getTokenId();
-      WsApi.start(id);
+      console.log("LOGGING IN:" ,id);
+      
+      WsApi.start(id, dispatch);
 
       redirect("/homepage", { replace: true });
     } catch (e) {

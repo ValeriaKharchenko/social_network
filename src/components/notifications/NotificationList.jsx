@@ -1,9 +1,11 @@
 import SingleNotification from "./SingleNotification"
-import {notifications} from  "../../mockData"
 import { useEffect } from "react"
+import { useSelector } from "react-redux"
 
 const NotificationList = () => {
+    const notifications = useSelector(state=> state.notifications.notifications)
 
+    console.log("NOTIFICATION IN NotificationLost", notifications);
     useEffect(()=>{
         
     },[])

@@ -1,3 +1,5 @@
+import {updateNotifications} from "../store/notificationSlice" 
+
 let ws;
 function showNotification(n) {
   // console.log("Got here");
@@ -7,8 +9,14 @@ function showNotification(n) {
   // }
 }
 
+// function updateNotifications(arr){
+//   const dispatcher = useDispatch();
+// }
+
+//  IS THERE  A WAY TO NOT INCLUDE DISPATCHER ON EVERY CALL
+
 export default {
-  start(id) {
+  start(id,dispatcher) {
     // ws?.close();
     console.log("start connection");
     ws = new WebSocket("ws://localhost:8080/ws/");
@@ -22,7 +30,9 @@ export default {
     };
 
     ws.onmessage = (msg) => {
+      console.log(msg);
       const msgJSON = JSON.parse(msg.data);
+      dispatcher(updateNotifications(msgJSON));
       console.log(msgJSON);
     }
   },

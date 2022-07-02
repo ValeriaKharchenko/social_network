@@ -42,7 +42,7 @@ const Navbar = () => {
       </Link>
        <Link className="link" to={"/notifications"}>
         {" "}
-        Notifications <NotificationsIcon /> {storeInfo.notifications.notificationCount}
+        Notifications <NotificationsIcon /> {storeInfo.notifications.notifications.length}
       </Link>
       {/*<Link className="link" to={"/profile"}>
         {" "}

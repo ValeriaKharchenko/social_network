@@ -1,53 +1,66 @@
 // https://github.com/ValeriaKharchenko/social_network
 
-
 ### BACKLOG [Questions&Suggestions]:
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
     [ OPTIONAL ] 2. USER PROFILE - profile update tab, privacy button changeing back to public after leaving tab (needs to update to right state) 
     [ OPTIONAL ] 3. SEARCHBAR - Fetching on every keystroke (put status there or into store )
     [ OPTIONAL ] 4. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
 
+    [ERRORS] - Some error handling ? 
+
+    [[[ BEFORE AUDIT ]]]
+    1. Functional Testing
+    2. Clean up code:
+        [ ] - Code Optimizations (some minimazing, DRY)
+        [ ] - Console.logs remove
+        [ ] - Consistent styling
+        [ ] - Clean up packages (if build dosen't do it for us)
+
 
 ### Completed Updates:
 
     <!-- Profile -->
 
-    1.  [x] - need to show user posts && create Button ( Need to remove create button if not your own page)
+        [x] - need to show user posts && create Button ( Need to remove create button if not your own page)
         [x] - Registration needs checks (DOB)
 
-    2.  [x] - Clear every store  - 2 stalkers in another user
+        [x] - Clear every store  - 2 stalkers in another user
               Added function to filter out double user cards 
 
     <!-- Login -->
 
-    3.  [x] - LoginPage Error handling (when user puts password or email wrong)
+        [x] - LoginPage Error handling (when user puts password or email wrong)
 
     <!-- Registration -->
-    4.  [ OPTIONAL ]
+        [ OPTIONAL ]
         [x] - DOB needs minimum age
 
     <!-- Groups -->
 
-    5.  (SOLUTION : storeInfo.groups.updateStatus in every component{fetches all page data again   ??? is This OKEI ???  })
+        (SOLUTION : storeInfo.groups.updateStatus in every component{fetches all page data again   ??? is This OKEI ???  })
         [x] - needs to update automatically when: 
                 [x] -  creating new group
                 [x] -  creating new post
                 [x] -  creating new event
                 
-    6.  [x] - need to fix groupInfo panel (Members(count) stuff)
+        [x] - need to fix groupInfo panel (Members(count) stuff)
 
-    7.  [ SOMEWHAT OPTIONAL ]
+        [ SOMEWHAT OPTIONAL ]
         [x] - It will now update join requests button and show (even after leaving the page) [ Works per session only ]
 
         //events
     
-    8. TIME SELECTION - is now working and can select different times if in future (status dosen't change immidiately if selected time is in past, needs 2-3 clicks to update)
+         IME SELECTION - is now working and can select different times if in future (status dosen't change immidiately if selected time is in past, needs 2-3 clicks to update)
 
 
     <!-- Followers -->
 
-    8.  [ SOMEWHAT OPTIONAL ]
+        [ SOMEWHAT OPTIONAL ]
         [x] - have to know if already send follow request to private user (same thing as with group) [ Works per session only ]
+
+    <!-- Notifications -->
+
+        [x] - Notifications now show count and notification cards based on type [Works through store]
 
 
 ### On Works: 
@@ -77,16 +90,19 @@
        
 
     <!-- Notifications -->
-        [ ] - Notification tabs (bell Icon) [ OPTIONAL ] -->  with number ( how many notification user has)
         [ ] - Notification List (get all notification) feed it into singleNotification
         [ ] - SingleNotification ( what type it is, Is it reply notification or just informational) - should show dynamically(reading notification itself and show based on that)
         [ ] - Update after seeing or replying to backend with specific notification (Maybe eye icon on corner)
+        [ ] - seperate notification feed (response needed notifications, informational, old, new)
 
     <!-- Messenger -->
         [ ] - List of all writeable users(user is following) and groups(user is in, different style)
         [ ] - messages boxes for user, other users
         [ ] - messenging component (needs emoticons)
         [ ] - message popup(notification) (realtime notification of writing ??????????? .....)
+
+    <!-- DOCKER -->
+        [ ] - implement docker
 
     <!-- HELPERS -->
         --- RIGHT NOW CLEARING WORKS ON PAGE REFRESH ---
