@@ -1,10 +1,12 @@
-import { Button, Input} from "@mui/material";
+import { Button, Input, TextField} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from "react";
 import GroupService from "../../../utilities/group_service";
 import * as helper from '../../../helpers/HelperFuncs';
 import "./group_buttons.scss"
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 /*  
 type GroupEvent struct{
@@ -30,8 +32,9 @@ type GroupEvent struct{
 const Create_event = ({id}) => {
     const group_service = GroupService()
     const [isOpen,setIsOpen] = useState(false)
-    let [date,setDate] = useState("")
-    let [times, setTimes] = useState("")
+    const [date,setDate] = useState("")
+    const [times, setTimes] = useState("")
+    // const [value, setValue] = useState("");
     
     const todayTime = () => {
         let currentTime = new Date();
@@ -51,6 +54,26 @@ const Create_event = ({id}) => {
         return todaysDate
     }
 
+    const isFuture = (current,target) => { 
+        let currentArr = current.split("-").map(Number);
+        let targetArr = target.split("-").map(Number);
+        if(currentArr[0] < targetArr[0]) return true
+        if(currentArr[0] == targetArr[0] && currentArr[1] < targetArr[1]) return true
+        if(currentArr[0] == targetArr[0] && currentArr[1] == targetArr[1] && currentArr[2] < targetArr[2]) return true
+
+        // [ THIS FOR -> LocalizationProvider (commented out)]
+        // if (typeof target === 'object'){
+            //     if(currentArr[0] < target.getFullYear()) return true
+            //     // if(currentArr[0] == targetArr[1] && currentArr[1] < targetArr[1]) return true
+            //     if(currentArr[0] == target.getFullYear() && currentArr[1] < target.getMonth() + 1) return true
+            //     // if(currentArr[0] == targetArr[1] && currentArr[1] == targetArr[1] && currentArr[2] == targetArr[2]) return true
+            //     if(currentArr[0] == target.getFullYear() && currentArr[1] == target.getMonth() + 1 && currentArr[2] == target.getDate() - 1) return true
+        // }
+
+        // if(currentArr == targetArr) setTimes(todayTime())
+        if(current == target) setTimes(todayTime())
+        return false
+    }
     const calcTime = (time) =>{
         let arr = time.split(":")
         return Number(arr[0] * 60 + arr[1])
@@ -79,6 +102,7 @@ const Create_event = ({id}) => {
     useEffect(()=>{
         setTimes(todayTime())
         setDate(todayDate())
+        console.log("TOTDAY DATE IN EVENT BUTTON " , todayDate());
     },[])
 
     return (
@@ -91,7 +115,10 @@ const Create_event = ({id}) => {
             variant="contained"
             className="back_btn"
             onClick={() => setIsOpen(false)}>
-            <CloseIcon />
+            <CloseIcon onClick ={() => {
+                setDate(todayDate())
+                setTimes(todayTime())
+            }}/>
         </Button>
         <div className="input">
             <label htmlFor="title">Title* : </label>
@@ -108,13 +135,30 @@ const Create_event = ({id}) => {
                 data.day = e.target.value
                 }} />
         </div>
+          {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Date"
+                  value={date}
+                  onChange={(date) => setDate(date)}
+                  minDate={new Date(todayDate())}
+                //   renderInput={(params) => <TextField {...params} />}
+                  renderInput={(params) => <TextField {...params} />}
+                  inputFormat={"dd-MM-yyyy"}
+                />
+        </LocalizationProvider> */}
         <div>
             <label htmlFor="times">Time* : </label>
             <input required  id="times"  type="time" value={times} onChange={(e) => {
-                if(calcTime(todayTime()) < calcTime(e.target.value)){
-                    setTimes(e.target.value)
+                if(isFuture(todayDate(),date)) console.log("ITS IN FUTURE");
+                
+                if(!isFuture(todayDate(),date)){
+                    if(calcTime(todayTime()) < calcTime(e.target.value)){
+                        setTimes(e.target.value)
+                    }else{
+                        setTimes(todayTime())
+                    }
                 }else{
-                    setTimes(todayTime())
+                    setTimes(e.target.value)
                 }
                 data.time = times
                 }} />

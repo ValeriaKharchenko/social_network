@@ -78,13 +78,6 @@ const FollowerService = () => {
     }
   };
 
-  // const isFollowing =(id) => {
-  //   //  if there is object returned (!!), same as Boolean(storeInfo.followers.followers)
-  //   return !!storeInfo.followers.followers.find(
-  //     user => user.user_id == id.slice(1)
-  //   );
-  // }
-
   const isFollowing = () => {
     //  if there is object returned (!!), same as Boolean(storeInfo.followers.followers)
     return !!storeInfo.followers.followers.find(
