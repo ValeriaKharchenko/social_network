@@ -78,12 +78,12 @@ const Searchbar = () => {
 */
 
   useEffect(() => {
-    group_service.getAllGroups().then((res) => setGroups(res));
-    console.log(groups);
     if (input == "" || input == null) {
       document.querySelector(".searched_users").classList.add("hide");
     } else {
+      group_service.getAllGroups().then((res) => setGroups(res));
       document.querySelector(".searched_users").classList.remove("hide");
+      console.log(groups);
     }
   }, [input]);
 

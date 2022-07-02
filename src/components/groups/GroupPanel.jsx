@@ -17,7 +17,11 @@ const GroupPanel = ({isAdmin,isMember}) => {
     useEffect(()=>{
         group_service.getGroupInfo(id).then(res => {
         setInfo(res)
-        setCount(res.Members.length)
+        if(isAdmin){
+            setCount(res.Members.length)
+        }else{
+            setCount(res.members)
+        }
     })
 
     },[id])

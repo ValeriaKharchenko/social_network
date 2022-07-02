@@ -7,6 +7,7 @@ export const groupSlice = createSlice({
     // currentUserId: null,
     currentGroupInfo :{},
     createdGroups: [],
+    sentRequests: [],
     joinedGroups: [],
     joinedEvents: [],
   },
@@ -17,6 +18,12 @@ export const groupSlice = createSlice({
     updateCreatedGroups: (state, action) => {
       state.createdGroups = action.payload;
     },
+    updateSentRequests: (state, action) => {
+      let arr = state.sentRequests;
+      if(!arr.includes(action.payload)) arr.push(action.payload);
+      // state.sentRequests = action.payload;
+      state.sentRequests = arr;
+    },
     updateJoinedGroups: (state, action) => {
       state.joinedGroups = action.payload;
     },
@@ -24,18 +31,17 @@ export const groupSlice = createSlice({
       state.joinedEvents = action.payload;
     },
     updateStatus: (state, action) => {
-      console.log('UPDATING STATUS ');
       state.updateStatus = action.payload;
-      console.log('Status now ', state.updateStatus);
     },
   },
 });
 
 export const {
-  updateCreatedGroups,
-  updateJoinedGroups,
-  updateStatus,
   updateCurrentGroup,
+  updateCreatedGroups,
+  updateSentRequests,
+  updateJoinedGroups,
   updateJoinedEvents,
+  updateStatus,
 } = groupSlice.actions;
 export default groupSlice.reducer;
