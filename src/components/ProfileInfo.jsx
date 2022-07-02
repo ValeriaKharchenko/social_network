@@ -173,7 +173,7 @@ const ProfileInfo = () => {
             />
             <Typography>{data.nickname}</Typography>
 
-            {!myProfile && <Follow_btn />}
+            {!myProfile && <Follow_btn  isPrivate={isPrivate} />}
           </>
         )}
       </div>

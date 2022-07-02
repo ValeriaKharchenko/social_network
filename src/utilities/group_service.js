@@ -4,6 +4,7 @@ import * as helper from '../helpers/HelperFuncs';
 import { useNavigate } from 'react-router-dom';
 import {
   updateCreatedGroups,
+  updateSentRequests,
   updateJoinedGroups,
   updateCurrentGroup,
   updateStatus,
@@ -170,6 +171,7 @@ import {
       const response = await  http.post(`/group/join`,{
         group_id : id
       })
+      dispatch(updateSentRequests(id))
       console.log('%c sending group join request--> ', 'color:coral',response);
     } catch (err) {
        helper.checkError(err);
@@ -204,6 +206,12 @@ import {
   const isMember = (id) => { 
     return !!storeInfo.groups.joinedGroups.find(group => group.id == id)
   }
+  
+  const isRequested =  (id) => {
+    // return !!storeInfo.groups.sentRequests.find(group => group.id == id)
+    return !!storeInfo.groups.sentRequests.includes(parseInt(id));
+  }
+
   const isJoining = (id) => { 
     return !!storeInfo.groups.joinedEvents.find(event => event.event_id == id)
   }
@@ -227,6 +235,7 @@ import {
     sendEventReply,
     isAdmin,
     isMember,
+    isRequested,
     isJoining,
   };
 };

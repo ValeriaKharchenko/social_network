@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   updateFollowers,
   updateStalkers,
+  updateSentRequests,
   updateCurrentUserId,
   updateStatus,
 } from "../store/followerSlice";
@@ -59,6 +60,7 @@ const FollowerService = () => {
         target_id: `${id}`,
       });
       console.log("%c sendFollowerRequest =>", "color:orange", response.data);
+     
     } catch (err) {
       helper.checkError(err);
     }
@@ -90,14 +92,21 @@ const FollowerService = () => {
     );
   };
 
+  const isRequested = id => {
+     // return !!storeInfo.groups.sentRequests.find(group => group.id == id)
+     console.log("SERVICE : id -> " , id);
+     console.log('STORE : id -> ', storeInfo.followers.sentRequests[0]);
+     return storeInfo.followers.sentRequests.includes(id);
+   };
   const setCurrentUserId = async (id) => {
     dispatch(updateCurrentUserId(id));
   };
 
-  const handleFollowerBtn = (isFollowing) => {
+  const handleFollowerBtn = (isFollowing, profileStatus=false) => {
     dispatch(updateStatus(!storeInfo.followers.updateStatus));
     if (isFollowing) {
       sendFollowerRequest(storeInfo.followers.currentUserId);
+      if(profileStatus) dispatch(updateSentRequests(storeInfo.followers.currentUserId));
     } else {
       changeFollowerStatus(storeInfo.followers.currentUserId);
     }
@@ -113,6 +122,7 @@ const FollowerService = () => {
     setCurrentUserId,
     handleFollowerBtn,
     isFollowing,
+    isRequested,
   };
 };
 

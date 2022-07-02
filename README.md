@@ -3,35 +3,51 @@
 
 ### BACKLOG [Questions&Suggestions]:
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
+    [ OPTIONAL ] 2. USER PROFILE - profile update tab, privacy button changeing back to public after leaving tab (needs to update to right state) 
+    [ OPTIONAL ] 3. SEARCHBAR - Fetching on every keystroke (put status there or into store )
+
 
 ### Completed Updates:
-    1.  <!-- Profile -->
-        [x] - need to show user posts && create Button ( Need to remove create button if not your own page)
+
+    <!-- Profile -->
+
+    1.  [x] - need to show user posts && create Button ( Need to remove create button if not your own page)
         [x] - Registration needs checks (DOB)
 
-    2.  Clear every store  - 2 stalkers in another user
-        Added function to filter out double user cards 
+    2.  [x] - Clear every store  - 2 stalkers in another user
+              Added function to filter out double user cards 
 
-    3.  <!-- Login -->
-        [x] - LoginPage Error handling (when user puts password or email wrong)
+    <!-- Login -->
 
-    4.  <!-- Registration -->
-        [ OPTIONAL ]
+    3.  [x] - LoginPage Error handling (when user puts password or email wrong)
+
+    <!-- Registration -->
+    4.  [ OPTIONAL ]
         [x] - DOB needs minimum age
 
-    5.  <!-- Groups -->
-        (SOLUTION : storeInfo.groups.updateStatus in every component{fetches all page data again   ??? is This OKEI ???  })
+    <!-- Groups -->
+
+    5.  (SOLUTION : storeInfo.groups.updateStatus in every component{fetches all page data again   ??? is This OKEI ???  })
         [x] - needs to update automatically when: 
                 [x] -  creating new group
                 [x] -  creating new post
                 [x] -  creating new event
+                
     6.  [x] - need to fix groupInfo panel (Members(count) stuff)
+
+    7.  [ SOMEWHAT OPTIONAL ]
+        [x] - It will now update join requests button and show (even after leaving the page) [ Works per session only ]
+
+    <!-- Followers -->
+
+    8.  [ SOMEWHAT OPTIONAL ]
+        [x] - have to know if already send follow request to private user (same thing as with group) [ Works per session only ]
+
 
 ### On Works: 
     <!-- Profile -->
         [ ] - When user clicks to any new profilepage, it should open up profile infotab 
                 ** (currently shows last tab state from last visited profilepage)
-
 
     <!-- Followers -->
         [ SOMEWHAT OPTIONAL ]
@@ -54,12 +70,7 @@
         [ FIX IT]
         [ ] - Need to fix event responses (I think it dosen't read different event statuses right. With 2 
               different event , they change each other to status != status (reverse each other))
-
-
-        [ SOMEWHAT OPTIONAL ]
-        [x] - join group component 
-            [ ] - have to know which group I sended request (Isn't changeing status for every group)
-            ** CAN DO [ ] --- Need to know that request was sent somehow from back and change button OTHERWISE add just to session **
+       
 
     <!-- Notifications -->
         [ ] - Notification tabs (bell Icon) [ OPTIONAL ] -->  with number ( how many notification user has)
