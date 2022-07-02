@@ -5,6 +5,7 @@
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
     [ OPTIONAL ] 2. USER PROFILE - profile update tab, privacy button changeing back to public after leaving tab (needs to update to right state) 
     [ OPTIONAL ] 3. SEARCHBAR - Fetching on every keystroke (put status there or into store )
+    [ OPTIONAL ] 4. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
 
 
 ### Completed Updates:
@@ -38,6 +39,11 @@
     7.  [ SOMEWHAT OPTIONAL ]
         [x] - It will now update join requests button and show (even after leaving the page) [ Works per session only ]
 
+        //events
+    
+    8. TIME SELECTION - is now working and can select different times if in future (status dosen't change immidiately if selected time is in past, needs 2-3 clicks to update)
+
+
     <!-- Followers -->
 
     8.  [ SOMEWHAT OPTIONAL ]
@@ -50,8 +56,6 @@
                 ** (currently shows last tab state from last visited profilepage)
 
     <!-- Followers -->
-        [ SOMEWHAT OPTIONAL ]
-        [ ] - have to know if already send follow request to private user (same thing as with group)
 
         [ CAN BE BUG (Further Checking Needed) ]
         [ ] - After following and unfollowing, it doesn't let to follow again
