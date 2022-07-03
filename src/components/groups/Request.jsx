@@ -11,7 +11,7 @@ type GroupInvitation struct{
 */
 const Request = ({data}) => {
     const group_service = GroupService()
-    const handleRequest = (nr) => {
+    const handleGroupJoinRequest = (nr) => {
          group_service.sendGroupJoinReply({
              group_id :  data.group_id ,
              target_id : data.user_id ,
@@ -31,8 +31,8 @@ const Request = ({data}) => {
                 {data.user_firstname} {data.user_lastname} 
             </p>
             <div>
-                <Button onClick={()=>handleRequest(1)} >YES</Button>
-                <Button onClick={()=>handleRequest(2)} >NO</Button>
+                <Button onClick={()=>handleGroupJoinRequest(1)} >YES</Button>
+                <Button onClick={()=>handleGroupJoinRequest(2)} >NO</Button>
             </div>
         </div>
     )

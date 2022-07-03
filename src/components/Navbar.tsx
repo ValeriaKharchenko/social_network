@@ -13,6 +13,7 @@ import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 const Navbar = () => {
   const profile_service = ProfileService();
   const storeInfo = useSelector((state: RootState) => state);
+  let notificationCount = storeInfo.notifications.notifications ?  storeInfo.notifications.notifications.length  : 0;
   // @ts-ignore
   const storeProfileInfo = useSelector(
     (state: RootState) => state.profile.info
@@ -42,7 +43,8 @@ const Navbar = () => {
       </Link>
        <Link className="link" to={"/notifications"}>
         {" "}
-        Notifications <NotificationsIcon /> {storeInfo.notifications.notifications.length}
+        {/* Notifications <NotificationsIcon /> {storeInfo.notifications.notifications.length} */}
+        Notifications <NotificationsIcon /> {notificationCount}
       </Link>
       {/*<Link className="link" to={"/profile"}>
         {" "}

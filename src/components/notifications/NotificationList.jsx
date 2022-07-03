@@ -13,8 +13,8 @@ const NotificationList = () => {
 
     return ( 
         <div>
-            {notifications.map(notification =>( 
-                <SingleNotification  data={notification}/>
+            {notifications.map((notification,index) =>( 
+                <SingleNotification key={index} data={notification}/>
             ))}
         </div>
   )
