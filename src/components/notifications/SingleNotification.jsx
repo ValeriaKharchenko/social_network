@@ -1,77 +1,59 @@
-import { Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import GroupService from "../../utilities/group_service";
-import ProfileService from "../../utilities/profile_service";
+import { Button } from "@mui/material";
+import { useState } from "react";
 import "./notification.scss"
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { useNavigate } from "react-router-dom";
+import NotificationHandler from "./NotificationHandlers"
 
-const group = {
-  id : 1,
-  title: "My Bros",
-  description : "Bro, yeah, bro ehsa j"
-}
+
+
 
 const SingleNotification = ({data}) => {
-  const group_service = GroupService()
-  const profile_service = ProfileService()
   const [seen,setSeen] = useState(false)
-  let [userInfo,setUserInfo] = useState(null)
-  let [groupInfo,setGroupInfo] = useState(null)
-  let [groupEvent,setGroupEvent] = useState(null)
+  const handler = NotificationHandler()
+  let redirect = useNavigate();
   
-  useEffect(()=>{
-    console.log("IN SINGLE NOTIFICATION:",data.action_type);
-    profile_service.getUserInfo(data.data.actor_id).then(res => setUserInfo(res))
-    if(data.data && data.data.group_id){
-      // group_service.getGroupInfo(data.data.group_id).then(res => setGroupInfo(group))
-      // console.log(groupInfo);
-      setGroupInfo(group)
-    }
-    if(data.data && data.data.event_id){
-      group_service.getGroupEvents(data.data.group_id).then(res => {
-        if(res.data.event_id != null){
-          setGroupEvent(res.filter(event => event.event_id == data.data.event_id)[0])
-        }
-        }
-      )
-    }
-  },[])
+  const notification = (socketData) => {
+      let data = socketData.data
+      const USER_INFO =  <strong onClick={() => {redirect(`/profile/${data.actor_id}`);}}> {data.first_name} {data.last_name} </strong> ;
+      const GROUP_INFO = <strong onClick={() => {redirect(`/group/${data.group_id}`);}}> {data.group_name} </strong>;
+      const RESPONSE = Object.freeze({
+            "Y" : 1,
+            "N" : 2
+          });
+    
+    
+    const responseBtns = (func) => { 
+        const btns = []
+        {Object.keys(RESPONSE).forEach((key,index)=>{
+            // Callback function 
+            btns.push(<Button key={index} onClick={()=>{func(data,RESPONSE[key]);}}>{key}</Button>)
+          })}
 
-  const notification = (data) => {
+        return btns 
+    }
 
-    switch(data.action_type){
+
+    switch(socketData.action_type){
         case "friend request":
-        return <div className="flex" > 
-          {userInfo && 
-              <>
-                <div> 
-                  <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
-                  wants to add you as a friend
+        return  <div className="flex" > 
+                    <div> 
+                      {USER_INFO} wants to follow you
+                    </div>
+                    <div className="buttons">
+                        ???????
+                    </div>
                 </div>
-                <div className="buttons">
-                  <Button>Y</Button>
-                  <Button>N</Button>
-                </div>
-              </>}
-          </div>
           
-      case "new group member request":
-        return <div className="flex" > 
-          {userInfo && 
-              <>
-                <div> 
-                  <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
-                  wants to join 
-                  {/* <strong> {groupInfo.title} </strong> */}
-                  <strong> *GROUPNAME* </strong>
-                  group
+        case "new group member request":
+        return  <div className="flex" > 
+                    <div> 
+                        {USER_INFO} wants to join {GROUP_INFO} group
+                    </div>
+                    <div className="buttons">
+                        {responseBtns(handler.handleGroupJoinRequest)}
+                    </div>
                 </div>
-                <div className="buttons">
-                  <Button>Y</Button>
-                  <Button>N</Button>
-                </div>
-              </>}
-          </div>
 
       // case "group invitation":
       //   return <div className="flex" > 
@@ -81,23 +63,6 @@ const SingleNotification = ({data}) => {
       //             <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
       //             Invitated you to join group 
       //             <strong> {groupInfo.title} </strong>
-      //           </div>
-      //           <div className="buttons">
-      //             <Button>Y</Button>
-      //             <Button>N</Button>
-      //           </div>
-      //         </>}
-      //     </div>
-
-      // case "new group member request":
-      //   return <div className="flex" > 
-      //     {userInfo && 
-      //         <>
-      //           <div> 
-      //             <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
-      //             wants to join 
-      //             <strong> {groupInfo.title} </strong>
-      //             group
       //           </div>
       //           <div className="buttons">
       //             <Button>Y</Button>
@@ -124,20 +89,6 @@ const SingleNotification = ({data}) => {
       //         </>}
       //     </div>
 
-      // case "friend request":
-      //   return <div className="flex" > 
-      //     {userInfo && 
-      //         <>
-      //           <div> 
-      //             <strong > {userInfo.first_name} {userInfo.last_name} </strong> 
-      //             wants to add you as a friend
-      //           </div>
-      //           <div className="buttons">
-      //             <Button>Y</Button>
-      //             <Button>N</Button>
-      //           </div>
-      //         </>}
-      //     </div>
 
       // case "new private message":
       //   return <div className="flex" > 
@@ -190,14 +141,12 @@ const SingleNotification = ({data}) => {
 
   return (
     <div className="notification_wrapper" onMouseEnter={() => {
-      if(!seen){
-        console.log("%cSENDING TO Back info that i have seen this notification", "color:yellow");
-      }
+      if(!seen){console.log("%cSENDING TO Back info that i have seen this notification", "color:yellow");}
       setSeen(true)
     }}>
       {seen ? <VisibilityOutlinedIcon className="eye" /> : "----"}
       {notification(data)}
-      </div>
+    </div>
   )
 }
 

@@ -3,6 +3,7 @@
     border: 2px solid black;
     margin: 0.3em;
     padding: 0.2em;
+
     &:hover{
         background-color: white;
         box-shadow:  0 0 10px black;
@@ -11,10 +12,21 @@
         //     transform: scale(1);
         // }
     }
+
+    strong{
+        cursor:pointer;
+        
+        &:hover{
+            text-shadow: 0 0 1px  grey;
+            font-size: 17px;
+        }
+    }
+
     .eye{
         animation-name: appear;
         animation-duration: 1s;
     }
+
     @keyframes appear {
         from{
             opacity: 0;
