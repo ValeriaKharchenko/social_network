@@ -14,7 +14,7 @@ const NotificationList = () => {
     return ( 
         <div>
             {notifications.map((notification,index) =>( 
-                <SingleNotification key={index} data={notification}/>
+                <SingleNotification key={index} data={notification ? notification : []}/>
             ))}
         </div>
   )

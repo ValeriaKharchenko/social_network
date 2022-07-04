@@ -19,7 +19,7 @@ export default {
   start(id,dispatcher) {
     // ws?.close();
     console.log("start connection");
-    ws = new WebSocket("ws://localhost:8080/ws/");
+    ws = new WebSocket('ws://localhost:8080/ws/');
     ws.onopen = () => {
       let jsonData = {};
       jsonData["action"] = "connect";
@@ -33,7 +33,6 @@ export default {
       console.log(msg);
       const msgJSON = JSON.parse(msg.data);
       dispatcher(updateNotifications(msgJSON));
-      console.log(msgJSON);
     }
   },
 };

@@ -44,15 +44,16 @@ function a11yProps(index) {
 }
 
 const Profile = () => {
+  const follower_service = FollowerService();
+  const group_service = GroupService();
+  const storeInfo = useSelector((state) => state);
   let redirect = useNavigate();
+   // switching store status to update page
+  let update = useSelector((state) => state.followers.updateStatus);
   let [myInfo, setMyInfo] = useState(false);
   let [followers, setFollowers] = useState(null);
   let [stalkers, setStalkers] = useState(null);
   let { id } = useParams();
-  const storeInfo = useSelector((state) => state);
-  const follower_service = FollowerService();
-  const group_service = GroupService();
-  let update = useSelector((state) => state.followers.updateStatus); // switching store status to update page
 
   useEffect(() => {
     follower_service.setCurrentUserId(id);
@@ -73,7 +74,7 @@ const Profile = () => {
         setStalkers(res);
       });
     }
-  }, [id, update,storeInfo.groups.updateStatus]);
+  }, [id, update]);
 
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {

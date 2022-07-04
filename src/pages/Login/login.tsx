@@ -46,7 +46,6 @@ export default function Login() {
 
       //ws connection
       let id = helper.getTokenId();
-      console.log("LOGGING IN:" ,id);
       
       WsApi.start(id, dispatch);
 

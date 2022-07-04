@@ -31,10 +31,9 @@ const FollowerService = () => {
   };
 
   const getUserFollowers = async (id) => {
-    // console.log("GOt from Profile page id : ", id);
+    // console.log('Fetching users followers',"color:orange");
     try {
       const gotFollowers = await http.get(`/follower/?id=${id}`);
-      // console.log('Fetching users followers', gotFollowers.data);
       // console.log('%c Back responsed with =>','color:orange',gotFollowers.data,);
       return gotFollowers.data;
     } catch (err) {
@@ -43,11 +42,10 @@ const FollowerService = () => {
   };
   
   const getUserStalkers = async (id) => {
-    console.log("got here");
+    // console.log('%cFetching users stalkers', "color:orange");
     try {
       const gotStalkers = await http.get(`/follower/back?id=${id}`);
       console.log("followers", gotStalkers.data);
-      // console.log('%c Back responsed with =>', 'color:orange',gotStalkers.data);
       return gotStalkers.data;
     } catch (err) {
       helper.checkError(err);
@@ -86,11 +84,9 @@ const FollowerService = () => {
   };
 
   const isRequested = id => {
-     // return !!storeInfo.groups.sentRequests.find(group => group.id == id)
-     console.log("SERVICE : id -> " , id);
-     console.log('STORE : id -> ', storeInfo.followers.sentRequests[0]);
      return storeInfo.followers.sentRequests.includes(id);
    };
+
   const setCurrentUserId = async (id) => {
     dispatch(updateCurrentUserId(id));
   };

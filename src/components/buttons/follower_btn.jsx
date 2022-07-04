@@ -14,23 +14,23 @@ const Follow_btn = ({isPrivate}) => {
   // console.log("FOLLOWER BTN " , isPrivate);
   return (
     <div>
-          {!isPrivate && !isFollowing ?
+          {/* {!isPrivate && !isFollowing ?
           <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true)} >Follow user <PersonAddIcon /> </Button>
           :
            !requestSent ? <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true, isPrivate)} >Follow user <PersonAddIcon /> </Button> : <div> Request has been sent </div>
           }
-          {isFollowing && <Button  className="flex" onClick={() =>follower_service.handleFollowerBtn(false)}>Stop Following <PersonRemoveIcon />  </Button>}
-        </div>
-      // !isPrivate  ?
-      //   <div>
-      //     {!isFollowing && <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true)} >Follow user <PersonAddIcon /> </Button>}
-      //     {isFollowing && <Button  className="flex" onClick={() =>follower_service.handleFollowerBtn(false)}>Stop Following <PersonRemoveIcon />  </Button>}
-      //   </div>
-      // :
-      //   <div>
-      //     {(!isFollowing && !requestSent)  ? <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true)} >Follow user <PersonAddIcon /> </Button> : <div> Request sended </div>}
-      //     {isFollowing && <Button  className="flex" onClick={() =>follower_service.handleFollowerBtn(false)}>Stop Following <PersonRemoveIcon />  </Button>}
-      //   </div>
+          {isFollowing && <Button  className="flex" onClick={() =>follower_service.handleFollowerBtn(false)}>Stop Following <PersonRemoveIcon />  </Button>} */}
+      { !isPrivate  ?
+         <div>
+           {!isFollowing && <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true)} >Follow user <PersonAddIcon /> </Button>}
+           {isFollowing && <Button  className="flex" onClick={() =>follower_service.handleFollowerBtn(false)}>Stop Following <PersonRemoveIcon />  </Button>}
+         </div>
+       :
+         <div>
+           {(!isFollowing && !requestSent)  ? <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true)} >Follow user <PersonAddIcon /> </Button> : <div> Request sended </div>}
+           {isFollowing && <Button  className="flex" onClick={() =>follower_service.handleFollowerBtn(false)}>Stop Following <PersonRemoveIcon />  </Button>}
+         </div>}
+    </div>
   )
 }
 

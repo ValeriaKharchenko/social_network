@@ -49,8 +49,9 @@
         [x] - It will now update join requests button and show (even after leaving the page) [ Works per session only ]
 
         //events
+       
     
-         IME SELECTION - is now working and can select different times if in future (status dosen't change immidiately if selected time is in past, needs 2-3 clicks to update)
+        TIME SELECTION - is now working and can select different times if in future (status dosen't change immidiately if selected time is in past, needs 2-3 clicks to update)
 
 
     <!-- Followers -->
@@ -69,6 +70,8 @@
                 ** (currently shows last tab state from last visited profilepage)
 
     <!-- Followers -->
+        [ ] - Notification on FOllower is not working (database dont update)
+
 
         [ CAN BE BUG (Further Checking Needed) ]
         [ ] - After following and unfollowing, it doesn't let to follow again
@@ -82,6 +85,8 @@
         [ ] - Visual update
 
             //Events
+        [ ] - Separate Event page
+        [ ] - overtime events (needs to not show response buttons, and time should show (All ready in past))
         [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
             ** Need to update store to remove event from list if not going **
         [ FIX IT]
