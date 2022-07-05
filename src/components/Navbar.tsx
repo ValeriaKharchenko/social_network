@@ -7,13 +7,16 @@ import { RootState } from "../store/store";
 import Logout from "../components/buttons/logout";
 import Searchbar from "./Searchbar";
 import ProfileService from "../utilities/profile_service";
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import { ChatDrawer } from "./Drawer";
 
 const Navbar = () => {
   const profile_service = ProfileService();
   const storeInfo = useSelector((state: RootState) => state);
-  let notificationCount = storeInfo.notifications.notifications ?  storeInfo.notifications.notifications.length  : 0;
+  let notificationCount = storeInfo.notifications.notifications
+    ? storeInfo.notifications.notifications.length
+    : 0;
   // @ts-ignore
   const storeProfileInfo = useSelector(
     (state: RootState) => state.profile.info
@@ -41,15 +44,15 @@ const Navbar = () => {
         {" "}
         Profile <InsertEmoticonIcon />
       </Link>
-       <Link className="link" to={"/notifications"}>
+      <Link className="link" to={"/notifications"}>
         {" "}
         {/* Notifications <NotificationsIcon /> {storeInfo.notifications.notifications.length} */}
         Notifications <NotificationsIcon /> {notificationCount}
       </Link>
-      {/*<Link className="link" to={"/profile"}>
-        {" "}
-        Messages <Home />
-      </Link> */}
+      {/*<Button className="link" onClick={() => <ChatDrawer open={true} />}>*/}
+      {/*  Chat*/}
+      {/*</Button>*/}
+      <ChatDrawer />
     </div>
   );
 };
