@@ -3,14 +3,14 @@ import { useState } from "react";
 import "./notification.scss"
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { useNavigate } from "react-router-dom";
-import NotificationHandler from "./NotificationHandlers"
+import NotificationService from "../../utilities/notification_service";
 
 
 
 
 const SingleNotification = ({data}) => {
   const [seen,setSeen] = useState(false)
-  const handler = NotificationHandler()
+  const notification_service = NotificationService()
   let redirect = useNavigate();
   
   const notification = (socketData) => {
@@ -18,7 +18,7 @@ const SingleNotification = ({data}) => {
       const USER_INFO  = <strong onClick={() => {redirect(`/profile/${data.actor_id}`);}}> {data.first_name} {data.last_name} </strong> ;
       const GROUP_INFO = <strong onClick={() => {redirect(`/group/${data.group_id}`);}}> {data.group_name} </strong>;
       const POST_INFO  = <strong onClick={() => {redirect(`/post/${data.post_id}`);}}> {data.post_name} </strong>;
-      const EVENT_INFO = <strong onClick={() => {redirect(`/event/${data.event_id}`);}}> {data.event_name} </strong>;
+      const EVENT_INFO = <span> {data.event_name} </span>;
       const RESPONSE = Object.freeze({
             "Y" : 1,
             "N" : 2
@@ -43,7 +43,7 @@ const SingleNotification = ({data}) => {
                       {USER_INFO} wants to follow you
                     </div>
                     <div className="buttons">
-                      {responseBtns(handler.handleFollowerRequest)}
+                      {responseBtns(notification_service.handleFollowerRequest)}
                     </div>
                 </div>
           
@@ -53,7 +53,7 @@ const SingleNotification = ({data}) => {
                         {USER_INFO} wants to join group - {GROUP_INFO} 
                     </div>
                     <div className="buttons">
-                        {responseBtns(handler.handleGroupJoinRequest)}
+                        {responseBtns(notification_service.handleGroupJoinRequest)}
                     </div>
                 </div>
 
@@ -63,18 +63,15 @@ const SingleNotification = ({data}) => {
                         {USER_INFO} invites you to join group - {GROUP_INFO} 
                     </div>
                     <div className="buttons">
-                         {responseBtns(handler.handleGroupInvite)}
+                         {responseBtns(notification_service.handleGroupInvite)}
                     </div>
                 </div>
 
         case "new event":
         return  <div className="flex" >  
                     <div> 
-                        {USER_INFO} has created new event - {EVENT_INFO} - in group - {GROUP_INFO} 
+                        {USER_INFO} has created new event called - {EVENT_INFO} - in group - {GROUP_INFO} 
                     </div>
-                    {/* <div className="buttons">
-                        ???????????
-                    </div> */}
                 </div>
                 
         case "new comment to post":
