@@ -1,6 +1,7 @@
-import {updateNotifications} from "../store/notificationSlice" 
+import { updateNotifications } from "../store/notificationSlice";
 
 let ws;
+
 function showNotification(n) {
   // console.log("Got here");
   // if (n.action == "notification") {
@@ -16,7 +17,7 @@ function showNotification(n) {
 //  IS THERE  A WAY TO NOT INCLUDE DISPATCHER ON EVERY CALL
 
 export default {
-  start(id,dispatcher) {
+  start(id, dispatcher) {
     // ws?.close();
     console.log("start connection");
     ws = new WebSocket("ws://localhost:8080/ws/");
@@ -33,6 +34,15 @@ export default {
       console.log(msg);
       const msgJSON = JSON.parse(msg.data);
       dispatcher(updateNotifications(msgJSON));
-    }
+    };
+  },
+  stop(id) {
+    let jsonData = {};
+    jsonData["action"] = "left";
+    // jsonData["user"] = id;
+    ws.send(JSON.stringify(jsonData));
+    console.log("Connection closed");
+    ws.close();
+    console.log("Connection closed");
   },
 };

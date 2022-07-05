@@ -4,23 +4,22 @@ import Pages from "./pages/pages";
 import "./index.scss";
 import { useEffect, useState } from "react";
 import ProfileService from "./utilities/profile_service";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store/store";
 import WsApi from "./utilities/ws";
 import * as helper from "./helpers/HelperFuncs";
 
 function App() {
-  
   const profile_service = ProfileService();
-
-  let auth = useSelector((state: RootState) => state.profile.auth);
+  const dispatch = useDispatch();
+  // let auth = useSelector((state: RootState) => state.profile.auth);
 
   useEffect(() => {
     let id = helper.getTokenId();
-    // console.log(id);
+    console.log(id);
     profile_service.checkAuth();
     if (id) {
-      WsApi.start(id);
+      WsApi.start(id, dispatch);
     }
   }, []);
 
