@@ -77,7 +77,7 @@ const Profile = () => {
     }
   }, [id, update]);
 
-  const [tabvalue, setTabValue] = useState(0);
+  const [tabValue, setTabValue] = useState(0);
   const handleChange = (event, newValue) => {
     setTabValue(newValue);
   };
@@ -93,7 +93,7 @@ const Profile = () => {
         className={"tabMenu"}
       >
         <Tabs
-          value={tabvalue}
+          value={tabValue}
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
@@ -107,14 +107,14 @@ const Profile = () => {
       </Box>
 
       {/*<div className="profile-page">*/}
-      <TabPanel index={0} value={tabvalue}>
+      <TabPanel index={0} value={tabValue}>
         {/*{myInfo ? <h1>My Info</h1> : <h1>User Info</h1>}*/}
         <ProfileInfo />
       </TabPanel>
-      <TabPanel index={1} value={tabvalue}>
+      <TabPanel index={1} value={tabValue}>
         <PostList />
       </TabPanel>
-      <TabPanel index={2} value={tabvalue}>
+      <TabPanel index={2} value={tabValue}>
         {myInfo ? (
           <>
             {storeInfo.followers.followers && (
@@ -146,7 +146,7 @@ const Profile = () => {
         )}
       </TabPanel>
       {myInfo && (
-          <TabPanel index={3} value={tabvalue}>
+          <TabPanel index={3} value={tabValue}>
             <div className="groups_container">
               <div className="header">
                 <h1> - Groups </h1>
