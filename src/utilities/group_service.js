@@ -11,25 +11,26 @@ import {
   updateJoinedEvents
 } from '../store/groupSlice';
 
-//  make new group  // UPDATE - What if group name is taken 
-//  make new group event                                    // http://localhost:8080/group/event/new
-//  make new group post                                     // http://localhost:8080/group/post
-  
-// get all group and show in search bar (group sign)        // http://localhost:8080/group/all GET method
-// get all groups I created                                 // http://localhost:8080/group/mycreated GET method 
-// get all groups im in (group sign)                        // http://localhost:8080/group/joined GET method
-// get group information                                    // http://localhost:8080/group/[SomeNumberHere] GETmethod 
-// get all group POSTS                                      // http://localhost:8080//group/post/all?groupId=${id}` GETmethod 
-// get all group EVENTS                                     // http://localhost:8080//group/event/all?groupId=${id}` 
-// get specific group posts                                 // http://localhost:8080/group/post/all?groupId=[some number here]
-// get specific group post and comments                     // http://localhost:8080/group/post?groupId=[number]&postId=[number]
-// get group of friends who i haven't send invitation yet   // http://localhost:8080/group/invite/available?groupId=[someGroupNumberHere]
-// get people who wants to join to group                    // http://localhost:8080/group/join/reply?groupId=[someGroupNumberHere]
+//  make new group                                          // /group/new
+//  make new group event                                    // /group/event/new
+//  make new group post                                     // /group/post
 
-// send group invitation to user                            // http://localhost:8080/group/invite
-// send group join request by user                          // http://localhost:8080/group/join
-// send reply to group jon request                          // http://localhost:8080/group/join/reply
-// send reply to group event                                // http://localhost:8080/group/event/reply
+// get all group and show in search bar (group sign)        // /group/all 
+// get all groups I created                                 // /group/mycreated  
+// get all groups im in (group sign)                        // /group/joined 
+// get group information                                    // /group/[SomeNumberHere]
+// get all group POSTS                                      // /group/post/all?groupId=${id}`
+// get all group EVENTS                                     // /group/event/all?groupId=${id}` 
+// get specific group posts                                 // /group/post/all?groupId=[some number here]
+// get specific group post and comments                     // /group/post?groupId=[number]&postId=[number]
+// get group of friends who i haven't send invitation yet   // /group/invite/available?groupId=[someGroupNumberHere]
+// get people who wants to join to group                    // /group/join/reply?groupId=[someGroupNumberHere]
+
+// send group invitation to user                            // /group/invite
+// send group join request by user                          // /group/join
+// send reply to group jon request                          // /group/join/reply
+// send reply to group invitation                           // /group/invite/reply
+// send reply to group event                                // /group/event/reply
 
  
  const GroupService = () => {
@@ -165,6 +166,17 @@ import {
     }
   }
 
+  const sendGroupInvitationReply = async data => {
+    try {
+      console.log('%c Sending group invitation reply--> ', 'color:orange', data);
+      const response = await http.put(`/group/invite/reply`, data);
+      console.log('%c group join response--> ', 'color:coral', response);
+      // dispatch(updateStatus(!storeInfo.groups.updateStatus));
+    } catch (err) {
+      helper.checkError(err);
+    }
+  };
+
   const sendGroupJoinRequest = async (id) => {
     try {
       console.log('%c Sending join request to group --> ', 'color:orange');
@@ -188,6 +200,7 @@ import {
        helper.checkError(err);
     }
   }
+
   const sendEventReply = async  (data) => {
     try {
       console.log('%c Sending event reply-> ', 'color:orange',data);
@@ -230,6 +243,7 @@ import {
     getAvailableFriends,
     getJoinRequests,
     sendGroupInvitation,
+    sendGroupInvitationReply,
     sendGroupJoinRequest,
     sendGroupJoinReply,
     sendEventReply,

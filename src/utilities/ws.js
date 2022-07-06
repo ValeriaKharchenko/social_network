@@ -33,7 +33,6 @@ export default {
       console.log(msg);
       const msgJSON = JSON.parse(msg.data);
       dispatcher(updateNotifications(msgJSON));
-      console.log(msgJSON);
     }
   },
 };

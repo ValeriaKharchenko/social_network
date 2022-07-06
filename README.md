@@ -27,6 +27,8 @@
         [x] - Clear every store  - 2 stalkers in another user
               Added function to filter out double user cards 
 
+        [x] - landing on new profilepage will now open Profile tab first 
+
     <!-- Login -->
 
         [x] - LoginPage Error handling (when user puts password or email wrong)
@@ -49,8 +51,9 @@
         [x] - It will now update join requests button and show (even after leaving the page) [ Works per session only ]
 
         //events
+       
     
-         IME SELECTION - is now working and can select different times if in future (status dosen't change immidiately if selected time is in past, needs 2-3 clicks to update)
+        TIME SELECTION - is now working and can select different times if in future (status dosen't change immidiately if selected time is in past, needs 2-3 clicks to update)
 
 
     <!-- Followers -->
@@ -64,11 +67,8 @@
 
 
 ### On Works: 
-    <!-- Profile -->
-        [ ] - When user clicks to any new profilepage, it should open up profile infotab 
-                ** (currently shows last tab state from last visited profilepage)
-
     <!-- Followers -->
+        [ ] - Notification on Follower is not working (database don't update)
 
         [ CAN BE BUG (Further Checking Needed) ]
         [ ] - After following and unfollowing, it doesn't let to follow again
@@ -82,6 +82,7 @@
         [ ] - Visual update
 
             //Events
+        [ ] - overtime events (needs to not show response buttons, and time should show (All ready in past))
         [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
             ** Need to update store to remove event from list if not going **
         [ FIX IT]
@@ -90,10 +91,21 @@
        
 
     <!-- Notifications -->
-        [ ] - Notification List (get all notification) feed it into singleNotification
-        [ ] - SingleNotification ( what type it is, Is it reply notification or just informational) - should show dynamically(reading notification itself and show based on that)
-        [ ] - Update after seeing or replying to backend with specific notification (Maybe eye icon on corner)
-        [ ] - seperate notification feed (response needed notifications, informational, old, new)
+        [ ] - GET ALL NOTIFICATIONS      -> Seperate them to 3 Categories (NEW (takes importants, includes response), response required and old informational notifications)
+        [ ] - Clicking on notifications  -> will send websocket message to server that clicked notification has been seen, then websocket list will be updated and separated again
+        [ ] - Receiving new notification -> The bell icon and number will be updated (count change and color change on bell),
+                                            * if user clicks on notifications then : 1. bell and count will go to default (black & 0)
+                                            
+        ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+        GROOMING:
+            ??????? 
+            Leave bell icon only with notifies new stuff (otherwise how to we update count and how don't we show them next time if we have already clicked on them)
+                OR   
+            Notification tabel get new column (clicked  -> to bell icon), means user has notified, but column-seen is not yet true
+                OR
+            Column seen will be numeric, with 0 ,1 ,2 [0 - not seen || clicked, 1 - clicked, 2 - clicked && seen]
+            ??????????
+        ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     <!-- Messenger -->
         [ ] - List of all writeable users(user is following) and groups(user is in, different style)

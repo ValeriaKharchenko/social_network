@@ -44,18 +44,20 @@ function a11yProps(index) {
 }
 
 const Profile = () => {
+  const follower_service = FollowerService();
+  const group_service = GroupService();
+  const storeInfo = useSelector((state) => state);
   let redirect = useNavigate();
+   // switching store status to update page
+  let update = useSelector((state) => state.followers.updateStatus);
   let [myInfo, setMyInfo] = useState(false);
   let [followers, setFollowers] = useState(null);
   let [stalkers, setStalkers] = useState(null);
   let { id } = useParams();
-  const storeInfo = useSelector((state) => state);
-  const follower_service = FollowerService();
-  const group_service = GroupService();
-  let update = useSelector((state) => state.followers.updateStatus); // switching store status to update page
 
   useEffect(() => {
     follower_service.setCurrentUserId(id);
+    setTabValue(0);
     if (id === storeInfo.profile.info.id) {
       redirect("/profile/me");
     }
@@ -73,11 +75,11 @@ const Profile = () => {
         setStalkers(res);
       });
     }
-  }, [id, update,storeInfo.groups.updateStatus]);
+  }, [id, update]);
 
-  const [value, setValue] = useState(0);
+  const [tabvalue, setTabValue] = useState(0);
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setTabValue(newValue);
   };
 
   return (
@@ -91,7 +93,7 @@ const Profile = () => {
         className={"tabMenu"}
       >
         <Tabs
-          value={value}
+          value={tabvalue}
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
@@ -105,14 +107,14 @@ const Profile = () => {
       </Box>
 
       {/*<div className="profile-page">*/}
-      <TabPanel index={0} value={value}>
+      <TabPanel index={0} value={tabvalue}>
         {/*{myInfo ? <h1>My Info</h1> : <h1>User Info</h1>}*/}
         <ProfileInfo />
       </TabPanel>
-      <TabPanel index={1} value={value}>
+      <TabPanel index={1} value={tabvalue}>
         <PostList />
       </TabPanel>
-      <TabPanel index={2} value={value}>
+      <TabPanel index={2} value={tabvalue}>
         {myInfo ? (
           <>
             {storeInfo.followers.followers && (
@@ -144,7 +146,7 @@ const Profile = () => {
         )}
       </TabPanel>
       {myInfo && (
-          <TabPanel index={3} value={value}>
+          <TabPanel index={3} value={tabvalue}>
             <div className="groups_container">
               <div className="header">
                 <h1> - Groups </h1>

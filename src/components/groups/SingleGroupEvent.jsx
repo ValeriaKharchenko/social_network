@@ -58,7 +58,7 @@ const SingleGroupEvent = ({data}) => {
             </div>
         </div>
         <div className="content flex">
-            {data.image && <img className="image" src={`${data.image}`} alt="picture" />}
+            {/* {data.image && <img className="image" src={`${data.image}`} alt="picture" />} */}
             Description: {data.description}
         </div>
     </div>
