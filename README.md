@@ -1,6 +1,11 @@
 // https://github.com/ValeriaKharchenko/social_network
 
 ### BACKLOG [Questions&Suggestions]:
+    [ TO DO ]   1. Function to Intialize all loged in user data to store on login (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.connect functionality 
+    [ TO DO ]   2. Function to Revert all initialized user data data from store on logout  (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.close functionality 
+
+
+
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
     [ OPTIONAL ] 2. USER PROFILE - profile update tab, privacy button changeing back to public after leaving tab (needs to update to right state) 
     [ OPTIONAL ] 3. SEARCHBAR - Fetching on every keystroke (put status there or into store )
@@ -82,7 +87,7 @@
         [ ] - Visual update
 
             //Events
-        [ ] - overtime events (needs to not show response buttons, and time should show (All ready in past))
+        [ ] - overtime events (needs to NOT show response buttons, and time should show (All ready in past))
         [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
             ** Need to update store to remove event from list if not going **
         [ FIX IT]
@@ -92,24 +97,17 @@
 
     <!-- Notifications -->
         [ ] - GET ALL NOTIFICATIONS      -> Seperate them to 3 Categories (NEW (takes importants, includes response), response required and old informational notifications)
-        [ ] - Clicking on notifications  -> will send websocket message to server that clicked notification has been seen, then websocket list will be updated and separated again
+        [ ] - Clicking on notifications TAB -> will send websocket message to server that all notifications has been seen, then websocket list will be updated and separated 
         [ ] - Receiving new notification -> The bell icon and number will be updated (count change and color change on bell),
                                             * if user clicks on notifications then : 1. bell and count will go to default (black & 0)
 
-        [ IMPROVEMENTS ]
-        [ ] - newest notfiication first
-                                            
-        ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-        GROOMING:
-            ??????? 
-            Leave bell icon only with notifies new stuff (otherwise how to we update count and how don't we show them next time if we have already clicked on them)
-                OR   
-            Notification tabel get new column (clicked  -> to bell icon), means user has notified, but column-seen is not yet true
-                OR
-            Column seen will be numeric, with 0 ,1 ,2 [0 - not seen || clicked, 1 - clicked, 2 - clicked && seen]
-            ??????????
-        ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+        [ ] - Notfication repsonse - on response , the server will delete notfication and it wont show again on front (FOR NOW ????)
+               1. Should notify user that response has been made
+               2. Maybe update notfication after click
 
+        [ IMPROVEMENTS ]
+        [ ] - newest notification first
+                                            
     <!-- Messenger -->
         [ ] - List of all writeable users(user is following) and groups(user is in, different style)
         [ ] - messages boxes for user, other users
