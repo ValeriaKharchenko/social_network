@@ -95,6 +95,9 @@
         [ ] - Clicking on notifications  -> will send websocket message to server that clicked notification has been seen, then websocket list will be updated and separated again
         [ ] - Receiving new notification -> The bell icon and number will be updated (count change and color change on bell),
                                             * if user clicks on notifications then : 1. bell and count will go to default (black & 0)
+
+        [ IMPROVEMENTS ]
+        [ ] - newest notfiication first
                                             
         ---------------------------------------------------------------------------------------------------------------------------------------------------------------
         GROOMING:

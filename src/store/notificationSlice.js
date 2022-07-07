@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const notificationSlice = createSlice({
-  name: 'groups',
+  name: 'notifications',
   initialState: {
     notifications: [],
     notificationCount: 0,
@@ -9,10 +9,15 @@ export const notificationSlice = createSlice({
   },
   reducers: {
     updateNotifications: (state, action) => {
-      state.notifications = action.payload;
+      let notificationList = action.payload;
+      // state.notificationCount = notificationList.length;
+      // console.log('SLICE LSIT', notficationList);
+      state.notifications = notificationList;
     },
     updateNotificationCount: (state, action) => {
-      state.notificationCount = action.payload;
+      // let notfications = action.payload;
+      // console.log("Got some ");
+      // state.notificationCount = action.payload;
     },
     updateStatus: (state, action) => {
       state.updateStatus = action.payload;

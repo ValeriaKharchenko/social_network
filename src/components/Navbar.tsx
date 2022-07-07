@@ -6,14 +6,28 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "../components/buttons/logout";
 import Searchbar from "./Searchbar";
-import ProfileService from "../utilities/profile_service";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import NotificationService from "../utilities/notification_service";
 
 const Navbar = () => {
-  const profile_service = ProfileService();
   const storeInfo = useSelector((state: RootState) => state);
-  let notificationCount = storeInfo.notifications.notifications ?  storeInfo.notifications.notifications.length  : 0;
+  const notification_service = NotificationService();
+  let notificationList = storeInfo.notifications.notifications != null ? storeInfo.notifications.notifications : []; 
+  let notificationCount = notificationList.filter(obj => !obj["data"]["seen"]).length ;
+
+  const replyServerOfNotifications = () =>{
+    console.log("SENDING INFO TO SERVER ABOUT EACH NOTIFICATION");
+    try{
+      notificationList.forEach((obj) => { 
+        console.log("Client has seen ", obj["data"]["notif_id"]);
+        notification_service.handleNotificationSeen(obj["data"]["notif_id"])
+      })
+    }catch (err){
+      console.log("SOME ERROR :" , err);
+    }
+  }
+
   // @ts-ignore
   const storeProfileInfo = useSelector(
     (state: RootState) => state.profile.info
@@ -41,15 +55,10 @@ const Navbar = () => {
         {" "}
         Profile <InsertEmoticonIcon />
       </Link>
-       <Link className="link" to={"/notifications"}>
-        {" "}
-        {/* Notifications <NotificationsIcon /> {storeInfo.notifications.notifications.length} */}
-        Notifications <NotificationsIcon /> {notificationCount}
+       {/* <Link className="link" to={"/notifications"} onClick={}> */}
+      <Link className="link" to={"/notifications"} onClick={replyServerOfNotifications}>
+        Notifications {notificationCount != 0 ? <NotificationsIcon sx={{ color: "red" }} /> : <NotificationsIcon />} {notificationCount}
       </Link>
-      {/*<Link className="link" to={"/profile"}>
-        {" "}
-        Messages <Home />
-      </Link> */}
     </div>
   );
 };

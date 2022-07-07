@@ -5,8 +5,10 @@ import { Typography } from "@mui/material"
 
 const NotificationList = () => {
     const notifications = useSelector(state=> state.notifications.notifications)
+    if(notifications == null) notifications = [];
 
     // console.log("NOTIFICATION IN NotificationLost", notifications);
+    console.log("NOTIFICATION LIST:" , notifications);
         
     let obj = {
     "action": "notification",

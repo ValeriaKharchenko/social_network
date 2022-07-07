@@ -30,9 +30,9 @@ export default {
     };
 
     ws.onmessage = (msg) => {
-      console.log(msg);
+      console.log(msg.data);
       const msgJSON = JSON.parse(msg.data);
-      dispatcher(updateNotifications(msgJSON));
+      if(Array.isArray(msgJSON)) dispatcher(updateNotifications(msgJSON));
     }
   },
 };
