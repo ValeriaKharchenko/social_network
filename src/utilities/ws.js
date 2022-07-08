@@ -1,4 +1,5 @@
 import { updateNotifications } from "../store/notificationSlice";
+import { addMsg } from "../store/chatSlice";
 
 let ws;
 
@@ -31,9 +32,18 @@ export default {
     };
 
     ws.onmessage = (msg) => {
-      console.log(msg);
+      console.log("AAAA", msg);
+      // if (msg.data)
       const msgJSON = JSON.parse(msg.data);
-      dispatcher(updateNotifications(msgJSON));
+      msgJSON.forEach((m) => {
+        if (m.action_type === "private message") {
+          console.log("I'm here", m);
+          dispatcher(addMsg(m.data));
+        } else {
+          dispatcher(updateNotifications(msgJSON));
+          console.log("wrong action type", msgJSON);
+        }
+      });
     };
   },
   stop(id) {
@@ -41,8 +51,12 @@ export default {
     jsonData["action"] = "left";
     // jsonData["user"] = id;
     ws.send(JSON.stringify(jsonData));
-    console.log("Connection closed");
+    // console.log("Connection closed");
     ws.close();
-    console.log("Connection closed");
+    // console.log("Connection closed");
+  },
+  sendChatMessage(message) {
+    console.log("Msg ws: ", message);
+    ws.send(message);
   },
 };

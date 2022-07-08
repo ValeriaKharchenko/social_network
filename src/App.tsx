@@ -1,13 +1,13 @@
-import { Routes, Route } from "react-router-dom";
-import { Public, Private } from "./hoc/routeWrappers";
+import { Route, Routes } from "react-router-dom";
+import { Private, Public } from "./hoc/routeWrappers";
 import Pages from "./pages/pages";
 import "./index.scss";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ProfileService from "./utilities/profile_service";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "./store/store";
+import { useDispatch } from "react-redux";
 import WsApi from "./utilities/ws";
 import * as helper from "./helpers/HelperFuncs";
+import Chat from "./pages/Chat/chatWindow";
 
 function App() {
   const profile_service = ProfileService();
@@ -33,6 +33,7 @@ function App() {
           <Route path={"/group/:id"} element={<Pages.Group />} />
           <Route path={"post/:id"} element={<Pages.OnePost />} />
           <Route path={"/notifications"} element={<Pages.Notification />} />
+          <Route path={"/chat"} element={<Chat />} />
           <Route path="/*" element={<Pages.OnePost />} />
         </Route>
         <Route element={<Public />}>

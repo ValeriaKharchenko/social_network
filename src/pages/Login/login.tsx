@@ -19,7 +19,7 @@ import { PeopleAlt } from "@mui/icons-material";
 import authService from "../../utilities/user-service";
 import ProfileService from "../../utilities/profile_service";
 import FollowerService from "../../utilities/follower_service";
-import { setAlert } from "../../store/alertReducer";
+import { setAlert } from "../../store/alertSlice";
 import WsApi from "../../utilities/ws";
 import { useState } from "react";
 import * as helper from "../../helpers/HelperFuncs";
@@ -30,12 +30,12 @@ export default function Login() {
   const { handleSubmit, register } = useForm<FormInput>();
   const dispatch = useDispatch();
   let redirect = useNavigate();
-  
+
   interface FormInput {
     email: string;
     password: string;
   }
-  
+
   const onSubmit = async (data: FormInput) => {
     try {
       const response = await authService.login(data.email, data.password);
@@ -46,18 +46,14 @@ export default function Login() {
 
       //ws connection
       let id = helper.getTokenId();
-      
+
       WsApi.start(id, dispatch);
 
       redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {
         console.log(e.message);
-        // // @ts-ignore
-        // console.log("Data:", e);
-        // alert("Mail or password is incorrect");
         const errorState = {
-          // isOpen: true,
           text: "Mail or password is incorrect",
           severity: "warning",
         };
@@ -65,7 +61,6 @@ export default function Login() {
       } else {
         console.log(e);
         const errorState = {
-          // isOpen: true,
           text: "Unknown error occurred",
           severity: "error",
         };
@@ -73,14 +68,6 @@ export default function Login() {
       }
     }
   };
-  // const follow = async () => {
-  //   try {
-  //     await authService.followRequest();
-  //     console.log("request from follow");
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
   const isLoading = useSelector((state: RootState) => state.user.pending);
   // console.log("Here!");
   return (
@@ -153,7 +140,6 @@ export default function Login() {
             >
               Register
             </Button>
-            {/*<Button onClick={follow}>Follow</Button>*/}
           </>
         </Box>
       </Box>

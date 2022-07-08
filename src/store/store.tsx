@@ -6,7 +6,8 @@ import profileReducer from "./profileSlice";
 import followerSlice from "./followerSlice";
 import notificationSlice from "./notificationSlice";
 import groupSlice from "./groupSlice";
-import alertSlice from "./alertReducer";
+import alertSlice from "./alertSlice";
+import chatSlice from "./chatSlice";
 
 const saveToLocalStorage = (state: any) => {
   // console.log("state:", state);
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
   groups: groupSlice,
   notifications: notificationSlice,
   alert: alertSlice,
+  chat: chatSlice,
 });
 
 const persistedStore = loadFromLocalStorage();

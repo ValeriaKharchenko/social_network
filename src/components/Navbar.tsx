@@ -8,8 +8,9 @@ import Logout from "../components/buttons/logout";
 import Searchbar from "./Searchbar";
 import ProfileService from "../utilities/profile_service";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import ChatIcon from "@mui/icons-material/Chat";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import { ChatDrawer } from "./Drawer";
+// import { ChatDrawer } from "./Drawer";
 
 const Navbar = () => {
   const profile_service = ProfileService();
@@ -49,10 +50,9 @@ const Navbar = () => {
         {/* Notifications <NotificationsIcon /> {storeInfo.notifications.notifications.length} */}
         Notifications <NotificationsIcon /> {notificationCount}
       </Link>
-      {/*<Button className="link" onClick={() => <ChatDrawer open={true} />}>*/}
-      {/*  Chat*/}
-      {/*</Button>*/}
-      <ChatDrawer />
+      <Link className={"link"} to={"/chat"}>
+        Chat <ChatIcon />
+      </Link>
     </div>
   );
 };
