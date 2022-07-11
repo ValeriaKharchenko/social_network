@@ -21,7 +21,7 @@ import { checkImage, getBase64 } from "../../helpers/checkImage";
 import postService from "../../utilities/post-service";
 import TransferList from "../transferList";
 import { useParams } from "react-router-dom";
-import { setAlert } from "../../store/alertReducer";
+import { setAlert } from "../../store/alertSlice";
 
 const ariaLabel = { "aria-label": "description" };
 

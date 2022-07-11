@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 // import { MemoryRouter, Router } from "react-router-dom";
 // import userService from "../../utilities/user-service";
 // import { createMemoryHistory } from "history";
-//
+
 // //checks whether login component is on the page
 // it("should render Login component on the screen", () => {
 //   render(
@@ -13,10 +13,10 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 //   );
 //   expect(screen.getByTestId("login-form")).toBeInTheDocument();
 // });
-//
+
 // const testEmail = "test@mail.com";
 // const testPwd = "0000";
-//
+
 // it("sends request with correct data", async () => {
 //   //history to check redirection after submit
 //   const history = createMemoryHistory();
@@ -32,12 +32,12 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 //   //insert values
 //   fireEvent.change(email, { target: { value: testEmail } });
 //   fireEvent.change(pwd, { target: { value: testPwd } });
-//
+
 //   //mock login method from userService
-//   // const spy = jest.spyOn(userService, "login").mockResolvedValue();
-//
+//   const spy = jest.spyOn(userService, "login").mockResolvedValue();
+
 //   fireEvent.click(btn);
-//
+
 //   await waitFor(() => expect(spy).toBeCalled());
 //   //check login arguments passed to fn are correct
 //   expect(spy.mock.calls[0][0]).toBe(testEmail);
@@ -47,3 +47,4 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 //     expect(history.location.pathname).toBe("/profile");
 //   });
 // });
+

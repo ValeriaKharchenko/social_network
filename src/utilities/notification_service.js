@@ -7,6 +7,8 @@ const NotificationService = () => {
   const group_service = GroupService();
   const follower_service = FollowerService();
 
+
+
   const handleGroupJoinRequest = (data, resp) => {
     group_service.sendGroupJoinReply({
       group_id: data.group_id,
@@ -15,15 +17,17 @@ const NotificationService = () => {
     });
   };
 
+
   const handleGroupInvite = (data, resp) => {
     group_service.sendGroupInvitationReply({
+      actor_id : data.actor_id,
       group_id: data.group_id,
       status: resp,
     });
   };
 
   const handleFollowerRequest = (data, resp) => {
-    follower_service.changeFollowerStatus({
+    follower_service.changeFollowerStatusInNotification({
       target_id: data.actor_id,
       status: resp,
     });

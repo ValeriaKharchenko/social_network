@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 // import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setAlert } from "../store/alertReducer";
+import { setAlert } from "../store/alertSlice";
 import { Alert, AlertColor } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";

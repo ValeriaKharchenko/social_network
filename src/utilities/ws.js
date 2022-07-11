@@ -1,6 +1,8 @@
-import {updateNotifications} from "../store/notificationSlice" 
+import { updateNotifications } from "../store/notificationSlice";
+import { addMsg } from "../store/chatSlice";
 
 let ws;
+
 function showNotification(n) {
   // console.log("Got here");
   // if (n.action == "notification") {
@@ -16,7 +18,7 @@ function showNotification(n) {
 //  IS THERE  A WAY TO NOT INCLUDE DISPATCHER ON EVERY CALL
 
 export default {
-  start(id,dispatcher) {
+  start(id, dispatcher) {
     // ws?.close();
     console.log("start connection");
     ws = new WebSocket("ws://localhost:8080/ws/");
@@ -30,9 +32,38 @@ export default {
     };
 
     ws.onmessage = (msg) => {
+<<<<<<< HEAD
       console.log(msg.data);
       const msgJSON = JSON.parse(msg.data);
       if(Array.isArray(msgJSON)) dispatcher(updateNotifications(msgJSON));
     }
+=======
+      console.log("AAAA", msg);
+      // if (msg.data)
+      const msgJSON = JSON.parse(msg.data);
+      msgJSON.forEach((m) => {
+        if (m.action_type === "private message") {
+          console.log("I'm here", m);
+          dispatcher(addMsg(m.data));
+        } else {
+          dispatcher(updateNotifications(msgJSON));
+          console.log("wrong action type", msgJSON);
+        }
+      });
+    };
+  },
+  stop(id) {
+    let jsonData = {};
+    jsonData["action"] = "left";
+    // jsonData["user"] = id;
+    ws.send(JSON.stringify(jsonData));
+    // console.log("Connection closed");
+    ws.close();
+    // console.log("Connection closed");
+  },
+  sendChatMessage(message) {
+    console.log("Msg ws: ", message);
+    ws.send(message);
+>>>>>>> master
   },
 };

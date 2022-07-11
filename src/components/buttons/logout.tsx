@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./logout.scss";
 import { updateAuth } from "../../store/profileSlice";
+import WsApi from "../../utilities/ws";
+import * as helper from "../../helpers/HelperFuncs";
 
 export default function Logout() {
   let redirect = useNavigate();
@@ -17,6 +19,8 @@ export default function Logout() {
       // @ts-ignore
       // dispatch(logoutUser());
       dispatch(updateAuth(false));
+      let id = helper.getTokenId();
+      WsApi.stop(id);
       redirect("/login", { replace: true });
     });
   };

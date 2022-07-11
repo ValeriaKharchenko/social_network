@@ -76,6 +76,16 @@ const FollowerService = () => {
     }
   };
 
+  const changeFollowerStatusInNotification = async (data) => {
+    try {
+      console.log('%c Sending follower reply in notification --> ', 'color:orange', data);
+      const response = await http.put("/follower/",data);
+      console.log("%c changeFollowerStatus =>", "color:orange", response.data);
+    } catch (err) {
+      helper.checkError(err);
+    }
+  };
+
   const isFollowing = () => {
     //  if there is object returned (!!), same as Boolean(storeInfo.followers.followers)
     return !!storeInfo.followers.followers.find(
@@ -107,6 +117,7 @@ const FollowerService = () => {
     getUserFollowers,
     getUserStalkers,
     sendFollowerRequest,
+    changeFollowerStatusInNotification,
     changeFollowerStatus,
     setCurrentUserId,
     handleFollowerBtn,
