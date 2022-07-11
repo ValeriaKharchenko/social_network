@@ -3,13 +3,13 @@ import { addMsg } from "../store/chatSlice";
 
 let ws;
 
-function showNotification(n) {
-  // console.log("Got here");
-  // if (n.action == "notification") {
-  const nt = JSON.parse(n.data);
-  console.log(nt);
-  // }
-}
+// function showNotification(n) {
+//   // console.log("Got here");
+//   // if (n.action == "notification") {
+//   const nt = JSON.parse(n.data);
+//   console.log(nt);
+//   // }
+// }
 
 // function updateNotifications(arr){
 //   const dispatcher = useDispatch();
@@ -32,18 +32,20 @@ export default {
     };
 
     ws.onmessage = (msg) => {
-      console.log(msg.data);
+      // console.log(msg.data);
       const msgJSON = JSON.parse(msg.data);
-      if(Array.isArray(msgJSON)) dispatcher(updateNotifications(msgJSON));
-      // msgJSON.forEach((m) => {
-      //   if (m.action_type === "private message") {
-      //     console.log("I'm here", m);
-      //     dispatcher(addMsg(m.data));
-      //   } else {
-      //     dispatcher(updateNotifications(msgJSON));
-      //     console.log("wrong action type", msgJSON);
-      //   }
-      // });
+      // if(Array.isArray(msgJSON)) dispatcher(updateNotifications(msgJSON));
+      if(Array.isArray(msgJSON)) {
+        msgJSON.forEach((m) => {
+          if (m.action_type === "private message") {
+            console.log("I'm here", m);
+            dispatcher(addMsg(m.data));
+          } else {
+            console.log("Regular Notifications", msgJSON);
+            dispatcher(updateNotifications(msgJSON));
+          }
+        });
+      };
     };
   },
   stop(id) {

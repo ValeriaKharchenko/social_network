@@ -3,6 +3,7 @@
 ### BACKLOG [Questions&Suggestions]:
     [ TO DO ]   1. Function to Intialize all loged in user data to store on login (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.connect functionality 
     [ TO DO ]   2. Function to Revert all initialized user data data from store on logout  (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.close functionality 
+    [ TO DO ]   3. Check if old user from store is still needed, delete if not (new branch + testing)
 
 
 
@@ -107,6 +108,11 @@
 
         [ IMPROVEMENTS ]
         [ ] - newest notification first
+
+
+        [ BUGS ]
+        [ ] - user gets notfied from follower request even if profile user tries to follow is public
+        [ ] - on a second unfollow or request it dosent update anymore (database stays zero)
                                             
     <!-- Messenger -->
         [ ] - List of all writeable users(user is following) and groups(user is in, different style)

@@ -51,16 +51,17 @@ const Navbar = () => {
         <button onClick={() => console.log(storeInfo)}>show storeInfo</button>
       </div>
       <Link className="link" to={"/homepage"}>
-        {" "}
         Home <Home />
       </Link>
       <Link className="link" to={"/profile/me"}>
-        {" "}
         Profile <InsertEmoticonIcon />
       </Link>
        {/* <Link className="link" to={"/notifications"} onClick={}> */}
       <Link className="link" to={"/notifications"} onClick={replyServerOfNotifications}>
         Notifications {notificationCount != 0 ? <NotificationsIcon sx={{ color: "red" }} /> : <NotificationsIcon />} {notificationCount}
+      </Link>
+      <Link className={"link"} to={"/chat"}>
+        Chat <ChatIcon />
       </Link>
     </div>
   );

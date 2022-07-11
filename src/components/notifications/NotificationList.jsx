@@ -6,21 +6,32 @@ import { Typography } from "@mui/material"
 const NotificationList = () => {
     const notifications = useSelector(state=> state.notifications.notifications)
     if(notifications == null) notifications = [];
-
-    // console.log("NOTIFICATION IN NotificationLost", notifications);
-    console.log("NOTIFICATION LIST:" , notifications);
+    // console.log("NOTIFICATION LIST:" , notifications);
         
-    let obj = {
-    "action": "notification",
-    "action_type": "group invitation",
-    "data": {
-        "actor_id": "04afa493-5f91-4c7e-85a9-aa56c42dbf46",
-        "first_name": "Silver",
-        "group_id": 2,
-        "group_name": "Vici Group",
-        "last_name": "Luhtoja"
+    let seenNotifications = []; 
+    let responseRequired  = [];
+    let newNotifications  = [];
+
+   for ( let item in notifications){
+    let type = notifications[item].action_type
+    let seen = notifications[item].data.seen
+    if(!seen){
+        newNotifications.push(notifications[item])
+    }else{
+        if(type == "friend request" || type == "new group member request" || type == "group invitation"){
+            responseRequired.push(notifications[item])
+        }else{
+            seenNotifications.push(notifications[item])
+        }
     }
-}
+   }
+
+   const mapArray = (arr) => { 
+        return (arr.map((notification) =>( 
+                <SingleNotification key={notification.data.notif_id} data={notification}/>
+            )))
+   }
+
 
 
     return ( 
@@ -29,19 +40,22 @@ const NotificationList = () => {
 
             <Box >
                 <Typography color={"red"}  variant="h6"> New Notifications: </Typography>
-                {notifications.map((notification,index) =>( 
-                    <SingleNotification key={index} data={notification ? notification : []}/>
-                ))}
+                {mapArray(newNotifications)}
+                {/* {notifications.map((notification) =>( 
+                    <SingleNotification key={notification.data.notif_id} data={notification ? notification : []}/>
+                ))} */}
             </Box>
 
             <Box >
                 <Typography color={"red"}  variant="h6">Response Required Notifications: </Typography>
-                <SingleNotification  data={obj}/>
+                {mapArray(responseRequired)}
+                {/* <SingleNotification  data={obj}/> */}
             </Box>
 
             <Box >
                 <Typography color={"red"}  variant="h6">Seen Notifications: </Typography>
-                <SingleNotification data={obj}/>
+                {mapArray(newNotifications)}
+                {/* <SingleNotification data={obj}/> */}
             </Box>
 
         </div>
