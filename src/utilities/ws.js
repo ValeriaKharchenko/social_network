@@ -32,12 +32,6 @@ export default {
     };
 
     ws.onmessage = (msg) => {
-<<<<<<< HEAD
-      console.log(msg.data);
-      const msgJSON = JSON.parse(msg.data);
-      if(Array.isArray(msgJSON)) dispatcher(updateNotifications(msgJSON));
-    }
-=======
       console.log("AAAA", msg);
       // if (msg.data)
       const msgJSON = JSON.parse(msg.data);
@@ -64,6 +58,5 @@ export default {
   sendChatMessage(message) {
     console.log("Msg ws: ", message);
     ws.send(message);
->>>>>>> master
   },
 };
