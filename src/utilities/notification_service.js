@@ -21,7 +21,7 @@ const NotificationService = () => {
   };
 
   const handleFollowerRequest = (data, resp) => {
-    follower_service.changeFollowerStatus({
+    follower_service.changeFollowerStatusInNotification({
       target_id: data.actor_id,
       status: resp,
     });
