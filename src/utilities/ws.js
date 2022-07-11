@@ -32,18 +32,18 @@ export default {
     };
 
     ws.onmessage = (msg) => {
-      console.log("AAAA", msg);
-      // if (msg.data)
+      console.log(msg.data);
       const msgJSON = JSON.parse(msg.data);
-      msgJSON.forEach((m) => {
-        if (m.action_type === "private message") {
-          console.log("I'm here", m);
-          dispatcher(addMsg(m.data));
-        } else {
-          dispatcher(updateNotifications(msgJSON));
-          console.log("wrong action type", msgJSON);
-        }
-      });
+      if(Array.isArray(msgJSON)) dispatcher(updateNotifications(msgJSON));
+      // msgJSON.forEach((m) => {
+      //   if (m.action_type === "private message") {
+      //     console.log("I'm here", m);
+      //     dispatcher(addMsg(m.data));
+      //   } else {
+      //     dispatcher(updateNotifications(msgJSON));
+      //     console.log("wrong action type", msgJSON);
+      //   }
+      // });
     };
   },
   stop(id) {
