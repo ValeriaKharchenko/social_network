@@ -35,13 +35,23 @@ const NotificationService = () => {
 
   // send[POST] id to notify seeing of notification  /notification/reply?id=[some id] (common)
   // await http.post(`/notification/reply?id=${id}`);
-  const handleNotificationSeen = id => {
-    try{
+  // const handleNotificationSeen = id => {
+  //   try{
+  //     // /user/notification/reply?id=1
+  //     console.log("%c notifying server for notifications --> ","color:orange");
+  //     http.post(`/user/notification/reply?id=${id}`)
+  //   }catch(err){
+  //     helper.checkError(err)
+  //   }
+  // };
+
+  const handleNotificationSeen = (id, nr) => {
+    try {
       // /user/notification/reply?id=1
-      console.log("%c notifying server for notifications --> ","color:orange");
-      http.post(`/user/notification/reply?id=${id}`)
-    }catch(err){
-      helper.checkError(err)
+      console.log('%c notifying server for notifications --> ', 'color:orange');
+      http.post(`/user/notification/reply?id=${id}&status=${nr}`);
+    } catch (err) {
+      helper.checkError(err);
     }
   };
 
@@ -50,6 +60,7 @@ const NotificationService = () => {
     handleGroupInvite,
     handleFollowerRequest,
     handleNotificationSeen,
+    // handleNotificationClicked
   };
 };
 

@@ -4,6 +4,7 @@
     [ TO DO ]   1. Function to Intialize all loged in user data to store on login (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.connect functionality 
     [ TO DO ]   2. Function to Revert all initialized user data data from store on logout  (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.close functionality 
     [ TO DO ]   3. Check if old user from store is still needed, delete if not (new branch + testing)
+    [ TO DO ]   4. Follow/UnFollow button bug (need to click 2 times, before button is changing)
 
 
 
@@ -11,6 +12,8 @@
     [ OPTIONAL ] 2. USER PROFILE - profile update tab, privacy button changeing back to public after leaving tab (needs to update to right state) 
     [ OPTIONAL ] 3. SEARCHBAR - Fetching on every keystroke (put status there or into store )
     [ OPTIONAL ] 4. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
+    [ OPTIONAL ] 5. GROUP PAGE  - Visual update (post,events, more..?)
+    [ OPTIONAL ] 6. Possibility to add new post on landing page (/homepage) Or it will be redone ???
 
     [ERRORS] - Some error handling ? 
 
@@ -24,23 +27,25 @@
 
 
 ### Completed Updates ( FROM: 12/07 ):
+    <!-- Followers -->
+    NOW:    
+        UNFOLLOW is always          - Delete   (REST)
+        Request answer is  always   - PUT      (REST)
+    
+    FIXED : 
+        [ BUGS ]
+        [ ] - user gets notfied from follower request even if profile user tries to follow is public
+        [ ] - on a second unfollow or request it dosent update anymore (database stays zero)
 
+    REMOVED : 
+        Some user related old code (userSlice, user from store, cleanup user_service + imports)
 
 ### On Works: 
-    <!-- Followers -->
-        [ ] - Notification on Follower is not working (database don't update)
-
-        [ CAN BE BUG (Further Checking Needed) ]
-        [ ] - After following and unfollowing, it doesn't let to follow again
-
     <!-- Groups -->
 
             //Posts
         [ ] - Group Posts and single Post/Comments page
-        
-        [ OPTIONAL ]
-        [ ] - Visual update
-
+    
             //Events
         [ ] - overtime events (needs to NOT show response buttons, and time should show (All ready in past))
         [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
@@ -60,14 +65,16 @@
                1. Should notify user that response has been made
                2. Maybe update notfication after click
 
+
         [ IMPROVEMENTS ]
         [ ] - newest notification first
-
-
-        [ BUGS ]
-        [ ] - user gets notfied from follower request even if profile user tries to follow is public
-        [ ] - on a second unfollow or request it dosent update anymore (database stays zero)
+        [ ] - new notifying system   (/user/notification/reply?id=${id}&status=${nr})
+            0 = not seen and not clicked [default]
+            1 = seen and not clicked
+            2 = seen and clicked
                                             
+
+
     <!-- Messenger -->
         [ ] - List of all writeable users(user is following) and groups(user is in, different style)
         [ ] - messages boxes for user, other users
@@ -77,9 +84,6 @@
     <!-- DOCKER -->
         [ ] - implement docker
 
-    <!-- HELPERS -->
-        --- RIGHT NOW CLEARING WORKS ON PAGE REFRESH ---
-        [ ] - Function to clear all store (connect with logout [does the same store will be present in another browser/window/session])
 
 
 

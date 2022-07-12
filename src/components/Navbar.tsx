@@ -24,7 +24,7 @@ const Navbar = () => {
     try{
       notificationList.forEach((obj) => { 
         console.log("Client has seen ", obj["data"]["notif_id"]);
-        notification_service.handleNotificationSeen(obj["data"]["notif_id"])
+        notification_service.handleNotificationSeen(obj["data"]["notif_id"], 1)
       })
     }catch (err){
       console.log("SOME ERROR :" , err);

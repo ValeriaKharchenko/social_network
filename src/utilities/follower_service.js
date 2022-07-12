@@ -64,6 +64,15 @@ const FollowerService = () => {
     }
   };
 
+  const sendUnFollowRequest = async id => {
+    try {
+      const response = await http.delete(`/follower/?id=${id}`);
+      console.log('%c deleted user reponse =>', 'color:orange', response.data);
+    } catch (err) {
+      helper.checkError(err);
+    }
+  };
+
   const changeFollowerStatus = async (id) => {
     try {
       const response = await http.put("/follower/", {
@@ -101,13 +110,14 @@ const FollowerService = () => {
     dispatch(updateCurrentUserId(id));
   };
 
-  const handleFollowerBtn = (isFollowing, profileStatus=false) => {
+  const handleFollowerBtn = (isFollowing, profileStatus) => {
     dispatch(updateStatus(!storeInfo.followers.updateStatus));
     if (isFollowing) {
       sendFollowerRequest(storeInfo.followers.currentUserId);
       if(profileStatus) dispatch(updateSentRequests(storeInfo.followers.currentUserId));
     } else {
-      changeFollowerStatus(storeInfo.followers.currentUserId);
+      // changeFollowerStatus(storeInfo.followers.currentUserId);
+      sendUnFollowRequest(storeInfo.followers.currentUserId);
     }
     getMyFollowers();
   };
@@ -119,6 +129,7 @@ const FollowerService = () => {
     sendFollowerRequest,
     changeFollowerStatusInNotification,
     changeFollowerStatus,
+    sendUnFollowRequest,
     setCurrentUserId,
     handleFollowerBtn,
     isFollowing,
