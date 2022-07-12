@@ -23,53 +23,7 @@
         [ ] - Clean up packages (if build dosen't do it for us)
 
 
-### Completed Updates:
-
-    <!-- Profile -->
-
-        [x] - need to show user posts && create Button ( Need to remove create button if not your own page)
-        [x] - Registration needs checks (DOB)
-
-        [x] - Clear every store  - 2 stalkers in another user
-              Added function to filter out double user cards 
-
-        [x] - landing on new profilepage will now open Profile tab first 
-
-    <!-- Login -->
-
-        [x] - LoginPage Error handling (when user puts password or email wrong)
-
-    <!-- Registration -->
-        [ OPTIONAL ]
-        [x] - DOB needs minimum age
-
-    <!-- Groups -->
-
-        (SOLUTION : storeInfo.groups.updateStatus in every component{fetches all page data again   ??? is This OKEI ???  })
-        [x] - needs to update automatically when: 
-                [x] -  creating new group
-                [x] -  creating new post
-                [x] -  creating new event
-                
-        [x] - need to fix groupInfo panel (Members(count) stuff)
-
-        [ SOMEWHAT OPTIONAL ]
-        [x] - It will now update join requests button and show (even after leaving the page) [ Works per session only ]
-
-        //events
-       
-    
-        TIME SELECTION - is now working and can select different times if in future (status dosen't change immidiately if selected time is in past, needs 2-3 clicks to update)
-
-
-    <!-- Followers -->
-
-        [ SOMEWHAT OPTIONAL ]
-        [x] - have to know if already send follow request to private user (same thing as with group) [ Works per session only ]
-
-    <!-- Notifications -->
-
-        [x] - Notifications now show count and notification cards based on type [Works through store]
+### Completed Updates ( FROM: 12/07 ):
 
 
 ### On Works: 
