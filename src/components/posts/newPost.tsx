@@ -23,6 +23,7 @@ import TransferList from "../transferList";
 import { useParams } from "react-router-dom";
 import { setAlert } from "../../store/alertSlice";
 import getTokenId from "../../helpers/tokenId";
+import { UserList } from "./checkBox";
 
 const ariaLabel = { "aria-label": "description" };
 
@@ -247,7 +248,11 @@ export function NewPost(props: { parentPrivacy: number }) {
                 />
               </RadioGroup>
               {followers && (
-                <TransferList followers={listOfFollowers} sendBack={chosen} />
+                // <TransferList followers={listOfFollowers} sendBack={chosen} />
+                <UserList
+                  followers={listOfFollowers}
+                  sendBack={chosen}
+                ></UserList>
               )}
             </FormControl>
           </div>
