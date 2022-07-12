@@ -41,7 +41,6 @@ export default {
           dispatcher(addMsg(m.data));
         } else {
           dispatcher(updateNotifications(msgJSON));
-          console.log("wrong action type", msgJSON);
         }
       });
     };

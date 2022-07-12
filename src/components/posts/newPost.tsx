@@ -22,6 +22,7 @@ import postService from "../../utilities/post-service";
 import TransferList from "../transferList";
 import { useParams } from "react-router-dom";
 import { setAlert } from "../../store/alertSlice";
+import getTokenId from "../../helpers/tokenId";
 
 const ariaLabel = { "aria-label": "description" };
 
@@ -114,6 +115,14 @@ export function NewPost(props: { parentPrivacy: number }) {
       data.userList = chosenUsers.map((user) => user.id);
     }
 
+    if (data.privacy !== 1) {
+      let id = getTokenId();
+      if (data.privacy == 2) {
+        data.userList = listOfFollowers.map((f) => f.id);
+      }
+      data.userList?.push(id);
+    }
+    console.log("Access", data.userList);
     if (data.image.length !== 0) {
       check = imgCheck(data.image);
       data.imgString = (await getBase64(data.image[0])
