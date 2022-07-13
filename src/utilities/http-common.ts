@@ -5,7 +5,6 @@ import {
   setAccessToken,
   setRefreshToken,
 } from "./token";
-import { userInfo } from "os";
 
 const a = axios.create({
   baseURL: "http://localhost:8080/",
