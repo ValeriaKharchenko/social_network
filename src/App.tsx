@@ -12,11 +12,9 @@ import Chat from "./pages/Chat/chatWindow";
 function App() {
   const profile_service = ProfileService();
   const dispatch = useDispatch();
-  // let auth = useSelector((state: RootState) => state.profile.auth);
 
   useEffect(() => {
     let id = helper.getTokenId();
-    console.log(id);
     profile_service.checkAuth();
     if (id) {
       WsApi.start(id, dispatch);

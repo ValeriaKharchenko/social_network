@@ -97,7 +97,7 @@ const ProfileInfo = () => {
         {updateing && myProfile && (
           <>
             <div className="flex privacy_btn_wrapper ">
-              {" "}
+              {/* {" "} */}
               Public
               <div
                 onClick={() => {

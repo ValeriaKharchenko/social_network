@@ -2,8 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
 // Redux
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { useDispatch } from "react-redux";
 // Material UI
 import {
   Avatar,
@@ -21,7 +20,6 @@ import ProfileService from "../../utilities/profile_service";
 import FollowerService from "../../utilities/follower_service";
 import { setAlert } from "../../store/alertSlice";
 import WsApi from "../../utilities/ws";
-import { useState } from "react";
 import * as helper from "../../helpers/HelperFuncs";
 
 export default function Login() {
@@ -68,7 +66,7 @@ export default function Login() {
       }
     }
   };
-  const isLoading = useSelector((state: RootState) => state.user.pending);
+
   // console.log("Here!");
   return (
     <Container component="main" maxWidth="xs" className={"Login"}>
@@ -120,7 +118,6 @@ export default function Login() {
             <LoadingButton
               sx={{ mt: 2 }}
               size={"large"}
-              loading={isLoading}
               variant="contained"
               type={"submit"}
               data-testid={"submit-btn"}
@@ -131,7 +128,6 @@ export default function Login() {
             <Button
               sx={{ mt: 2 }}
               size={"large"}
-              disabled={isLoading}
               variant="contained"
               onClick={(e) => {
                 e.preventDefault();

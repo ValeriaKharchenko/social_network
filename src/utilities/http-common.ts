@@ -69,7 +69,6 @@ export default {
   delete: async (url: string, data?: any) => {
     try {
       await a.delete(url, data);
-      console.log("user logged out");
     } catch (e) {
       console.log(e);
     }
