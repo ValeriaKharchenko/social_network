@@ -26,7 +26,8 @@
         [ ] - Clean up packages (if build dosen't do it for us)
 
 
-### Completed Updates ( FROM: 12/07 ):
+### Completed Updates:
+    ( FROM: 12/07 )
     <!-- Followers -->
     NOW:    
         UNFOLLOW is always          - Delete   (REST)
@@ -39,6 +40,10 @@
 
     REMOVED : 
         Some user related old code (userSlice, user from store, cleanup user_service + imports)
+    
+    ( FROM: 13/07 )
+    New url for group post ( works same as OnePost page).
+    Notification improvements 
 
 
 ### On Works: 
