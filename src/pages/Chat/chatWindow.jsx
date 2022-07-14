@@ -13,8 +13,8 @@ import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import FaceIcon from "@mui/icons-material/Face";
+import GroupsIcon from "@mui/icons-material/Groups";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
 import * as helper from "../../helpers/HelperFuncs";
 import WsApi from "../../utilities/ws";
 
@@ -23,11 +23,38 @@ export const Chat = () => {
   let dispatch = useDispatch();
   const [receiver, setReceiver] = useState("");
   console.log("2", receiver);
+
   const msgs = useSelector((state) => state.chat.msgHistory);
   let sender = helper.getTokenId();
 
-  const { handleSubmit, register } = useForm();
-  const form = useRef(null);
+  let createdGroups = useSelector((state) => state.groups.createdGroups);
+  let joinedGroups = useSelector((state) => state.groups.joinedGroups);
+  let groups = createdGroups.concat(joinedGroups);
+  console.log("Groups:", groups);
+  console.log("Followers:", followerList);
+
+  let members = [];
+  followerList.forEach((f) => {
+    let chatMember = {
+      name: f.first_name + " " + f.last_name,
+      id: f.user_id,
+      type: "person",
+    };
+    members.push(chatMember);
+  });
+
+  groups.forEach((g) => {
+    let group = {
+      name: g.title,
+      id: g.id,
+      type: "group",
+    };
+    members.push(group);
+  });
+  console.log("Members", members);
+
+  // const { handleSubmit, register } = useForm();
+  // const form = useRef(null);
   const bottomRef = useRef(null);
 
   const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -40,8 +67,6 @@ export const Chat = () => {
     let msgHistory = [];
     try {
       msgHistory = await chatService.getMsgs(receiver, 0, 50);
-      console.log("Here", msgHistory);
-      // console.log("Length", msgHistory.length);
     } catch (e) {
       console.log(e.message);
       const errorState = {
@@ -50,20 +75,13 @@ export const Chat = () => {
       };
       dispatch(setAlert(errorState));
     }
-    // if (msgHistory != null) {
-    //   dispatch(loadMsgs(msgHistory));
-    // }
     msgHistory === null
       ? dispatch(loadMsgs([]))
       : dispatch(loadMsgs(msgHistory));
   };
 
-  const handleEnter = (text) => {
-    console.log("text", text);
-  };
-
+  //send chat message
   const sendMsg = (text) => {
-    // console.log(data);
     console.log(text);
     if (text.trim().length > 0) {
       let jsonData = {};
@@ -78,12 +96,11 @@ export const Chat = () => {
     }
   };
 
-  // console.log(followerList);
+  // load chat history
   useEffect(() => {
     if (receiver !== "") {
       loadHistory();
     }
-    console.log("1", msgs);
   }, [receiver]);
 
   useEffect(() => {
@@ -91,37 +108,33 @@ export const Chat = () => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [msgs]);
 
-  // useEffect(() => {
-  //   console.log("2", msgs);
-  // }, [msgs]);
-
   return (
     <div className={"fullWidth"}>
       <Grid container component={Paper} className="chatSection">
         <Grid item xs={3} className={"borderRight500"}>
           <List>
-            {followerList.length === 0 ? (
+            {members.length === 0 ? (
               <ListItem>
-                <ListItemText>Follow somebody to start chat</ListItemText>
+                <ListItemText>
+                  Follow somebody or enter a group to start chat
+                </ListItemText>
               </ListItem>
             ) : (
-              followerList.map((follower) => {
+              members.map((member) => {
                 return (
                   <ListItem>
-                    <FaceIcon />
+                    {/*<FaceIcon />*/}
+                    {member.type === "person" ? <FaceIcon /> : <GroupsIcon />}
                     <ListItemText>
                       <Button
-                        className={
-                          follower.user_id === receiver ? "active" : ""
-                        }
+                        className={member.id === receiver ? "active" : ""}
                         onClick={() => {
-                          // console.log(follower.user_id);
-                          setReceiver(follower.user_id);
+                          setReceiver(member.id);
                           loadHistory();
                         }}
                         fullWidth
                       >
-                        {follower.first_name} {follower.last_name}
+                        {member.name}
                       </Button>
                     </ListItemText>
                   </ListItem>
