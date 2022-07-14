@@ -2,10 +2,16 @@ import http from './http-common';
 import * as helper from '../helpers/HelperFuncs';
 import FollowerService from './follower_service';
 import GroupService from './group_service';
+import { useDispatch } from 'react-redux';
+import notificationSlice from '../store/notificationSlice';
+import {
+  updateNotificationSeen,
+} from '../store/notificationSlice';
 
 const NotificationService = () => {
   const group_service = GroupService();
   const follower_service = FollowerService();
+    const dispatch = useDispatch();
 
 
 
@@ -48,7 +54,12 @@ const NotificationService = () => {
   const handleNotificationSeen = (id, nr) => {
     try {
       // /user/notification/reply?id=1
-      console.log('%c notifying server for notifications --> ', 'color:orange');
+      // console.log("id " , id);
+      // console.log("STATUS " , nr);
+      if(nr == 2){
+        dispatch(updateNotificationSeen(23));
+      }
+      console.log('%c notifying server of seeing notifications --> ', 'color:orange');
       http.post(`/user/notification/reply?id=${id}&status=${nr}`);
     } catch (err) {
       helper.checkError(err);

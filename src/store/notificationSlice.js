@@ -14,7 +14,8 @@ export const notificationSlice = createSlice({
       // console.log('SLICE LSIT', notficationList);
       state.notifications = notificationList;
     },
-    updateNotificationCount: (state, action) => {
+    updateNotificationSeen: (state, action) => {
+      console.log(state.notifications, 'from notificationSlice', action);
       // let notfications = action.payload;
       // console.log("Got some ");
       // state.notificationCount = action.payload;
@@ -25,9 +26,6 @@ export const notificationSlice = createSlice({
   },
 });
 
-export const {
-  updateNotifications,
-  updateNotificationCount,
-  updateStatus,
-} = notificationSlice.actions;
+export const { updateNotifications, updateNotificationSeen, updateStatus } =
+  notificationSlice.actions;
 export default notificationSlice.reducer;

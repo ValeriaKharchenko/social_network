@@ -9,10 +9,15 @@ import NotificationService from "../../utilities/notification_service";
 
 
 const SingleNotification = ({data}) => {
-  const [seen,setSeen] = useState(false)
   const notification_service = NotificationService()
   let redirect = useNavigate();
+  let [seen,setSeen] = useState(data.data.seen)
+
+  console.log("SINGLE NOTIFICATION" , seen);
+
   
+  
+
   const notification = (socketData) => {
       let data = socketData.data
       const USER_INFO  = <strong onClick={() => {redirect(`/profile/${data.actor_id}`);}}> {data.first_name} {data.last_name} </strong> ;
@@ -91,12 +96,13 @@ const SingleNotification = ({data}) => {
   }
 
   return (
-    <div className="notification_wrapper" onMouseEnter={() => {
-      if(!seen){console.log("%cSENDING TO Back info that i have seen this notification", "color:yellow");}
-      setSeen(true)
+    <div className="notification_wrapper" onClick={() => {
+        console.log("%cSENDING TO Back info that i have seen this notification", "color:yellow");
+        notification_service.handleNotificationSeen(data.data.notif_id,2)
+        setSeen(2);
     }}>
-      {seen ? <VisibilityOutlinedIcon className="eye" /> : "----"}
-      {notification(data)}
+    {seen == 2 ? <VisibilityOutlinedIcon className="eye" /> : "----"}
+    {notification(data)}
     </div>
   )
 }

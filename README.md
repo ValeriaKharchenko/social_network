@@ -3,9 +3,9 @@
 ### BACKLOG [Questions&Suggestions]:
     [ TO DO ]   1. Function to Intialize all loged in user data to store on login (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.connect functionality 
     [ TO DO ]   2. Function to Revert all initialized user data data from store on logout  (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.close functionality 
-    [ TO DO ]   3. Check if old user from store is still needed, delete if not (new branch + testing)
-    [?TO DO?]   4. Follow/UnFollow button bug (need to click 2 times, before button is changing)
-    [?TO DO?]   5. searchbar filtering
+    [?TO DO?]   3. Follow/UnFollow button bug (need to click 2 times, before button is changing)
+    [?TO DO?]   4. searchbar filtering ( now it fetch everything [DEBOUNCE ???])
+    [ TO DO ]   5. Private user follow request, after accepting, the requested user still show -> Request has been send top of STOP FOLLOWING-  button
 
 
 
@@ -48,14 +48,10 @@
 
 
     ( FROM: 14/07 )
-    Every post in group posts, will now redirect to single groupPost page where user can comment (works like regualar post page)
-
-
-### On Works: 
-    ------------>  src/components/notifications/NotificationList.jsx
-        1. check notification filtering 
-        2. change on click (eye) and POST
-    ------------> 
+    *Every post in group posts, will now redirect to single groupPost page where user can comment (works like regualar post page)
+    *Clicking on notifications TAB -> will send websocket message to server that all notifications has been seen, count and icon will be changed
+    *Clicking on notification , it send its id and status 2 to server to notify its seen and clicked.
+    
 
 ### On Works: 
     <!-- Groups -->
@@ -71,30 +67,14 @@
 
     
     <!-- Notifications -->
-    [ ] - GET ALL NOTIFICATIONS      -> Seperate them to 3 Categories (NEW (takes importants, includes response), response required and old informational notifications)
-    [ ] - Clicking on notifications TAB -> will send websocket message to server that all notifications has been seen, then websocket list will be updated and separated 
-    [ ] - Receiving new notification -> The bell icon and number will be updated (count change and color change on bell),
-                                        * if user clicks on notifications then : 1. bell and count will go to default (black & 0)
+    [ ] - GET ALL NOTIFICATIONS      -> Seperate them to 
 
     [ ] - Notfication repsonse - on response , the server will delete notfication and it wont show again on front (FOR NOW ????)
            1. Should notify user that response has been made
            2. Maybe update notfication after click
 
-
-        [ IMPROVEMENTS ]
-        [ ] - newest notification first
-        [ ] - new notifying system   (/user/notification/reply?id=${id}&status=${nr})
-            0 = not seen and not clicked [default]
-            1 = seen and not clicked
-            2 = seen and clicked
-                                            
-
     [ IMPROVEMENTS ]
-    [ ] - newest notification first
-    [ ] - new notifying system   (/user/notification/reply?id=${id}&status=${nr})
-        0 = not seen and not clicked [default]
-        1 = seen and not clicked
-        2 = seen and clicked
+        [ ] - newest notification first
 
     <!-- Messenger -->
         [ ] - List of all writeable users(user is following) and groups(user is in, different style)

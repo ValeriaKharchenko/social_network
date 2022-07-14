@@ -11,25 +11,34 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatIcon from "@mui/icons-material/Chat";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import NotificationService from "../utilities/notification_service";
+import { useEffect, useState } from "react";
 // import { ChatDrawer } from "./Drawer";
 
 const Navbar = () => {
   const storeInfo = useSelector((state: RootState) => state);
   const notification_service = NotificationService();
   let notificationList = storeInfo.notifications.notifications != null ? storeInfo.notifications.notifications : []; 
-  let notificationCount = notificationList.filter(obj => !obj["data"]["seen"]).length ;
+  let [notificationCount, setNotificationCount] = useState(notificationList.filter(obj => !obj["data"]["seen"]).length)
 
   const replyServerOfNotifications = () =>{
     console.log("SENDING INFO TO SERVER ABOUT EACH NOTIFICATION");
     try{
       notificationList.forEach((obj) => { 
-        console.log("Client has seen ", obj["data"]["notif_id"]);
-        notification_service.handleNotificationSeen(obj["data"]["notif_id"], 1)
+        // console.log("Client has seen ", obj["data"]["notif_id"]);
+        console.log("SINGLE OBJ SEEN", obj["data"]["seen"]);
+        
+        if(obj["data"]["seen"] == 0){
+          notification_service.handleNotificationSeen(obj["data"]["notif_id"], 1)
+        } 
       })
     }catch (err){
       console.log("SOME ERROR :" , err);
     }
+    setNotificationCount(0);
   }
+  useEffect(()=>{
+    setNotificationCount(notificationList.filter(obj => !obj["data"]["seen"]).length)
+  }, [notificationList])
 
   // @ts-ignore
   const storeProfileInfo = useSelector(
