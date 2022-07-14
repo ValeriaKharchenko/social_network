@@ -4,8 +4,6 @@ export const SingleGroupPost = ({data}) => {
   let redirect = useNavigate();
   let onGroupPage = window.location.href.split("/").indexOf("post") < 0;
   let {id} = useParams();
-  // let onGroupPage = window.location.href.split
-  console.log(onGroupPage);
 
   return (
     <div className="group_post">

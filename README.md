@@ -5,6 +5,7 @@
     [ TO DO ]   2. Function to Revert all initialized user data data from store on logout  (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.close functionality 
     [ TO DO ]   3. Check if old user from store is still needed, delete if not (new branch + testing)
     [?TO DO?]   4. Follow/UnFollow button bug (need to click 2 times, before button is changing)
+    [?TO DO?]   5. searchbar filtering
 
 
 
@@ -46,6 +47,10 @@
     Notification improvements 
 
 
+    ( FROM: 14/07 )
+    Every post in group posts, will now redirect to single groupPost page where user can comment (works like regualar post page)
+
+
 ### On Works: 
     ------------>  src/components/notifications/NotificationList.jsx
         1. check notification filtering 
@@ -54,9 +59,6 @@
 
 ### On Works: 
     <!-- Groups -->
-
-        //Posts
-    [ ] - Group Posts and single Post/Comments page
 
         //Events
     [ ] - overtime events (needs to NOT show response buttons, and time should show (All ready in past))

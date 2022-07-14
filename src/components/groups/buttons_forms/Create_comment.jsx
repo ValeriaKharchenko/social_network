@@ -17,7 +17,7 @@ type GroupPost struct{
 */
 
 // UPDATE CLEAN UP (handleClicks, handleInputs) --> HELPER
-const Create_comment = ({ group_id, post_id}) => {
+const Create_comment = ({ group_id, post_id, handleComment}) => {
     const group_service = GroupService()
     const [isOpen,setIsOpen] = useState(false)
     const [img,setImg] = useState(null)
@@ -53,11 +53,14 @@ const Create_comment = ({ group_id, post_id}) => {
             console.log(data);
             group_service.makeCommentToPost(data);
         }
+        handleComment();
+        setIsOpen(!isOpen)
     }
 
     return (
     <>  
-        {!isOpen && <Button onClick={() => setIsOpen(!isOpen)}>Create Comment <AddIcon/></Button>}
+        {/* {!isOpen && <Button onClick={() => setIsOpen(!isOpen)}>Create Comment <AddIcon/></Button>} */}
+        {<Button sx={{ marginLeft: 3, marginBottom: 1, fontSize : "18px" }} onClick={() => setIsOpen(!isOpen)}>Comment </Button>}
 
         {isOpen && 
         <form id="postForm" >
@@ -77,6 +80,7 @@ const Create_comment = ({ group_id, post_id}) => {
                     onChange={()=>{convertImg(document.getElementById("image").files).then(res => setImg(res))}}
                     />
             </div>
+            
             <Button sx={{fontSize:"16px" }} type={"submit"} 
                     onClick={(e) => { 
                         e.preventDefault();

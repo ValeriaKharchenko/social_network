@@ -2,8 +2,7 @@ import "./post.scss";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { openModal } from "../../store/postSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { NewPost } from "./newPost";
+import { useDispatch } from "react-redux";
 // import * as React from "@types/react";
 
 export const Post = ({ post, toShow }) => {
