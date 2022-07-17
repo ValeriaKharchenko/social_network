@@ -3,9 +3,9 @@
 ### BACKLOG [Questions&Suggestions]:
     [ TO DO ]   1. Function to Intialize all loged in user data to store on login (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.connect functionality 
     [ TO DO ]   2. Function to Revert all initialized user data data from store on logout  (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.close functionality 
-    [ TO DO ]   3. Check if old user from store is still needed, delete if not (new branch + testing)
-    [?TO DO?]   4. Follow/UnFollow button bug (need to click 2 times, before button is changing)
-
+    [?TO DO?]   3. Follow/UnFollow button bug (need to click 2 times, before button is changing)
+    [?TO DO?]   4. searchbar filtering (for now it fetches everything [DEBOUNCE ???])
+   
 
 
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
@@ -14,6 +14,7 @@
     [ OPTIONAL ] 4. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
     [ OPTIONAL ] 5. GROUP PAGE  - Visual update (post,events, more..?)
     [ OPTIONAL ] 6. Possibility to add new post on landing page (/homepage) Or it will be redone ???
+    [ OPTIONAL ] 7. NOTIFICATION - one button to convert  all to  seen&clicked status
 
     [ERRORS] - Some error handling ? 
 
@@ -26,7 +27,8 @@
         [ ] - Clean up packages (if build dosen't do it for us)
 
 
-### Completed Updates ( FROM: 12/07 ):
+### Completed Updates:
+    ( FROM: 12/07 )
     <!-- Followers -->
     NOW:    
         UNFOLLOW is always          - Delete   (REST)
@@ -39,19 +41,26 @@
 
     REMOVED : 
         Some user related old code (userSlice, user from store, cleanup user_service + imports)
+    
+    ( FROM: 13/07 )
+    New url for group post ( works same as OnePost page).
+    Notification improvements 
 
 
-### On Works: 
-    ------------>  src/components/notifications/NotificationList.jsx
-        1. check notification filtering 
-        2. change on click (eye) and POST
-    ------------> 
+    ( FROM: 14/07 )
+    *Every post in group posts, will now redirect to single groupPost page where user can comment (works like regualar post page)
+    *Clicking on notifications TAB -> will send websocket message to server that all notifications has been seen, count and icon will be changed
+    *Clicking on notification , it send its id and status 2 to server to notify its seen and clicked.
+
+    ( FROM: 17/07 )
+    It will now show newest notifications first, will update store and put seen status nr 2 if clicked (constant visual)
+
+    FIXED :
+         Private user follow request, after accepting, the requested user still showed -> Request has been send top of STOP FOLLOWING-  button
+
 
 ### On Works: 
     <!-- Groups -->
-
-        //Posts
-    [ ] - Group Posts and single Post/Comments page
 
         //Events
     [ ] - overtime events (needs to NOT show response buttons, and time should show (All ready in past))
@@ -59,43 +68,25 @@
         ** Need to update store to remove event from list if not going **
     [ FIX IT]
     [ ] - Need to fix event responses (I think it dosen't read different event statuses right. With 2 
-          different event , they change each other to status != status (reverse each other))
+          different event , they change each other to status != status (reverse each other or the status is just lagging behind))
        
 
     
     <!-- Notifications -->
-    [ ] - GET ALL NOTIFICATIONS      -> Seperate them to 3 Categories (NEW (takes importants, includes response), response required and old informational notifications)
-    [ ] - Clicking on notifications TAB -> will send websocket message to server that all notifications has been seen, then websocket list will be updated and separated 
-    [ ] - Receiving new notification -> The bell icon and number will be updated (count change and color change on bell),
-                                        * if user clicks on notifications then : 1. bell and count will go to default (black & 0)
 
-    [ ] - Notfication repsonse - on response , the server will delete notfication and it wont show again on front (FOR NOW ????)
-           1. Should notify user that response has been made
-           2. Maybe update notfication after click
+    [ ] - user follow request -> after clicking it wont dissapear and show there all the time
 
 
-        [ IMPROVEMENTS ]
-        [ ] - newest notification first
-        [ ] - new notifying system   (/user/notification/reply?id=${id}&status=${nr})
-            0 = not seen and not clicked [default]
-            1 = seen and not clicked
-            2 = seen and clicked
-                                            
-
-    [ IMPROVEMENTS ]
-    [ ] - newest notification first
-    [ ] - new notifying system   (/user/notification/reply?id=${id}&status=${nr})
-        0 = not seen and not clicked [default]
-        1 = seen and not clicked
-        2 = seen and clicked
 
     <!-- Messenger -->
+
         [ ] - List of all writeable users(user is following) and groups(user is in, different style)
         [ ] - messages boxes for user, other users
         [ ] - messenging component (needs emoticons)
         [ ] - message popup(notification) (realtime notification of writing ??????????? .....)
 
     <!-- DOCKER -->
+
         [ ] - implement docker
 
 

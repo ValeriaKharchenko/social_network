@@ -3,18 +3,6 @@ import { addMsg } from "../store/chatSlice";
 
 let ws;
 
-// function showNotification(n) {
-//   // console.log("Got here");
-//   // if (n.action == "notification") {
-//   const nt = JSON.parse(n.data);
-//   console.log(nt);
-//   // }
-// }
-
-// function updateNotifications(arr){
-//   const dispatcher = useDispatch();
-// }
-
 //  IS THERE  A WAY TO NOT INCLUDE DISPATCHER ON EVERY CALL
 
 export default {
@@ -34,17 +22,21 @@ export default {
     ws.onmessage = (msg) => {
       console.log(msg.data);
       const msgJSON = JSON.parse(msg.data);
-      // if(Array.isArray(msgJSON)) dispatcher(updateNotifications(msgJSON));
+      let notificationList = [];
+      
       if(Array.isArray(msgJSON)) {
+        // console.log("length of incoming list" , msg.data.split("}},").length);
         msgJSON.forEach((m) => {
           if (m.action_type === "private message") {
             console.log("I'm here", m);
             dispatcher(addMsg(m.data));
           } else {
-            console.log("Regular Notifications", msgJSON);
-            dispatcher(updateNotifications(msgJSON));
+            // console.log("Regular Notifications", msgJSON);
+            notificationList.push(m);
           }
         });
+        console.log('NotificationList : ', notificationList);
+        dispatcher(updateNotifications(notificationList));
       };
     };
   },
@@ -55,7 +47,6 @@ export default {
     ws.send(JSON.stringify(jsonData));
     // console.log("Connection closed");
     ws.close();
-    // console.log("Connection closed");
   },
   sendChatMessage(message) {
     console.log("Msg ws: ", message);

@@ -1,7 +1,7 @@
 import {useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import GroupService from "../../utilities/group_service"
-import SingleGroupPosts from "./SingleGroupPosts"
+import SingleGroupPost from "./SingleGroupPost"
 
 
 const GroupPosts = ({id}) => {
@@ -19,7 +19,7 @@ const GroupPosts = ({id}) => {
   return (
     <div>
     {posts && posts.map((post) => (
-        <SingleGroupPosts key={post.post_id} data={post} />
+        <SingleGroupPost key={post.post_id} data={post}  />
       ))}
     </div>
   )

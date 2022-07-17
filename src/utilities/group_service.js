@@ -51,6 +51,11 @@ import {
       const response = http.post("/group/post", data)
       dispatch(updateStatus(!storeInfo.groups.updateStatus));
   }
+  const makeCommentToPost = (data) => { 
+      console.log('%c Comment post --> ', 'color:orange', data);
+      const response = http.post("/group/post", data)
+      dispatch(updateStatus(!storeInfo.groups.updateStatus));
+  }
 
   const makeEvent = (data) => { 
       console.log('%c Posting new event to group --> ', 'color:orange', data);
@@ -114,6 +119,18 @@ import {
     try {
       console.log('%c Fetching specific group posts --> ', 'color:orange');
       const response = await http.get(`/group/post/all?groupId=${id}`);
+      return response.data;
+    } catch (err) {
+      helper.checkError(err);
+    }
+  }
+
+  const getSpecificGroupPost = async (groupId,postId) => { 
+    try {
+      console.log('%c Fetching specific post in group--> ', 'color:orange');
+      // /group/post?groupId=[number]&postId=[number]
+      const response = await http.get(`/group/post?groupId=${groupId}&postId=${postId}`);
+      console.log("RESPONSE DATA ", response.data);
       return response.data;
     } catch (err) {
       helper.checkError(err);
@@ -232,6 +249,7 @@ import {
   return {
     makeNewGroupRequest,
     makeGroupPost,
+    makeCommentToPost,
     makeEvent,
     getAllGroups,
     getCreatedGroups,
@@ -239,6 +257,7 @@ import {
     getJoinedEvents,
     getGroupInfo,
     getGroupPosts,
+    getSpecificGroupPost,
     getGroupEvents,
     getAvailableFriends,
     getJoinRequests,

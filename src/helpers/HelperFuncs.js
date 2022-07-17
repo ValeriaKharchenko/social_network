@@ -5,6 +5,7 @@ import  getTokenId  from "./tokenId";
 import checkError from "./checkError";
 import handleInputs from './checkInput';
 import filterDoubles from "./filterDoubles";
+import convertListToMutable from "./convertList";
 export {
   capitalize,
   checkImage,
@@ -14,4 +15,5 @@ export {
   handleInputs,
   convertImg,
   filterDoubles,
+  convertListToMutable,
 };

@@ -2,12 +2,14 @@ import http from './http-common';
 import * as helper from '../helpers/HelperFuncs';
 import FollowerService from './follower_service';
 import GroupService from './group_service';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateNotifications } from '../store/notificationSlice';
 
 const NotificationService = () => {
   const group_service = GroupService();
   const follower_service = FollowerService();
-
-
+  const store_notifications = useSelector(state => state.notifications.notifications);
+  const dispatch = useDispatch();
 
   const handleGroupJoinRequest = (data, resp) => {
     group_service.sendGroupJoinReply({
@@ -33,34 +35,30 @@ const NotificationService = () => {
     });
   };
 
-  // send[POST] id to notify seeing of notification  /notification/reply?id=[some id] (common)
-  // await http.post(`/notification/reply?id=${id}`);
-  // const handleNotificationSeen = id => {
-  //   try{
-  //     // /user/notification/reply?id=1
-  //     console.log("%c notifying server for notifications --> ","color:orange");
-  //     http.post(`/user/notification/reply?id=${id}`)
-  //   }catch(err){
-  //     helper.checkError(err)
-  //   }
-  // };
-
   const handleNotificationSeen = (id, nr) => {
     try {
-      // /user/notification/reply?id=1
-      console.log('%c notifying server for notifications --> ', 'color:orange');
+      console.log(`%c notifying server of seeing notifications --> ${id}`, 'color:orange');
       http.post(`/user/notification/reply?id=${id}&status=${nr}`);
     } catch (err) {
       helper.checkError(err);
     }
   };
 
+  const updateClicked = (id) => { 
+    console.log( "Handeling click and updating store , Id-> ", id);
+    let replacmentList = helper.convertListToMutable(store_notifications);
+    replacmentList.forEach(obj=> {
+      if(obj.data.notif_id == id ) obj.data.seen = 2;
+    })
+    dispatch(updateNotifications(replacmentList));
+  }
+
   return {
     handleGroupJoinRequest,
     handleGroupInvite,
     handleFollowerRequest,
     handleNotificationSeen,
-    // handleNotificationClicked
+    updateClicked,
   };
 };
 
