@@ -6,13 +6,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "../components/buttons/logout";
 import Searchbar from "./Searchbar";
-import ProfileService from "../utilities/profile_service";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatIcon from "@mui/icons-material/Chat";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import NotificationService from "../utilities/notification_service";
 import { useEffect, useState } from "react";
-// import { ChatDrawer } from "./Drawer";
 
 const Navbar = () => {
   const storeInfo = useSelector((state: RootState) => state);
@@ -21,13 +19,10 @@ const Navbar = () => {
   let [notificationCount, setNotificationCount] = useState(notificationList.filter(obj => !obj["data"]["seen"]).length)
 
   const replyServerOfNotifications = () =>{
-    console.log("SENDING INFO TO SERVER ABOUT EACH NOTIFICATION");
     try{
       notificationList.forEach((obj) => { 
-        // console.log("Client has seen ", obj["data"]["notif_id"]);
-        console.log("SINGLE OBJ SEEN", obj["data"]["seen"]);
-        
         if(obj["data"]["seen"] == 0){
+          console.log("SENDING INFO TO SERVER ABOUT NOTIFICATION ->" , obj["data"]["notif_id"]);
           notification_service.handleNotificationSeen(obj["data"]["notif_id"], 1)
         } 
       })
@@ -36,6 +31,7 @@ const Navbar = () => {
     }
     setNotificationCount(0);
   }
+  
   useEffect(()=>{
     setNotificationCount(notificationList.filter(obj => !obj["data"]["seen"]).length)
   }, [notificationList])
@@ -48,6 +44,7 @@ const Navbar = () => {
   return (
     <div className="navigation">
       <Searchbar />
+      
       <div className="profile_box">
         <Logout />
         <Avatar
@@ -59,16 +56,19 @@ const Navbar = () => {
         </p>
         <button onClick={() => console.log(storeInfo)}>show storeInfo</button>
       </div>
+
       <Link className="link" to={"/homepage"}>
         Home <Home />
       </Link>
+      
       <Link className="link" to={"/profile/me"}>
         Profile <InsertEmoticonIcon />
       </Link>
-       {/* <Link className="link" to={"/notifications"} onClick={}> */}
+      
       <Link className="link" to={"/notifications"} onClick={replyServerOfNotifications}>
         Notifications {notificationCount != 0 ? <NotificationsIcon sx={{ color: "red" }} /> : <NotificationsIcon />} {notificationCount}
       </Link>
+      
       <Link className={"link"} to={"/chat"}>
         Chat <ChatIcon />
       </Link>

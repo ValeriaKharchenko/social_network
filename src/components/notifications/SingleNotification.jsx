@@ -6,17 +6,12 @@ import { useNavigate } from "react-router-dom";
 import NotificationService from "../../utilities/notification_service";
 
 
-
-
 const SingleNotification = ({data}) => {
   const notification_service = NotificationService()
   let redirect = useNavigate();
   let [seen,setSeen] = useState(data.data.seen)
 
-  console.log("SINGLE NOTIFICATION" , seen);
-
-  
-  
+//   console.log("SINGLE NOTIFICATION = id", data.data.notif_id, " is seen&Cliked ->" , `${seen == 2 ? true : false}`);
 
   const notification = (socketData) => {
       let data = socketData.data
@@ -97,9 +92,11 @@ const SingleNotification = ({data}) => {
 
   return (
     <div className="notification_wrapper" onClick={() => {
-        console.log("%cSENDING TO Back info that i have seen this notification", "color:yellow");
-        notification_service.handleNotificationSeen(data.data.notif_id,2)
-        setSeen(2);
+        if(seen != 2){
+            notification_service.handleNotificationSeen(data.data.notif_id,2)
+            notification_service.updateClicked(data.data.notif_id)
+            setSeen(2);
+        }
     }}>
     {seen == 2 ? <VisibilityOutlinedIcon className="eye" /> : "----"}
     {notification(data)}

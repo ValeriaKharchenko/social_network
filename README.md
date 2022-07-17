@@ -4,9 +4,8 @@
     [ TO DO ]   1. Function to Intialize all loged in user data to store on login (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.connect functionality 
     [ TO DO ]   2. Function to Revert all initialized user data data from store on logout  (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.close functionality 
     [?TO DO?]   3. Follow/UnFollow button bug (need to click 2 times, before button is changing)
-    [?TO DO?]   4. searchbar filtering ( now it fetch everything [DEBOUNCE ???])
-    [ TO DO ]   5. Private user follow request, after accepting, the requested user still show -> Request has been send top of STOP FOLLOWING-  button
-
+    [?TO DO?]   4. searchbar filtering (for now it fetches everything [DEBOUNCE ???])
+   
 
 
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
@@ -15,6 +14,7 @@
     [ OPTIONAL ] 4. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
     [ OPTIONAL ] 5. GROUP PAGE  - Visual update (post,events, more..?)
     [ OPTIONAL ] 6. Possibility to add new post on landing page (/homepage) Or it will be redone ???
+    [ OPTIONAL ] 7. NOTIFICATION - one button to convert  all to  seen&clicked status
 
     [ERRORS] - Some error handling ? 
 
@@ -51,7 +51,13 @@
     *Every post in group posts, will now redirect to single groupPost page where user can comment (works like regualar post page)
     *Clicking on notifications TAB -> will send websocket message to server that all notifications has been seen, count and icon will be changed
     *Clicking on notification , it send its id and status 2 to server to notify its seen and clicked.
-    
+
+    ( FROM: 17/07 )
+    It will now show newest notifications first, will update store and put seen status nr 2 if clicked (constant visual)
+
+    FIXED :
+         Private user follow request, after accepting, the requested user still showed -> Request has been send top of STOP FOLLOWING-  button
+
 
 ### On Works: 
     <!-- Groups -->
@@ -62,27 +68,25 @@
         ** Need to update store to remove event from list if not going **
     [ FIX IT]
     [ ] - Need to fix event responses (I think it dosen't read different event statuses right. With 2 
-          different event , they change each other to status != status (reverse each other))
+          different event , they change each other to status != status (reverse each other or the status is just lagging behind))
        
 
     
     <!-- Notifications -->
-    [ ] - GET ALL NOTIFICATIONS      -> Seperate them to 
 
-    [ ] - Notfication repsonse - on response , the server will delete notfication and it wont show again on front (FOR NOW ????)
-           1. Should notify user that response has been made
-           2. Maybe update notfication after click
+    [ ] - user follow request -> after clicking it wont dissapear and show there all the time
 
-    [ IMPROVEMENTS ]
-        [ ] - newest notification first
+
 
     <!-- Messenger -->
+
         [ ] - List of all writeable users(user is following) and groups(user is in, different style)
         [ ] - messages boxes for user, other users
         [ ] - messenging component (needs emoticons)
         [ ] - message popup(notification) (realtime notification of writing ??????????? .....)
 
     <!-- DOCKER -->
+
         [ ] - implement docker
 
 
