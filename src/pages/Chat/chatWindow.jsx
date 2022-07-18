@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./chat.scss";
 import chatService from "../../utilities/chat";
 import { setAlert } from "../../store/alertSlice";
-import { loadMsgs } from "../../store/chatSlice";
+import { addToBegining, loadMsgs } from "../../store/chatSlice";
 import GroupService from "../../utilities/group_service";
 
 // import Picker from "emoji-picker-react";
@@ -28,19 +28,22 @@ export const Chat = () => {
   const msgs = useSelector((state) => state.chat.msgHistory);
   let sender = helper.getTokenId();
 
+  //load or update group store
   const group_service = GroupService();
   useEffect(() => {
     group_service.getCreatedGroups();
     group_service.getJoinedGroups();
   }, []);
 
+  //create list of groups
   const createdGroups = useSelector((state) => state.groups.createdGroups);
   const joinedGroups = useSelector((state) => state.groups.joinedGroups);
   let groups = createdGroups.concat(joinedGroups);
 
-  console.log("Groups:", groups);
-  console.log("Followers:", followerList);
+  // console.log("Groups:", groups);
+  // console.log("Followers:", followerList);
 
+  //lead to one obj type
   let members = [];
   followerList.forEach((f) => {
     let chatMember = {
@@ -59,21 +62,45 @@ export const Chat = () => {
     };
     members.push(group);
   });
-  console.log("Members", members);
+  // console.log("Members", members);
 
+  // 👇️ scroll to bottom every time messages change
   const bottomRef = useRef(null);
 
+  // useEffect(() => {
+  //   bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [msgs]);
+
+  //load more msgs
+  const [isFetching, setIsFetching] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
+  function loadMore() {
+    setIsFetching(true);
+
+    //mocking an API call
+    setTimeout(() => {
+      // setItems((prevState) => [
+      //   ...prevState,
+      //   ...Array.from(Array(20).keys(), (n) => n + prevState.length + 1),
+      // ]);
+      loadHistory(msgs.length);
+      setIsFetching(false);
+    }, 2000);
+  }
+
+  //emoji
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject);
   };
-  const [text, setText] = useState("");
 
-  const loadHistory = async () => {
+  //load msg history
+  const loadHistory = async (s) => {
     let msgHistory = [];
     if (receiver.type === "person") {
       try {
-        msgHistory = await chatService.getMsgs(receiver.id, 0, 50);
+        msgHistory = await chatService.getMsgs(receiver.id, s, 10);
       } catch (e) {
         console.log(e.message);
         const errorState = {
@@ -83,10 +110,10 @@ export const Chat = () => {
         dispatch(setAlert(errorState));
       }
     } else if (receiver.type === "group") {
-      console.log("receiver", receiver);
+      // console.log("receiver", receiver);
       try {
-        const m = await chatService.getGroupMsgs(receiver.id);
-        console.log("group messages", m);
+        msgHistory = await chatService.getGroupMsgs(receiver.id);
+        // console.log("group messages", m);
       } catch (e) {
         console.error(e.message);
         const errorState = {
@@ -96,12 +123,24 @@ export const Chat = () => {
         dispatch(setAlert(errorState));
       }
     }
-    msgHistory === null
-      ? dispatch(loadMsgs([]))
-      : dispatch(loadMsgs(msgHistory));
+    console.log("response", msgHistory);
+    setHasMore(msgHistory !== null && msgHistory.length === 10);
+    if (s === 0) {
+      dispatch(loadMsgs(msgHistory));
+    } else {
+      dispatch(addToBegining(msgHistory));
+    }
   };
 
+  useEffect(() => {
+    if (receiver.id !== "") {
+      loadHistory(0);
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [receiver]);
+
   //send chat message
+  const [text, setText] = useState("");
   const sendMsg = (text) => {
     console.log(text);
     if (text.trim().length > 0) {
@@ -110,13 +149,14 @@ export const Chat = () => {
       jsonData["user"] = sender;
       jsonData["message_to"] = receiver.id;
       jsonData["message_content"] = text;
-      console.log(JSON.stringify(jsonData));
+      // console.log(JSON.stringify(jsonData));
       WsApi.sendChatMessage(JSON.stringify(jsonData));
       setText("");
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  //alert if no chat chosen
   const fireAlert = () => {
     const errorState = {
       text: "Select chat to send message",
@@ -124,18 +164,6 @@ export const Chat = () => {
     };
     dispatch(setAlert(errorState));
   };
-
-  // load chat history
-  useEffect(() => {
-    if (receiver.id !== "") {
-      loadHistory();
-    }
-  }, [receiver]);
-
-  useEffect(() => {
-    // 👇️ scroll to bottom every time messages change
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [msgs]);
 
   return (
     <div className={"fullWidth"}>
@@ -174,6 +202,18 @@ export const Chat = () => {
         </Grid>
         <Grid item xs={9}>
           <List className={"messageArea"}>
+            {receiver.id !== "" && hasMore && (
+              <ListItem>
+                <Button
+                  sx={{ marginLeft: 25 }}
+                  variant="text"
+                  onClick={loadMore}
+                >
+                  {" "}
+                  Load more{" "}
+                </Button>
+              </ListItem>
+            )}
             {receiver.id === "" ? (
               <ListItem>
                 <ListItemText>Select chat</ListItemText>

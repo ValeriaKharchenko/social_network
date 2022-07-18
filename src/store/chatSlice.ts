@@ -7,14 +7,19 @@ export const chatSlice = createSlice({
   },
   reducers: {
     loadMsgs: (state, action) => {
-      state.msgHistory = action.payload;
+      state.msgHistory = action.payload || [];
     },
     addMsg: (state, action) => {
       // @ts-ignore
       state.msgHistory.push(action.payload);
     },
+    addToBegining: (state, action) => {
+      const prev = state.msgHistory;
+      // @ts-ignore
+      state.msgHistory = [...(action.payload || []), ...prev];
+    },
   },
 });
 
-export const { addMsg, loadMsgs } = chatSlice.actions;
+export const { addMsg, loadMsgs, addToBegining } = chatSlice.actions;
 export default chatSlice.reducer;
