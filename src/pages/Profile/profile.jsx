@@ -48,7 +48,7 @@ const Profile = () => {
   const group_service = GroupService();
   const storeInfo = useSelector((state) => state);
   let redirect = useNavigate();
-   // switching store status to update page
+  // switching store status to update page
   let update = useSelector((state) => state.followers.updateStatus);
   let [myInfo, setMyInfo] = useState(false);
   let [followers, setFollowers] = useState(null);
@@ -133,7 +133,7 @@ const Profile = () => {
         ) : (
           <>
             {followers ? (
-              <FollowerList list={followers} label={"User spys on"} />
+              <FollowerList list={followers} label={"User spies on"} />
             ) : (
               <div>User doesn't follow anybody</div>
             )}
@@ -146,30 +146,33 @@ const Profile = () => {
         )}
       </TabPanel>
       {myInfo && (
-          <TabPanel index={3} value={tabValue}>
-            <div className="groups_container">
-              <div className="header">
-                <h1> - Groups </h1>
-                <Make_group />
-              </div>
-              <h3>My created groups</h3>
-              {storeInfo.groups.createdGroups ? (
-                <GroupList
-                  group={storeInfo.groups.createdGroups}
-                  myInfo={myInfo}
-                />
-              ) : (
-                <div> No groups created</div>
-              )}
-              <h3>Groups I'm in</h3>
+        <TabPanel index={3} value={tabValue}>
+          <div className="groups_container">
+            <div className="header">
+              <h1> - Groups </h1>
+              <Make_group />
+            </div>
+            <h3>My created groups</h3>
+            {storeInfo.groups.createdGroups ? (
+              <GroupList
+                group={storeInfo.groups.createdGroups}
+                myInfo={myInfo}
+              />
+            ) : (
+              <div> No groups created</div>
+            )}
+            <h3>Groups I'm in</h3>
             {storeInfo.groups.joinedGroups.length != 0 ? (
-              <GroupList group={storeInfo.groups.joinedGroups} myInfo={myInfo} />
-              ) : (
+              <GroupList
+                group={storeInfo.groups.joinedGroups}
+                myInfo={myInfo}
+              />
+            ) : (
               <div> No joined groups</div>
             )}
-            </div>
-          </TabPanel>
-        )}
+          </div>
+        </TabPanel>
+      )}
     </Box>
   );
 };

@@ -14,4 +14,13 @@ export default {
       throw err;
     }
   },
+  async getGroupMsgs(id) {
+    try {
+      const msgs = await http.get(`/group/message?groupId=${id}`);
+      console.log(msgs);
+      return msgs.data;
+    } catch (err) {
+      console.error(err);
+    }
+  },
 };

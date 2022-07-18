@@ -22,17 +22,22 @@ import WsApi from "../../utilities/ws";
 export const Chat = () => {
   let followerList = useSelector((state) => state.followers.followers);
   let dispatch = useDispatch();
-  const [receiver, setReceiver] = useState("");
-  console.log("2", receiver);
-  const [groups, setGroups] = useState([]);
+  const [receiver, setReceiver] = useState({ id: "", type: "" });
+  console.log("Receiver", receiver);
 
   const msgs = useSelector((state) => state.chat.msgHistory);
   let sender = helper.getTokenId();
 
   const group_service = GroupService();
   useEffect(() => {
-    group_service.getAllGroups().then((res) => setGroups(res));
+    group_service.getCreatedGroups();
+    group_service.getJoinedGroups();
   }, []);
+
+  const createdGroups = useSelector((state) => state.groups.createdGroups);
+  const joinedGroups = useSelector((state) => state.groups.joinedGroups);
+  let groups = createdGroups.concat(joinedGroups);
+
   console.log("Groups:", groups);
   console.log("Followers:", followerList);
 
@@ -49,7 +54,7 @@ export const Chat = () => {
   groups.forEach((g) => {
     let group = {
       name: g.title,
-      id: g.id,
+      id: `${g.id}`,
       type: "group",
     };
     members.push(group);
@@ -66,15 +71,30 @@ export const Chat = () => {
 
   const loadHistory = async () => {
     let msgHistory = [];
-    try {
-      msgHistory = await chatService.getMsgs(receiver, 0, 50);
-    } catch (e) {
-      console.log(e.message);
-      const errorState = {
-        text: "Can't load messages",
-        severity: "warning",
-      };
-      dispatch(setAlert(errorState));
+    if (receiver.type === "person") {
+      try {
+        msgHistory = await chatService.getMsgs(receiver.id, 0, 50);
+      } catch (e) {
+        console.log(e.message);
+        const errorState = {
+          text: "Can't load messages",
+          severity: "warning",
+        };
+        dispatch(setAlert(errorState));
+      }
+    } else if (receiver.type === "group") {
+      console.log("receiver", receiver);
+      try {
+        const m = await chatService.getGroupMsgs(receiver.id);
+        console.log("group messages", m);
+      } catch (e) {
+        console.error(e.message);
+        const errorState = {
+          text: "Can't load messages",
+          severity: "warning",
+        };
+        dispatch(setAlert(errorState));
+      }
     }
     msgHistory === null
       ? dispatch(loadMsgs([]))
@@ -88,7 +108,7 @@ export const Chat = () => {
       let jsonData = {};
       jsonData["action"] = "message";
       jsonData["user"] = sender;
-      jsonData["message_to"] = receiver;
+      jsonData["message_to"] = receiver.id;
       jsonData["message_content"] = text;
       console.log(JSON.stringify(jsonData));
       WsApi.sendChatMessage(JSON.stringify(jsonData));
@@ -107,7 +127,7 @@ export const Chat = () => {
 
   // load chat history
   useEffect(() => {
-    if (receiver !== "") {
+    if (receiver.id !== "") {
       loadHistory();
     }
   }, [receiver]);
@@ -136,10 +156,10 @@ export const Chat = () => {
                     {member.type === "person" ? <FaceIcon /> : <GroupsIcon />}
                     <ListItemText>
                       <Button
-                        className={member.id === receiver ? "active" : ""}
+                        className={member.id === receiver.id ? "active" : ""}
                         onClick={() => {
-                          setReceiver(member.id);
-                          loadHistory();
+                          setReceiver({ id: member.id, type: member.type });
+                          // loadHistory();
                         }}
                         fullWidth
                       >
@@ -154,7 +174,7 @@ export const Chat = () => {
         </Grid>
         <Grid item xs={9}>
           <List className={"messageArea"}>
-            {receiver === "" ? (
+            {receiver.id === "" ? (
               <ListItem>
                 <ListItemText>Select chat</ListItemText>
               </ListItem>
@@ -192,11 +212,11 @@ export const Chat = () => {
                 maxRows={2}
                 height={600}
                 // fullWidth
-                cleanOnEnter
+                // cleanOnEnter
                 maxLength={400}
                 value={text}
                 onChange={setText}
-                onEnter={receiver != "" ? sendMsg : fireAlert}
+                onEnter={receiver.id !== "" ? sendMsg : fireAlert}
               />
             </Grid>
             {/*<Grid item xs={1} marginLeft={1} align="right">*/}
