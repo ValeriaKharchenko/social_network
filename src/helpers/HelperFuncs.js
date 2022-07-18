@@ -1,6 +1,7 @@
 // WILL COLLECT ALL AND EXPORTS AS ONE 
 import capitalize from "./capitalize";
 import { checkImage, getBase64, convertImg } from './checkImage';
+import * as timeManager from "./timeManager"
 import  getTokenId  from "./tokenId";
 import checkError from "./checkError";
 import handleInputs from './checkInput';
@@ -16,4 +17,5 @@ export {
   convertImg,
   filterDoubles,
   convertListToMutable,
+  timeManager,
 };

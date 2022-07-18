@@ -5,7 +5,7 @@
     [ TO DO ]   2. Function to Revert all initialized user data data from store on logout  (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.close functionality 
     [?TO DO?]   3. Follow/UnFollow button bug (need to click 2 times, before button is changing)
     [?TO DO?]   4. searchbar filtering (for now it fetches everything [DEBOUNCE ???])
-   
+    [?TO DO?]   5. makeGroup btn should update and add made group after creating (NOW : updates with refresh or new fetch)
 
 
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
@@ -58,24 +58,19 @@
     FIXED :
          Private user follow request, after accepting, the requested user still showed -> Request has been send top of STOP FOLLOWING-  button
 
+    ( FROM: 18/07 )
+    NEW: 
+        Group Events now show when event is past (hides buttons)
+
+    FIXED : 
+        Fixed event responses (had to remove event from store array)
+
 
 ### On Works: 
-    <!-- Groups -->
-
-        //Events
-    [ ] - overtime events (needs to NOT show response buttons, and time should show (All ready in past))
-    [ ] WORKIN ON-- need to add buttons for going/notgoing + requests
-        ** Need to update store to remove event from list if not going **
-    [ FIX IT]
-    [ ] - Need to fix event responses (I think it dosen't read different event statuses right. With 2 
-          different event , they change each other to status != status (reverse each other or the status is just lagging behind))
-       
-
     
     <!-- Notifications -->
-
-    [ ] - user follow request -> after clicking it wont dissapear and show there all the time
-
+    [BUG]
+    [ ] - user follow request -> after clicking it wont dissapear and show there all the time 
 
 
     <!-- Messenger -->

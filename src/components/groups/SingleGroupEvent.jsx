@@ -1,5 +1,7 @@
 import { Button } from "@mui/material"
+import { useEffect, useState } from "react";
 import GroupService from "../../utilities/group_service";
+import * as helper from "../../helpers/HelperFuncs"
 
 /*  
 type GroupEventReply struct{
@@ -20,15 +22,22 @@ type EventParticipant struct{
     EventId     int `json:"event_id"`
     Option      int `json:"option"`
 }
-
 */
-
 
 
 const SingleGroupEvent = ({data}) => {
   const group_service  = GroupService()
   let joined = group_service.isJoining(data.event_id)
-  
+  let [past, setPast] = useState(false)
+
+  useEffect(()=>{
+      if(!helper.timeManager.isFuture(helper.timeManager.todayDate(),data.day)){
+         if(helper.timeManager.calcTime(data.time) < helper.timeManager.calcTime(helper.timeManager.todayTime())) {
+          setPast(true)
+      }
+    }
+  },[])
+
   const handleRequest = (nr) => { 
     group_service.sendEventReply({
       event_id : data.event_id,
@@ -44,17 +53,24 @@ const SingleGroupEvent = ({data}) => {
             <div className="author"> {data.creator_firstname} {data.creator_lastname}</div>
             <div className="event_btns">
 
-              <Button className={joined ? "green" : ""} onClick={() => {
-                if(!joined) handleRequest(1)
-              }}>  Going     </Button>
-              <Button className={!joined ? "green" : ""} onClick={() => {
-                if(joined) handleRequest(2)
-              }}> Not Going</Button>
+            {!past && 
+            <>
+              <Button className={joined ? "green" : ""} onClick={() => {if(!joined) handleRequest(1)}}>  Going     </Button>
+              <Button className={!joined ? "green" : ""} onClick={() => {if(joined) handleRequest(2)}}> Not Going</Button>
+            </>
+            }
+
             </div>
             <div className="date">
-              <div> Taking place: </div>
-              <div> {data.created_at == "" ? "???" : data.created_at} </div>
-              <div> {data.time} </div>
+              {!past ?
+                <div> 
+                   Taking place: 
+                  <div> {data.created_at} </div>
+                  <div> {data.time} </div>
+                </div>
+              :
+              <div>Event is over </div>
+              }
             </div>
         </div>
         <div className="content flex">
