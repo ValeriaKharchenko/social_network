@@ -3,6 +3,7 @@ import "./chat.scss";
 import chatService from "../../utilities/chat";
 import { setAlert } from "../../store/alertSlice";
 import { loadMsgs } from "../../store/chatSlice";
+import GroupService from "../../utilities/group_service";
 
 // import Picker from "emoji-picker-react";
 import InputEmoji from "react-input-emoji";
@@ -23,13 +24,15 @@ export const Chat = () => {
   let dispatch = useDispatch();
   const [receiver, setReceiver] = useState("");
   console.log("2", receiver);
+  const [groups, setGroups] = useState([]);
 
   const msgs = useSelector((state) => state.chat.msgHistory);
   let sender = helper.getTokenId();
 
-  let createdGroups = useSelector((state) => state.groups.createdGroups);
-  let joinedGroups = useSelector((state) => state.groups.joinedGroups);
-  let groups = createdGroups.concat(joinedGroups);
+  const group_service = GroupService();
+  useEffect(() => {
+    group_service.getAllGroups().then((res) => setGroups(res));
+  }, []);
   console.log("Groups:", groups);
   console.log("Followers:", followerList);
 
@@ -53,8 +56,6 @@ export const Chat = () => {
   });
   console.log("Members", members);
 
-  // const { handleSubmit, register } = useForm();
-  // const form = useRef(null);
   const bottomRef = useRef(null);
 
   const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -94,6 +95,14 @@ export const Chat = () => {
       setText("");
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const fireAlert = () => {
+    const errorState = {
+      text: "Select chat to send message",
+      severity: "warning",
+    };
+    dispatch(setAlert(errorState));
   };
 
   // load chat history
@@ -187,7 +196,7 @@ export const Chat = () => {
                 maxLength={400}
                 value={text}
                 onChange={setText}
-                onEnter={sendMsg}
+                onEnter={receiver != "" ? sendMsg : fireAlert}
               />
             </Grid>
             {/*<Grid item xs={1} marginLeft={1} align="right">*/}

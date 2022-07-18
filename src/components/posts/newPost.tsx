@@ -19,7 +19,6 @@ import { RootState } from "../../store/store";
 import { useForm } from "react-hook-form";
 import { checkImage, getBase64 } from "../../helpers/checkImage";
 import postService from "../../utilities/post-service";
-import TransferList from "../transferList";
 import { useParams } from "react-router-dom";
 import { setAlert } from "../../store/alertSlice";
 import getTokenId from "../../helpers/tokenId";
@@ -249,7 +248,6 @@ export function NewPost(props: { parentPrivacy: number}) {
                 />
               </RadioGroup>
               {followers && (
-                // <TransferList followers={listOfFollowers} sendBack={chosen} />
                 <UserList
                   followers={listOfFollowers}
                   sendBack={chosen}
