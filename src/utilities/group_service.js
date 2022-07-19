@@ -8,7 +8,8 @@ import {
   updateJoinedGroups,
   updateCurrentGroup,
   updateStatus,
-  updateJoinedEvents
+  updateJoinedEvents,
+  addAllGroups
 } from '../store/groupSlice';
 
 //  make new group                                          // /group/new
@@ -67,6 +68,7 @@ import {
     try{
       console.log("%c Fetching all groups --> ","color:orange");
       const response = await http.get('/group/all');
+      dispatch(addAllGroups(response.data));
       return response.data
     }catch(err){
       helper.checkError(err)

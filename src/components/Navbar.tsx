@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Home } from "@mui/icons-material";
-import { Avatar, Button } from "@mui/material";
+import { Avatar } from "@mui/material";
 import "./styles/navbar.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -22,7 +22,7 @@ const Navbar = () => {
     try{
       notificationList.forEach((obj) => { 
         if(obj["data"]["seen"] == 0){
-          console.log("SENDING INFO TO SERVER ABOUT NOTIFICATION ->" , obj["data"]["notif_id"]);
+          // console.log("SENDING INFO TO SERVER ABOUT NOTIFICATION ->" , obj["data"]["notif_id"]);
           notification_service.handleNotificationSeen(obj["data"]["notif_id"], 1)
         } 
       })

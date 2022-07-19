@@ -1,20 +1,16 @@
 // https://github.com/ValeriaKharchenko/social_network
 
 ### BACKLOG [Questions&Suggestions]:
-    [ TO DO ]   1. Function to Intialize all loged in user data to store on login (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.connect functionality 
-    [ TO DO ]   2. Function to Revert all initialized user data data from store on logout  (posts,followers,groups,notifications,profile data, etc..)  +  Websocket.close functionality 
-    [?TO DO?]   3. Follow/UnFollow button bug (need to click 2 times, before button is changing)
-    [?TO DO?]   4. searchbar filtering (for now it fetches everything [DEBOUNCE ???])
-    [?TO DO?]   5. makeGroup btn should update and add made group after creating (NOW : updates with refresh or new fetch)
+    [?TODO?]   1. Follow/UnFollow button bug (need to click 2 times, before button is changing)
+    [ TODO ]   2. GroupService getAllgroups -> no need to fetch twice ( change old functions that uses fetch)
 
 
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
     [ OPTIONAL ] 2. USER PROFILE - profile update tab, privacy button changeing back to public after leaving tab (needs to update to right state) 
-    [ OPTIONAL ] 3. SEARCHBAR - Fetching on every keystroke (put status there or into store )
-    [ OPTIONAL ] 4. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
-    [ OPTIONAL ] 5. GROUP PAGE  - Visual update (post,events, more..?)
-    [ OPTIONAL ] 6. Possibility to add new post on landing page (/homepage) Or it will be redone ???
-    [ OPTIONAL ] 7. NOTIFICATION - one button to convert  all to  seen&clicked status
+    [ OPTIONAL ] 3. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
+    [ OPTIONAL ] 4. GROUP PAGE  - Visual update (post,events, more..?)
+    [ OPTIONAL ] 5. Possibility to add new post on landing page (/homepage) Or it will be redone ???
+    [ OPTIONAL ] 6. NOTIFICATION - one button to convert  all to  seen&clicked status
 
     [ERRORS] - Some error handling ? 
 
@@ -65,12 +61,18 @@
     FIXED : 
         Fixed event responses (had to remove event from store array)
 
+    ( FROM: 19/07 )
+       * Function to Revert all initialized user data from store on logout  (posts,followers,groups,notifications,profile data, etc..)
+       * Search bar has now filtering and buttons to choose from ( Needs testing, visual lift)
+
 
 ### On Works: 
-    
+    [?TODO?]   2. makeGroup btn should update and add made group after creating (NOW : updates with refresh or new fetch)
+
+
     <!-- Notifications -->
-    [BUG]
-    [ ] - user follow request -> after clicking it wont dissapear and show there all the time 
+        [BUG]
+        [ ] - user follow request -> after clicking it wont dissapear and show there all the time 
 
 
     <!-- Messenger -->

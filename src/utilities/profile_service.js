@@ -50,7 +50,6 @@ const ProfileService = () => {
     try {
       console.log("%cFetching All users list", "color:orange");
       const response = await http.get("user/all");
-      // console.log(response.data);
       dispatch(addAllUsers(response.data));
     } catch (err) {
       helper.checkError(err);
