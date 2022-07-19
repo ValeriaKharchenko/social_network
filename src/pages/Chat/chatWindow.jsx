@@ -112,8 +112,8 @@ export const Chat = () => {
     } else if (receiver.type === "group") {
       // console.log("receiver", receiver);
       try {
-        msgHistory = await chatService.getGroupMsgs(receiver.id);
-        // console.log("group messages", m);
+        msgHistory = await chatService.getGroupMsgs(receiver.id, s, 10);
+        console.log("group messages", msgHistory);
       } catch (e) {
         console.error(e.message);
         const errorState = {
@@ -145,11 +145,15 @@ export const Chat = () => {
     console.log(text);
     if (text.trim().length > 0) {
       let jsonData = {};
-      jsonData["action"] = "message";
+      if (receiver.type === "person") {
+        jsonData["action"] = "message";
+      } else {
+        jsonData["action"] = "group_chat";
+      }
       jsonData["user"] = sender;
       jsonData["message_to"] = receiver.id;
       jsonData["message_content"] = text;
-      // console.log(JSON.stringify(jsonData));
+      console.log("JSON DATA", JSON.stringify(jsonData));
       WsApi.sendChatMessage(JSON.stringify(jsonData));
       setText("");
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });

@@ -14,9 +14,11 @@ export default {
       throw err;
     }
   },
-  async getGroupMsgs(id) {
+  async getGroupMsgs(id, skip, limit) {
     try {
-      const msgs = await http.get(`/group/message?groupId=${id}`);
+      const msgs = await http.get(
+        `./group/chat/groupId=${id}&skip=${skip}&limit=${limit}`
+      );
       console.log(msgs);
       return msgs.data;
     } catch (err) {

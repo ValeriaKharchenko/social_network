@@ -20,11 +20,11 @@ export default {
     };
 
     ws.onmessage = (msg) => {
-      console.log(msg.data);
+      console.log("Message from ws: ", msg.data);
       const msgJSON = JSON.parse(msg.data);
       let notificationList = [];
-      
-      if(Array.isArray(msgJSON)) {
+
+      if (Array.isArray(msgJSON)) {
         // console.log("length of incoming list" , msg.data.split("}},").length);
         msgJSON.forEach((m) => {
           if (m.action_type === "private message") {
@@ -35,9 +35,9 @@ export default {
             notificationList.push(m);
           }
         });
-        console.log('NotificationList : ', notificationList);
+        console.log("NotificationList : ", notificationList);
         dispatcher(updateNotifications(notificationList));
-      };
+      }
     };
   },
   stop(id) {
