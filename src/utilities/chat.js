@@ -17,7 +17,7 @@ export default {
   async getGroupMsgs(id, skip, limit) {
     try {
       const msgs = await http.get(
-        `./group/chat/groupId=${id}&skip=${skip}&limit=${limit}`
+        `/group/chat?groupId=${id}&skip=${skip}&limit=${limit}`
       );
       console.log(msgs);
       return msgs.data;
