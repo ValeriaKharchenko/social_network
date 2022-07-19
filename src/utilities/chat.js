@@ -14,11 +14,27 @@ export default {
       throw err;
     }
   },
-  async getGroupMsgs(id) {
+  async getGroupMsgs(id, skip, limit) {
     try {
-      const msgs = await http.get(`/group/message?groupId=${id}`);
+      const msgs = await http.get(
+        `/group/chat?groupId=${id}&skip=${skip}&limit=${limit}`
+      );
       console.log(msgs);
-      return msgs.data;
+      let m = [];
+      if (msgs.data !== null) {
+        msgs.data.forEach((msg) => {
+          const ms = {
+            content: msg.content,
+            data: msg.created_at,
+            from: msg.from,
+            name: msg.first_name + " " + msg.last_name,
+            read: msg.seen, //prob don't need this field
+          };
+          m.push(ms);
+        });
+      }
+      console.log("Parsed msgs", m);
+      return m;
     } catch (err) {
       console.error(err);
     }
