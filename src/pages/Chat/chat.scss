@@ -27,13 +27,15 @@
       overflow-y: auto;
     }
     .left {
+      margin-right: 12%;
       padding: 20px;
       border-radius: 10px;
       text-align: left;
       background-color: #CCD6D2;
     }
     .right {
-      width: 30vw;
+      //width: 60%;
+      margin-left: 12%;
       border-radius: 10px;
       text-align: right;
       background-color: #709295;

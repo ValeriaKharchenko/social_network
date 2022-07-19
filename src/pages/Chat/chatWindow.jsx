@@ -23,7 +23,7 @@ export const Chat = () => {
   let followerList = useSelector((state) => state.followers.followers);
   let dispatch = useDispatch();
   const [receiver, setReceiver] = useState({ id: "", type: "" });
-  console.log("Receiver", receiver);
+  // console.log("Receiver", receiver);
 
   const msgs = useSelector((state) => state.chat.msgHistory);
   let sender = helper.getTokenId();
@@ -66,26 +66,25 @@ export const Chat = () => {
 
   // 👇️ scroll to bottom every time messages change
   const bottomRef = useRef(null);
+  const [lastMsg, setLastMsg] = useState("");
 
-  // useEffect(() => {
-  //   bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  // }, [msgs]);
+  useEffect(() => {
+    if (msgs && lastMsg !== msgs[msgs.length - 1]) {
+      setLastMsg(msgs[msgs.length - 1]);
+      console.log("Last msg", lastMsg);
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [msgs]);
 
   //load more msgs
-  const [isFetching, setIsFetching] = useState(false);
+  // const [isFetching, setIsFetching] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
   function loadMore() {
-    setIsFetching(true);
-
-    //mocking an API call
+    // setIsFetching(true);
     setTimeout(() => {
-      // setItems((prevState) => [
-      //   ...prevState,
-      //   ...Array.from(Array(20).keys(), (n) => n + prevState.length + 1),
-      // ]);
       loadHistory(msgs.length);
-      setIsFetching(false);
+      // setIsFetching(false);
     }, 2000);
   }
 
@@ -131,11 +130,10 @@ export const Chat = () => {
       dispatch(addToBegining(msgHistory));
     }
   };
-
   useEffect(() => {
     if (receiver.id !== "") {
+      console.log("Use effect", receiver);
       loadHistory(0);
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [receiver]);
 
@@ -153,7 +151,7 @@ export const Chat = () => {
       jsonData["user"] = sender;
       jsonData["message_to"] = receiver.id;
       jsonData["message_content"] = text;
-      console.log("JSON DATA", JSON.stringify(jsonData));
+      // console.log("JSON DATA", JSON.stringify(jsonData));
       WsApi.sendChatMessage(JSON.stringify(jsonData));
       setText("");
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
