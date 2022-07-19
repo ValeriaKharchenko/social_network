@@ -49,7 +49,7 @@ const Profile = () => {
   const storeInfo = useSelector((state) => state);
   let redirect = useNavigate();
   // switching store status to update page
-  let update = useSelector((state) => state.followers.updateStatus);
+  let updateFollowers = useSelector((state) => state.followers.updateStatus);
   let [myInfo, setMyInfo] = useState(false);
   let [followers, setFollowers] = useState(null);
   let [stalkers, setStalkers] = useState(null);
@@ -75,7 +75,7 @@ const Profile = () => {
         setStalkers(res);
       });
     }
-  }, [id, update]);
+  }, [id, updateFollowers]);
 
   const [tabValue, setTabValue] = useState(0);
   const handleChange = (event, newValue) => {

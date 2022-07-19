@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 // Material UI
 import {
   Avatar,
@@ -21,13 +21,16 @@ import FollowerService from "../../utilities/follower_service";
 import { setAlert } from "../../store/alertSlice";
 import WsApi from "../../utilities/ws";
 import * as helper from "../../helpers/HelperFuncs";
+import GroupService from "../../utilities/group_service";
 
 export default function Login() {
   const profile_service = ProfileService();
   const follower_service = FollowerService();
+  const group_service = GroupService();
   const { handleSubmit, register } = useForm<FormInput>();
   const dispatch = useDispatch();
   let redirect = useNavigate();
+
 
   interface FormInput {
     email: string;
@@ -36,12 +39,14 @@ export default function Login() {
 
   const onSubmit = async (data: FormInput) => {
     try {
-      const response = await authService.login(data.email, data.password);
+      await authService.login(data.email, data.password);
+      // const response = await authService.login(data.email, data.password);
       // dispatch(update(response));
+      // await profile_service.getMyInfo();
+      // await follower_service.getMyFollowers();
       profile_service.checkAuth();
-      await profile_service.getMyInfo();
-      await follower_service.getMyFollowers();
-
+      profile_service.getAllUsers()
+      group_service.getAllGroups()
       //ws connection
       let id = helper.getTokenId();
 
@@ -69,6 +74,7 @@ export default function Login() {
 
   // console.log("Here!");
   return (
+
     <Container component="main" maxWidth="xs" className={"Login"}>
       <Box
         sx={{

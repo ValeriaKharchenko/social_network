@@ -1,4 +1,5 @@
 import {createSlice } from '@reduxjs/toolkit';
+import Logout from '../components/buttons/logout';
 // import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import profile_service from '../utilities/profile-service';
 
@@ -13,6 +14,7 @@ let initial = {
     about_me: '',
     user_img: '',
     is_private: false,
+    logout : false,
 };
 
 export const profileSlice = createSlice({
@@ -31,8 +33,7 @@ export const profileSlice = createSlice({
         },
         updateAuth : (state,action) => { 
             state.auth = action.payload
-        }
-
+        },
     }
 })
 

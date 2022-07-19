@@ -2,10 +2,8 @@ import userService from "../../utilities/user-service";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
-// import { logoutUser } from "../../store/userSlice";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./logout.scss";
-import { updateAuth } from "../../store/profileSlice";
 import WsApi from "../../utilities/ws";
 import * as helper from "../../helpers/HelperFuncs";
 
@@ -14,11 +12,9 @@ export default function Logout() {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    console.log("logout fired");
-    await userService.logout().then(() => {
-      // @ts-ignore
-      // dispatch(logoutUser());
-      dispatch(updateAuth(false));
+      console.log("logout fired");
+      await userService.logout().then(() => {
+      dispatch({ type: "LOGOUT"})
       let id = helper.getTokenId();
       WsApi.stop(id);
       redirect("/login", { replace: true });

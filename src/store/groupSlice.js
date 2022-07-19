@@ -5,14 +5,15 @@ export const groupSlice = createSlice({
   initialState: {
     updateStatus: false,
     // currentUserId: null,
-    currentGroupInfo :{},
+    currentGroupInfo: {},
     createdGroups: [],
     sentRequests: [],
     joinedGroups: [],
     joinedEvents: [],
+    allGroups: [],
   },
   reducers: {
-    updateCurrentGroup : (state,action) => { 
+    updateCurrentGroup: (state, action) => {
       state.currentGroupInfo = action.payload;
     },
     updateCreatedGroups: (state, action) => {
@@ -20,7 +21,7 @@ export const groupSlice = createSlice({
     },
     updateSentRequests: (state, action) => {
       let arr = state.sentRequests;
-      if(!arr.includes(action.payload)) arr.push(action.payload);
+      if (!arr.includes(action.payload)) arr.push(action.payload);
       // state.sentRequests = action.payload;
       state.sentRequests = arr;
     },
@@ -33,6 +34,9 @@ export const groupSlice = createSlice({
     updateStatus: (state, action) => {
       state.updateStatus = action.payload;
     },
+    addAllGroups: (state, action) => {
+      state.allGroups = action.payload
+    },
   },
 });
 
@@ -43,5 +47,6 @@ export const {
   updateJoinedGroups,
   updateJoinedEvents,
   updateStatus,
+  addAllGroups,
 } = groupSlice.actions;
 export default groupSlice.reducer;

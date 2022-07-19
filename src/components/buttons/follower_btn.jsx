@@ -19,8 +19,11 @@ const Follow_btn = ({isPrivate}) => {
          </div>
        :
          <div>
-            {(!isFollowing && !requestSent)  ? <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true,isPrivate)} >Follow Private user <PersonAddIcon /> </Button> : <div> {!isFollowing ? `Request has been sent` : ""}</div>}
-            <Button  className="flex" onClick={() =>follower_service.handleFollowerBtn(false)}>Stop Following <PersonRemoveIcon />  </Button>
+            {(!isFollowing && !requestSent)  ? <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true,isPrivate)} >Follow Private user <PersonAddIcon /> </Button> :
+             <div> 
+              {!isFollowing ? 
+              `Request has been sent` : <Button  className="flex" onClick={() =>follower_service.handleFollowerBtn(false)}>Stop Following <PersonRemoveIcon />  </Button>
+            }</div>}
          </div>
          }
     </div>

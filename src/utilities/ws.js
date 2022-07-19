@@ -27,7 +27,7 @@ export default {
       if (Array.isArray(msgJSON)) {
         // console.log("length of incoming list" , msg.data.split("}},").length);
         msgJSON.forEach((m) => {
-          if (m.action_type === "private message") {
+          if (m.action_type === "private message" || m.action_type === "new message in group chat") {
             console.log("I'm here", m);
             dispatcher(addMsg(m.data));
           } else if (m.action_type === "group message") {

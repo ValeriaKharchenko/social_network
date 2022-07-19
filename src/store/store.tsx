@@ -18,8 +18,17 @@ const rootReducer = combineReducers({
   chat: chatSlice,
 });
 
+// @ts-ignore
+export const appReducer = (state, action) => {
+  // console.log(action);
+  if (action.type === 'LOGOUT'){
+    return rootReducer(undefined,action)
+  }
+  return rootReducer(state,action)
+}
+
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: appReducer,
 });
 
 export default store;

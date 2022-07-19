@@ -8,7 +8,8 @@ import {
   updateJoinedGroups,
   updateCurrentGroup,
   updateStatus,
-  updateJoinedEvents
+  updateJoinedEvents,
+  addAllGroups
 } from '../store/groupSlice';
 
 //  make new group                                          // /group/new
@@ -67,6 +68,7 @@ import {
     try{
       console.log("%c Fetching all groups --> ","color:orange");
       const response = await http.get('/group/all');
+      dispatch(addAllGroups(response.data));
       return response.data
     }catch(err){
       helper.checkError(err)
@@ -219,11 +221,13 @@ import {
   }
 
   const sendEventReply = async  (data) => {
+    console.log(data);
     try {
       console.log('%c Sending event reply-> ', 'color:orange',data);
       const response = await http.post(`/group/event/reply`, data);
-      console.log('%c event post reply is--> ','color:coral',response);
+      console.log('%c event reply response--> ','color:coral',response);
       dispatch(updateStatus(!storeInfo.groups.updateStatus));
+      if(data.option == 2) dispatch(updateJoinedEvents(storeInfo.groups.joinedEvents.filter(obj => obj.event_id != data.event_id )))
     } catch (err) {
        helper.checkError(err);
     }

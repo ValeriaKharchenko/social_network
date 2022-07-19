@@ -1,13 +1,14 @@
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import { Avatar, Container } from "@mui/material";
+import { Avatar, Button, Container } from "@mui/material";
 import "./styles/searchbar.scss";
 import ProfileService from "../utilities/profile_service";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GroupService from "../utilities/group_service";
+import id from "date-fns/esm/locale/id/index.js";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -52,43 +53,71 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Searchbar = () => {
   const profile_service = ProfileService();
   const group_service = GroupService();
-  const storeInfo = useSelector((state) => state);
+  const allUsers = useSelector((state) => state.profile.allUsers);
+  const allGroups = useSelector((state) => state.groups.allGroups);
   const [groups, setGroups] = useState([]);
+  const [users, setUsers] = useState([]);
   const [fetched, setFetched] = useState(false);
   const [input, setInput] = useState("");
+  const [option, setOption] = useState(0)
   let redirect = useNavigate();
+  
   const HandleChange = (e) => {
     setInput(e.target.value);
     if (fetched === false) {
-      profile_service.getAllUsers();
+      profile_service.getAllUsers()
+      group_service.getAllGroups()
       setFetched(true);
     }
   };
 
-  /* 
-  type GroupReply struct{
-      Id                  int     `json:"id"`
-      Title               string  `json:"title"`
-      Description         string  `json:"description"`
-      CreatorId           string  `json:"creator_id"`
-      CreatorFirstName    string  `json:"creator_first_name"`
-      CreatorLastName     string  `json:"creator_last_name"`
-      Members             int     `json:"members"`
-  }
-*/
-
   useEffect(() => {
-    if (input == "" || input == null) {
+    if (input == "" || input == null || input == " ") {
       document.querySelector(".searched_users").classList.add("hide");
+      setFetched(false)
     } else {
-      group_service.getAllGroups().then((res) => setGroups(res));
       document.querySelector(".searched_users").classList.remove("hide");
-      console.log(groups);
-    }
-  }, [input]);
+      // if(option == 0){
+      //   setUsers(allUsers.filter(user => user.first_name.toLowerCase().includes(input.toLowerCase())))
+      //   setGroups(allGroups.filter(group => group.title.toLowerCase().includes(input.toLowerCase())))
+      // }
 
+      switch(option){
+        case 0 :
+          setUsers(allUsers.filter(user => user.first_name.toLowerCase().includes(input.toLowerCase())))
+          setGroups(allGroups.filter(group => group.title.toLowerCase().includes(input.toLowerCase())))
+          break;
+          case 1 : 
+          setUsers(allUsers.filter(user => user.first_name.toLowerCase().includes(input.toLowerCase())))
+          setGroups([])
+          break;
+          case 2 : 
+          setUsers([])
+          setGroups(allGroups.filter(group => group.title.toLowerCase().includes(input.toLowerCase())))
+          break;
+      }
+    }
+  }, [input,option]);
+
+  
   return (
     <div>
+      {option == 0 ? 
+      <Button style={{background:"green"}}>all</Button>
+      :
+      <Button onClick={() => { setOption(0)}} >all</Button>
+      }
+      {option == 1 ? 
+      <Button style={{background:"green"}}>users</Button>
+      :
+      <Button onClick={() => { setOption(1)}} >users</Button>
+      }
+      {option == 2 ? 
+      <Button style={{background:"green"}}>groups</Button>
+      :
+      <Button onClick={() => { setOption(2)}} >groups</Button>
+      }
+
       <Search>
         <SearchIconWrapper>
           <SearchIcon />
@@ -103,8 +132,8 @@ const Searchbar = () => {
       </Search>
 
       <Container className="searched_users hide">
-        {storeInfo.profile.allUsers &&
-          storeInfo.profile.allUsers.map((user) => (
+        {users &&
+          users.map((user) => (
             <div
               className="user flex"
               key={user.ID}
