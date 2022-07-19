@@ -191,7 +191,6 @@ export const Chat = () => {
                         className={member.id === receiver.id ? "active" : ""}
                         onClick={() => {
                           setReceiver({ id: member.id, type: member.type });
-                          // loadHistory();
                         }}
                         fullWidth
                       >
@@ -212,9 +211,10 @@ export const Chat = () => {
                   sx={{ marginLeft: 25 }}
                   variant="text"
                   onClick={loadMore}
+                  className={"load-more-btn"}
                 >
                   {" "}
-                  Load more{" "}
+                  Load more...{" "}
                 </Button>
               </ListItem>
             )}
@@ -235,7 +235,11 @@ export const Chat = () => {
                         <ListItemText
                           className={m.from === sender ? "right" : "left"}
                         >
-                          {m.content}
+                          <div className={"additional-info user-name"}>
+                            {m.name}
+                          </div>
+                          <div>{m.content}</div>
+                          <div className={"additional-info"}>{m.data}</div>
                         </ListItemText>
                       </Grid>
                     </Grid>

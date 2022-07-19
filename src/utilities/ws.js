@@ -30,6 +30,21 @@ export default {
           if (m.action_type === "private message") {
             console.log("I'm here", m);
             dispatcher(addMsg(m.data));
+          } else if (m.action_type === "group message") {
+            console.log("Group msg: ", m);
+            const newMsg = {
+              content: m.data.content,
+              data: m.data.created_at,
+              from: m.data.from,
+              name: m.data.first_name + " " + m.data.last_name,
+              group_id: m.data.group_id,
+            };
+            dispatcher(addMsg(newMsg));
+          } else if (
+            m.action_type === "new message in group chat" ||
+            m.action_type === "new private message"
+          ) {
+            console.log("Notification about new message", m.data);
           } else {
             // console.log("Regular Notifications", msgJSON);
             notificationList.push(m);

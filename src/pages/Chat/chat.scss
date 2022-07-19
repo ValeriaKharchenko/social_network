@@ -1,6 +1,9 @@
 .fullWidth {
   width: 100%;
   min-width: 650px;
+  .load-more-btn:hover {
+    background-color: white;
+  }
   button:hover {
     background-color: #CCD6D2;
   }
@@ -24,14 +27,25 @@
       overflow-y: auto;
     }
     .left {
+      padding: 20px;
       border-radius: 10px;
       text-align: left;
       background-color: #CCD6D2;
     }
     .right {
+      width: 30vw;
       border-radius: 10px;
       text-align: right;
       background-color: #709295;
+    }
+    .additional-info {
+      //text-align: left;
+      color: darkslategray;
+      font-size: small;
+      font-family: Charter;
+    }
+    .user-name {
+      text-decoration: underline;
     }
   }
 }

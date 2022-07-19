@@ -20,7 +20,21 @@ export default {
         `/group/chat?groupId=${id}&skip=${skip}&limit=${limit}`
       );
       console.log(msgs);
-      return msgs.data;
+      let m = [];
+      if (msgs.data !== null) {
+        msgs.data.forEach((msg) => {
+          const ms = {
+            content: msg.content,
+            data: msg.created_at,
+            from: msg.from,
+            name: msg.first_name + " " + msg.last_name,
+            read: msg.seen, //prob don't need this field
+          };
+          m.push(ms);
+        });
+      }
+      console.log("Parsed msgs", m);
+      return m;
     } catch (err) {
       console.error(err);
     }

@@ -15,26 +15,39 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
   const storeInfo = useSelector((state: RootState) => state);
   const notification_service = NotificationService();
-  let notificationList = storeInfo.notifications.notifications != null ? storeInfo.notifications.notifications : []; 
-  let [notificationCount, setNotificationCount] = useState(notificationList.filter(obj => !obj["data"]["seen"]).length)
+  let notificationList =
+    storeInfo.notifications.notifications != null
+      ? storeInfo.notifications.notifications
+      : [];
+  let [notificationCount, setNotificationCount] = useState(
+    notificationList.filter((obj) => !obj["data"]["seen"]).length
+  );
 
-  const replyServerOfNotifications = () =>{
-    try{
-      notificationList.forEach((obj) => { 
-        if(obj["data"]["seen"] == 0){
-          console.log("SENDING INFO TO SERVER ABOUT NOTIFICATION ->" , obj["data"]["notif_id"]);
-          notification_service.handleNotificationSeen(obj["data"]["notif_id"], 1)
-        } 
-      })
-    }catch (err){
-      console.log("SOME ERROR :" , err);
+  const replyServerOfNotifications = () => {
+    try {
+      notificationList.forEach((obj) => {
+        if (obj["data"]["seen"] == 0) {
+          console.log(
+            "SENDING INFO TO SERVER ABOUT NOTIFICATION ->",
+            obj["data"]["notif_id"]
+          );
+          notification_service.handleNotificationSeen(
+            obj["data"]["notif_id"],
+            1
+          );
+        }
+      });
+    } catch (err) {
+      console.log("SOME ERROR :", err);
     }
     setNotificationCount(0);
-  }
-  
-  useEffect(()=>{
-    setNotificationCount(notificationList.filter(obj => !obj["data"]["seen"]).length)
-  }, [notificationList])
+  };
+
+  useEffect(() => {
+    setNotificationCount(
+      notificationList.filter((obj) => !obj["data"]["seen"]).length
+    );
+  }, [notificationList]);
 
   // @ts-ignore
   const storeProfileInfo = useSelector(
@@ -44,7 +57,7 @@ const Navbar = () => {
   return (
     <div className="navigation">
       <Searchbar />
-      
+
       <div className="profile_box">
         <Logout />
         <Avatar
@@ -60,15 +73,25 @@ const Navbar = () => {
       <Link className="link" to={"/homepage"}>
         Home <Home />
       </Link>
-      
+
       <Link className="link" to={"/profile/me"}>
         Profile <InsertEmoticonIcon />
       </Link>
-      
-      <Link className="link" to={"/notifications"} onClick={replyServerOfNotifications}>
-        Notifications {notificationCount != 0 ? <NotificationsIcon sx={{ color: "red" }} /> : <NotificationsIcon />} {notificationCount}
+
+      <Link
+        className="link"
+        to={"/notifications"}
+        onClick={replyServerOfNotifications}
+      >
+        Notifications{" "}
+        {notificationCount !== 0 ? (
+          <NotificationsIcon sx={{ color: "red" }} />
+        ) : (
+          <NotificationsIcon />
+        )}{" "}
+        {notificationCount}
       </Link>
-      
+
       <Link className={"link"} to={"/chat"}>
         Chat <ChatIcon />
       </Link>
