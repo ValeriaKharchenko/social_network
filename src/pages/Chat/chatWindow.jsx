@@ -71,20 +71,16 @@ export const Chat = () => {
   useEffect(() => {
     if (msgs && lastMsg !== msgs[msgs.length - 1]) {
       setLastMsg(msgs[msgs.length - 1]);
-      console.log("Last msg", lastMsg);
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [msgs]);
 
   //load more msgs
-  // const [isFetching, setIsFetching] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
   function loadMore() {
-    // setIsFetching(true);
     setTimeout(() => {
       loadHistory(msgs.length);
-      // setIsFetching(false);
     }, 2000);
   }
 
@@ -132,7 +128,6 @@ export const Chat = () => {
   };
   useEffect(() => {
     if (receiver.id !== "") {
-      console.log("Use effect", receiver);
       loadHistory(0);
     }
   }, [receiver]);
