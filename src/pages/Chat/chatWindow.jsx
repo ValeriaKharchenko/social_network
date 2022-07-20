@@ -15,12 +15,17 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import FaceIcon from "@mui/icons-material/Face";
 import GroupsIcon from "@mui/icons-material/Groups";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { useDispatch, useSelector } from "react-redux";
 import * as helper from "../../helpers/HelperFuncs";
 import WsApi from "../../utilities/ws";
+import { removeNotification } from "../../store/notificationSlice";
 
 export const Chat = () => {
   let followerList = useSelector((state) => state.followers.followers);
+  let notifications = useSelector((state) => state.notifications.messages);
+  console.log("Notifications from useSelector", notifications);
   let dispatch = useDispatch();
   const [receiver, setReceiver] = useState({ id: "", type: "" });
   // console.log("Receiver", receiver);
@@ -129,13 +134,14 @@ export const Chat = () => {
   useEffect(() => {
     if (receiver.id !== "") {
       loadHistory(0);
+      dispatch(removeNotification(receiver.id));
     }
   }, [receiver]);
 
   //send chat message
   const [text, setText] = useState("");
   const sendMsg = (text) => {
-    console.log(text);
+    // console.log(text);
     if (text.trim().length > 0) {
       let jsonData = {};
       if (receiver.type === "person") {
@@ -187,7 +193,16 @@ export const Chat = () => {
                         }}
                         fullWidth
                       >
-                        {member.name}
+                        {member.name}{" "}
+                        {notifications.includes(member.id) && (
+                          <ChatBubbleOutlineIcon
+                            sx={{
+                              color: "#D7B271",
+                              fontSize: 20,
+                              marginLeft: 1,
+                            }}
+                          />
+                        )}
                       </Button>
                     </ListItemText>
                   </ListItem>

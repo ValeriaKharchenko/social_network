@@ -1,4 +1,7 @@
-import { updateNotifications } from "../store/notificationSlice";
+import {
+  updateNotifications,
+  addNotification,
+} from "../store/notificationSlice";
 import { addMsg } from "../store/chatSlice";
 
 let ws;
@@ -27,8 +30,8 @@ export default {
       if (Array.isArray(msgJSON)) {
         // console.log("length of incoming list" , msg.data.split("}},").length);
         msgJSON.forEach((m) => {
-          if (m.action_type === "private message" || m.action_type === "new message in group chat") {
-            console.log("I'm here", m);
+          if (m.action_type === "private message") {
+            console.log("Private msg", m);
             dispatcher(addMsg(m.data));
           } else if (m.action_type === "group message") {
             console.log("Group msg: ", m);
@@ -40,11 +43,12 @@ export default {
               group_id: m.data.group_id,
             };
             dispatcher(addMsg(newMsg));
-          } else if (
-            m.action_type === "new message in group chat" ||
-            m.action_type === "new private message"
-          ) {
-            console.log("Notification about new message", m.data);
+          } else if (m.action_type === "new message in group chat") {
+            console.log("Notification about private message", m);
+            dispatcher(addNotification(m.data.group_id));
+          } else if (m.action_type === "new private message") {
+            console.log("Notification about group message", m);
+            dispatcher(addNotification(m.data.actor_id));
           } else {
             // console.log("Regular Notifications", msgJSON);
             notificationList.push(m);
@@ -64,7 +68,7 @@ export default {
     ws.close();
   },
   sendChatMessage(message) {
-    console.log("Msg ws: ", message);
+    console.log("Check if I send msg more than 1 time: ", message);
     ws.send(message);
   },
 };

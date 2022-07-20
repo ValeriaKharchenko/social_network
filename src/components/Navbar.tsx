@@ -23,17 +23,19 @@ const Navbar = () => {
     notificationList.filter((obj) => !obj["data"]["seen"]).length
   );
 
-  const replyServerOfNotifications = () =>{
-    try{
-      notificationList.forEach((obj) => { 
-        if(obj["data"]["seen"] == 0){
+  const replyServerOfNotifications = () => {
+    try {
+      notificationList.forEach((obj) => {
+        if (obj["data"]["seen"] == 0) {
           // console.log("SENDING INFO TO SERVER ABOUT NOTIFICATION ->" , obj["data"]["notif_id"]);
-          notification_service.handleNotificationSeen(obj["data"]["notif_id"], 1)
-        } 
-      })
-    }catch (err){
-      console.log("SOME ERROR :" , err);
-
+          notification_service.handleNotificationSeen(
+            obj["data"]["notif_id"],
+            1
+          );
+        }
+      });
+    } catch (err) {
+      console.log("SOME ERROR :", err);
     }
     setNotificationCount(0);
   };
@@ -47,6 +49,11 @@ const Navbar = () => {
   // @ts-ignore
   const storeProfileInfo = useSelector(
     (state: RootState) => state.profile.info
+  );
+
+  console.log(
+    "Notiffication messages navbar",
+    storeInfo.notifications.messages
   );
 
   return (
@@ -88,7 +95,13 @@ const Navbar = () => {
       </Link>
 
       <Link className={"link"} to={"/chat"}>
-        Chat <ChatIcon />
+        Chat
+        <ChatIcon
+          sx={{
+            color: storeInfo.notifications.messages.length > 0 ? "red" : "",
+            marginLeft: 1,
+          }}
+        />
       </Link>
     </div>
   );
