@@ -73,11 +73,11 @@ const Navbar = () => {
       </div>
 
       <Link className="link" to={"/homepage"}>
-        Home <Home />
+        Home <Home sx={{ marginLeft: 1 }} />
       </Link>
 
       <Link className="link" to={"/profile/me"}>
-        Profile <InsertEmoticonIcon />
+        Profile <InsertEmoticonIcon sx={{ marginLeft: 1 }} />
       </Link>
 
       <Link
@@ -85,12 +85,14 @@ const Navbar = () => {
         to={"/notifications"}
         onClick={replyServerOfNotifications}
       >
-        Notifications{" "}
-        {notificationCount !== 0 ? (
-          <NotificationsIcon sx={{ color: "red" }} />
-        ) : (
-          <NotificationsIcon />
-        )}{" "}
+        Notifications
+        <NotificationsIcon
+          sx={{
+            color: notificationCount !== 0 ? "red" : "",
+            marginLeft: 1,
+            marginRight: 1,
+          }}
+        />
         {notificationCount}
       </Link>
 
