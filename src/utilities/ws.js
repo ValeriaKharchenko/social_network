@@ -1,8 +1,9 @@
 import {
-  updateNotifications,
   addNotification,
+  updateNotifications,
 } from "../store/notificationSlice";
 import { addMsg } from "../store/chatSlice";
+import * as helper from "../helpers/HelperFuncs";
 
 let ws;
 
@@ -10,8 +11,7 @@ let ws;
 
 export default {
   start(id, dispatcher) {
-    // ws?.close();
-    console.log("start connection");
+    ws?.close();
     ws = new WebSocket("ws://localhost:8080/ws/");
     ws.onopen = () => {
       let jsonData = {};
@@ -19,20 +19,23 @@ export default {
       jsonData["user"] = id;
       ws.send(JSON.stringify(jsonData));
       console.log("%cWebSocket Connected", "color:cyan");
-      // ws.addEventListener("message", showNotification);
     };
 
     ws.onmessage = (msg) => {
       console.log("Message from ws: ", msg.data);
       const msgJSON = JSON.parse(msg.data);
       let notificationList = [];
+      let receiver = localStorage.getItem("chat_with");
+      let sender = helper.getTokenId();
 
       if (Array.isArray(msgJSON)) {
         // console.log("length of incoming list" , msg.data.split("}},").length);
         msgJSON.forEach((m) => {
           if (m.action_type === "private message") {
             console.log("Private msg", m);
-            dispatcher(addMsg(m.data));
+            if (m.data.from === receiver || m.data.from === sender) {
+              dispatcher(addMsg(m.data));
+            }
           } else if (m.action_type === "group message") {
             console.log("Group msg: ", m);
             const newMsg = {
@@ -42,12 +45,14 @@ export default {
               name: m.data.first_name + " " + m.data.last_name,
               group_id: m.data.group_id,
             };
-            dispatcher(addMsg(newMsg));
+            if (m.data.group_id === receiver || m.data.from === sender) {
+              dispatcher(addMsg(newMsg));
+            }
           } else if (m.action_type === "new message in group chat") {
-            console.log("Notification about private message", m);
+            // console.log("Notification about private message", m);
             dispatcher(addNotification(m.data.group_id));
           } else if (m.action_type === "new private message") {
-            console.log("Notification about group message", m);
+            // console.log("Notification about group message", m);
             dispatcher(addNotification(m.data.actor_id));
           } else {
             // console.log("Regular Notifications", msgJSON);
@@ -64,11 +69,9 @@ export default {
     jsonData["action"] = "left";
     // jsonData["user"] = id;
     ws.send(JSON.stringify(jsonData));
-    // console.log("Connection closed");
     ws.close();
   },
   sendChatMessage(message) {
-    console.log("Check if I send msg more than 1 time: ", message);
     ws.send(message);
   },
 };

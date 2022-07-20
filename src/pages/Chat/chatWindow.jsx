@@ -15,7 +15,6 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import FaceIcon from "@mui/icons-material/Face";
 import GroupsIcon from "@mui/icons-material/Groups";
-import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { useDispatch, useSelector } from "react-redux";
 import * as helper from "../../helpers/HelperFuncs";
@@ -189,6 +188,9 @@ export const Chat = () => {
                       <Button
                         className={member.id === receiver.id ? "active" : ""}
                         onClick={() => {
+                          console.log("1");
+                          localStorage.setItem("chat_with", member.id);
+                          console.log("2");
                           setReceiver({ id: member.id, type: member.type });
                         }}
                         fullWidth

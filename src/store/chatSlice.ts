@@ -4,6 +4,10 @@ export const chatSlice = createSlice({
   name: "chat",
   initialState: {
     msgHistory: [],
+    receiver: {
+      id: "",
+      type: "",
+    },
   },
   reducers: {
     loadMsgs: (state, action) => {
@@ -18,8 +22,12 @@ export const chatSlice = createSlice({
       // @ts-ignore
       state.msgHistory = [...(action.payload || []), ...prev];
     },
+    setReceiver: (state, action) => {
+      state.receiver = action.payload;
+    },
   },
 });
 
-export const { addMsg, loadMsgs, addToBegining } = chatSlice.actions;
+export const { addMsg, loadMsgs, addToBegining, setReceiver } =
+  chatSlice.actions;
 export default chatSlice.reducer;

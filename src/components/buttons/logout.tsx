@@ -12,11 +12,12 @@ export default function Logout() {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-      console.log("logout fired");
-      await userService.logout().then(() => {
-      dispatch({ type: "LOGOUT"})
+    console.log("logout fired");
+    await userService.logout().then(() => {
+      dispatch({ type: "LOGOUT" });
       let id = helper.getTokenId();
       WsApi.stop(id);
+      localStorage.removeItem("chat_with");
       redirect("/login", { replace: true });
     });
   };

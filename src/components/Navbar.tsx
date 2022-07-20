@@ -51,11 +51,6 @@ const Navbar = () => {
     (state: RootState) => state.profile.info
   );
 
-  console.log(
-    "Notiffication messages navbar",
-    storeInfo.notifications.messages
-  );
-
   return (
     <div className="navigation">
       <Searchbar />
