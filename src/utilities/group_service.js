@@ -68,6 +68,7 @@ import {
     try{
       console.log("%c Fetching all groups --> ","color:orange");
       const response = await http.get('/group/all');
+      if(!response.data) response.data = [] 
       dispatch(addAllGroups(response.data));
       return response.data
     }catch(err){
