@@ -1,12 +1,11 @@
 // https://github.com/ValeriaKharchenko/social_network
 
 ### BACKLOG [Questions&Suggestions]:
-    [?TODO?]   1. Follow/UnFollow button bug (need to click 2 times, before button is changing)
-    [ TODO ]   2. GroupService getAllgroups -> no need to fetch twice ( change old functions that uses fetch)
+    [ TODO ] - 1. Landing page (homepAge) needs to show all relevant posts 
+    [ TODO ] - 2. Optimized DockerFile (Minimized => ...:alpine)
 
 
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
-    [ OPTIONAL ] 2. USER PROFILE - profile update tab, privacy button changeing back to public after leaving tab (needs to update to right state) 
     [ OPTIONAL ] 3. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
     [ OPTIONAL ] 4. GROUP PAGE  - Visual update (post,events, more..?)
     [ OPTIONAL ] 5. Possibility to add new post on landing page (/homepage) Or it will be redone ???
@@ -24,30 +23,6 @@
 
 
 ### Completed Updates:
-    ( FROM: 12/07 )
-    <!-- Followers -->
-    NOW:    
-        UNFOLLOW is always          - Delete   (REST)
-        Request answer is  always   - PUT      (REST)
-    
-    FIXED : 
-        [ BUGS ]
-        [ ] - user gets notfied from follower request even if profile user tries to follow is public
-        [ ] - on a second unfollow or request it dosent update anymore (database stays zero)
-
-    REMOVED : 
-        Some user related old code (userSlice, user from store, cleanup user_service + imports)
-    
-    ( FROM: 13/07 )
-    New url for group post ( works same as OnePost page).
-    Notification improvements 
-
-
-    ( FROM: 14/07 )
-    *Every post in group posts, will now redirect to single groupPost page where user can comment (works like regualar post page)
-    *Clicking on notifications TAB -> will send websocket message to server that all notifications has been seen, count and icon will be changed
-    *Clicking on notification , it send its id and status 2 to server to notify its seen and clicked.
-
     ( FROM: 17/07 )
     It will now show newest notifications first, will update store and put seen status nr 2 if clicked (constant visual)
 
@@ -65,10 +40,14 @@
        * Function to Revert all initialized user data from store on logout  (posts,followers,groups,notifications,profile data, etc..)
        * Search bar has now filtering and buttons to choose from ( Needs testing, visual lift)
 
-
+    ( FROM: 21/07 )
+        * Now groupList updates after making new group, makeGroup btn also notifies, when name is already taken
+    
+    FIXED: 
+        * The follower button should now work as indended (dont have to click twice)
+        * Profile update tab, privacy button now shows right profile private status
+        
 ### On Works: 
-    [?TODO?]   2. makeGroup btn should update and add made group after creating (NOW : updates with refresh or new fetch)
-
 
     <!-- Notifications -->
         [BUG]

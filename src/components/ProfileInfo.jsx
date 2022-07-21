@@ -49,6 +49,7 @@ const ProfileInfo = () => {
   };
 
   const updateData = () => {
+    setIsPrivate(storeInfo.profile.info.is_private)
     if (id == "me") {
       setMyProfile(true);
       setDatas(storeInfo.profile.info);

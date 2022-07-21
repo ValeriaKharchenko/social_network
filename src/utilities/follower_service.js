@@ -45,7 +45,6 @@ const FollowerService = () => {
     // console.log('%cFetching users stalkers', "color:orange");
     try {
       const gotStalkers = await http.get(`/follower/back?id=${id}`);
-      console.log("followers", gotStalkers.data);
       return gotStalkers.data;
     } catch (err) {
       helper.checkError(err);
@@ -53,12 +52,10 @@ const FollowerService = () => {
   };
 
   const sendFollowerRequest = async (id) => {
+    // console.log("%c Sending follower request =>", "color:orange");
     try {
-      const response = await http.post("/follower/", {
-        target_id: `${id}`,
-      });
-      console.log("%c sendFollowerRequest =>", "color:orange", response.data);
-     
+      await http.post("/follower/", {  target_id: `${id}` });
+      getMyFollowers();
     } catch (err) {
       helper.checkError(err);
     }
@@ -66,8 +63,9 @@ const FollowerService = () => {
 
   const sendUnFollowRequest = async id => {
     try {
-      const response = await http.delete(`/follower/?id=${id}`);
-      console.log('%c deleted user reponse =>', 'color:orange', response.data);
+      await http.delete(`/follower/?id=${id}`);
+      let followers = storeInfo.followers.followers.filter(obj => obj.user_id != storeInfo.followers.currentUserId)
+      dispatch(updateFollowers(followers));
     } catch (err) {
       helper.checkError(err);
     }
@@ -111,7 +109,7 @@ const FollowerService = () => {
   };
 
   const handleFollowerBtn = (isFollowing, profileStatus) => {
-    dispatch(updateStatus(!storeInfo.followers.updateStatus));
+    // dispatch(updateStatus(!storeInfo.followers.updateStatus));
     if (isFollowing) {
       sendFollowerRequest(storeInfo.followers.currentUserId);
       if(profileStatus) dispatch(updateSentRequests(storeInfo.followers.currentUserId));
@@ -119,7 +117,6 @@ const FollowerService = () => {
       // changeFollowerStatus(storeInfo.followers.currentUserId);
       sendUnFollowRequest(storeInfo.followers.currentUserId);
     }
-    getMyFollowers();
   };
 
   return {
