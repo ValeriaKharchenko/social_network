@@ -2,20 +2,20 @@ import { Button } from "@mui/material"
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import FollowerService from "../../utilities/follower_service";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Follow_btn = ({isPrivate}) => {
   const follower_service = FollowerService()
-  let { id } = useParams();
-  const isFollowing = follower_service.isFollowing(id)
-  const requestSent = follower_service.isRequested(id)
+  const current_id =useSelector(state => state.followers.currentUserId)
+  const isFollowing = follower_service.isFollowing(current_id)
+  const requestSent = follower_service.isRequested(current_id)
 
   return (
     <div>
       { !isPrivate  ?
          <div>
-           {!isFollowing && <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true)} >Follow user <PersonAddIcon /> </Button>}
            {isFollowing && <Button  className="flex" onClick={() =>follower_service.handleFollowerBtn(false)}>Stop Following <PersonRemoveIcon />  </Button>}
+           {!isFollowing && <Button className="flex" onClick={() =>follower_service.handleFollowerBtn(true)} >Follow user <PersonAddIcon /> </Button>}
          </div>
        :
          <div>

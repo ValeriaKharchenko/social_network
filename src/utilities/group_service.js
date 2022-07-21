@@ -40,11 +40,15 @@ import {
    const storeInfo = useSelector(state => state);
    
    const makeNewGroupRequest = async (data) => {
+    try{
       console.log("%c Posting new group --> ","color:orange", data );
       const response = await http.post("/group/new", data)
       console.log(response);
       dispatch(updateStatus(!storeInfo.groups.updateStatus));
       return response
+    }catch(err){
+        return err.name;
+    }
   }
   
   const makeGroupPost = (data) => { 

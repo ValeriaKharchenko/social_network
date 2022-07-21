@@ -20,6 +20,7 @@ export default function Make_group_btn() {
   const [list, setList] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState(false)
 
   const data = {
     title,
@@ -35,10 +36,17 @@ export default function Make_group_btn() {
     ) {
       const resp = await group_service.makeNewGroupRequest(data);
       if (resp.status == 200) {
+        group_service.getCreatedGroups();
         if (list.length != 0)
           list.forEach((userId) =>
             group_service.sendGroupInvitation(Number(resp.data), userId)
           );
+        setOpen(false)
+      }
+      if(Object.is(resp,"Error")){
+        setError(true)
+        document.getElementById("title").value = ""
+        setTitle("")
       }
     }
   };
@@ -97,14 +105,16 @@ export default function Make_group_btn() {
             />
           </Grid>
           <Grid item xs={8}>
+            {error && <div className="error">Name Unavailable</div>}
             <Button
               onClick={() => {
-                if (data.title && data.description) setOpen(false);
+                // if (data.title && data.description) setOpen(false);
                 handleSubmit(data);
               }}
             >
               SEND
             </Button>
+
           </Grid>
           <Button
             variant="contained"
