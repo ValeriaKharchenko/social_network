@@ -193,15 +193,15 @@ export const Chat = () => {
         <Grid item xs={3} className={"borderRight500"}>
           <List>
             {members.length === 0 ? (
-              <ListItem>
+              <ListItem key={"warningMsg"}>
                 <ListItemText>
                   Follow somebody or enter a group to start chat
                 </ListItemText>
               </ListItem>
             ) : (
-              members.map((member) => {
+              members.map((member, i) => {
                 return (
-                  <ListItem>
+                  <ListItem key={i.toString()}>
                     {/*<FaceIcon />*/}
                     {member.type === "person" ? <FaceIcon /> : <GroupsIcon />}
                     <ListItemText>
@@ -234,7 +234,7 @@ export const Chat = () => {
         <Grid item xs={9}>
           <List className={"messageArea"}>
             {receiver.id !== "" && hasMore && (
-              <ListItem>
+              <ListItem key="loadMoreBtn">
                 <Button
                   sx={{ marginLeft: 25 }}
                   variant="text"
@@ -247,17 +247,17 @@ export const Chat = () => {
               </ListItem>
             )}
             {receiver.id === "" ? (
-              <ListItem>
+              <ListItem key={"selectChat"}>
                 <ListItemText>Select chat</ListItemText>
               </ListItem>
             ) : msgs.length === 0 ? (
-              <ListItem>
+              <ListItem key={"noMsg"}>
                 <ListItemText>No messages yet</ListItemText>
               </ListItem>
             ) : (
               msgs.map((m, i, l) => {
                 return (
-                  <ListItem>
+                  <ListItem key={i.toString()}>
                     {i === 9 && <div ref={topRef} />}
                     <Grid container>
                       <Grid item xs={12}>
