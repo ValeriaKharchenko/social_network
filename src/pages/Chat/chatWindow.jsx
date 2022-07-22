@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import "./chat.scss";
 import chatService from "../../utilities/chat";
 import { setAlert } from "../../store/alertSlice";
-import { addToBegining, loadMsgs } from "../../store/chatSlice";
+import {
+  addToBegining,
+  loadMsgs,
+  setFollowerList,
+} from "../../store/chatSlice";
 import GroupService from "../../utilities/group_service";
 
 // import Picker from "emoji-picker-react";
@@ -22,9 +26,11 @@ import WsApi from "../../utilities/ws";
 import { removeNotification } from "../../store/notificationSlice";
 
 export const Chat = () => {
-  let followerList = useSelector((state) => state.followers.followers);
+  // let followerList = useSelector((state) => state.followers.followers);
+  // const [followerList, setFollowerList] = useState({});
+  const followerList = useSelector((state) => state.chat.followers);
   let notifications = useSelector((state) => state.notifications.messages);
-  console.log("Notifications from useSelector", notifications);
+  // console.log("Notifications from useSelector", notifications);
   let dispatch = useDispatch();
   const [receiver, setReceiver] = useState({ id: "", type: "" });
   // console.log("Receiver", receiver);
@@ -37,6 +43,16 @@ export const Chat = () => {
   useEffect(() => {
     group_service.getCreatedGroups();
     group_service.getJoinedGroups();
+  }, []);
+
+  const getFollowers = async () => {
+    await chatService.getUserList().then((followers) => {
+      dispatch(setFollowerList(followers));
+    });
+  };
+
+  useEffect(() => {
+    getFollowers();
   }, []);
 
   //create list of groups
@@ -70,6 +86,7 @@ export const Chat = () => {
 
   // 👇️ scroll to bottom every time messages change
   const bottomRef = useRef(null);
+  const topRef = useRef(null);
   const [lastMsg, setLastMsg] = useState("");
 
   useEffect(() => {
@@ -84,7 +101,7 @@ export const Chat = () => {
 
   function loadMore() {
     setTimeout(() => {
-      loadHistory(msgs.length);
+      loadHistory(msgs.length).then(() => topRef.current?.scrollIntoView());
     }, 2000);
   }
 
@@ -167,6 +184,9 @@ export const Chat = () => {
     dispatch(setAlert(errorState));
   };
 
+  // let msgHeight = document.getElementsByClassName("messageArea");
+  // console.log("height: ", msgHeight[0].scrollHeight);
+
   return (
     <div className={"fullWidth"}>
       <Grid container component={Paper} className="chatSection">
@@ -188,9 +208,7 @@ export const Chat = () => {
                       <Button
                         className={member.id === receiver.id ? "active" : ""}
                         onClick={() => {
-                          console.log("1");
                           localStorage.setItem("chat_with", member.id);
-                          console.log("2");
                           setReceiver({ id: member.id, type: member.type });
                         }}
                         fullWidth
@@ -237,9 +255,10 @@ export const Chat = () => {
                 <ListItemText>No messages yet</ListItemText>
               </ListItem>
             ) : (
-              msgs.map((m) => {
+              msgs.map((m, i, l) => {
                 return (
                   <ListItem>
+                    {i === 9 && <div ref={topRef} />}
                     <Grid container>
                       <Grid item xs={12}>
                         <ListItemText

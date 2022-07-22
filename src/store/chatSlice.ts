@@ -4,10 +4,7 @@ export const chatSlice = createSlice({
   name: "chat",
   initialState: {
     msgHistory: [],
-    receiver: {
-      id: "",
-      type: "",
-    },
+    followers: [],
   },
   reducers: {
     loadMsgs: (state, action) => {
@@ -22,12 +19,12 @@ export const chatSlice = createSlice({
       // @ts-ignore
       state.msgHistory = [...(action.payload || []), ...prev];
     },
-    setReceiver: (state, action) => {
-      state.receiver = action.payload;
+    setFollowerList: (state, action) => {
+      state.followers = action.payload;
     },
   },
 });
 
-export const { addMsg, loadMsgs, addToBegining, setReceiver } =
+export const { addMsg, loadMsgs, addToBegining, setFollowerList } =
   chatSlice.actions;
 export default chatSlice.reducer;

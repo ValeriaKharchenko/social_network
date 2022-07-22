@@ -41,4 +41,13 @@ export default {
       console.error(err);
     }
   },
+  async getUserList() {
+    try {
+      const list = await http.get("/follower/chat");
+      console.log("New list of followers", list);
+      return list.data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
 };
