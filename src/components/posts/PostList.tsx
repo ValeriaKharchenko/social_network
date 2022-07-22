@@ -28,11 +28,13 @@ export interface PostInterface {
 const PostList = () => {
   let { id } = useParams();
   const userId = id ? id : "";
+
   const fabStyle = {
     position: "absolute",
     top: 80,
     right: 10,
   };
+
   const isOpen = useSelector((state: RootState) => state.post.isOpen);
   const posts: PostInterface[] = useSelector(
     (state: RootState) => state.post.posts
@@ -45,9 +47,12 @@ const PostList = () => {
 
   useEffect(() => {
     let response: PostInterface[];
-
+    let location = `${window.location.href}`;
+    // console.log("Location:", location.includes("/homepage"));
     async function getPosts() {
-      if (userId === "me") {
+      if (location.includes("/homepage")) {
+        response = await postService.allPosts();
+      } else if (userId === "me") {
         response = await postService.getAllMyPosts();
       } else {
         response = await postService.getAllPosts(userId);
@@ -88,7 +93,7 @@ const PostList = () => {
       ) : (
         <div>User doesn't have posts yet</div>
       )}
-      {userId === "me" &&
+      {userId === "me" && (
         <div className={"fabBtn"}>
           <Tooltip title="Add new post">
             <Fab
@@ -103,7 +108,7 @@ const PostList = () => {
             </Fab>
           </Tooltip>
         </div>
-      }
+      )}
       {isOpen ? <NewPost parentPrivacy={0} /> : null}
     </Container>
   );
