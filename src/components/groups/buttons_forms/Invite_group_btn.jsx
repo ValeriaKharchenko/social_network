@@ -5,10 +5,10 @@ import { useParams } from 'react-router-dom'
 import GroupService from '../../../utilities/group_service'
 import Invite_group_list from './Invite_group_list'
 
-const Invite_group_btn = () => {
+const Invite_group_btn = ({onGroupPage}) => {
     const [isOpen, setIsOpen] = useState(false)
-    const [data, setData] = useState([]) // userlist
-    const [list, setList] = useState([]) //invitation list
+    const [data, setData] = useState([])
+    const [list, setList] = useState([])
     const group_service = GroupService()
     const update  = useSelector(state =>  state.groups.updateStatus)
     let {id} = useParams()
@@ -21,7 +21,6 @@ const Invite_group_btn = () => {
  
     useEffect(()=>{
         group_service.getAvailableFriends(Number(id)).then(res =>{
-            // console.log(`%c${res}`, "color:cyan" );
             setData(res)
         })
         if(data == null) setIsOpen(false)
@@ -29,20 +28,24 @@ const Invite_group_btn = () => {
 
     return (
     <>
+        {!isOpen &&
+        <>
         {data != null  ? <Button onClick={() => { setIsOpen(!isOpen)}}>Invite Users</Button>
         :
         <div>Nobody to send invites</div>
+    }
+    </>
         }
 
         {
         isOpen  &&
-            <div>
+            <div className='groupPanel_invite_btn'>
                 <Invite_group_list list={data} setList={setList} />
-                <Button onClick={() => { 
+                <Button className='ok' onClick={() => { 
                     handleSubmit(list)
                     setIsOpen(!isOpen)}
                     }>OK!</Button>
-                </div> 
+            </div> 
         }
     </>
     )

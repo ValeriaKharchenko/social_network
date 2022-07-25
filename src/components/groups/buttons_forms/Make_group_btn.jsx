@@ -27,7 +27,7 @@ export default function Make_group_btn() {
     description,
   };
 
-  // UPDATE Could make user invitation in service
+
   const handleSubmit = async (data) => {
     if (data == null) return;
     if (
@@ -36,11 +36,9 @@ export default function Make_group_btn() {
     ) {
       const resp = await group_service.makeNewGroupRequest(data);
       if (resp.status == 200) {
-        group_service.getCreatedGroups();
-        if (list.length != 0)
-          list.forEach((userId) =>
-            group_service.sendGroupInvitation(Number(resp.data), userId)
-          );
+        if (list.length != 0) list.forEach((userId) =>
+        group_service.sendGroupInvitation(Number(resp.data), userId)
+        );
         setOpen(false)
       }
       if(Object.is(resp,"Error")){
@@ -49,6 +47,7 @@ export default function Make_group_btn() {
         setTitle("")
       }
     }
+    group_service.getCreatedGroups();
   };
 
   return (
@@ -58,6 +57,7 @@ export default function Make_group_btn() {
           setTitle("");
           setDescription("");
           setOpen(true);
+          setError(false)
         }}
       >
         Create New Group <AddIcon />
@@ -67,17 +67,13 @@ export default function Make_group_btn() {
         <Grid className="make_group_form" container spacing={2}>
           <Grid item xs={12}>
             <label htmlFor="title">*Group Title : </label>
-            <Input
+              <Input
               id="title"
-              // onInput={(e) => {data.title = e.target.value}}
-              onInput={(e) => {
-                setTitle(e.target.value);
-              }}
-              onClick={() => {
-                document.getElementById("title").classList.remove("error");
-                document.getElementById("title").value = "";
-              }}
-            ></Input>
+              required
+              fullWidth
+              onInput={(e) => {setTitle(e.target.value); }}
+              onClick={() => {helper.handleAfterErrorClick("title")}}
+            />
           </Grid>
           <Grid item xs={12}>
             <label htmlFor="description">*Group Description : </label>
@@ -86,16 +82,11 @@ export default function Make_group_btn() {
               type="text"
               margin="normal"
               variant="standard"
-              placeholder="this group represents freedom."
-              style={{ width: 200 }}
-              minRows={6}
+              placeholder="Pla pla plapla pla plplaaaplall plapal....."
+              style={{ width: 400 }}
+              minRows={8}
               onInput={(e) => setDescription(e.target.value)}
-              onClick={(e) => {
-                document
-                  .getElementById("description")
-                  .classList.remove("error");
-                document.getElementById("description").value = "";
-              }}
+              onClick={() => {helper.handleAfterErrorClick("description")}}
             ></TextareaAutosize>
           </Grid>
           <Grid item xs={8}>
@@ -107,10 +98,7 @@ export default function Make_group_btn() {
           <Grid item xs={8}>
             {error && <div className="error">Name Unavailable</div>}
             <Button
-              onClick={() => {
-                // if (data.title && data.description) setOpen(false);
-                handleSubmit(data);
-              }}
+              onClick={() => {handleSubmit(data);}}
             >
               SEND
             </Button>

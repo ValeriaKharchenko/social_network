@@ -70,7 +70,6 @@ export function NewPost(props: { parentPrivacy: number }) {
   console.log("Followers", myFollowers);
   const [listOfFollowers, setListFollowers] = React.useState<Follower[]>([]);
 
-  // get group_id,post_id
   let { id } = useParams();
   const param: number = id ? +id : 0;
 
@@ -152,8 +151,6 @@ export function NewPost(props: { parentPrivacy: number }) {
         dispatch(setAlert(errState));
       }
     } else {
-      console.log("Check", check);
-      // alert(["ERROR WITH IMAGE UPLOAD"]);
       const errState = {
         text: "Can't upload image",
         severity: "warning",
