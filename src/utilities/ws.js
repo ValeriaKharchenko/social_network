@@ -22,12 +22,15 @@ export default {
     console.log("Start called", now, ws);
     cleanUp();
     ws?.close();
-    ws = new WebSocket("ws://localhost:8080/ws/");
+    ws = new WebSocket("ws://localhost:8080/ws/" + id);
+    console.log("WS", ws);
+    // ws = new WebSocket("ws://localhost:8080/ws/");
     ws.onopen = () => {
       console.log("Connected at", now);
       let jsonData = {};
       jsonData["action"] = "connect";
       jsonData["user"] = id;
+
       ws.send(JSON.stringify(jsonData));
       console.log("%cWebSocket Connected", "color:cyan");
     };
@@ -40,7 +43,7 @@ export default {
       let receiver = localStorage.getItem("chat_with");
       let sender = helper.getTokenId();
 
-      // let location = window.location.href.includes("/chat");
+      let location = window.location.href.includes("/chat");
 
       if (Array.isArray(msgJSON)) {
         msgJSON.forEach((m) => {
@@ -65,16 +68,16 @@ export default {
               }
               break;
             case "new message in group chat":
-              // if (!location) {
-              console.log("group", m.data);
-              dispatcher(addNotification(m.data.group_id));
-              // }
+              if (!location || `${m.data.group_id}` !== receiver) {
+                console.log("group", m.data);
+                console.log("group", receiver);
+                dispatcher(addNotification(m.data.group_id));
+              }
               break;
             case "new private message":
-              // if (!location) {
-              console.log("private", m.data);
-              dispatcher(addNotification(m.data.actor_id));
-              // }
+              if (!location || m.data.actor_id !== receiver) {
+                dispatcher(addNotification(m.data.actor_id));
+              }
               break;
             default:
               notificationList.push(m);
