@@ -124,7 +124,6 @@ export function NewPost(props: { parentPrivacy: number }) {
       }
       data.userList?.push(id);
     }
-    console.log("Access", data.userList);
     if (data.image.length !== 0) {
       check = imgCheck(data.image);
       data.imgString = (await getBase64(data.image[0])
@@ -138,7 +137,6 @@ export function NewPost(props: { parentPrivacy: number }) {
 
     if (check) {
       try {
-        console.log("post that I send", data);
         const response = await postService.addNewPost(data);
         handleClose();
 

@@ -65,7 +65,7 @@ export const Chat = () => {
 
   //lead to one obj type
   let members = [];
-  followerList.forEach((f) => {
+  followerList?.forEach((f) => {
     let chatMember = {
       name: f.first_name + " " + f.last_name,
       id: f.user_id,
@@ -74,7 +74,7 @@ export const Chat = () => {
     members.push(chatMember);
   });
 
-  groups.forEach((g) => {
+  groups?.forEach((g) => {
     let group = {
       name: g.title,
       id: `${g.id}`,
