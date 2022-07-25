@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { Follower } from "./newPost";
 import { List, Paper } from "@mui/material";
@@ -26,8 +26,11 @@ export function UserList(props: Inpt) {
     }
     // console.log("Checked", newChecked);
     setChecked(newChecked);
-    props.sendBack(checked);
   };
+
+  useEffect(() => {
+    props.sendBack(checked);
+  }, [checked]);
 
   const customList = (items: readonly Follower[]) => (
     <Paper sx={{ width: 200, height: 230, overflow: "auto" }}>
