@@ -67,10 +67,20 @@ export default {
   async showPost(id: string) {
     try {
       const response = await http.get(`post/${id}`);
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (e) {
       console.error(e);
+      throw e;
+    }
+  },
+  async allPosts() {
+    try {
+      const response = await http.get(`post/all`);
+      // console.log("New posts fetch: ", response);
+      return response.data;
+    } catch (e) {
+      console.log(e);
       throw e;
     }
   },

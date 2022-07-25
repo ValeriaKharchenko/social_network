@@ -1,20 +1,23 @@
 import http from "./http-common";
 
 export default {
-  async getMsgs(receiver, skip, limit) {
+  async getMsgs(id, skip, limit, shouldDelete) {
     // console.log("R:", receiver);
     try {
       const msgs = await http.get(
-        `/chat/?with=${receiver}&skip=${skip}&limit=${limit}`
+        `/chat/?with=${id}&skip=${skip}&limit=${limit}`
       );
       console.log("Got history", msgs);
+      if (shouldDelete) {
+        await http.delete(`/user/notification/reply?id=${id}`);
+      }
       return msgs.data;
     } catch (err) {
       console.error(err);
       throw err;
     }
   },
-  async getGroupMsgs(id, skip, limit) {
+  async getGroupMsgs(id, skip, limit, shouldDelete) {
     try {
       const msgs = await http.get(
         `/group/chat?groupId=${id}&skip=${skip}&limit=${limit}`
@@ -34,9 +37,21 @@ export default {
         });
       }
       console.log("Parsed msgs", m);
+      if (shouldDelete) {
+        await http.delete(`/user/notification/reply?id=${id}`);
+      }
       return m;
     } catch (err) {
       console.error(err);
+    }
+  },
+  async getUserList() {
+    try {
+      const list = await http.get("/follower/chat");
+      console.log("New list of followers", list);
+      return list.data;
+    } catch (e) {
+      console.error(e);
     }
   },
 };

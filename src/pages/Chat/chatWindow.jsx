@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import "./chat.scss";
 import chatService from "../../utilities/chat";
 import { setAlert } from "../../store/alertSlice";
-import { addToBegining, loadMsgs } from "../../store/chatSlice";
+import {
+  addToBegining,
+  loadMsgs,
+  setFollowerList,
+} from "../../store/chatSlice";
 import GroupService from "../../utilities/group_service";
 
 // import Picker from "emoji-picker-react";
@@ -15,12 +19,18 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import FaceIcon from "@mui/icons-material/Face";
 import GroupsIcon from "@mui/icons-material/Groups";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { useDispatch, useSelector } from "react-redux";
 import * as helper from "../../helpers/HelperFuncs";
 import WsApi from "../../utilities/ws";
+import { removeNotification } from "../../store/notificationSlice";
 
 export const Chat = () => {
-  let followerList = useSelector((state) => state.followers.followers);
+  // let followerList = useSelector((state) => state.followers.followers);
+  // const [followerList, setFollowerList] = useState({});
+  const followerList = useSelector((state) => state.chat.followers);
+  let notifications = useSelector((state) => state.notifications.messages);
+  // console.log("Notifications from useSelector", notifications);
   let dispatch = useDispatch();
   const [receiver, setReceiver] = useState({ id: "", type: "" });
   // console.log("Receiver", receiver);
@@ -35,6 +45,16 @@ export const Chat = () => {
     group_service.getJoinedGroups();
   }, []);
 
+  const getFollowers = async () => {
+    await chatService.getUserList().then((followers) => {
+      dispatch(setFollowerList(followers));
+    });
+  };
+
+  useEffect(() => {
+    getFollowers();
+  }, []);
+
   //create list of groups
   const createdGroups = useSelector((state) => state.groups.createdGroups);
   const joinedGroups = useSelector((state) => state.groups.joinedGroups);
@@ -45,7 +65,7 @@ export const Chat = () => {
 
   //lead to one obj type
   let members = [];
-  followerList.forEach((f) => {
+  followerList?.forEach((f) => {
     let chatMember = {
       name: f.first_name + " " + f.last_name,
       id: f.user_id,
@@ -54,7 +74,7 @@ export const Chat = () => {
     members.push(chatMember);
   });
 
-  groups.forEach((g) => {
+  groups?.forEach((g) => {
     let group = {
       name: g.title,
       id: `${g.id}`,
@@ -66,6 +86,7 @@ export const Chat = () => {
 
   // 👇️ scroll to bottom every time messages change
   const bottomRef = useRef(null);
+  const topRef = useRef(null);
   const [lastMsg, setLastMsg] = useState("");
 
   useEffect(() => {
@@ -80,7 +101,7 @@ export const Chat = () => {
 
   function loadMore() {
     setTimeout(() => {
-      loadHistory(msgs.length);
+      loadHistory(msgs.length).then(() => topRef.current?.scrollIntoView());
     }, 2000);
   }
 
@@ -93,9 +114,15 @@ export const Chat = () => {
   //load msg history
   const loadHistory = async (s) => {
     let msgHistory = [];
+    let shouldDelete = notifications.includes(receiver.id);
     if (receiver.type === "person") {
       try {
-        msgHistory = await chatService.getMsgs(receiver.id, s, 10);
+        msgHistory = await chatService.getMsgs(
+          receiver.id,
+          s,
+          10,
+          shouldDelete
+        );
       } catch (e) {
         console.log(e.message);
         const errorState = {
@@ -107,7 +134,12 @@ export const Chat = () => {
     } else if (receiver.type === "group") {
       // console.log("receiver", receiver);
       try {
-        msgHistory = await chatService.getGroupMsgs(receiver.id, s, 10);
+        msgHistory = await chatService.getGroupMsgs(
+          receiver.id,
+          s,
+          10,
+          shouldDelete
+        );
         console.log("group messages", msgHistory);
       } catch (e) {
         console.error(e.message);
@@ -129,13 +161,14 @@ export const Chat = () => {
   useEffect(() => {
     if (receiver.id !== "") {
       loadHistory(0);
+      dispatch(removeNotification(receiver.id));
     }
   }, [receiver]);
 
   //send chat message
   const [text, setText] = useState("");
   const sendMsg = (text) => {
-    console.log(text);
+    // console.log(text);
     if (text.trim().length > 0) {
       let jsonData = {};
       if (receiver.type === "person") {
@@ -162,32 +195,45 @@ export const Chat = () => {
     dispatch(setAlert(errorState));
   };
 
+  // let msgHeight = document.getElementsByClassName("messageArea");
+  // console.log("height: ", msgHeight[0].scrollHeight);
+
   return (
     <div className={"fullWidth"}>
       <Grid container component={Paper} className="chatSection">
         <Grid item xs={3} className={"borderRight500"}>
           <List>
             {members.length === 0 ? (
-              <ListItem>
+              <ListItem key={"warningMsg"}>
                 <ListItemText>
                   Follow somebody or enter a group to start chat
                 </ListItemText>
               </ListItem>
             ) : (
-              members.map((member) => {
+              members.map((member, i) => {
                 return (
-                  <ListItem>
+                  <ListItem key={i.toString()}>
                     {/*<FaceIcon />*/}
                     {member.type === "person" ? <FaceIcon /> : <GroupsIcon />}
                     <ListItemText>
                       <Button
                         className={member.id === receiver.id ? "active" : ""}
                         onClick={() => {
+                          localStorage.setItem("chat_with", member.id);
                           setReceiver({ id: member.id, type: member.type });
                         }}
                         fullWidth
                       >
-                        {member.name}
+                        {member.name}{" "}
+                        {notifications.includes(member.id) && (
+                          <ChatBubbleOutlineIcon
+                            sx={{
+                              color: "#D7B271",
+                              fontSize: 20,
+                              marginLeft: 1,
+                            }}
+                          />
+                        )}
                       </Button>
                     </ListItemText>
                   </ListItem>
@@ -199,7 +245,7 @@ export const Chat = () => {
         <Grid item xs={9}>
           <List className={"messageArea"}>
             {receiver.id !== "" && hasMore && (
-              <ListItem>
+              <ListItem key="loadMoreBtn">
                 <Button
                   sx={{ marginLeft: 25 }}
                   variant="text"
@@ -212,17 +258,18 @@ export const Chat = () => {
               </ListItem>
             )}
             {receiver.id === "" ? (
-              <ListItem>
+              <ListItem key={"selectChat"}>
                 <ListItemText>Select chat</ListItemText>
               </ListItem>
             ) : msgs.length === 0 ? (
-              <ListItem>
+              <ListItem key={"noMsg"}>
                 <ListItemText>No messages yet</ListItemText>
               </ListItem>
             ) : (
-              msgs.map((m) => {
+              msgs.map((m, i, l) => {
                 return (
-                  <ListItem>
+                  <ListItem key={i.toString()}>
+                    {i === 9 && <div ref={topRef} />}
                     <Grid container>
                       <Grid item xs={12}>
                         <ListItemText

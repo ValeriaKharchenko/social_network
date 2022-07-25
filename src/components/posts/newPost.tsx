@@ -54,7 +54,7 @@ enum Privacy {
   StrictlyPrivate,
 }
 
-export function NewPost(props: { parentPrivacy: number}) {
+export function NewPost(props: { parentPrivacy: number }) {
   const myFollowers = useSelector(
     (state: RootState) => state.followers.stalkers
   );
@@ -67,6 +67,7 @@ export function NewPost(props: { parentPrivacy: number}) {
   };
   const [value, setValue] = React.useState(Privacy.Public);
   const [followers, setFollowers] = React.useState<boolean>(false);
+  console.log("Followers", myFollowers);
   const [listOfFollowers, setListFollowers] = React.useState<Follower[]>([]);
 
   let { id } = useParams();

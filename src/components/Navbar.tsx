@@ -23,17 +23,19 @@ const Navbar = () => {
     notificationList.filter((obj) => !obj["data"]["seen"]).length
   );
 
-  const replyServerOfNotifications = () =>{
-    try{
-      notificationList.forEach((obj) => { 
-        if(obj["data"]["seen"] == 0){
+  const replyServerOfNotifications = () => {
+    try {
+      notificationList.forEach((obj) => {
+        if (obj["data"]["seen"] == 0) {
           // console.log("SENDING INFO TO SERVER ABOUT NOTIFICATION ->" , obj["data"]["notif_id"]);
-          notification_service.handleNotificationSeen(obj["data"]["notif_id"], 1)
-        } 
-      })
-    }catch (err){
-      console.log("SOME ERROR :" , err);
-
+          notification_service.handleNotificationSeen(
+            obj["data"]["notif_id"],
+            1
+          );
+        }
+      });
+    } catch (err) {
+      console.log("SOME ERROR :", err);
     }
     setNotificationCount(0);
   };
@@ -66,11 +68,11 @@ const Navbar = () => {
       </div>
 
       <Link className="link" to={"/homepage"}>
-        Home <Home />
+        Home <Home sx={{ marginLeft: 1 }} />
       </Link>
 
       <Link className="link" to={"/profile/me"}>
-        Profile <InsertEmoticonIcon />
+        Profile <InsertEmoticonIcon sx={{ marginLeft: 1 }} />
       </Link>
 
       <Link
@@ -78,17 +80,25 @@ const Navbar = () => {
         to={"/notifications"}
         onClick={replyServerOfNotifications}
       >
-        Notifications{" "}
-        {notificationCount !== 0 ? (
-          <NotificationsIcon sx={{ color: "red" }} />
-        ) : (
-          <NotificationsIcon />
-        )}{" "}
+        Notifications
+        <NotificationsIcon
+          sx={{
+            color: notificationCount !== 0 ? "red" : "",
+            marginLeft: 1,
+            marginRight: 1,
+          }}
+        />
         {notificationCount}
       </Link>
 
       <Link className={"link"} to={"/chat"}>
-        Chat <ChatIcon />
+        Chat
+        <ChatIcon
+          sx={{
+            color: storeInfo.notifications.messages.length > 0 ? "red" : "",
+            marginLeft: 1,
+          }}
+        />
       </Link>
     </div>
   );

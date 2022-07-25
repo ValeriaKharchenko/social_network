@@ -28,11 +28,13 @@ export interface PostInterface {
 const PostList = () => {
   let { id } = useParams();
   const userId = id ? id : "homepage";
+
   const fabStyle = {
     position: "absolute",
     top: 80,
     right: 10,
   };
+
   const isOpen = useSelector((state: RootState) => state.post.isOpen);
   const posts: PostInterface[] = useSelector(
     (state: RootState) => state.post.posts
@@ -110,7 +112,7 @@ const PostList = () => {
             </Fab>
           </Tooltip>
         </div>
-      }
+      )}
       {isOpen ? <NewPost parentPrivacy={0} /> : null}
     </Container>
   );
