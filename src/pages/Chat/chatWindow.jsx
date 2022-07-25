@@ -114,9 +114,15 @@ export const Chat = () => {
   //load msg history
   const loadHistory = async (s) => {
     let msgHistory = [];
+    let shouldDelete = notifications.includes(receiver.id);
     if (receiver.type === "person") {
       try {
-        msgHistory = await chatService.getMsgs(receiver.id, s, 10);
+        msgHistory = await chatService.getMsgs(
+          receiver.id,
+          s,
+          10,
+          shouldDelete
+        );
       } catch (e) {
         console.log(e.message);
         const errorState = {
@@ -128,7 +134,12 @@ export const Chat = () => {
     } else if (receiver.type === "group") {
       // console.log("receiver", receiver);
       try {
-        msgHistory = await chatService.getGroupMsgs(receiver.id, s, 10);
+        msgHistory = await chatService.getGroupMsgs(
+          receiver.id,
+          s,
+          10,
+          shouldDelete
+        );
         console.log("group messages", msgHistory);
       } catch (e) {
         console.error(e.message);

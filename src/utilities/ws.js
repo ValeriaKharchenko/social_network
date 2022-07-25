@@ -66,14 +66,14 @@ export default {
               break;
             case "new message in group chat":
               // if (!location) {
-              //   console.log("Location", location);
+              console.log("group", m.data);
               dispatcher(addNotification(m.data.group_id));
               // }
               break;
             case "new private message":
               // if (!location) {
-              //   console.log("Location", location);
-              dispatcher(addNotification(m.data.group_id));
+              console.log("private", m.data);
+              dispatcher(addNotification(m.data.actor_id));
               // }
               break;
             default:
