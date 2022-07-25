@@ -40,6 +40,7 @@
             [ ] - user follow request -> after clicking it wont dissapear and show there all the time 
             [ ] - Last fixes
         [ ] - SEARCHBAR - Visual Update
+            [ ] - dont open searchbar, if result are null
 
 
     <!-- Messenger -->
