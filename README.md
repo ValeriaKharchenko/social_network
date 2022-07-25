@@ -1,14 +1,10 @@
 // https://github.com/ValeriaKharchenko/social_network
 
 ### BACKLOG [Questions&Suggestions]:
-    [ TODO ] - 1. Landing page (homepAge) needs to show all relevant posts 
     [ TODO ] - 2. Optimized DockerFile (Minimized => ...:alpine)
-
 
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
     [ OPTIONAL ] 3. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
-    [ OPTIONAL ] 4. GROUP PAGE  - Visual update (post,events, more..?)
-    [ OPTIONAL ] 5. Possibility to add new post on landing page (/homepage) Or it will be redone ???
     [ OPTIONAL ] 6. NOTIFICATION - one button to convert  all to  seen&clicked status
 
     [ERRORS] - Some error handling ? 
@@ -23,35 +19,27 @@
 
 
 ### Completed Updates:
-    ( FROM: 17/07 )
-    It will now show newest notifications first, will update store and put seen status nr 2 if clicked (constant visual)
-
-    FIXED :
-         Private user follow request, after accepting, the requested user still showed -> Request has been send top of STOP FOLLOWING-  button
-
-    ( FROM: 18/07 )
-    NEW: 
-        Group Events now show when event is past (hides buttons)
-
-    FIXED : 
-        Fixed event responses (had to remove event from store array)
-
-    ( FROM: 19/07 )
-       * Function to Revert all initialized user data from store on logout  (posts,followers,groups,notifications,profile data, etc..)
-       * Search bar has now filtering and buttons to choose from ( Needs testing, visual lift)
-
-    ( FROM: 21/07 )
-        * Now groupList updates after making new group, makeGroup btn also notifies, when name is already taken
-    
-    FIXED: 
-        * The follower button should now work as indended (dont have to click twice)
-        * Profile update tab, privacy button now shows right profile private status
+    ( FROM: 25/07 )
+    * Landing page now show posts meant for a user (uses group/all endpoint)
+    * Group make_group_btn update
+    * Group make_post_btn update
+    * Group make_event_btn update
+    * Group group_invite_btn update
         
 ### On Works: 
-
-    <!-- Notifications -->
-        [BUG]
-        [ ] - user follow request -> after clicking it wont dissapear and show there all the time 
+    [BUG]
+    [ ] - GroupEvent - make event form (after filling title,desc... and clicking on time, it ask to fill again title,desc..)
+ 
+    [ OPTIONAL ] GROUP PAGE  - Visual update (post,events, more..?)
+        [ ] - GROUP PAGE - overAll positioning and color of things 
+        [ ] - GroupPost, GroupEvent, Panel - postCard visual update
+        [ ] - PROFILE TAB (profile), profile settings panel update
+        [ ] - PROFILE TAB (group)  , page visual update 
+        [ ] - NOTIFICATIONS        , page visual update 
+            [BUG]
+            [ ] - user follow request -> after clicking it wont dissapear and show there all the time 
+            [ ] - Last fixes
+        [ ] - SEARCHBAR - Visual Update
 
 
     <!-- Messenger -->

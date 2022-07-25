@@ -1,32 +1,10 @@
-import { Button, Input, TextField} from "@mui/material";
+import { Button, Input, TextareaAutosize} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from "react";
 import GroupService from "../../../utilities/group_service";
 import * as helper from '../../../helpers/HelperFuncs';
 import "./group_buttons.scss"
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
-/*  
-type GroupEvent struct{
-    GroupId         int     `json:"group_id"`
-    Title           string  `json:"title"`
-    Description     string  `json:"description"`
-    Day             string  `json:"day"`
-    Time            string  `json:"time"`
-    Going           int     `json:"going_status"`
-}
-*/
-
-// const data  = { 
-//     group_id : "",
-//     title : "",
-//     description : "",
-//     day : "",
-//     time: "",
-//     going_status : ""
-// }
 
 
 const Create_event = ({id}) => {
@@ -34,7 +12,6 @@ const Create_event = ({id}) => {
     const [isOpen,setIsOpen] = useState(false)
     const [date,setDate] = useState("")
     const [times, setTimes] = useState("")
-    // const [value, setValue] = useState("");
     
     const todayTime = () => {
         let currentTime = new Date();
@@ -60,17 +37,6 @@ const Create_event = ({id}) => {
         if(currentArr[0] < targetArr[0]) return true
         if(currentArr[0] == targetArr[0] && currentArr[1] < targetArr[1]) return true
         if(currentArr[0] == targetArr[0] && currentArr[1] == targetArr[1] && currentArr[2] < targetArr[2]) return true
-
-        // [ THIS FOR -> LocalizationProvider (commented out)]
-        // if (typeof target === 'object'){
-            //     if(currentArr[0] < target.getFullYear()) return true
-            //     // if(currentArr[0] == targetArr[1] && currentArr[1] < targetArr[1]) return true
-            //     if(currentArr[0] == target.getFullYear() && currentArr[1] < target.getMonth() + 1) return true
-            //     // if(currentArr[0] == targetArr[1] && currentArr[1] == targetArr[1] && currentArr[2] == targetArr[2]) return true
-            //     if(currentArr[0] == target.getFullYear() && currentArr[1] == target.getMonth() + 1 && currentArr[2] == target.getDate() - 1) return true
-        // }
-
-        // if(currentArr == targetArr) setTimes(todayTime())
         if(current == target) setTimes(todayTime())
         return false
     }
@@ -86,11 +52,6 @@ const Create_event = ({id}) => {
         day : date,
         time: times,
         going_status : 1
-    }
-
-    const clearInput = (e) => { 
-        e.target.value  = ""
-        document.getElementById(e.target.id).classList.remove("error")
     }
 
     const handleSubmit = () => { 
@@ -122,35 +83,32 @@ const Create_event = ({id}) => {
         </Button>
         <div className="input">
             <label htmlFor="title">Title* : </label>
-            <Input type="text" id="title" name="title" onClick={(e)=>clearInput(e)} onChange={(e)=>{data.title = e.target.value}}></Input>
+            <Input type="text" id="title" name="title" onClick={()=> helper.handleAfterErrorClick("title")} onChange={(e)=>{data.title = e.target.value}}></Input>
         </div>
         <div className="input">
             <label htmlFor="description">Description* : </label>
-            <Input type="text" id="description" name="description" onClick={(e)=>clearInput(e)} onChange={(e)=>{data.description = e.target.value}}></Input>
+            <TextareaAutosize
+                id="description"
+                type="text"
+                margin="normal"
+                style={{ width: 260 }}
+                variant="standard"
+                placeholder="Pla pla plapla plal....."
+                minRows={4}
+                onChange={(e)=>{data.description = e.target.value}}
+                onClick={() => {helper.handleAfterErrorClick("description")}}
+            ></TextareaAutosize>
         </div>
-        <div>
+        <div className="input">
             <label htmlFor="day">Day* : </label>
-            <input required id="day" min={todayDate()} type="date" value={date} onChange={(e) => { 
+            <input required className="selectionBox" id="day" min={todayDate()} type="date" value={date} onChange={(e) => { 
                 setDate(e.target.value)
                 data.day = e.target.value
                 }} />
         </div>
-          {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="Date"
-                  value={date}
-                  onChange={(date) => setDate(date)}
-                  minDate={new Date(todayDate())}
-                //   renderInput={(params) => <TextField {...params} />}
-                  renderInput={(params) => <TextField {...params} />}
-                  inputFormat={"dd-MM-yyyy"}
-                />
-        </LocalizationProvider> */}
-        <div>
+        <div className="input">
             <label htmlFor="times">Time* : </label>
-            <input required  id="times"  type="time" value={times} onChange={(e) => {
-                if(isFuture(todayDate(),date)) console.log("ITS IN FUTURE");
-                
+            <input required  id="times" className="selectionBox"  type="time" value={times} onChange={(e) => {
                 if(!isFuture(todayDate(),date)){
                     if(calcTime(todayTime()) < calcTime(e.target.value)){
                         setTimes(e.target.value)
@@ -163,9 +121,9 @@ const Create_event = ({id}) => {
                 data.time = times
                 }} />
         </div>
-        <div>
+        <div className="input">
             <label htmlFor="status">Status: </label>
-            <select name="status" id="status" onChange={(e)=>{
+            <select name="status" className="selectionBox" id="status" onChange={(e)=>{
                 data.going_status = Number(e.target.value)
             }}>
                 <option value="1" defaultValue={"1"} >going</option>

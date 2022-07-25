@@ -69,7 +69,6 @@ export function NewPost(props: { parentPrivacy: number}) {
   const [followers, setFollowers] = React.useState<boolean>(false);
   const [listOfFollowers, setListFollowers] = React.useState<Follower[]>([]);
 
-  // get group_id,post_id
   let { id } = useParams();
   const param: number = id ? +id : 0;
 
@@ -123,7 +122,6 @@ export function NewPost(props: { parentPrivacy: number}) {
       }
       data.userList?.push(id);
     }
-    console.log("Access", data.userList);
     if (data.image.length !== 0) {
       check = imgCheck(data.image);
       data.imgString = (await getBase64(data.image[0])
@@ -152,8 +150,6 @@ export function NewPost(props: { parentPrivacy: number}) {
         dispatch(setAlert(errState));
       }
     } else {
-      console.log("Check", check);
-      // alert(["ERROR WITH IMAGE UPLOAD"]);
       const errState = {
         text: "Can't upload image",
         severity: "warning",

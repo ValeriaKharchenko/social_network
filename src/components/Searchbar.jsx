@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GroupService from "../utilities/group_service";
-import id from "date-fns/esm/locale/id/index.js";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",

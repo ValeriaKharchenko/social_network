@@ -4,9 +4,9 @@ import { checkImage, getBase64, convertImg } from './checkImage';
 import * as timeManager from "./timeManager"
 import  getTokenId  from "./tokenId";
 import checkError from "./checkError";
-import handleInputs from './checkInput';
 import filterDoubles from "./filterDoubles";
 import convertListToMutable from "./convertList";
+import {handleAfterErrorClick, handleInputs} from "./checkInput"
 export {
   capitalize,
   checkImage,
@@ -18,4 +18,5 @@ export {
   filterDoubles,
   convertListToMutable,
   timeManager,
+  handleAfterErrorClick,
 };

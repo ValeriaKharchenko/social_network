@@ -2,11 +2,6 @@
 import { useEffect, useState } from "react";
 import "./group_buttons.scss";
 
-//  This have to show given list of peaple with checkbox options
-//  it has to take the checked(or not checked) and send back the list
-//  data = list to show
-//  setList = given function that will update list of checked users to send invitations
-
 const Invite_group_list = ({list,setList}) => {
   const [checkedState , setCheckedState] = useState(new Array(list.length).fill(false))
 
@@ -27,7 +22,7 @@ const Invite_group_list = ({list,setList}) => {
   },[checkedState])
 
   return (
-    <>
+    <div className="invite_box">
         <div className="header">
           <div>User</div>
           <div>Invite</div>
@@ -46,7 +41,7 @@ const Invite_group_list = ({list,setList}) => {
           )))
         }
       </div>
-      </>
+    </div>
   )
 }
 

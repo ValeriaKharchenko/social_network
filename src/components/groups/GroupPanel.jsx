@@ -1,16 +1,15 @@
 import {Typography } from "@mui/material"
-import {useEffect, useRef, useState } from "react"
+import {useEffect, useState } from "react"
 import {useParams } from "react-router-dom"
 import GroupService from "../../utilities/group_service"
 import StarIcon from '@mui/icons-material/Star';
 import Join_group_btn from "./buttons_forms/Join_group_btn";
-import Invite_group_btn from "./buttons_forms/Invite_group_btn";
 import Requests from "./RequestList";
-import { useSelector } from "react-redux";
+import Invite_group_btn from "./buttons_forms/Invite_group_btn";
+import "./group.scss";
 const GroupPanel = ({isAdmin,isMember}) => {
     const group_service = GroupService()
     const [info,setInfo ] = useState({})
-    // const storeInfo = useSelector(state => state)
     let [count,setCount ] = useState(0)
     let {id} = useParams()
 
@@ -48,7 +47,7 @@ const GroupPanel = ({isAdmin,isMember}) => {
                 </div>
                 <div className="right">
                     <Typography variant="h6">Members: {count}</Typography>
-                    {(!isMember && !isAdmin) ? <Join_group_btn/> : <Invite_group_btn />}
+                {(!isMember && !isAdmin) ? <Join_group_btn/> : <Invite_group_btn onGroupPage={true} />}
                 </div>
             </div>
             <Typography variant="h6">What this group is about: </Typography>

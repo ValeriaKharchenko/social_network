@@ -27,7 +27,7 @@ export interface PostInterface {
 
 const PostList = () => {
   let { id } = useParams();
-  const userId = id ? id : "";
+  const userId = id ? id : "homepage";
   const fabStyle = {
     position: "absolute",
     top: 80,
@@ -45,13 +45,20 @@ const PostList = () => {
 
   useEffect(() => {
     let response: PostInterface[];
-
+    
     async function getPosts() {
-      if (userId === "me") {
-        response = await postService.getAllMyPosts();
-      } else {
-        response = await postService.getAllPosts(userId);
+      switch(userId){
+        case "homepage":
+          response = await postService.getOverviewPosts();
+          break;
+        case "me":
+          response = await postService.getAllMyPosts();
+          break;
+        default:
+          response = await postService.getAllPosts(userId);
+          break;
       }
+    
       let arr: PostInterface[] = [];
       if (response) {
         response.forEach((r: any) => {
@@ -88,7 +95,7 @@ const PostList = () => {
       ) : (
         <div>User doesn't have posts yet</div>
       )}
-      {userId === "me" &&
+      {(userId === "me" || userId === "homepage") &&
         <div className={"fabBtn"}>
           <Tooltip title="Add new post">
             <Fab

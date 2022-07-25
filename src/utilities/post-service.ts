@@ -32,6 +32,7 @@ export default {
       throw e;
     }
   },
+
   async getAllMyPosts() {
     try {
       const response = await http.get("post/oneuser");
@@ -41,6 +42,17 @@ export default {
       throw e;
     }
   },
+
+   async getOverviewPosts() {
+    try {
+      const response = await http.get("post/all");
+      return response.data;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+  },
+
   async getAllPosts(userId: string) {
     try {
       const response = await http.get(`post/oneuser?id=${userId}`);
