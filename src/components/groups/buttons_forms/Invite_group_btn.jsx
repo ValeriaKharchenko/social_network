@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import GroupService from '../../../utilities/group_service'
 import Invite_group_list from './Invite_group_list'
 
-const Invite_group_btn = ({onGroupPage}) => {
+const Invite_group_btn = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [data, setData] = useState([])
     const [list, setList] = useState([])
@@ -41,7 +41,7 @@ const Invite_group_btn = ({onGroupPage}) => {
         isOpen  &&
             <div className='groupPanel_invite_btn'>
                 <Invite_group_list list={data} setList={setList} />
-                <Button className='ok' onClick={() => { 
+                <Button onClick={() => { 
                     handleSubmit(list)
                     setIsOpen(!isOpen)}
                     }>OK!</Button>

@@ -41,7 +41,7 @@ const GroupCard = ({ data, myInfo }) => {
           <Typography
             variant="h5"
             color={"white"}
-            sx={{ mt: -0.5, textDecoration: "underline" }}
+            sx={{ mt: -0.5,letterSpacing : 2 }}
           >
             {data.title}
           </Typography>
@@ -90,7 +90,7 @@ const GroupCard = ({ data, myInfo }) => {
         </Typography>
       </div>
       <Typography variant="p" color={"white"} sx={{ mt: -0.5 }}>
-        {data.description}
+        " {data.description} "
       </Typography>
     </Box>
   );

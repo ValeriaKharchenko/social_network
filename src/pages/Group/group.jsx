@@ -5,6 +5,7 @@ import GroupPanel from "../../components/groups/GroupPanel";
 import GroupPosts from "../../components/groups/GroupPosts";
 import GroupEvents from "../../components/groups/GroupEvents";
 import GroupService from "../../utilities/group_service";
+import "./group.scss"
 
 const Group = () => {
   const group_service = GroupService();
@@ -13,7 +14,7 @@ const Group = () => {
   const isMember = group_service.isMember(id);
 
   return (
-    <div>
+    <div className="group_page">
       <GroupPanel isAdmin={isAdmin} isMember={isMember}/>
       {(isMember || isAdmin) && (
         <>
@@ -22,15 +23,17 @@ const Group = () => {
               <h1>Group Posts</h1>
               <div className="flex">
                 <Create_post id={id} />
-                <Create_event id={id} />
               </div>
             </div>
             <GroupPosts id={id} />
-          </div>
 
           <div className="events">
-            <h1>Group Events</h1>
+            <div className="header flex">
+              <h1>Group Events</h1>
+              <Create_event id={id} />
+            </div>
             <GroupEvents id={id} />
+          </div>
           </div>
         </>
       )}

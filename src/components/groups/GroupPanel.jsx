@@ -47,11 +47,11 @@ const GroupPanel = ({isAdmin,isMember}) => {
                 </div>
                 <div className="right">
                     <Typography variant="h6">Members: {count}</Typography>
-                {(!isMember && !isAdmin) ? <Join_group_btn/> : <Invite_group_btn onGroupPage={true} />}
+                {(!isMember && !isAdmin) ? <Join_group_btn/> : <Invite_group_btn />}
                 </div>
             </div>
             <Typography variant="h6">What this group is about: </Typography>
-            <Typography variant="p">{info.description} </Typography>
+            <Typography variant="p"> " {info.description}  "</Typography>
         </div>
         </>
     )

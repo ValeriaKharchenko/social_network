@@ -1,6 +1,5 @@
 import Post from "./Post";
 import { NewPost } from "./newPost";
-import * as React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPosts, openModal } from "../../store/postSlice";
@@ -111,8 +110,8 @@ const PostList = () => {
               <AddIcon />
             </Fab>
           </Tooltip>
-        </div>
-      )}
+        </div>}
+      
       {isOpen ? <NewPost parentPrivacy={0} /> : null}
     </Container>
   );

@@ -53,6 +53,7 @@ export default function Make_group_btn() {
   return (
     <div className="make_group">
       <Button
+        className="make_group_btn"
         onClick={() => {
           setTitle("");
           setDescription("");
@@ -98,9 +99,10 @@ export default function Make_group_btn() {
           <Grid item xs={8}>
             {error && <div className="error">Name Unavailable</div>}
             <Button
+              id="create_btn"
               onClick={() => {handleSubmit(data);}}
             >
-              SEND
+              CREATE
             </Button>
 
           </Grid>

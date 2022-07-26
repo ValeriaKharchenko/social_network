@@ -10,11 +10,13 @@ const Create_post = ({id}) => {
     const group_service = GroupService()
     const [isOpen,setIsOpen] = useState(false)
     const [img,setImg] = useState(null)
+    const [subject,setSubject] = useState(null)
+    const [content,setContent] = useState(null)
     
     const data  =  {
         group_id    : Number(id), 
-        subject     : "",
-        content     : "",
+        subject     : subject,
+        content     : content,
         image : img
     }
 
@@ -27,11 +29,12 @@ const Create_post = ({id}) => {
         }
     }
 
+    
     const handleSubmit = () => { 
         if(data == null) return
         if( helper.handleInputs("subject",data.subject) && helper.handleInputs("content",data.content)) group_service.makeGroupPost(data);
     }
-
+ 
     return (
     <>  
         {!isOpen && <Button onClick={() => setIsOpen(!isOpen)}>Create Post <AddIcon/></Button>}
@@ -50,11 +53,10 @@ const Create_post = ({id}) => {
             </Button>
             <div className="input">
                 <label htmlFor="subject">Subject* : </label>
-                <Input type="text" id="subject" name="subject" onClick={()=> helper.handleAfterErrorClick("subject")} onChange={(e)=>{data.subject = e.target.value}}></Input>
+                <Input type="text" id="subject" name="subject" onClick={()=> helper.handleAfterErrorClick("subject")} onChange={(e)=>{setSubject(e.target.value)}}></Input>
             </div>
             <div className="input">
                 <label htmlFor="content">Content* : </label>
-                {/* <Input type="text" id="content" name="content" onClick={()=> helper.handleAfterErrorClick("content")} onChange={(e)=>{data.content = e.target.value}}></Input> */}
                 <TextareaAutosize
                     id="content"
                     type="text"
@@ -62,17 +64,18 @@ const Create_post = ({id}) => {
                     variant="standard"
                     placeholder="Pla pla plapla plal....."
                     minRows={4}
-                    onChange={(e)=>{data.content = e.target.value}}
+                    onChange={(e)=>{setContent(e.target.value)}}
                     onClick={() => {helper.handleAfterErrorClick("content")}}
                 ></TextareaAutosize>
             </div>
             <div className="inputExtra">
             <Button sx={{fontSize:"16px" }} type={"submit"} 
+                    id="create_btn"
                     onClick={(e) => { 
                         e.preventDefault();
                         if(data.subject && data.content) setIsOpen(false)
                         handleSubmit()
-                    }}> POST </Button>
+                    }}> CREATE </Button>
                 <div>
                 <label className="image_btn" htmlFor="image">{!img ? "PICK IMAGE" : "IMAGE ADDED"} </label>
                 <input type="file" id="image" name="image" 

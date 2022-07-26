@@ -149,10 +149,9 @@ const Profile = () => {
         <TabPanel index={3} value={tabValue}>
           <div className="groups_container">
             <div className="header">
-              <h1> - Groups </h1>
+              <h3>My created groups</h3>
               <Make_group />
             </div>
-            <h3>My created groups</h3>
             {storeInfo.groups.createdGroups ? (
               <GroupList
                 group={storeInfo.groups.createdGroups}
@@ -161,7 +160,9 @@ const Profile = () => {
             ) : (
               <div> No groups created</div>
             )}
-            <h3>Groups I'm in</h3>
+             <div className="header">
+                <h3>Groups I'm in</h3>
+             </div>
             {storeInfo.groups.joinedGroups.length != 0 ? (
               <GroupList
                 group={storeInfo.groups.joinedGroups}

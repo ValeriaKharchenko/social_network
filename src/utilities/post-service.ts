@@ -73,15 +73,5 @@ export default {
       console.error(e);
       throw e;
     }
-  },
-  async allPosts() {
-    try {
-      const response = await http.get(`post/all`);
-      // console.log("New posts fetch: ", response);
-      return response.data;
-    } catch (e) {
-      console.log(e);
-      throw e;
-    }
-  },
+  }
 };

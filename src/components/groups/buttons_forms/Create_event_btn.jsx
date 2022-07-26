@@ -12,6 +12,8 @@ const Create_event = ({id}) => {
     const [isOpen,setIsOpen] = useState(false)
     const [date,setDate] = useState("")
     const [times, setTimes] = useState("")
+    const [title,setTitle] = useState("")
+    const [description,setDescription] = useState("")
     
     const todayTime = () => {
         let currentTime = new Date();
@@ -47,8 +49,8 @@ const Create_event = ({id}) => {
     
     const data  = { 
         group_id : Number(id),
-        title : "",
-        description : "",
+        title : title,
+        description : description,
         day : date,
         time: times,
         going_status : 1
@@ -57,13 +59,23 @@ const Create_event = ({id}) => {
     const handleSubmit = () => { 
         if(data == null) return
         console.log(data);
-        if( helper.handleInputs("title",data.title) && helper.handleInputs("description",data.description)) group_service.makeEvent(data);
+        if( helper.handleInputs("title",data.title) && helper.handleInputs("description",data.description)) {
+            group_service.makeEvent(data);
+            reset();
+        }
+    }
+    
+    const reset = () => {
+        setIsOpen(false)
+        setDate(todayDate())
+        setTimes(todayTime())
+        setTitle("")
+        setDescription("")
     }
 
     useEffect(()=>{
         setTimes(todayTime())
         setDate(todayDate())
-        console.log("TOTDAY DATE IN EVENT BUTTON " , todayDate());
     },[])
 
     return (
@@ -76,14 +88,11 @@ const Create_event = ({id}) => {
             variant="contained"
             className="back_btn"
             onClick={() => setIsOpen(false)}>
-            <CloseIcon onClick ={() => {
-                setDate(todayDate())
-                setTimes(todayTime())
-            }}/>
+            <CloseIcon onClick ={reset}/>
         </Button>
         <div className="input">
             <label htmlFor="title">Title* : </label>
-            <Input type="text" id="title" name="title" onClick={()=> helper.handleAfterErrorClick("title")} onChange={(e)=>{data.title = e.target.value}}></Input>
+            <Input type="text" id="title" name="title" onClick={()=> helper.handleAfterErrorClick("title")} onChange={(e)=>{setTitle(e.target.value)}}></Input>
         </div>
         <div className="input">
             <label htmlFor="description">Description* : </label>
@@ -95,7 +104,8 @@ const Create_event = ({id}) => {
                 variant="standard"
                 placeholder="Pla pla plapla plal....."
                 minRows={4}
-                onChange={(e)=>{data.description = e.target.value}}
+                // onChange={(e)=>{data.description = e.target.value}}
+                onChange={(e)=>{setDescription(e.target.value)}}
                 onClick={() => {helper.handleAfterErrorClick("description")}}
             ></TextareaAutosize>
         </div>
@@ -133,11 +143,12 @@ const Create_event = ({id}) => {
            
         </div>
         <Button sx={{fontSize:"16px" }} type={"submit"} 
+                id="create_btn"
                 onClick={(e) => { 
                     e.preventDefault();
                     if(data.title && data.description) setIsOpen(false)
                     handleSubmit()
-                }}> POST </Button> 
+                }}> CREATE </Button> 
         </form>
     }
     </>

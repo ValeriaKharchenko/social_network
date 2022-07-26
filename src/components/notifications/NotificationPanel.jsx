@@ -1,7 +1,5 @@
 import NotificationList from "./NotificationList"
 const NotificationPanel = () => {
-
-
   
   return (
     <div>
