@@ -4,6 +4,7 @@
     [ TODO ] - 2. Optimized DockerFile (Minimized => ...:alpine)
 
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
+    [ OPTIONAL ] 2. ON POST - Clicking on author it will bring it user profilepage
     [ OPTIONAL ] 3. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
     [ OPTIONAL ] 6. NOTIFICATION - one button to convert  all to  seen&clicked status
 
@@ -20,35 +21,26 @@
 
 ### Completed Updates:
     ( FROM: 25/07 )
-    * Landing page now show posts meant for a user (uses group/all endpoint)
-    * Group make_group_btn update
-    * Group make_post_btn update
-    * Group make_event_btn update
-    * Group group_invite_btn update
+        * Landing page now show posts meant for a user (uses group/all endpoint)
+        * Group make_group_btn update
+        * Group make_post_btn update
+        * Group make_event_btn update
+        * Group group_invite_btn update
+
+    ( FROM: 26/07 )
+        * FIXED : group_post && group_event error handling
+        * Notifications will now change reponse to notification, based on user choosed response
+        * GROUP PAGE - overAll positioning and color of things 
+        * PROFILE TAB (group)  , page visual update 
         
 ### On Works: 
-    [BUG]
-    [ ] - GroupEvent - make event form (after filling title,desc... and clicking on time, it ask to fill again title,desc..)
  
     [ OPTIONAL ] GROUP PAGE  - Visual update (post,events, more..?)
-        [ ] - GROUP PAGE - overAll positioning and color of things 
         [ ] - GroupPost, GroupEvent, Panel - postCard visual update
         [ ] - PROFILE TAB (profile), profile settings panel update
-        [ ] - PROFILE TAB (group)  , page visual update 
         [ ] - NOTIFICATIONS        , page visual update 
-            [BUG]
-            [ ] - user follow request -> after clicking it wont dissapear and show there all the time 
-            [ ] - Last fixes
         [ ] - SEARCHBAR - Visual Update
             [ ] - dont open searchbar, if result are null
-
-
-    <!-- Messenger -->
-
-        [ ] - List of all writeable users(user is following) and groups(user is in, different style)
-        [ ] - messages boxes for user, other users
-        [ ] - messenging component (needs emoticons)
-        [ ] - message popup(notification) (realtime notification of writing ??????????? .....)
 
     <!-- DOCKER -->
 

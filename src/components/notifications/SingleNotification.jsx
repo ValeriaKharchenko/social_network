@@ -4,14 +4,16 @@ import "./notification.scss"
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { useNavigate } from "react-router-dom";
 import NotificationService from "../../utilities/notification_service";
+import { useSelector } from "react-redux";
 
 
 const SingleNotification = ({data}) => {
   const notification_service = NotificationService()
   let redirect = useNavigate();
-  let [seen,setSeen] = useState(data.data.seen)
+  let responses = useSelector(state => state.notifications.respondedNotifications)
+  const response = responses.filter(obj => obj.id == data.data.notif_id).map(obj => obj.response)[0]
 
-//   console.log("SINGLE NOTIFICATION = id", data.data.notif_id, " is seen&Cliked ->" , `${seen == 2 ? true : false}`);
+  let [seen,setSeen] = useState(data.data.seen)
 
   const notification = (socketData) => {
       let data = socketData.data
@@ -29,7 +31,10 @@ const SingleNotification = ({data}) => {
         const btns = []
         {Object.keys(RESPONSE).forEach((key,index)=>{
             // Callback function 
-            btns.push(<Button key={index} onClick={()=>{func(data,RESPONSE[key]);}}>{key}</Button>)
+            btns.push(<Button key={index} onClick={()=>{
+              func(data,RESPONSE[key]);
+              notification_service.handleRequestResponse(data.notif_id,RESPONSE[key])
+            }}>{key}</Button>)
           })}
 
         return btns 
@@ -40,30 +45,30 @@ const SingleNotification = ({data}) => {
         case "friend request":
         return  <div className="flex" > 
                     <div> 
-                      {USER_INFO} wants to follow you
+                      {USER_INFO} {!response ? "wants to follow you" : `follower request ${response == 1 ? "accepted" : "declined"}` }
                     </div>
                     <div className="buttons">
-                      {responseBtns(notification_service.handleFollowerRequest)}
+                     {data.seen != 2 && responseBtns(notification_service.handleFollowerRequest)}
                     </div>
                 </div>
           
         case "new group member request":
         return  <div className="flex" > 
                     <div> 
-                        {USER_INFO} wants to join group - {GROUP_INFO} 
+                        {USER_INFO} {!response ? "wants to join group"  : `group request ${response == 1 ? "accepted" : "declined"}`} - {GROUP_INFO} 
                     </div>
                     <div className="buttons">
-                        {responseBtns(notification_service.handleGroupJoinRequest)}
+                      {data.seen != 2 &&  responseBtns(notification_service.handleGroupJoinRequest)}
                     </div>
                 </div>
 
         case "group invitation":
         return  <div className="flex" > 
                     <div> 
-                        {USER_INFO} invites you to join group - {GROUP_INFO} 
+                        {USER_INFO} {!response ? "invites you to join group"  : `group invite request ${response == 1 ? "accepted" : "declined"}`} - {GROUP_INFO} 
                     </div>
                     <div className="buttons">
-                         {responseBtns(notification_service.handleGroupInvite)}
+                       {data.seen != 2 && responseBtns(notification_service.handleGroupInvite)}
                     </div>
                 </div>
 

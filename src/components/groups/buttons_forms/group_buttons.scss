@@ -1,4 +1,12 @@
+
 .make_group{
+    .make_group_btn{
+        background: rgba(245, 245, 245, 0.516);
+        &:hover{
+            background: #D7B271;
+        }
+    }
+    color: #333;
     .make_group_form{
         z-index: 99;
         flex-direction: column;
@@ -9,12 +17,12 @@
         width: 500px;
         padding: 1em;
         margin: 30% 50%;
-
+        
         .header{
             margin: 0  0.25em;
             width: 400px;
         }
-
+        
         #description{
             margin-top:  0.5em;
             padding:0.75em ;
@@ -34,14 +42,6 @@
     }
 }
 
-.posts{
-    .header{
-        justify-content:space-between;
-        .flex{
-            flex-direction: column;
-        }
-    }
-}
 
 #postForm{
     position: absolute;
@@ -59,6 +59,7 @@
         right: 0;
         top: 0;
     }
+
 
     .input{
         #subject{
@@ -103,6 +104,15 @@
 
 }
 
+#create_btn {
+    background: #066163;
+    color: #f3f8f8;
+
+    &:hover {
+        background: #D7B271;
+    }
+}
+
 #eventForm{
     position: absolute;
     background-color: rgb(204, 214, 210);
@@ -119,6 +129,8 @@
             right: 0;
             top: 0;
         }
+
+  
 
    .input {
        width: 500px;

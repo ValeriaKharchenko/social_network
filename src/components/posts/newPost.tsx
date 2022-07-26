@@ -67,12 +67,11 @@ export function NewPost(props: { parentPrivacy: number }) {
   };
   const [value, setValue] = React.useState(Privacy.Public);
   const [followers, setFollowers] = React.useState<boolean>(false);
-  console.log("Followers", myFollowers);
   const [listOfFollowers, setListFollowers] = React.useState<Follower[]>([]);
 
   let { id } = useParams();
   const param: number = id ? +id : 0;
-
+  
   useEffect(() => {
     if (listOfFollowers.length !== 0) {
       return;
@@ -87,7 +86,7 @@ export function NewPost(props: { parentPrivacy: number }) {
       l.push(follower);
     });
     setListFollowers(l);
-  });
+  },[]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const pr = parseInt((event.target as HTMLInputElement).value);

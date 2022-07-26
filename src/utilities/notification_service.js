@@ -3,7 +3,7 @@ import * as helper from '../helpers/HelperFuncs';
 import FollowerService from './follower_service';
 import GroupService from './group_service';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateNotifications } from '../store/notificationSlice';
+import { updateNotifications, updateRespondedNotifications } from '../store/notificationSlice';
 
 const NotificationService = () => {
   const group_service = GroupService();
@@ -52,12 +52,22 @@ const NotificationService = () => {
     })
     dispatch(updateNotifications(replacmentList));
   }
+  const handleRequestResponse = (notif_id,response) => { 
+    console.log(
+      'Handeling notif response , notif_id-> ',
+      notif_id,
+      'response',
+      response
+    );
+    dispatch(updateRespondedNotifications([notif_id, response]));
+  }
 
   return {
     handleGroupJoinRequest,
     handleGroupInvite,
     handleFollowerRequest,
     handleNotificationSeen,
+    handleRequestResponse,
     updateClicked,
   };
 };
