@@ -12,7 +12,6 @@ import Chat from "./pages/Chat/chatWindow";
 function App() {
   const profile_service = ProfileService();
   const dispatch = useDispatch();
-
   useEffect(() => {
     let id = helper.getTokenId();
     profile_service.checkAuth();
@@ -29,7 +28,10 @@ function App() {
           <Route path={"/homepage"} element={<Pages.Homepage />} />
           <Route path={"/profile/:id"} element={<Pages.Profile />} />
           <Route path={"/group/:id"} element={<Pages.Group />} />
-          <Route path={"/group/:groupId/post/:postId"} element={<Pages.GroupPost />} />
+          <Route
+            path={"/group/:groupId/post/:postId"}
+            element={<Pages.GroupPost />}
+          />
           <Route path={"post/:id"} element={<Pages.OnePost />} />
           <Route path={"/notifications"} element={<Pages.Notification />} />
           <Route path={"/chat"} element={<Chat />} />

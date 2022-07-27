@@ -22,7 +22,7 @@ export default {
     console.log("Start called", now, ws);
     cleanUp();
     ws?.close();
-    ws = new WebSocket("ws://localhost:8080/ws/" + id);
+    ws = new WebSocket("ws://localhost:8080/ws/");
     console.log("WS", ws);
     // ws = new WebSocket("ws://localhost:8080/ws/");
     ws.onopen = () => {
@@ -88,11 +88,10 @@ export default {
       }
     };
   },
-  stop(id) {
+  stop() {
     let jsonData = {};
     jsonData["action"] = "left";
 
-    // jsonData["user"] = id;
     ws.send(JSON.stringify(jsonData));
     cleanUp();
     ws?.close();
