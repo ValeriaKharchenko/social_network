@@ -4,7 +4,7 @@
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
     [ OPTIONAL ] 2. ON POST - Clicking on author it will bring it user profilepage
     [ OPTIONAL ] 3. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
-    
+
     [ERRORS] - Some error handling ? 
 
     [[[ BEFORE AUDIT ]]]
@@ -29,16 +29,17 @@
         * Notifications will now change reponse to notification, based on user choosed response
         * GROUP PAGE - overAll positioning and color of things 
         * PROFILE TAB (group)  , page visual update 
-    
+
+    ( FROM: 28/07 )
+        * GroupPost, GroupEvent, Panel - postCard visual update
+        * PROFILE TAB (profile), profile settings panel update
         
 ### On Works: 
- 
-    [ OPTIONAL ] GROUP PAGE  - Visual update (post,events, more..?)
-        [ ] - GroupPost, GroupEvent, Panel - postCard visual update
-        [ ] - PROFILE TAB (profile), profile settings panel update
-        [ ] - NOTIFICATIONS        , page visual update 
+
+        [ ] - NOTIFICATIONS , page visual update 
         [ ] - SEARCHBAR - Visual Update
             [ ] - dont open searchbar, if result are null
+        [ ] - NAVBAR - make navbar static & visual update
 
 
 

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import ProfileService from "../utilities/profile_service";
 import Follow_btn from "./buttons/follower_btn";
 import * as helper from "../helpers/HelperFuncs";
-import "./styles/profile_info.scss";
 
 //  MUI Material
 import { Avatar, Button, Input, Typography } from "@mui/material";
@@ -13,6 +12,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 
 // REdux
 import { useSelector } from "react-redux";
+import "./styles/profile_info.scss";
 
 const ProfileInfo = () => {
   const profile_service = ProfileService();
@@ -83,14 +83,8 @@ const ProfileInfo = () => {
       )}
       <div className="left_side">
         {myProfile && (
-          <div className="setting_btn">
-            {" "}
-            <SettingsIcon
-              className="gear"
-              onClick={() => {
-                setUpdateing(!updateing);
-              }}
-            />
+          <div className="setting_btn" onClick={() => {setUpdateing(!updateing) }}>
+            <SettingsIcon className="gear" />
           </div>
         )}
 
@@ -98,7 +92,6 @@ const ProfileInfo = () => {
         {updateing && myProfile && (
           <>
             <div className="flex privacy_btn_wrapper ">
-              {/* {" "} */}
               Public
               <div
                 onClick={() => {
@@ -112,7 +105,7 @@ const ProfileInfo = () => {
 
             <div className="profile_image_container">
               <Avatar
-                sx={{ width: 70, height: 70, opacity: 0.8 }}
+                sx={{ width: 80, height: 80, opacity: 0.8 }}
                 alt={data.first_name}
                 src={img}
               />
@@ -164,15 +157,14 @@ const ProfileInfo = () => {
         {!updateing && (
           <>
             <Typography variant="h6" gutterBottom>
-              {" "}
-              Profile is {data.is_private ? "private" : "public"}{" "}
+              Profile is {data.is_private ? "private" : "public"}
             </Typography>
             <Avatar
-              sx={{ width: 70, height: 70 }}
+              sx={{ width: 100, height: 100 }}
               alt={data.first_name}
               src={data.user_img}
             />
-            <Typography>{data.nickname}</Typography>
+            <Typography sx={{margin:"1em", fontSize:"20px"}}>{data.nickname}</Typography>
 
             {!myProfile && <Follow_btn  isPrivate={isPrivate} />}
           </>

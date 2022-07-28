@@ -7,11 +7,11 @@ import SingleGroupEvent from "./SingleGroupEvent"
 const GroupEvents = ({id}) => {
   const [events,setEvents] = useState([])
   const group_service = GroupService()
-  // const storeInfo = useSelector(state => state)
   const update  = useSelector(state =>  state.groups.updateStatus)
 
   useEffect(()=>{
-    group_service.getGroupEvents(id).then(res => {setEvents(res)})
+    group_service.getGroupEvents(id).then(res => {
+      setEvents(res)})
     group_service.getJoinedEvents()
   },[id,update])
 

@@ -38,20 +38,20 @@ const GroupPanel = ({isAdmin,isMember}) => {
             <Requests />
         </div>}
 
-        <h1>Group Info</h1>
+        <h1 className="flex">Group Info</h1>
         <div className="group_panel">
             <div className="header ">
                 <div className="left">
                     <Typography variant="h4">{info.title}</Typography>
-                    <Typography variant="h6">{info.creator_first_name}  {info.creator_last_name}</Typography>
+                    <Typography variant="h6" className="creator">({info.creator_first_name}  {info.creator_last_name})</Typography>
                 </div>
                 <div className="right">
                     <Typography variant="h6">Members: {count}</Typography>
                 {(!isMember && !isAdmin) ? <Join_group_btn/> : <Invite_group_btn />}
                 </div>
             </div>
-            <Typography variant="h6">What this group is about: </Typography>
-            <Typography variant="p"> " {info.description}  "</Typography>
+            <Typography variant="h6" className="introduction">Introduction: </Typography>
+            <Typography variant="p"  className="content"> " {info.description}  "</Typography>
         </div>
         </>
     )

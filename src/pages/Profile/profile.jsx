@@ -8,11 +8,11 @@ import GroupList from "../../components/groups/GroupList";
 import { useSelector } from "react-redux";
 // data
 import FollowerService from "../../utilities/follower_service";
-import "./profile.scss";
 import GroupService from "../../utilities/group_service";
 import { Box, Tab, Tabs } from "@mui/material";
 import PropTypes from "prop-types";
 import PostList from "../../components/posts/PostList";
+import "./profile.scss";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -91,7 +91,7 @@ const Profile = () => {
           // bgcolor: "secondary",
         }}
         className={"tabMenu"}
-      >
+        >
         <Tabs
           value={tabValue}
           indicatorColor="primary"
@@ -149,7 +149,7 @@ const Profile = () => {
         <TabPanel index={3} value={tabValue}>
           <div className="groups_container">
             <div className="header">
-              <h3>My created groups</h3>
+              <h2>My created groups</h2>
               <Make_group />
             </div>
             {storeInfo.groups.createdGroups ? (
@@ -160,9 +160,9 @@ const Profile = () => {
             ) : (
               <div> No groups created</div>
             )}
-             <div className="header">
-                <h3>Groups I'm in</h3>
-             </div>
+            <div className="header">
+              <h2>Groups I'm in</h2>
+            </div>
             {storeInfo.groups.joinedGroups.length != 0 ? (
               <GroupList
                 group={storeInfo.groups.joinedGroups}

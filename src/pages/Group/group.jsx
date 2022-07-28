@@ -26,6 +26,7 @@ const Group = () => {
               </div>
             </div>
             <GroupPosts id={id} />
+          </div>
 
           <div className="events">
             <div className="header flex">
@@ -33,7 +34,6 @@ const Group = () => {
               <Create_event id={id} />
             </div>
             <GroupEvents id={id} />
-          </div>
           </div>
         </>
       )}
