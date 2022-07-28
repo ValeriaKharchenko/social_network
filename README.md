@@ -1,13 +1,10 @@
 // https://github.com/ValeriaKharchenko/social_network
 
 ### BACKLOG [Questions&Suggestions]:
-    [ TODO ] - 2. Optimized DockerFile (Minimized => ...:alpine)
-
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
     [ OPTIONAL ] 2. ON POST - Clicking on author it will bring it user profilepage
     [ OPTIONAL ] 3. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
-    [ OPTIONAL ] 6. NOTIFICATION - one button to convert  all to  seen&clicked status
-
+    
     [ERRORS] - Some error handling ? 
 
     [[[ BEFORE AUDIT ]]]
@@ -32,6 +29,7 @@
         * Notifications will now change reponse to notification, based on user choosed response
         * GROUP PAGE - overAll positioning and color of things 
         * PROFILE TAB (group)  , page visual update 
+    
         
 ### On Works: 
  
@@ -42,9 +40,6 @@
         [ ] - SEARCHBAR - Visual Update
             [ ] - dont open searchbar, if result are null
 
-    <!-- DOCKER -->
-
-        [ ] - implement docker
 
 
 
