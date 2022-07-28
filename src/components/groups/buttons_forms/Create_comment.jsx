@@ -86,7 +86,7 @@ const Create_comment = ({ group_id, post_id, handleComment}) => {
                         e.preventDefault();
                         if(data.subject && data.content) setIsOpen(false)
                         handleSubmit()
-                    }}> ADD </Button>
+                    }}> COMMENT </Button>
         </form>
         }
     </>

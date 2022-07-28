@@ -33,7 +33,7 @@ const isFuture = (current, target) => {
 }
 
 const  calcTime = time => {
-    let arr = time.split(':');
+    let arr = time.split(':').map(Number);
     return Number(arr[0] * 60 + arr[1]);
 };
 
