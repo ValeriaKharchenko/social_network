@@ -2,7 +2,6 @@
 
 ### BACKLOG [Questions&Suggestions]:
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
-    [ OPTIONAL ] 2. ON POST - Clicking on author it will bring it user profilepage
     [ OPTIONAL ] 3. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
 
     [ERRORS] - Some error handling ? 
