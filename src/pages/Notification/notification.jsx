@@ -1,8 +1,8 @@
-import NotificationPanel from "../../components/notifications/NotificationPanel"
+import NotificationList from "../../components/notifications/NotificationList"
 
 const Notification = () => {
   return (
-    <div><NotificationPanel /></div>
+    <div><NotificationList /></div>
   )
 }
 

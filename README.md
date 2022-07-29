@@ -2,7 +2,6 @@
 
 ### BACKLOG [Questions&Suggestions]:
     [ OPTIONAL ] 1. Some  quick popUp notification (when post is created or if wasn't successful)
-    [ OPTIONAL ] 3. GROUP EVENT (time) - fix the time lagging (status need to change faster for time)
 
     [ERRORS] - Some error handling ? 
 
@@ -32,12 +31,13 @@
     ( FROM: 28/07 )
         * GroupPost, GroupEvent, Panel - postCard visual update
         * PROFILE TAB (profile), profile settings panel update
+
+    ( FROM: 29/07 )
+        * Notifications visual update
+        * Searchbar visual update
+        * cleanUps 
         
 ### On Works: 
-
-        [ ] - NOTIFICATIONS , page visual update 
-        [ ] - SEARCHBAR - Visual Update
-            [ ] - dont open searchbar, if result are null
         [ ] - NAVBAR - make navbar static & visual update
 
 

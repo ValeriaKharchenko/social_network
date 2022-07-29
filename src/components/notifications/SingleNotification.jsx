@@ -22,8 +22,8 @@ const SingleNotification = ({data}) => {
       const POST_INFO  = <strong onClick={() => {redirect(`/post/${data.post_id}`);}}> {data.post_name} </strong>;
       const EVENT_INFO = <span> {data.event_name} </span>;
       const RESPONSE = Object.freeze({
-            "Y" : 1,
-            "N" : 2
+        '✓': 1,
+        '🗴': 2,
       });
     
     

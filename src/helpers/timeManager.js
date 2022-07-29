@@ -1,7 +1,7 @@
 
 const  todayTime = () => {
     let currentTime = new Date();
-    let hour = currentTime.getHours() + 1;
+    let hour = currentTime.getHours();
     let minutes = currentTime.getMinutes();
     return  `${hour}:${minutes < 10 ? "0" + minutes : minutes}`
 }
@@ -16,6 +16,7 @@ const todayDate = () => {
     var todaysDate = year + '-' + month + '-' + day;
     return todaysDate;
 }
+
 
 const isFuture = (current, target) => {
     let currentArr = current.split('-').map(Number);

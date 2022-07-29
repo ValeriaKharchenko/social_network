@@ -25,20 +25,24 @@ const NotificationList = () => {
             )))
     }
 
-    return ( 
-        
-        <div>
-            <Box >
-                <Typography color={"red"}  variant="h6"> Notifications: </Typography>
-                {mapArray(allNotifications)}
-            </Box>
+    return (
+      <div className='notificationList_wrapper'>
+        <Box>
+          <Typography className='header' variant='h6'>
+            {' '}
+            Notifications:{' '}
+          </Typography>
+          {mapArray(allNotifications)}
+        </Box>
 
-            <Box >
-                <Typography color={"red"}  variant="h6">Response Required Notifications: </Typography>
-                {mapArray(responseRequired)}
-            </Box>
-        </div>
-    )
+        <Box>
+          <Typography className='header' variant='h6'>
+            Waiting Responses : 
+          </Typography>
+          {mapArray(responseRequired)}
+        </Box>
+      </div>
+    );
 }
 
 export default NotificationList

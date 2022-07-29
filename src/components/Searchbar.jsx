@@ -1,4 +1,4 @@
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { Avatar, Button, Container } from "@mui/material";
@@ -11,18 +11,9 @@ import GroupService from "../utilities/group_service";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -39,7 +30,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -59,6 +49,7 @@ const Searchbar = () => {
   const [fetched, setFetched] = useState(false);
   const [input, setInput] = useState("");
   const [option, setOption] = useState(0)
+  const options = ["all", "users", "groups"]
   let redirect = useNavigate();
   
   const HandleChange = (e) => {
@@ -70,82 +61,78 @@ const Searchbar = () => {
     }
   };
 
+  const mapArray = arr => {
+    return arr.map((btn, index) => (
+      <Button
+        className={option == index ? 'btn' : ''}
+        onClick={() => {
+          setOption(index);
+        }}
+      >
+        {btn}
+      </Button>
+    ));
+  };
+
   useEffect(() => {
-    if (input == "" || input == null || input == " ") {
-      document.querySelector(".searched_users").classList.add("hide");
+    if (input.trim() == "") {
+      document.querySelector('.searched_objects').classList.add('hide');
       setFetched(false)
     } else {
-      document.querySelector(".searched_users").classList.remove("hide");
-      // if(option == 0){
-      //   setUsers(allUsers.filter(user => user.first_name.toLowerCase().includes(input.toLowerCase())))
-      //   setGroups(allGroups.filter(group => group.title.toLowerCase().includes(input.toLowerCase())))
-      // }
-
+      document.querySelector('.searched_objects').classList.remove('hide');
       switch(option){
         case 0 :
           setUsers(allUsers.filter(user => user.first_name.toLowerCase().includes(input.toLowerCase())))
           setGroups(allGroups.filter(group => group.title.toLowerCase().includes(input.toLowerCase())))
           break;
           case 1 : 
-          setUsers(allUsers.filter(user => user.first_name.toLowerCase().includes(input.toLowerCase())))
           setGroups([])
+          setUsers(allUsers.filter(user => user.first_name.toLowerCase().includes(input.toLowerCase())))
           break;
           case 2 : 
           setUsers([])
           setGroups(allGroups.filter(group => group.title.toLowerCase().includes(input.toLowerCase())))
           break;
+        }
       }
-    }
   }, [input,option]);
-
   
   return (
     <div>
-      {option == 0 ? 
-      <Button style={{background:"green"}}>all</Button>
-      :
-      <Button onClick={() => { setOption(0)}} >all</Button>
-      }
-      {option == 1 ? 
-      <Button style={{background:"green"}}>users</Button>
-      :
-      <Button onClick={() => { setOption(1)}} >users</Button>
-      }
-      {option == 2 ? 
-      <Button style={{background:"green"}}>groups</Button>
-      :
-      <Button onClick={() => { setOption(2)}} >groups</Button>
-      }
+      <div className='filter'>
+          {mapArray(options)}
+      </div>
 
-      <Search>
+      <Search className="search_wrapper">
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
-          id="search_input"
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-          onChange={(e) => HandleChange(e)}
+          id='search_input'
+          placeholder='Search…'
+          autoComplete='off'
+          inputProps={{ 'aria-label': 'search' }}
+          onChange={e => HandleChange(e)}
           value={input}
         />
       </Search>
 
-      <Container className="searched_users hide">
+      <Container className='searched_objects hide'>
         {users &&
-          users.map((user) => (
+          users.map(user => (
             <div
-              className="user flex"
+              className='user flex'
               key={user.ID}
               id={user.ID}
               onClick={() => {
-                setInput("");
+                setInput('');
                 redirect(`/profile/${user.ID}`);
               }}
             >
               {
                 <Avatar
                   sx={{ width: 30, height: 30 }}
-                  alt=""
+                  alt=''
                   src={user.user_img}
                 />
               }
@@ -155,18 +142,18 @@ const Searchbar = () => {
             </div>
           ))}
         {groups &&
-          groups.map((group) => (
+          groups.map(group => (
             <div
-              className="user flex"
+              className='user flex'
               key={group.id}
               id={group.id}
               onClick={() => {
-                setInput("");
+                setInput('');
                 redirect(`/group/${group.id}`);
               }}
             >
               <p>
-                {group.title} <span className="mini">(group)</span>
+                {group.title} <span className='mini'>(group)</span>
               </p>
             </div>
           ))}

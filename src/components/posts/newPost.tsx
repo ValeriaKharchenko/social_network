@@ -151,7 +151,7 @@ export function NewPost(props: { parentPrivacy: number }) {
       }
     } else {
       const errState = {
-        text: "Can't upload image",
+        text: "Can't upload image (extentsion or image is too large) !",
         severity: "warning",
       };
       dispatch(setAlert(errState));
