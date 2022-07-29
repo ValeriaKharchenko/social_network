@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const postSlice = createSlice({
-  name: "post",
+  name: 'post',
   initialState: {
     isOpen: false,
     posts: [],
     comments: [],
   },
   reducers: {
-    openModal: (state) => {
+    openModal: state => {
       state.isOpen = !state.isOpen;
     },
     loadPosts: (state, action) => {

@@ -6,6 +6,7 @@ import OnePost from "./OnePost/onePost";
 import Group from "./Group/group";
 import GroupPost from "./GroupPost/groupPost";
 import Notification from "./Notification/notification";
+import Chat from "./Chat/chatWindow";
 
 export default {
   Login,
@@ -16,4 +17,5 @@ export default {
   Group,
   GroupPost,
   Notification,
+  Chat
 };

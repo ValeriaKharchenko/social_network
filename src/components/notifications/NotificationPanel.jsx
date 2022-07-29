@@ -1,11 +1,11 @@
-import NotificationList from "./NotificationList"
-const NotificationPanel = () => {
+// import NotificationList from "./NotificationList"
+// const NotificationPanel = () => {
   
-  return (
-    <div>
-        <NotificationList />
-    </div>
-  )
-}
+//   return (
+//     <div>
+//         <NotificationList />
+//     </div>
+//   )
+// }
 
-export default NotificationPanel
+// export default NotificationPanel

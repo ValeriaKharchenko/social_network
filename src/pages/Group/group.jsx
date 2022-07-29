@@ -6,12 +6,17 @@ import GroupPosts from "../../components/groups/GroupPosts";
 import GroupEvents from "../../components/groups/GroupEvents";
 import GroupService from "../../utilities/group_service";
 import "./group.scss"
+import { useEffect } from "react";
 
 const Group = () => {
   const group_service = GroupService();
   let { id } = useParams();
-  const isAdmin = group_service.isAdmin(id);
   const isMember = group_service.isMember(id);
+  const isAdmin = group_service.isAdmin(id);
+  
+  useEffect(()=>{
+    group_service.getJoinedGroups();
+  },[])
 
   return (
     <div className="group_page">

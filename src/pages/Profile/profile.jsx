@@ -88,7 +88,6 @@ const Profile = () => {
         sx={{
           borderBottom: 1,
           borderColor: "divider",
-          // bgcolor: "secondary",
         }}
         className={"tabMenu"}
         >
@@ -106,9 +105,7 @@ const Profile = () => {
         </Tabs>
       </Box>
 
-      {/*<div className="profile-page">*/}
       <TabPanel index={0} value={tabValue}>
-        {/*{myInfo ? <h1>My Info</h1> : <h1>User Info</h1>}*/}
         <ProfileInfo />
       </TabPanel>
       <TabPanel index={1} value={tabValue}>
