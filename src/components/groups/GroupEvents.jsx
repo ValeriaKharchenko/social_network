@@ -9,10 +9,9 @@ const GroupEvents = ({id}) => {
   const [events,setEvents] = useState([])
   const group_service = GroupService()
   const update  = useSelector(state =>  state.groups.updateStatus)
-  let s 
   useEffect(()=>{
     group_service.getGroupEvents(id).then(res => {
-      setEvents(res.reverse());})
+      setEvents(res.reverse())})
     group_service.getJoinedEvents()
   },[id,update])
 

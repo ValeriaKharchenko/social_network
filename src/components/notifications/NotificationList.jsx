@@ -29,8 +29,7 @@ const NotificationList = () => {
       <div className='notificationList_wrapper'>
         <Box>
           <Typography className='header' variant='h6'>
-            {' '}
-            Notifications:{' '}
+            Notifications :
           </Typography>
           {mapArray(allNotifications)}
         </Box>
