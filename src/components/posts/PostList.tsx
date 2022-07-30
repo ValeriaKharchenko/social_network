@@ -11,7 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import postService from "../../utilities/post-service";
 import { parseDate } from "../../helpers/parseDate";
 import { useParams } from "react-router-dom";
-
+import "./post.scss"
 export interface PostInterface {
   id: number;
   user_id: string;
@@ -84,7 +84,7 @@ const PostList = () => {
   }, [id]);
 
   return (
-    <Container>
+    <Container className="post_wrapper">
       {posts.length !== 0 ? (
         <>
           <div className="post_list">
@@ -107,7 +107,7 @@ const PostList = () => {
               variant="extended"
               onClick={openModalWindow}
             >
-              <AddIcon />
+              <AddIcon  />
             </Fab>
           </Tooltip>
         </div>}

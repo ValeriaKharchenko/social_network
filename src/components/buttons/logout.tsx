@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import LogoutIcon from "@mui/icons-material/Logout";
-import "./logout.scss";
 import WsApi from "../../utilities/ws";
-import * as helper from "../../helpers/HelperFuncs";
 
 export default function Logout() {
   let redirect = useNavigate();

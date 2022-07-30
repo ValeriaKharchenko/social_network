@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Home } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
-import "./styles/navbar.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Logout from "../components/buttons/logout";
@@ -11,6 +10,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import NotificationService from "../utilities/notification_service";
 import { useEffect, useState } from "react";
+import "./styles/navbar.scss";
 
 const Navbar = () => {
   const storeInfo = useSelector((state: RootState) => state);
