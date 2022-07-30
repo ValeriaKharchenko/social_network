@@ -4,7 +4,7 @@ export const notificationSlice = createSlice({
   name: "notifications",
   initialState: {
     notifications: [],
-    respondedNotifications:[],
+    respondedNotifications: [],
     updateStatus: false,
     messages: [],
   },
@@ -13,25 +13,22 @@ export const notificationSlice = createSlice({
       let notificationList = action.payload;
       state.notifications = notificationList.reverse();
     },
-    updateRespondedNotifications: (state, action) => { 
-      console.log(action.payload);
+    updateRespondedNotifications: (state, action) => {
+      // console.log(action.payload);
       let obj = {
-        id : action.payload[0],
-        response : action.payload[1],
-      }
-      state.respondedNotifications.push(obj)
+        id: action.payload[0],
+        response: action.payload[1],
+      };
+      state.respondedNotifications.push(obj);
     },
-    updateStatus: (state, action) => { 
-      state.updateStatus = action.payload;
-    },
+    // updateStatus: (state, action) => {
+    //   state.updateStatus = action.payload;
+    // },
     addNotification: (state, action) => {
       state.messages.push(`${action.payload}`);
     },
     removeNotification: (state, action) => {
-      // let m = state.messages;
-      // console.log("before", action.payload, m);
       state.messages = state.messages.filter((s) => {
-        // console.log("s=", s);
         return s !== `${action.payload}`;
       });
     },
@@ -41,7 +38,6 @@ export const notificationSlice = createSlice({
 export const {
   updateNotifications,
   updateRespondedNotifications,
-  updateStatus,
   addNotification,
   removeNotification,
 } = notificationSlice.actions;

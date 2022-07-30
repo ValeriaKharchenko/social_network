@@ -64,7 +64,7 @@ const Navbar = () => {
         <p>
           {storeProfileInfo.first_name} {storeProfileInfo.last_name}
         </p>
-        <button onClick={() => console.log(storeInfo)}>show storeInfo</button>
+        {/*<button onClick={() => console.log(storeInfo)}>show storeInfo</button>*/}
       </div>
 
       <Link className="link" to={"/homepage"}>

@@ -52,7 +52,7 @@ export default function Register() {
     user.image_path = user.image_path ? user.image_path : "";
     user.desc = user.desc ? user.desc : "";
 
-    console.log("REFISTERING  IMAGE", user.image_path);
+    // console.log("REFISTERING  IMAGE", user.image_path);
 
     // @ts-ignore
     if (user.password !== user.repeat_password) {
@@ -82,9 +82,7 @@ export default function Register() {
         // @ts-ignore
         const formatted = format(value, "dd-MM-yyyy");
         user.dob = formatted;
-        console.log("User", user.dob);
-        const response = await userService.register(user);
-
+        await userService.register(user);
         redirect("/");
       } catch (e) {
         if (e instanceof Error) {

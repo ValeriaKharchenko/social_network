@@ -5,14 +5,13 @@ import { useDispatch } from "react-redux";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./logout.scss";
 import WsApi from "../../utilities/ws";
-import * as helper from "../../helpers/HelperFuncs";
 
 export default function Logout() {
   let redirect = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    console.log("logout fired");
+    // console.log("logout fired");
     await userService.logout().then(() => {
       dispatch({ type: "LOGOUT" });
       WsApi.stop();

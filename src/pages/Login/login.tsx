@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
 // Redux
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 // Material UI
 import {
   Avatar,
@@ -31,7 +31,6 @@ export default function Login() {
   const dispatch = useDispatch();
   let redirect = useNavigate();
 
-
   interface FormInput {
     email: string;
     password: string;
@@ -40,29 +39,28 @@ export default function Login() {
   const onSubmit = async (data: FormInput) => {
     try {
       await authService.login(data.email, data.password);
-      // const response = await authService.login(data.email, data.password);
-      // dispatch(update(response));
-      // await profile_service.getMyInfo();
-      // await follower_service.getMyFollowers();
       profile_service.checkAuth();
-      profile_service.getAllUsers()
-      group_service.getAllGroups()
-      //ws connection
-      let id = helper.getTokenId();
+      profile_service.getAllUsers();
+      group_service.getAllGroups();
 
+      let id = helper.getTokenId();
+      follower_service.getUserFollowers(id);
+      follower_service.getUserStalkers(id);
+
+      //ws connection
       WsApi.start(id, dispatch);
 
       redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {
-        console.log(e.message);
+        console.error(e.message);
         const errorState = {
           text: "Mail or password is incorrect",
           severity: "warning",
         };
         dispatch(setAlert(errorState));
       } else {
-        console.log(e);
+        console.error(e);
         const errorState = {
           text: "Unknown error occurred",
           severity: "error",
@@ -72,9 +70,7 @@ export default function Login() {
     }
   };
 
-  // console.log("Here!");
   return (
-
     <Container component="main" maxWidth="xs" className={"Login"}>
       <Box
         sx={{
