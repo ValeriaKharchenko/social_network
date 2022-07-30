@@ -55,7 +55,7 @@ export default function Login() {
       if (e instanceof Error) {
         console.error(e.message);
         const errorState = {
-          text: "Mail or password is incorrect",
+          text: e.message,
           severity: "warning",
         };
         dispatch(setAlert(errorState));

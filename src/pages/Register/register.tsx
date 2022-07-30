@@ -86,14 +86,16 @@ export default function Register() {
         redirect("/");
       } catch (e) {
         if (e instanceof Error) {
+          console.log("1", e);
           // @ts-ignore
           setErrors((oldArray) => [
             ...oldArray,
             // @ts-ignore
-            `${helper.capitalize(e.response.data.message)}`,
+            `${helper.capitalize(e.response?.data.message || e.message)}`,
           ]);
         } else {
           console.error(e);
+          redirect("/");
         }
       }
     }
