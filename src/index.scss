@@ -58,14 +58,11 @@ code {
   }
   .left {
     flex: 0 0 auto;
-    // width: 20vw;
     flex: 1;
   }
   .right {
     width: 50vw;
     flex: 3;
-
     padding: 20px;
-    // background-color: red;
   }
 }
