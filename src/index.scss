@@ -45,9 +45,10 @@ code {
   display: flex;
   width: 100vw;
   height: 100vh;
+  justify-content: flex-start;
   main.screen-center {
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     display: flex;
     width: 100vw;
     height: 100vh;
@@ -57,10 +58,11 @@ code {
   }
   .left {
     flex: 0 0 auto;
-    width: 30vw;
+    flex: 1;
   }
   .right {
-    flex: 1;
+    width: 50vw;
+    flex: 3;
     padding: 20px;
   }
 }

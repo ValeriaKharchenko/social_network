@@ -38,7 +38,6 @@ const SingleGroupEvent = ({data}) => {
               redirect(`/profile/${data.user_id}`);
             }}
           >
-            {' '}
             ({data.creator_firstname} {data.creator_lastname})
           </div>
           <div className='event_btns'>
@@ -50,8 +49,7 @@ const SingleGroupEvent = ({data}) => {
                     if (!joined) handleRequest(1);
                   }}
                 >
-                  {' '}
-                  Going{' '}
+                  Going
                 </Button>
                 <Button
                   className={!joined ? 'green' : ''}
@@ -59,7 +57,6 @@ const SingleGroupEvent = ({data}) => {
                     if (joined) handleRequest(2);
                   }}
                 >
-                  {' '}
                   Not Going
                 </Button>
               </>

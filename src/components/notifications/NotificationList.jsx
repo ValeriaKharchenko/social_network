@@ -32,15 +32,14 @@ const NotificationList = () => {
     ));
   };
 
-  return (
-    <div className="notificationList_wrapper">
-      <Box>
-        <Typography className="header" variant="h6">
-          {" "}
-          Notifications:{" "}
-        </Typography>
-        {mapArray(allNotifications)}
-      </Box>
+    return (
+      <div className='notificationList_wrapper'>
+        <Box>
+          <Typography className='header' variant='h6'>
+            Notifications :
+          </Typography>
+          {mapArray(allNotifications)}
+        </Box>
 
       <Box>
         <Typography className="header" variant="h6">
