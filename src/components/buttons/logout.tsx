@@ -10,7 +10,7 @@ export default function Logout() {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    console.log("logout fired");
+    // console.log("logout fired");
     await userService.logout().then(() => {
       dispatch({ type: "LOGOUT" });
       WsApi.stop();
