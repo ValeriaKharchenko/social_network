@@ -7,7 +7,6 @@ import {
   updateCurrentUserId,
 } from "../store/followerSlice";
 import * as helper from "../helpers/HelperFuncs";
-import filterDoubles from "../helpers/filterDoubles";
 
 const FollowerService = () => {
   const dispatch = useDispatch();
@@ -20,8 +19,8 @@ const FollowerService = () => {
       const gotStalkers = await http.get("/follower/back");
       if (!gotFollowers.data) gotFollowers.data = [];
       if (!gotStalkers.data) gotStalkers.data = [];
-      dispatch(updateFollowers(filterDoubles(gotFollowers.data)));
-      dispatch(updateStalkers(filterDoubles(gotStalkers.data)));
+      dispatch(updateFollowers(helper.filterDoubles(gotFollowers.data)));
+      dispatch(updateStalkers(helper.filterDoubles(gotStalkers.data)));
     } catch (err) {
       helper.checkError(err);
     }

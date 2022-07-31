@@ -3,20 +3,19 @@ import { useParams } from "react-router-dom";
 import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { PostInterface } from "../../components/posts/PostList";
-import "../../components/posts/post.scss";
 import postService from "../../utilities/post-service";
 import { NewPost } from "../../components/posts/newPost";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { loadComments } from "../../store/postSlice";
 import { parseDate } from "../../helpers/parseDate";
+import "../../components/posts/post.scss";
 
 export default function OnePost() {
   let { id } = useParams();
   const postId = id ? id : "";
   const [post, setPost] = React.useState<PostInterface>();
   const isOpen = useSelector((state: RootState) => state.post.isOpen);
-
   const dispatch = useDispatch();
   const comments: PostInterface[] = useSelector(
     (state: RootState) => state.post.comments

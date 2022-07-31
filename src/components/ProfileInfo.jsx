@@ -3,13 +3,11 @@ import { useParams } from "react-router-dom";
 import ProfileService from "../utilities/profile_service";
 import Follow_btn from "./buttons/follower_btn";
 import * as helper from "../helpers/HelperFuncs";
-
 //  MUI Material
 import { Avatar, Button, Input, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import EditIcon from "@mui/icons-material/Edit";
 import RemoveIcon from "@mui/icons-material/Remove";
-
 // Redux
 import { useSelector } from "react-redux";
 import "./styles/profile_info.scss";

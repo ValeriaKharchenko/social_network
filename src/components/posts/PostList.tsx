@@ -12,6 +12,7 @@ import postService from "../../utilities/post-service";
 import { parseDate } from "../../helpers/parseDate";
 import { useParams } from "react-router-dom";
 import "./post.scss"
+
 export interface PostInterface {
   id: number;
   user_id: string;
@@ -40,7 +41,6 @@ const PostList = () => {
   );
   const dispatch = useDispatch();
   const openModalWindow = () => {
-    // e.preventDefault();
     dispatch(openModal());
   };
 

@@ -10,6 +10,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import NotificationService from "../utilities/notification_service";
 import { useEffect, useState } from "react";
+import * as helper from "../helpers/HelperFuncs"
 import "./styles/navbar.scss";
 
 const Navbar = () => {
@@ -35,7 +36,7 @@ const Navbar = () => {
         }
       });
     } catch (err) {
-      console.log("SOME ERROR :", err);
+      helper.checkError(err);
     }
     setNotificationCount(0);
   };
@@ -64,7 +65,6 @@ const Navbar = () => {
         <p>
           {storeProfileInfo.first_name} {storeProfileInfo.last_name}
         </p>
-        {/*<button onClick={() => console.log(storeInfo)}>show storeInfo</button>*/}
       </div>
 
       <Link className="link" to={"/homepage"}>

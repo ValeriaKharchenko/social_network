@@ -63,7 +63,6 @@ const Create_event = ({ id }) => {
 
   const handleSubmit = () => {
     if (data == null) return;
-    // console.log(data);
     if (
       helper.handleInputs("title", data.title) &&
       helper.handleInputs("description", data.description)

@@ -6,7 +6,6 @@ export default {
       const msgs = await http.get(
         `/chat/?with=${id}&skip=${skip}&limit=${limit}`
       );
-      // console.log("Got history", msgs);
       if (shouldDelete) {
         await http.delete(`/user/notification/reply?id=${id}`);
       }
@@ -16,6 +15,7 @@ export default {
       throw err;
     }
   },
+
   async getGroupMsgs(id, skip, limit, shouldDelete) {
     try {
       const msgs = await http.get(
@@ -42,6 +42,7 @@ export default {
       console.error(err);
     }
   },
+  
   async getUserList() {
     try {
       const list = await http.get("/follower/chat");

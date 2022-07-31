@@ -1,10 +1,11 @@
-
 @import "../../index.scss";
+
 .navigation {
     background-color: $main-hover-color;
     height: 100vh;
     min-width: 160px;
     position: fixed;
+
     .profile_box{
         height: 20vh;
         background-color: rgba(255, 255, 255, 0.547);
@@ -28,6 +29,7 @@
                 color: white;
             }
         }
+        
         div{
             width: 100px;
             height: 100px;

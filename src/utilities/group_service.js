@@ -33,7 +33,6 @@ import {
 
 const GroupService = () => {
   const dispatch = useDispatch();
-  //  const redirect = useNavigate();
   const storeInfo = useSelector((state) => state);
 
   const makeNewGroupRequest = async (data) => {
@@ -52,10 +51,11 @@ const GroupService = () => {
     const response = http.post("/group/post", data);
     dispatch(updateStatus(!storeInfo.groups.updateStatus));
   };
+  
   const makeCommentToPost = (data) => {
     // console.log("%c Comment post --> ", "color:orange", data);
     const response = http.post("/group/post", data);
-    dispatch(updateStatus(!storeInfo.groups.updateStatus));
+    // dispatch(updateStatus(!storeInfo.groups.updateStatus));
   };
 
   const makeEvent = (data) => {
@@ -135,7 +135,6 @@ const GroupService = () => {
       const response = await http.get(
         `/group/post?groupId=${groupId}&postId=${postId}`
       );
-      console.log("RESPONSE DATA ", response.data);
       return response.data;
     } catch (err) {
       helper.checkError(err);
@@ -183,11 +182,6 @@ const GroupService = () => {
         group_id: groupId,
         target_id: userId,
       });
-      // console.log(
-      //   "%c sending group join invitation--> ",
-      //   "color:coral",
-      //   response
-      // );
       dispatch(updateStatus(!storeInfo.groups.updateStatus));
     } catch (err) {
       helper.checkError(err);

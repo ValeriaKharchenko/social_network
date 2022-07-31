@@ -8,9 +8,7 @@ import {
   setFollowerList,
 } from "../../store/chatSlice";
 import GroupService from "../../utilities/group_service";
-
 import InputEmoji from "react-input-emoji";
-
 //mui material
 import { Button, Divider, Grid, ListItem } from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -27,11 +25,9 @@ import { removeNotification } from "../../store/notificationSlice";
 export const Chat = () => {
   const followerList = useSelector((state) => state.chat.followers);
   let notifications = useSelector((state) => state.notifications.messages);
-  // console.log("Notifications from useSelector", notifications);
 
   let dispatch = useDispatch();
   const [receiver, setReceiver] = useState({ id: "", type: "" });
-  // console.log("Receiver", receiver);
 
   const msgs = useSelector((state) => state.chat.msgHistory);
   let sender = helper.getTokenId();
@@ -77,7 +73,6 @@ export const Chat = () => {
     };
     members.push(group);
   });
-  // console.log("Members", members);
 
   // 👇️ scroll to bottom every time messages change
   const bottomRef = useRef(null);
@@ -119,7 +114,6 @@ export const Chat = () => {
           shouldDelete
         );
       } catch (e) {
-        // console.log(e.message);
         const errorState = {
           text: "Can't load messages",
           severity: "warning",
@@ -127,7 +121,6 @@ export const Chat = () => {
         dispatch(setAlert(errorState));
       }
     } else if (receiver.type === "group") {
-      // console.log("receiver", receiver);
       try {
         msgHistory = await chatService.getGroupMsgs(
           receiver.id,
@@ -135,7 +128,6 @@ export const Chat = () => {
           10,
           shouldDelete
         );
-        // console.log("group messages", msgHistory);
       } catch (e) {
         console.error(e.message);
         const errorState = {
@@ -152,6 +144,7 @@ export const Chat = () => {
       dispatch(addToBegining(msgHistory));
     }
   };
+
   useEffect(() => {
     if (receiver.id !== "") {
       loadHistory(0);
@@ -162,7 +155,6 @@ export const Chat = () => {
   //send chat message
   const [text, setText] = useState("");
   const sendMsg = (text) => {
-    // console.log(text);
     if (text.trim().length > 0) {
       let jsonData = {};
       if (receiver.type === "person") {
@@ -173,7 +165,6 @@ export const Chat = () => {
       jsonData["user"] = sender;
       jsonData["message_to"] = receiver.id;
       jsonData["message_content"] = text;
-      // console.log("JSON DATA", JSON.stringify(jsonData));
       WsApi.sendChatMessage(JSON.stringify(jsonData));
       setText("");
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });

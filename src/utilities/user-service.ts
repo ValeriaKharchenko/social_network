@@ -51,7 +51,6 @@ export default {
       .then(() => {
         removeAccessToken();
         removeRefreshToken();
-        console.log("User logged out");
       })
       .catch((err) => {
         console.log(err);
