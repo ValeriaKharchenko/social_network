@@ -196,8 +196,7 @@ const Create_event = ({ id }) => {
               handleSubmit();
             }}
           >
-            {" "}
-            CREATE{" "}
+            CREATE
           </Button>
         </form>
       )}
