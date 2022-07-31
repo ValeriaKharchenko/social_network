@@ -35,7 +35,6 @@ const Create_comment = ({ group_id, post_id, handleComment }) => {
   const handleSubmit = () => {
     if (data == null) return;
     if (helper.handleInputs("content", data.content)) {
-      console.log("SENDING DATA", data);
       group_service.makeCommentToPost(data);
       setIsOpen(!isOpen);
     }
