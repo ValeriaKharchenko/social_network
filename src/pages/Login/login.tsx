@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import "./login.scss";
 // Redux
 import { useDispatch } from "react-redux";
 // Material UI
@@ -22,6 +21,7 @@ import { setAlert } from "../../store/alertSlice";
 import WsApi from "../../utilities/ws";
 import * as helper from "../../helpers/HelperFuncs";
 import GroupService from "../../utilities/group_service";
+import "./login.scss";
 
 export default function Login() {
   const profile_service = ProfileService();
@@ -49,7 +49,6 @@ export default function Login() {
 
       //ws connection
       WsApi.start(id, dispatch);
-
       redirect("/homepage", { replace: true });
     } catch (e) {
       if (e instanceof Error) {

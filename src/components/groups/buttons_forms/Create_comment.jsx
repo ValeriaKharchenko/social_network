@@ -5,25 +5,23 @@ import GroupService from "../../../utilities/group_service";
 import * as helper from "../../../helpers/HelperFuncs";
 import "./group_buttons.scss";
 
-// UPDATE CLEAN UP (handleClicks, handleInputs) --> HELPER
 const Create_comment = ({ group_id, post_id, handleComment }) => {
   const group_service = GroupService();
   const [isOpen, setIsOpen] = useState(false);
   const [img, setImg] = useState(null);
+  const [content, setContent] = useState(null);
 
   const data = {
     group_id: Number(group_id),
     parent_id: Number(post_id),
-    subject: "",
-    content: "",
+    content: content,
     image: img,
   };
 
-  const convertImg = async (image) => {
+  const convertImg = (image) => {
     if (image.length !== 0) {
       if (helper.checkImage(image)) {
-        // setErrors([])
-        const resp = await helper.getBase64(image[0]).then((base64) => base64);
+        const resp =  helper.getBase64(image[0]).then((base64) => base64);
         return resp;
       }
     }
@@ -37,31 +35,37 @@ const Create_comment = ({ group_id, post_id, handleComment }) => {
   const handleSubmit = () => {
     if (data == null) return;
     if (helper.handleInputs("content", data.content)) {
-      // console.log(data);
+      console.log("SENDING DATA", data);
       group_service.makeCommentToPost(data);
+      setIsOpen(!isOpen);
     }
     handleComment();
-    setIsOpen(!isOpen);
   };
-
+  
+  
   return (
-    <>
+    <div className="comment_wrapper">
       {
         <Button
-          sx={{ marginLeft: 3, marginBottom: 1, fontSize: "18px" }}
-          onClick={() => setIsOpen(!isOpen)}
+        sx={{ marginLeft: 3, marginBottom: 1, fontSize: "18px" }}
+        onClick={() => {
+            setIsOpen(!isOpen)
+            setImg(null)
+            setContent(null)
+          }
+          }
         >
-          Comment{" "}
+          Comment
         </Button>
       }
 
       {isOpen && (
-        <form id="postForm">
+        <form id="commentForm">
           <Button
             variant="contained"
             className="back_btn"
             onClick={() => setIsOpen(false)}
-          >
+            >
             <CloseIcon />
           </Button>
           <div className="input">
@@ -69,26 +73,23 @@ const Create_comment = ({ group_id, post_id, handleComment }) => {
             <Input
               type="text"
               id="content"
-              name="content"
               onClick={(e) => clearInput(e)}
-              onChange={(e) => {
-                data.content = e.target.value;
-              }}
-            ></Input>
+              onChange={(e)=>{setContent(e.target.value)}}
+              ></Input>
           </div>
           <div className="input">
             <label className="image_btn" htmlFor="image">
-              {!img ? "PICK IMAGE" : "IMAGE ADDED"}{" "}
+              {!img ? "PICK IMAGE" : "IMAGE ADDED"}
             </label>
             <input
               type="file"
               id="image"
               name="image"
               onChange={() => {
-                convertImg(document.getElementById("image").files).then((res) =>
+                convertImg(document.getElementById("image").files).then(res => {
                   setImg(res)
-                );
-              }}
+                })
+            }}
             />
           </div>
 
@@ -97,16 +98,15 @@ const Create_comment = ({ group_id, post_id, handleComment }) => {
             type={"submit"}
             onClick={(e) => {
               e.preventDefault();
-              if (data.subject && data.content) setIsOpen(false);
+              if (data.content) setIsOpen(false);
               handleSubmit();
             }}
-          >
-            {" "}
-            COMMENT{" "}
+            >
+            COMMENT
           </Button>
         </form>
       )}
-    </>
+    </div>
   );
 };
 

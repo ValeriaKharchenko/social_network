@@ -1,7 +1,5 @@
 // @ts-ignore
 export const checkImage = (imageList, func): boolean => {
-  // console.log("CHECKIMAGE ---> ", imageList);
-
   let regex = /[a-zA-Z\d](.jpg|.JPG|.gif|.GIF|.jpeg|.JPEG|.png|.PNG)/gm;
   let save = true;
   if (imageList.length != 0) {

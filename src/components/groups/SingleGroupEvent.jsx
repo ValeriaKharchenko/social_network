@@ -4,13 +4,11 @@ import GroupService from "../../utilities/group_service";
 import * as helper from "../../helpers/HelperFuncs"
 import { useNavigate } from "react-router-dom";
 
-
 const SingleGroupEvent = ({data}) => {
   const group_service  = GroupService()
   let joined = group_service.isJoining(data.event_id)
   let [past, setPast] = useState(false)
   let redirect = useNavigate();
-
 
   useEffect(()=>{
       if(!helper.timeManager.isFuture(helper.timeManager.todayDate(),data.day)){

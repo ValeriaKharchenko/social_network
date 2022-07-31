@@ -26,7 +26,6 @@ export interface RegisterForm {
   first_name: string;
   last_name: string;
   dob: string;
-  // dob: Date | null;
   email: string;
   password: string;
   repeat_password: string;
@@ -51,8 +50,6 @@ export default function Register() {
     user.nickname = user.nickname ? user.nickname : "";
     user.image_path = user.image_path ? user.image_path : "";
     user.desc = user.desc ? user.desc : "";
-
-    // console.log("REFISTERING  IMAGE", user.image_path);
 
     // @ts-ignore
     if (user.password !== user.repeat_password) {

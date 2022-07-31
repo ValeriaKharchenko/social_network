@@ -56,13 +56,8 @@ const NotificationService = () => {
     });
     dispatch(updateNotifications(replacmentList));
   };
+  
   const handleRequestResponse = (notif_id, response) => {
-    // console.log(
-    //   'Handeling notif response , notif_id-> ',
-    //   notif_id,
-    //   'response',
-    //   response
-    // );
     dispatch(updateRespondedNotifications([notif_id, response]));
   };
 

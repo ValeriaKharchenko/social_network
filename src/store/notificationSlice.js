@@ -14,16 +14,12 @@ export const notificationSlice = createSlice({
       state.notifications = notificationList.reverse();
     },
     updateRespondedNotifications: (state, action) => {
-      // console.log(action.payload);
       let obj = {
         id: action.payload[0],
         response: action.payload[1],
       };
       state.respondedNotifications.push(obj);
     },
-    // updateStatus: (state, action) => {
-    //   state.updateStatus = action.payload;
-    // },
     addNotification: (state, action) => {
       state.messages.push(`${action.payload}`);
     },
