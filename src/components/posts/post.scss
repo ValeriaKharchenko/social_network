@@ -55,6 +55,7 @@
 }
 
 .post_list{
+    overflow: scroll;
     display: flex;
     flex-direction: column;
     height: 100vh;
