@@ -21,6 +21,7 @@ const ProfileService = () => {
     try {
       // console.log("%cGETTING MY INFO", "color:orange");
       const response = await http.get("/user/me");
+      console.log("Returned user", response);
       dispatch(update({ ...response.data, id: helper.getTokenId() }));
     } catch (err) {
       console.log("Error!", err);
@@ -37,7 +38,7 @@ const ProfileService = () => {
         user_img: data.user_img,
         is_private: data.is_private,
       });
-      getMyInfo();
+      await getMyInfo();
     } catch (err) {
       helper.checkError(err);
     }
