@@ -39,6 +39,10 @@ const ProfileInfo = () => {
     }
   };
 
+  const followingAlready = () => {
+    return storeInfo.followers.followers.filter(user => user.user_id === id).length != 0;
+  }
+
   const handleUpdate = async (info) => {
     if (errors.length == 0) {
       info.user_img = img;
@@ -64,7 +68,7 @@ const ProfileInfo = () => {
   };
 
   useEffect(() => {
-    console.log("Use effect");
+    followingAlready()
     updateData();
     if (!updateing && myProfile) {
       setImg(data.user_img);
@@ -182,7 +186,7 @@ const ProfileInfo = () => {
         <p> First Name : {data.first_name}</p>
         <p> Last Name : {data.last_name}</p>
 
-        {!myProfile && !isPrivate && (
+        {!myProfile && (!isPrivate || followingAlready()) && (
           <>
             <p> Email : {data.email}</p>
             <p> Birthday : {data.birth_day}</p>
