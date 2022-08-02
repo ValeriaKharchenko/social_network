@@ -21,7 +21,6 @@ const ProfileService = () => {
     try {
       // console.log("%cGETTING MY INFO", "color:orange");
       const response = await http.get("/user/me");
-      console.log("Returned user", response);
       dispatch(update({ ...response.data, id: helper.getTokenId() }));
     } catch (err) {
       helper.checkError(err);

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import GroupService from "../../utilities/group_service";
 import * as helper from "../../helpers/HelperFuncs"
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SingleGroupEvent = ({data}) => {
   const group_service  = GroupService()
@@ -32,8 +33,8 @@ const SingleGroupEvent = ({data}) => {
           <div className='subject eventsOff'>{data.title} </div>
           <div
             className='author'
-            onClick={() => {
-              redirect(`/profile/${data.creator_id}`);
+            onClick={(e) => {
+                redirect(`/profile/${data.creator_id}`);
             }}
           >
             ({data.creator_firstname} {data.creator_lastname})

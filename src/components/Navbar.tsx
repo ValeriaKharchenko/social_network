@@ -67,6 +67,7 @@ const Navbar = () => {
         </p>
       </div>
 
+    <button onClick={() => console.log(storeInfo)}> CLICk</button>
       <Link className="link" to={"/homepage"}>
         Home <Home sx={{ marginLeft: 1 }} />
       </Link>
